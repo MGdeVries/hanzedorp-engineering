@@ -22,6 +22,7 @@
     ["erfmolen.html", "Erfmolen", "erfmolen-technisch.html"],
     ["mobiliteit.html", "Mobiliteit & laden", "mobiliteit-technisch.html"],
     ["netaansluiting.html", "Netaansluiting & handel", "netaansluiting-technisch.html"],
+    ["energiebeheer.html", "Energiebeheer & verbruiksbericht", "energiebeheer-technisch.html"],
     ["digitale-infrastructuur.html", "Digitale infrastructuur", "digitale-infrastructuur-technisch.html"],
     ["gezondheid.html", "Gezondheid", "gezondheid-technisch.html"],
     ["veiligheid.html", "Veiligheid", "veiligheid-technisch.html"],

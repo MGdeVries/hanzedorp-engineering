@@ -38,7 +38,7 @@
     <li>Storting: C = min{C ≥ 0 : F<sub>t</sub> ≥ buffer ∀ t ≤ N} (bisectie, 60 iteraties)</li>
     <li>Ter vergelijking: afschrijving A = Σ I<sub>c</sub> / L<sub>c</sub>; VvE-minimum 0,005 · Σ I<sub>c</sub></li>
   </ul>
-  <p class="read">Aannames: vervanging tegen de huidige eenheidsprijs (geen technologische prijsdaling; voor PV en accu conservatief); restwaarde aan het eind van de horizon niet meegeteld; geen gedeeltelijke vervanging (bv. accu per blok) – in werkelijkheid worden de drie accublokken gespreid vervangen, wat de piek dempt. Rekenmodel: <code>beheer-gedeeld.js</code> (BH.mjop).</p>
+  <p class="read">Aannames: vervanging tegen de huidige eenheidsprijs (geen technologische prijsdaling; voor PV en accu conservatief); restwaarde aan het eind van de horizon niet meegeteld; vervangen wordt alleen wat werkelijk slijt (opgave 05-11-2026<sup class="ref"><a href="#bron-189">[189]</a></sup>): componenten zijn daarom gesplitst – erfmolen in mast/gondel/fundering (50 jr) en rotor met houten wieken (20 jr, N), digitaal in actieve netwerkapparatuur (10 jr) en passieve glasvezelkabel (50 jr); kabels en groepenkasten 50 jr, omvormers 15 jr, PV 30 jr. Accublokken worden in werkelijkheid gespreid vervangen, wat de piek dempt. Rekenmodel: <code>beheer-gedeeld.js</code> (BH.mjop).</p>
 </section>
 
 <section id="s3"><h2 class="num">Invoergegevens</h2>
@@ -76,17 +76,17 @@
 </section>
 
 <section id="s6"><h2 class="num">Validatie</h2>
-  <p class="read">Kruiscontrole met openbare indicaties: erfmolen ± € 50.000 per stuk, bij goed onderhoud tientallen jaren<sup class="ref"><a href="#bron-166">[166]</a></sup> → model € 45–60k, L = 20 jr (conservatief); natuurlijke zwemvijver € 100–650/m² incl. arbeid en btw, slib ± eens per 3 jaar<sup class="ref"><a href="#bron-167">[167]</a></sup> → model € 200–400/m² excl. btw, q = 2 %; buurtaccu (C&amp;I BESS, € 330–720/kWh TIC<sup class="ref"><a href="#bron-130">[130]</a></sup>) → model € 350–550/kWh incl. PCS; submeter drinkwater € 457,80 (Vitens 2026)<sup class="ref"><a href="#bron-124">[124]</a></sup>. Gebouwprijzen (buurthuis € 2.000–2.800/m², schuren € 800–1.400/m²) zijn schattingen zonder externe bron en moeten worden gevalideerd met de installatiebegroting (dossier H3.6, Douwe Kunst). Er is geen wetenschappelijke publicatie met levensduren specifiek voor deze combinatie; de levensduren volgen fabrikantgaranties en gangbare MJOP-praktijk (te verifiëren met NEN 2767-conditiemeting na oplevering).</p>
+  <p class="read">Kruiscontrole met openbare indicaties: erfmolen EAZ 13.2: € 69.000 + ± € 5.000 installatie ex btw en € 1.000 onderhoud per jaar (fabrikant, 2022)<sup class="ref"><a href="#bron-187">[187]</a></sup>; eerdere indicatie ± € 50.000<sup class="ref"><a href="#bron-166">[166]</a></sup> was te laag → model € 74–85k, onderhoud € 1.000/jr, L = 20 jr (conservatief); natuurlijke zwemvijver € 100–650/m² incl. arbeid en btw, slib ± eens per 3 jaar<sup class="ref"><a href="#bron-167">[167]</a></sup> → model € 200–400/m² excl. btw, q = 2 %; buurtaccu (C&amp;I BESS, € 330–720/kWh TIC<sup class="ref"><a href="#bron-130">[130]</a></sup>) → model € 350–550/kWh incl. PCS; submeter drinkwater € 457,80 (Vitens 2026)<sup class="ref"><a href="#bron-124">[124]</a></sup>. Gebouwprijzen (buurthuis € 2.000–2.800/m², schuren € 800–1.400/m²) zijn schattingen zonder externe bron en moeten worden gevalideerd met de installatiebegroting (dossier H3.6, Douwe Kunst). Er is geen wetenschappelijke publicatie met levensduren specifiek voor deze combinatie; de levensduren volgen fabrikantgaranties en gangbare MJOP-praktijk (te verifiëren met NEN 2767-conditiemeting na oplevering).</p>
 </section>
 
 <section id="s7"><h2 class="num">Risico's per deelonderwerp</h2>
   <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Wie / bewijs</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
-    <tr><td>Onderreservering</td><td>Prijzen hoger of levensduur korter dan aangenomen → tekort bij vervanging, ad-hocbijdrage</td><td>Buffer; herziening MJOP elke 5 jaar; conditiemeting NEN 2767</td><td>Onderhoudsmanager; ledenvergadering</td><td>laag</td><td>deels</td></tr>
-    <tr><td>Achterstallig onderhoud (‘tragedy of the commons’)</td><td>Onduidelijk eigenaarschap → verwaarlozing (vgl. besluit wasruimte 04-11-2026)</td><td>Rol onderhoudsmanager; rooster; jaarverslag</td><td>Bestuur</td><td>middel</td><td>deels</td></tr>
-    <tr><td><b>Keuring accu/elektra verlopen</b> (brandveiligheid)</td><td>Geen periodieke inspectie → onveilige situatie, dekking verzekering</td><td>Keuringskalender; NEN 3140; PGS 37-1-inspecties; certificaten in dossier</td><td>Onderhoudsmanager; erkend bedrijf</td><td>laag</td><td>open</td></tr>
+    <tr><td>Onderreservering</td><td>Prijzen hoger of levensduur korter dan aangenomen → tekort bij vervanging, ad-hocbijdrage</td><td>Buffer; herziening MJOP elke 5 jaar; conditiemeting NEN 2767</td><td>Technisch manager; ledenvergadering</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Achterstallig onderhoud (‘tragedy of the commons’)</td><td>Onduidelijk eigenaarschap → verwaarlozing (vgl. besluit wasruimte 04-11-2026)</td><td>Rol technisch manager (onderhoud); rooster; jaarverslag</td><td>Bestuur</td><td>middel</td><td>deels</td></tr>
+    <tr><td><b>Keuring accu/elektra verlopen</b> (brandveiligheid)</td><td>Geen periodieke inspectie → onveilige situatie, dekking verzekering</td><td>Keuringskalender; NEN 3140; PGS 37-1-inspecties; certificaten in dossier</td><td>Technisch manager; erkend bedrijf</td><td>laag</td><td>open</td></tr>
     <tr><td><b>Legionella</b> (volksgezondheid)</td><td>Stilstand in leidingen buurthuis</td><td>Spoelrooster; jaarlijkse controle</td><td>Bewoners; vakbedrijf</td><td>laag</td><td>open</td></tr>
-    <tr><td>Gelijktijdige vervangingen</td><td>Piekuitgaven (jaar 15, 30)</td><td>Accublokken gespreid vervangen; reservefonds; vervroegen/uitstellen binnen marge</td><td>Onderhoudsmanager + controller</td><td>laag</td><td>afgedekt</td></tr>
-    <tr><td>Leverancier niet meer beschikbaar</td><td>Erfmolen, PCS of EMS-hardware zonder onderdelen</td><td>Open standaarden; reserveonderdelen; meerdere leveranciers</td><td>Onderhoudsmanager</td><td>middel</td><td>open</td></tr>
+    <tr><td>Gelijktijdige vervangingen</td><td>Piekuitgaven (jaar 15, 30)</td><td>Accublokken gespreid vervangen; reservefonds; vervroegen/uitstellen binnen marge</td><td>Technisch manager + controller</td><td>laag</td><td>afgedekt</td></tr>
+    <tr><td>Leverancier niet meer beschikbaar</td><td>Erfmolen, PCS of EMS-hardware zonder onderdelen</td><td>Open standaarden; reserveonderdelen; meerdere leveranciers</td><td>Technisch manager</td><td>middel</td><td>open</td></tr>
   </tbody></table></div>
 </section>
 
@@ -102,13 +102,14 @@
 </section>
 
 <section id="s9"><h2 class="num">Discussie en conclusie</h2>
-  <p class="read">Het MJOP laat zien dat de gedeelde voorzieningen een aanzienlijke structurele last meebrengen: de reservering ligt in dezelfde orde als de afschrijving, omdat de buurtaccu, omvormers en netwerkapparatuur relatief kort meegaan. Kostenbesparende opties (voorstel engineer, besluit Melvin): (1) accu 3 × 150 kWh in plaats van 3 × 200 kWh (vraag 79) verlaagt investering en storting; (2) erfmolens pas plaatsen na een windmeting – ze vormen ± 7 % van de vervangingswaarde maar leveren vooral winterstroom; (3) gebouwen sober en met lange levensduur (CLT, hergebruik stallen bij een erflocatie) verlagen de storting; (4) zelfwerkzaamheid bij groen- en vijveronderhoud. Conclusie: met ± € <span data-k="bhPW"></span> per woning per maand (excl. btw) is het onderhoud van alle gedeelde voorzieningen gedekt zonder ad-hocbijdragen; dit bedrag moet terugkomen in de maandlastenberekening (dossier H4) en per 5 jaar worden herzien.</p>
+  <p class="read">Het MJOP laat zien dat de gedeelde voorzieningen een aanzienlijke structurele last meebrengen: de reservering ligt in dezelfde orde als de afschrijving, omdat de buurtaccu, omvormers en netwerkapparatuur relatief kort meegaan. Kostenbesparende opties (voorstel engineer, besluit Melvin): (1) accu 3 × 150 kWh in plaats van 3 × 200 kWh (vraag 79) verlaagt investering en storting; (2) erfmolens pas plaatsen na een windmeting – ze vormen ± 10 % van de vervangingswaarde (EAZ-prijs 2022) en verdienen zich niet terug; ze leveren vooral winterstroom; (3) gebouwen sober en met lange levensduur (CLT, hergebruik stallen bij een erflocatie) verlagen de storting; (4) zelfwerkzaamheid bij groen- en vijveronderhoud. Conclusie: met ± € <span data-k="bhPW"></span> per woning per maand (excl. btw) is het onderhoud van alle gedeelde voorzieningen gedekt zonder ad-hocbijdragen; dit bedrag moet terugkomen in de maandlastenberekening (dossier H4) en per 5 jaar worden herzien.</p>
 </section>
 
 <section id="s10"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <section id="s11"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.20</td><td>05-11-2026</td><td>Levensduren volgens opgave [189] (netwerk 10, omvormers 15, PV 30, kabels/groepenkasten/erfmolen 50 jr); erfmolen gesplitst in molen en rotor/wieken (20 jr); glasvezelkabel apart (50 jr); prijs erfmolen EAZ 2022 [187]; rol heet nu technisch manager</td><td>Melvin de Vries / Claude</td></tr>
   <tr><td>0.19</td><td>04-11-2026</td><td>PV en omvormers op de woningdaken en laadpalen toegevoegd als gezamenlijk bezit [169][171]</td><td>Melvin de Vries / Claude</td></tr>
-  <tr><td>0.19</td><td>04-11-2026</td><td>Nieuwe pagina: MJOP gedeelde voorzieningen, reservefondsmodel, gevoeligheid, risico's, compliance; rol onderhoudsmanager</td><td>Melvin de Vries / Claude</td></tr>
+  <tr><td>0.19</td><td>04-11-2026</td><td>Nieuwe pagina: MJOP gedeelde voorzieningen, reservefondsmodel, gevoeligheid, risico's, compliance; rol technisch manager</td><td>Melvin de Vries / Claude</td></tr>
 </tbody></table></div></section>
 <footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span><a href="onderhoud.html">← Basispagina</a></span></footer>
 </div>
@@ -125,7 +126,7 @@
   const { D, nl, bindAll, renderBronnen } = HZ, B = D.beheer, $ = id => document.getElementById(id), M0 = BH.mjop();
   const r100 = v => nl(Math.round(v / 100) * 100);
   bindAll({ bhStart: B.startJaar, bhInv: r100(M0.inv), bhOnd: r100(M0.ondJaar), bhAfschr: r100(M0.afschr), bhN: M0.N, bhBuf: nl(B.bufferEur), bhC: r100(M0.C), bhPW: nl(Math.round(M0.perWoningMnd)) });
-  renderBronnen($("bronnen"), [171, 169, 165, 166, 167, 168, 130, 124, 74, 161]);
+  renderBronnen($("bronnen"), [189, 188, 187, 171, 169, 165, 166, 167, 168, 130, 124, 74, 161]);
   $("tblPar").innerHTML = [["Startjaar", B.startJaar, "N"], ["Horizon N", B.horizon + " jaar", "N"], ["Prijsstijging i", nl(B.inflatie * 100, 1) + " %/jr", "N"], ["Rente reservefonds r", nl(B.renteFonds * 100, 1) + " %/jr", "N"],
     ["Buffer reservefonds", "€ " + nl(B.bufferEur), "N"], ["Woningen", M0.nW, "B"], ["PV gedeeld (incl. agri-PV " + nl(M0.q.pvAgri, 1) + " kWp)", nl(M0.q.pvKWp, 1) + " kWp", "A"], ["Buurtaccu", nl(M0.q.accuKWh) + " kWh", "B"], ["Erfmolens", M0.q.molens, "B"]]
     .map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join("");
