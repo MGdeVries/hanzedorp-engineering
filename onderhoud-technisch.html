@@ -38,7 +38,7 @@
     <li>Storting: C = min{C ≥ 0 : F<sub>t</sub> ≥ buffer ∀ t ≤ N} (bisectie, 60 iteraties)</li>
     <li>Ter vergelijking: afschrijving A = Σ I<sub>c</sub> / L<sub>c</sub>; VvE-minimum 0,005 · Σ I<sub>c</sub></li>
   </ul>
-  <p class="read">Aannames: vervanging tegen de huidige eenheidsprijs (geen technologische prijsdaling; voor PV en accu conservatief); restwaarde aan het eind van de horizon niet meegeteld; vervangen wordt alleen wat werkelijk slijt (opgave 05-11-2026<sup class="ref"><a href="#bron-189">[189]</a></sup>): componenten zijn daarom gesplitst – erfmolen in mast/gondel/fundering (50 jr) en rotor met houten wieken (20 jr, N), digitaal in actieve netwerkapparatuur (10 jr) en passieve glasvezelkabel (50 jr); kabels en groepenkasten 50 jr, omvormers 15 jr, PV 30 jr. Accublokken worden in werkelijkheid gespreid vervangen, wat de piek dempt. Rekenmodel: <code>beheer-gedeeld.js</code> (BH.mjop).</p>
+  <p class="read">Aannames: vervanging tegen de huidige eenheidsprijs (geen technologische prijsdaling; voor PV en accu conservatief); restwaarde per component bij vervanging verrekend (o.a. accubank € 1.000; opgave 16-11-2026<sup class="ref"><a href="#bron-199">[199]</a></sup>), restwaarde aan het eind van de horizon niet meegeteld; vervangen wordt alleen wat werkelijk slijt (opgave 05-11-2026<sup class="ref"><a href="#bron-189">[189]</a></sup>): componenten zijn daarom gesplitst – erfmolen in mast/gondel/fundering (50 jr) en rotor met houten wieken (20 jr, N), digitaal in actieve netwerkapparatuur (10 jr) en passieve glasvezelkabel (50 jr); sinds 16-11-2026<sup class="ref"><a href="#bron-199">[199]</a></sup>: zonnepanelen € 100 per paneel, 30 jr, geen onderhoud; omvormers € 800–1.000, 15 jr; accu € 15.000 per bank van 200 kWh, 22 jr; erfmolen ± € 70.000 met zelf onderhoud (lagers 15 jr, wieken schilderen); groepenkasten 40 jr; kabels 100 jr; laadpalen € 800, 10 jr. Accublokken worden in werkelijkheid gespreid vervangen, wat de piek dempt. Rekenmodel: <code>beheer-gedeeld.js</code> (BH.mjop).</p>
 </section>
 
 <section id="s3"><h2 class="num">Invoergegevens</h2>
@@ -61,6 +61,11 @@
     <thead><tr><th>Component</th><th>Groep</th><th class="num">Hoeveelheid</th><th class="num">€ per eenheid</th><th class="num">I (k€)</th><th class="num">L (jr)</th><th class="num">O (€/jr)</th><th>Vervangen in</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
 </section>
 
+<section id="s3k"><h2 class="num">Levensduur en restwaarde per component (instelbaar)</h2>
+  <p class="read">Per component zijn levensduur L<sub>c</sub> en restwaarde (€ per eenheid) instelbaar; vervanging kost (I<sub>c</sub> − R<sub>c</sub>)·(1+i)<sup>t</sup> en de afschrijving is (I<sub>c</sub> − R<sub>c</sub>)/L<sub>c</sub>. Afwijkingen van de databron worden per browser bewaard (localStorage) en gebruikt door onderhoud, financiën en rapport; Tabel O3 en de samenvatting blijven op de databron.</p>
+  <div id="mKnop" style="margin-top:8px"></div>
+</section>
+
 <section id="s4"><h2 class="num">Resultaten</h2>
   <div class="result" id="mKpi" aria-live="polite"></div>
   <div id="mChart" style="margin-top:10px"></div>
@@ -76,7 +81,7 @@
 </section>
 
 <section id="s6"><h2 class="num">Validatie</h2>
-  <p class="read">Kruiscontrole met openbare indicaties: erfmolen EAZ 13.2: € 69.000 + ± € 5.000 installatie ex btw en € 1.000 onderhoud per jaar (fabrikant, 2022)<sup class="ref"><a href="#bron-187">[187]</a></sup>; eerdere indicatie ± € 50.000<sup class="ref"><a href="#bron-166">[166]</a></sup> was te laag → model € 74–85k, onderhoud € 1.000/jr, L = 20 jr (conservatief); natuurlijke zwemvijver € 100–650/m² incl. arbeid en btw, slib ± eens per 3 jaar<sup class="ref"><a href="#bron-167">[167]</a></sup> → model € 200–400/m² excl. btw, q = 2 %; buurtaccu (C&amp;I BESS, € 330–720/kWh TIC<sup class="ref"><a href="#bron-130">[130]</a></sup>) → model € 350–550/kWh incl. PCS; submeter drinkwater € 457,80 (Vitens 2026)<sup class="ref"><a href="#bron-124">[124]</a></sup>. Gebouwprijzen (buurthuis € 2.000–2.800/m², schuren € 800–1.400/m²) zijn schattingen zonder externe bron en moeten worden gevalideerd met de installatiebegroting (dossier H3.6, Douwe Kunst). Er is geen wetenschappelijke publicatie met levensduren specifiek voor deze combinatie; de levensduren volgen fabrikantgaranties en gangbare MJOP-praktijk (te verifiëren met NEN 2767-conditiemeting na oplevering).</p>
+  <p class="read">Kruiscontrole met openbare indicaties: erfmolen EAZ 13.2: € 69.000 + ± € 5.000 installatie ex btw en € 1.000 onderhoud per jaar (fabrikant, 2022); Hanzedorp rekent met netto ± € 70.000 en eigen onderhoud (lagers, wieken; [199])<sup class="ref"><a href="#bron-187">[187]</a></sup>; eerdere indicatie ± € 50.000<sup class="ref"><a href="#bron-166">[166]</a></sup> was te laag → model € 74–85k, onderhoud € 1.000/jr, L = 20 jr (conservatief); natuurlijke zwemvijver € 100–650/m² incl. arbeid en btw, slib ± eens per 3 jaar<sup class="ref"><a href="#bron-167">[167]</a></sup> → model € 200–400/m² excl. btw, q = 2 %; buurtaccu (C&amp;I BESS, € 330–720/kWh TIC<sup class="ref"><a href="#bron-130">[130]</a></sup>) → model € 350–550/kWh incl. PCS; submeter drinkwater € 457,80 (Vitens 2026)<sup class="ref"><a href="#bron-124">[124]</a></sup>. Gebouwprijzen (buurthuis € 2.000–2.800/m², schuren € 800–1.400/m²) zijn schattingen zonder externe bron en moeten worden gevalideerd met de installatiebegroting (dossier H3.6, Douwe Kunst). Er is geen wetenschappelijke publicatie met levensduren specifiek voor deze combinatie; de levensduren volgen fabrikantgaranties en gangbare MJOP-praktijk (te verifiëren met NEN 2767-conditiemeting na oplevering).</p>
 </section>
 
 <section id="s7"><h2 class="num">Risico's per deelonderwerp</h2>
@@ -123,10 +128,10 @@
 <script src="beheer-ui.js"></script>
 <script>
 (function () {
-  const { D, nl, bindAll, renderBronnen } = HZ, B = D.beheer, $ = id => document.getElementById(id), M0 = BH.mjop();
+  const { D, nl, bindAll, renderBronnen } = HZ, B = D.beheer, $ = id => document.getElementById(id), M0 = BH.mjop({ standaard: true });
   const r100 = v => nl(Math.round(v / 100) * 100);
   bindAll({ bhStart: B.startJaar, bhInv: r100(M0.inv), bhOnd: r100(M0.ondJaar), bhAfschr: r100(M0.afschr), bhN: M0.N, bhBuf: nl(B.bufferEur), bhC: r100(M0.C), bhPW: nl(Math.round(M0.perWoningMnd)) });
-  renderBronnen($("bronnen"), [189, 188, 187, 171, 169, 165, 166, 167, 168, 130, 124, 74, 161]);
+  renderBronnen($("bronnen"), [199, 189, 188, 187, 171, 169, 165, 166, 167, 168, 130, 124, 74, 161]);
   $("tblPar").innerHTML = [["Startjaar", B.startJaar, "N"], ["Horizon N", B.horizon + " jaar", "N"], ["Prijsstijging i", nl(B.inflatie * 100, 1) + " %/jr", "N"], ["Rente reservefonds r", nl(B.renteFonds * 100, 1) + " %/jr", "N"],
     ["Buffer reservefonds", "€ " + nl(B.bufferEur), "N"], ["Woningen", M0.nW, "B"], ["PV gedeeld (incl. agri-PV " + nl(M0.q.pvAgri, 1) + " kWp)", nl(M0.q.pvKWp, 1) + " kWp", "A"], ["Buurtaccu", nl(M0.q.accuKWh) + " kWh", "B"], ["Erfmolens", M0.q.molens, "B"]]
     .map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join("");
@@ -138,13 +143,14 @@
     $("mInfO").value = nl(+$("mInf").value, 1); $("mRO").value = nl(+$("mR").value, 2); $("mLO").value = $("mL").value; $("mNO").value = o.horizon; $("mAccuO").value = nl(o.accuKWh); $("mBufO").value = nl(o.buffer);
     const M = BH.mjop(o);
     BHU.kpiMjop($("mKpi"), M); BHU.chartMjop($("mChart"), M); BHU.tabelGroep($("tblGroep").querySelector("tbody"), M); BHU.tabelComp($("tblComp").querySelector("tbody"), M, true);
+    BHU.knoppen($("mKnop"), M, run);
   }
   zet(); $("mReset").addEventListener("click", () => { zet(); run(); });
   document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
   const base = M0.perWoningMnd, v = [["Standaard", {}], ["Prijzen laag", { scen: "min" }], ["Prijzen hoog", { scen: "max" }], ["Prijsstijging 1,5 %", { inflatie: 0.015 }], ["Prijsstijging 3,5 %", { inflatie: 0.035 }],
     ["Levensduur −20 %", { levensduurFactor: 0.8 }], ["Levensduur +20 %", { levensduurFactor: 1.2 }], ["Horizon 10 jaar", { horizon: 10 }], ["Horizon 50 jaar", { horizon: 50 }], ["Accu 450 kWh", { accuKWh: 450 }],
     ["Zonder erfmolen", { molens: 0 }], ["Buffer € 0", { buffer: 0 }]];
-  $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.mjop(o).perWoningMnd, d = x - base; return `<tr><td>${n}</td><td class="num">${nl(Math.round(x))}</td><td class="num">${d ? (d > 0 ? "+" : "−") + nl(Math.abs(Math.round(d))) : ""}</td></tr>`; }).join("");
+  $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.mjop(Object.assign({ standaard: true }, o)).perWoningMnd, d = x - base; return `<tr><td>${n}</td><td class="num">${nl(Math.round(x))}</td><td class="num">${d ? (d > 0 ? "+" : "−") + nl(Math.abs(Math.round(d))) : ""}</td></tr>`; }).join("");
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>
