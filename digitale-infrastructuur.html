@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digitale infrastructuur – Hanzedorp</title>
+<meta name="description" content="Internet, glasvezel, eigen netwerk per woning (VLAN), servers voor het energiemanagementsysteem, camera's, sensoren en personenalarmering in Hanzedorp. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Digitale infrastructuur</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Digitale infrastructuur</h1>
+  <p class="lead read">Hanzedorp krijgt één eigen netwerk voor het hele dorp, beheerd zoals in een fabriek: betrouwbaar, dubbel uitgevoerd en goedkoper dan twaalf losse abonnementen. Het netwerk verbindt de woningen met internet, en het laat de accu, de laadpalen, de koelcellen en de sensoren op de akker samenwerken.</p>
+  <ul class="kern read">
+    <li><span><b>Internet via twee lijnen</b>: glasvezel en een satellietverbinding, met mobiel internet als derde reserve. Valt er één uit, dan merk je bijna niets.</span></li>
+    <li><span><b>Elke woning een eigen, afgeschermd netwerk.</b> Je buren kunnen niet bij jouw apparaten. Je hebt geen eigen abonnement en geen eigen modem nodig.</span></li>
+    <li><span><b>Kosten:</b> nu betaalt een huishouden ± € <span data-k="nuHH"></span> per maand. Samen wordt dat ± <b>€ <span data-k="nieuwHH"></span></b> per huishouden voor internet en beheer.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-schema">
+  <h2 id="h-schema">Hoe het netwerk werkt</h2>
+  <div class="panel scroll">
+    <svg viewBox="0 0 900 430" width="100%" style="min-width:680px" role="img" aria-labelledby="dT">
+      <title id="dT">Drie verbindingen met internet (glasvezel, satelliet, 5G) komen binnen in de technische ruimte van het buurthuis. Daar staan twee firewalls, twee centrale switches, een server en de videorecorder. Vanuit daar loopt glasvezel in een ster naar elke woning, naar de schuur met de tweede server en de werkplaats, naar het laadplein en de buurtaccu, en naar het nutsgebouw op de akker. Elke woning heeft een eigen afgeschermd netwerk.</title>
+      <defs><marker id="dm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
+      <g class="sm">
+        <rect x="20" y="20" width="150" height="46" rx="8" style="fill:var(--surface);stroke:var(--water);stroke-width:2"/><text x="95" y="40" text-anchor="middle" font-weight="600">Glasvezel</text><text x="95" y="57" text-anchor="middle">lijn 1, zakelijk</text>
+        <rect x="20" y="76" width="150" height="46" rx="8" style="fill:var(--surface);stroke:var(--water);stroke-width:2"/><text x="95" y="96" text-anchor="middle" font-weight="600">Satelliet</text><text x="95" y="113" text-anchor="middle">lijn 2 (Starlink)</text>
+        <rect x="20" y="132" width="150" height="46" rx="8" style="fill:var(--surface);stroke:var(--water);stroke-width:2;stroke-dasharray:5 4"/><text x="95" y="152" text-anchor="middle" font-weight="600">5G</text><text x="95" y="169" text-anchor="middle">lijn 3, reserve</text>
+      </g>
+      <rect x="230" y="14" width="330" height="200" rx="12" style="fill:none;stroke:var(--gold);stroke-width:2"/>
+      <text x="245" y="34" font-weight="600">Technische ruimte buurthuis</text>
+      <g class="sm">
+        <rect x="245" y="46" width="140" height="40" rx="6" style="fill:var(--surface);stroke:var(--line)"/><text x="315" y="71" text-anchor="middle">2 × firewall</text>
+        <rect x="245" y="96" width="140" height="40" rx="6" style="fill:var(--surface);stroke:var(--line)"/><text x="315" y="121" text-anchor="middle">2 × centrale switch</text>
+        <rect x="400" y="46" width="145" height="40" rx="6" style="fill:var(--surface);stroke:var(--line)"/><text x="472" y="64" text-anchor="middle">Server 1</text><text x="472" y="79" text-anchor="middle">EMS, Home Assistant</text>
+        <rect x="400" y="96" width="145" height="40" rx="6" style="fill:var(--surface);stroke:var(--line)"/><text x="472" y="121" text-anchor="middle">Videorecorder</text>
+        <rect x="245" y="146" width="300" height="56" rx="6" style="fill:var(--surface);stroke:var(--line)"/><text x="395" y="168" text-anchor="middle">UPS · buurtaccu · omvormers</text><text x="395" y="186" text-anchor="middle">LoRaWAN-ontvanger · wifi buurthuis</text>
+      </g>
+      <line x1="170" y1="43" x2="241" y2="62" style="stroke:var(--water);stroke-width:2" marker-end="url(#dm)"/>
+      <line x1="170" y1="99" x2="241" y2="68" style="stroke:var(--water);stroke-width:2" marker-end="url(#dm)"/>
+      <line x1="170" y1="155" x2="241" y2="74" style="stroke:var(--water);stroke-width:2;stroke-dasharray:5 4" marker-end="url(#dm)"/>
+      <line x1="315" y1="86" x2="315" y2="96" style="stroke:var(--muted);stroke-width:2"/>
+      <text x="575" y="110" class="sm">glasvezel in ster</text>
+      <g class="sm">
+        <path d="M385 116 C600 116 620 250 640 250" style="fill:none;stroke:var(--green);stroke-width:2" marker-end="url(#dm)"/>
+        <rect x="645" y="222" width="235" height="60" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/><text x="762" y="244" text-anchor="middle" font-weight="600"><tspan data-k="nW"></tspan> woningen</text><text x="762" y="262" text-anchor="middle">switch + wifi, eigen netwerk per huis</text><text x="762" y="276" text-anchor="middle">(alarmknop bij senioren)</text>
+        <path d="M315 214 L315 300" style="fill:none;stroke:var(--green);stroke-width:2" marker-end="url(#dm)"/>
+        <rect x="200" y="304" width="230" height="56" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/><text x="315" y="326" text-anchor="middle" font-weight="600">Schuur</text><text x="315" y="344" text-anchor="middle">server 2 + UPS, werkplaats</text>
+        <path d="M470 214 C470 260 520 330 545 330" style="fill:none;stroke:var(--green);stroke-width:2" marker-end="url(#dm)"/>
+        <rect x="550" y="304" width="200" height="56" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/><text x="650" y="326" text-anchor="middle" font-weight="600">Laadplein en accu</text><text x="650" y="344" text-anchor="middle">laadpalen, camera's</text>
+        <path d="M245 190 C120 220 100 360 95 376" style="fill:none;stroke:var(--green);stroke-width:2" marker-end="url(#dm)"/>
+        <rect x="20" y="380" width="210" height="44" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/><text x="125" y="399" text-anchor="middle" font-weight="600">Akker (nutsgebouw)</text><text x="125" y="415" text-anchor="middle">wifi, camera's, bodemsensoren</text>
+      </g>
+    </svg>
+  </div>
+  <p class="read note">De glasvezel ligt in de gezamenlijke, toegankelijke geul langs de wegen, samen met de stroomkabels en de drinkwaterleiding. Zie <a href="mobiliteit.html">Mobiliteit &amp; laden</a>.</p>
+</section>
+
+<section aria-labelledby="h-internet">
+  <h2 id="h-internet">Internet: twee lijnen en een reserve</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het internet komt binnen in het buurthuis. We nemen een <b>zakelijke glasvezelaansluiting</b> en een <b>satellietverbinding</b> (Starlink). Mobiel internet (5G) is de derde reserve.</p>
+      <p>Het netwerk verdeelt de gebruikers over de lijnen. Valt een lijn uit, dan neemt de andere het over. Eén download wordt daar niet sneller van, maar samen is er genoeg ruimte voor alle huishoudens.</p>
+      <p>Waarschijnlijk ligt er op de nieuwe plek nog geen glasvezel. De aanlegkosten weten we pas als de locatie bekend is.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Mag dat, internet delen?</h3>
+      <p>Wie een openbaar netwerk aanbiedt, moet zich melden bij de ACM. Ons netwerk is alleen voor bewoners van Hanzedorp. Dat is waarschijnlijk geen openbaar aanbod, net zoals wifi voor hotelgasten. We vragen de ACM dat te bevestigen.</p>
+      <p>Wel nodig: een zakelijk contract dat delen toestaat, en een gebruiksreglement voor de bewoners.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-vlan">
+  <h2 id="h-vlan">Een eigen netwerk voor elke woning</h2>
+  <p class="read">Het netwerk is opgedeeld in afgeschermde delen. Elk deel heet een VLAN. Je kunt het zien als aparte gangen in één gebouw: wie in de ene gang staat, kan niet in de andere. Zo kunnen buren niet bij elkaars apparaten, en kan niemand via internet bij de accu of de laadpalen.</p>
+  <div class="scroll"><table id="tblVlan"><caption>Indeling van het netwerk (voorstel)</caption><thead><tr><th>Netwerk</th><th>Wat zit erop?</th><th>Internet</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note">In elke woning komt een klein netwerkkastje met een wifi-punt. Je hoeft zelf niets te kopen of in te stellen. De energie-apparatuur werkt ook als het internet uitvalt.</p>
+</section>
+
+<section aria-labelledby="h-server">
+  <h2 id="h-server">Servers voor het energiesysteem</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Op de servers draait de software van het dorp: het energiemanagementsysteem (EMS) dat de accu, de laadpalen en de koelcellen stuurt, Home Assistant voor de meters en sensoren, en de back-up.</p>
+      <p>Er zijn <b>twee servers</b>: één in het buurthuis en één in de schuur. Valt er één uit, of brandt er iets af, dan neemt de andere het over. Een klein derde apparaat beslist welke server de baas is. Een kopie van alle gegevens staat ook buiten het dorp.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>Bij een stroomstoring draait alles door op de buurtaccu. Daarnaast heeft elke server een eigen kleine noodstroomvoorziening (UPS). Die vangt het moment van omschakelen op en zorgt dat de servers netjes kunnen afsluiten.</p>
+      <p>Belangrijk: de veiligheid van de accu en de laadpalen zit in de apparaten zelf, niet in de software. Het EMS zorgt alleen dat alles slim samenwerkt. Zie <a href="netaansluiting.html">Netaansluiting &amp; handel</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-cam">
+  <h2 id="h-cam">Camera's: alleen waar het nodig is</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We hangen alleen camera's op plekken waar iets te stelen of te beschadigen is: de hoofdingang, de serverruimtes, de accuruimte en het laadplein. Op de akker komen twee camera's waarmee je live kunt kijken hoe het erbij staat.</p>
+      <p>De camera's nemen <b>geen geluid</b> op. Gesprekken opnemen zonder dat mensen het weten, is strafbaar.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Wie mag kijken?</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Beelden bekijken we alleen bij een incident, en altijd met <b>twee personen tegelijk</b>.</li>
+        <li>Camera's filmen alleen ons eigen terrein, niet de openbare weg of de tuinen van de buren.</li>
+        <li>Borden laten zien dat er camera's hangen.</li>
+        <li>Beelden worden na hooguit 4 weken automatisch gewist.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-extra">
+  <h2 id="h-extra">Meer dan internet</h2>
+  <div class="cols">
+    <div class="read"><h3>Alarmknop voor ouderen</h3><p>Senioren kunnen een alarmknop krijgen die is aangesloten op een erkende zorgcentrale. Slimme sensoren in huis zijn handig, maar vervangen die zorg niet.</p></div>
+    <div class="read"><h3>Sensoren op de akker</h3><p>Draadloze sensoren meten hoe nat de grond is. Zo krijgt de akker precies genoeg water. Later kunnen ook de watermeters zo worden uitgelezen.</p></div>
+    <div class="read"><h3>Wifi buiten</h3><p>Op het laadplein, het terrein en de akker is er wifi. Handig voor wie buiten werkt.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf: wat kost het?</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mN">Aantal woningen: <output id="mNO"></output></label><input type="range" id="mN" min="5" max="20" step="1"></div>
+      <div class="ctl"><fieldset><legend>Tweede internetlijn</legend><div class="seg" id="sL2"></div></fieldset></div>
+      <div class="ctl"><label for="mC">Camera's: <output id="mCO"></output></label><input type="range" id="mC" min="0" max="24" step="1"></div>
+      <div class="ctl"><fieldset><legend>Camera's nemen op</legend><div class="seg" id="sOp"></div></fieldset></div>
+      <div class="ctl"><label for="mD">Beelden bewaren: <output id="mDO"></output> dagen</label><input type="range" id="mD" min="3" max="28" step="1"></div>
+      <div class="ctl"><label for="mA">Woningen met alarmknop: <output id="mAO"></output></label><input type="range" id="mA" min="0" max="10" step="1"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rEen"></b><span>eenmalig, hele dorp</span></div>
+      <div><b id="rEenW"></b><span>eenmalig per woning</span></div>
+      <div><b id="rMnd"></b><span>internet en beheer per huishouden per maand</span></div>
+      <div><b id="rBesp"></b><span>goedkoper dan nu (€ <span data-k="nuHH"></span> per huishouden)</span></div>
+      <div><b id="rTot"></b><span>per huishouden per maand, inclusief vervanging apparatuur</span></div>
+      <div><b id="rTB"></b><span>opslag camerabeelden nodig</span></div>
+    </div>
+    <p class="note read" id="noot"></p>
+  </div>
+  <p class="read note">De bedragen komen uit de stuklijst (<a href="Hanzedorp-stuklijst-netwerk.xlsx">Excel-bestand</a>). Prijzen van leveranciers zijn opgezocht op 27-10-2026; glasvezel in de grond, servers en arbeid zijn schattingen. Zakelijk glas is nog een aanname: daarvoor vragen we een offerte.</p>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Gemak</h3><p>Geen eigen abonnement, geen modem, geen gedoe met storingen. Eén beheerder houdt alles bij.</p></div>
+    <div class="read"><h3>Kosten</h3><p>Ongeveer <span data-k="bespPct"></span> % goedkoper dan nu, plus een bedrag per maand om de apparatuur na ± 7 jaar te vervangen.</p></div>
+    <div class="read"><h3>Privacy</h3><p>Je eigen netwerk is afgeschermd. Camera's alleen bij gedeelde spullen, zonder geluid, en kijken alleen bij een incident met z'n tweeën.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Eén beheerd netwerk, geen eigen abonnementen per woning</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Glasvezel in ster, eigen VLAN per woning</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Camera's zonder geluid; kijken alleen bij incident met twee personen</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Beheer door een zzp'er</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Bevestiging ACM dat het netwerk niet openbaar is</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Glasvezel op de locatie en offerte zakelijk glas</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+    <tr><td>Privacyafspraken, verwerkingsverantwoordelijke camera's, vervanger beheerder</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Netwerkontwerp, berekeningen, risico's en de toetsing aan wet- en regelgeving staan op de technische pagina.</p><a href="digitale-infrastructuur-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="digitaal-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, G = D.digitaal, $ = id => document.getElementById(id);
+  const std = DI.rekenen();
+  bindAll({ nW: nl(DI.nStd), nuHH: nl(G.nuPerHuishouden, 2), nieuwHH: nl(std.perHuisMaand), bespPct: nl(std.besparing * 100) });
+  renderBronnen($("bronnen"), [74, 75, 76, 77, 78, 79]);
+  $("tblVlan").querySelector("tbody").innerHTML = G.vlans.map(v => `<tr><td>${v[0]}</td><td>${v[1]}</td><td>${v[2]}</td></tr>`).join("");
+  function seg(el, naam, opties, std) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
+  seg("sL2", "l2", [["res", "Starlink (€ 50)"], ["lite", "Starlink Lite (€ 35)"], ["geen", "Alleen 5G-reserve"]], "res");
+  seg("sOp", "op", [["bew", "Bij beweging"], ["cont", "Altijd"]], "bew");
+  $("mN").value = DI.nStd; $("mC").value = G.camAantal; $("mD").value = G.bewaarDagen; $("mA").value = 3;
+  const val = n => document.querySelector(`input[name=${n}]:checked`).value, eur = v => "€ " + nl(v);
+  function run() {
+    const r = DI.rekenen({ nW: +$("mN").value, lijn2: val("l2"), cam: +$("mC").value, beweging: val("op") === "bew", dagen: +$("mD").value, alarm: +$("mA").value });
+    $("mNO").value = r.nW; $("mCO").value = r.cam; $("mDO").value = r.dagen; $("mAO").value = $("mA").value;
+    $("rEen").textContent = eur(Math.round(r.eenmalig / 100) * 100); $("rEenW").textContent = eur(Math.round(r.perWoning / 10) * 10);
+    $("rMnd").textContent = "€ " + nl(r.perHuisMaand, 2); $("rBesp").textContent = nl(r.besparing * 100) + " %";
+    $("rTot").textContent = "€ " + nl(r.totaalPerHuis, 2); $("rTB").textContent = nl(r.TB, 1) + " TB";
+    $("noot").textContent = (r.TBok ? `De videorecorder heeft ± ${G.nvrTB} TB; dat is genoeg.` : `Meer dan de ± ${G.nvrTB} TB van de videorecorder: grotere schijven of korter bewaren.`) +
+      ` Doel was € ${nl(r.doel)} per maand voor het hele dorp; het model komt op € ${nl(r.maand)} voor internet en beheer` + (r.maand > r.doel ? `, € ${nl(r.maand - r.doel)} boven het doel.` : `, binnen het doel.`) +
+      (r.alarmMnd ? ` Alarmering kost apart € ${nl(r.alarmMnd)} per maand voor ${$("mA").value} woningen.` : "");
+  }
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

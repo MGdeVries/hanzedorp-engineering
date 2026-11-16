@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossier – Hanzedorp</title>
+<meta name="description" content="Dossier haalbaarheid en vergunning: alle vragen van de projectontwikkelaar en de gemeente, waar het antwoord staat, wie het levert en hoe compleet het plan is per fase.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.gate{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.gate h3{margin:0}.gate p{margin:0;color:var(--muted);font-size:.92rem}
+.meter{height:10px;border-radius:999px;background:color-mix(in srgb,var(--muted) 18%,transparent);overflow:hidden;display:flex}
+.meter i{display:block;height:100%}
+.m-getoetst{background:var(--green)}.m-beantwoord{background:var(--water)}.m-deels{background:var(--warn)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;color:var(--muted)}.legend2 span{display:inline-flex;gap:6px;align-items:center}.legend2 b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.st-open{color:var(--muted)}.st-deels{color:var(--warn)}.st-beantwoord{color:var(--water)}.st-getoetst{color:var(--green)}
+.filters{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end}
+td.v{min-width:16rem}
+.rollen{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.rollen ol{margin:0;padding-left:1.2em;display:grid;gap:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Haalbaarheid en vergunning</span><span>Dossier</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Dossier: wanneer is het plan compleet?</h1>
+  <p class="lead read">De werkpagina's laten zien hoe Hanzedorp technisch werkt. Maar twee partijen stellen andere vragen. De <b>projectontwikkelaar</b> vraagt: is het betaalbaar, te financieren en te organiseren? De <b>gemeente</b> vraagt: mag het hier, en is het veilig en verantwoord? Op deze pagina staan al hun vragen. Bij elke vraag zie je waar het antwoord staat, wie het levert en hoe ver we zijn.</p>
+  <ul class="kern read">
+    <li><span><b>Vier fasen:</b> initiatief, haalbaarheid, omgevingsplan en bouw. Per fase weet je welke vragen beantwoord moeten zijn.</span></li>
+    <li><span><b>Compleet</b> is een fase als elke vraag van die fase is beantwoord met een bron. Getoetst door een derde (bank, adviseur, gemeente) is nog beter.</span></li>
+    <li><span><b>Nu:</b> <span id="kTot"></span> van de <span id="kN"></span> vragen zijn (deels) beantwoord. De grootste open vraag is de locatie: daar hangen <span id="kLoc"></span> vragen van af.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-fasen">
+  <h2 id="h-fasen">Voortgang per fase</h2>
+  <div class="legend2"><span><b class="m-getoetst"></b>getoetst door derde</span><span><b class="m-beantwoord"></b>beantwoord, met bron</span><span><b class="m-deels"></b>deels</span><span><b style="background:color-mix(in srgb,var(--muted) 18%,transparent)"></b>open</span></div>
+  <div class="gates" id="gates" style="margin-top:10px"></div>
+</section>
+
+<section aria-labelledby="h-rollen">
+  <h2 id="h-rollen">Twee rollen, vijftien hoofdstukken</h2>
+  <div class="rollen">
+    <div class="panel read"><h3>Projectontwikkelaar: haalbaarheid</h3><p class="note">Is het te bouwen, te betalen, te financieren en te beheren?</p><ol id="lstO"></ol></div>
+    <div class="panel read"><h3>Gemeente: vergunning</h3><p class="note">Mag het hier, en is het veilig, gezond en zorgvuldig onderbouwd?</p><ol id="lstA"></ol></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-lijst">
+  <h2 id="h-lijst">Alle vragen</h2>
+  <div class="panel filters">
+    <div class="ctl"><fieldset><legend>Rol</legend><div class="seg" id="fRol"></div></fieldset></div>
+    <div class="ctl"><fieldset><legend>Fase</legend><div class="seg" id="fFase"></div></fieldset></div>
+    <div class="ctl"><fieldset><legend>Status</legend><div class="seg" id="fSt"></div></fieldset></div>
+  </div>
+  <div class="scroll"><table id="tbl"><thead><tr><th>Nr</th><th>Vraag</th><th>Fase</th><th>Status</th><th>Antwoord op</th><th class="wie">Wie</th><th>Hangt af van</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note">De status houden we bij in de databron. Als een antwoord klaar is, zetten we de status op "beantwoord" en noemen we de bron. Als een bank, adviseur of instantie het heeft bevestigd, wordt het "getoetst".</p>
+</section>
+
+<section aria-labelledby="h-hoe">
+  <h2 id="h-hoe">Hoe vullen we het dossier?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Elk hoofdstuk wordt een eigen pagina, net als de werkpagina's: een korte pagina voor iedereen en een uitgebreide voor de deskundige. De werkpagina's blijven de technische onderbouwing; het dossier verwijst ernaar.</p>
+      <p>We werken fase voor fase. Eerst alles voor het vooroverleg met de gemeente (fase 0), dan de haalbaarheid (fase 1).</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:6px">
+      <h3>Eerst nodig voor het vooroverleg</h3>
+      <ol style="margin:0;padding-left:1.2em" id="lst0"></ol>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De status komt uit de databron (hanzedorp-data.js → dossier).</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script>
+(function () {
+  const { D, bindAll, renderBronnen } = HZ, DS = D.dossier, $ = id => document.getElementById(id);
+  bindAll({}); renderBronnen($("bronnen"), [122, 123, 128, 129]);
+  const ED = window.HZPROJECT && HZPROJECT.editie, INT = ["V7.4", "H6.5"];
+  if (ED) document.querySelectorAll("th.wie").forEach(e => e.remove());
+  const I = DS.items.filter(x => !ED || !INT.includes(x[0])).map(([id, h, vraag, fase, st, waar, wie, afh]) => ({ id, h, vraag, fase, st, waar, wie, afh, rol: DS.hoofdstukken.find(x => x[0] === h)[1] }));
+  const HN = Object.fromEntries(DS.hoofdstukken.map(h => [h[0], h[2]]));
+  const ST = Object.fromEntries(DS.statussen);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  $("kN").textContent = I.length; $("kTot").textContent = I.filter(i => i.st !== "open").length; $("kLoc").textContent = I.filter(i => /locatie/.test(i.afh)).length;
+  const meter = L => { const n = L.length || 1; return `<div class="meter" role="img" aria-label="${L.filter(i => i.st !== "open").length} van ${L.length} (deels) beantwoord">` +
+    ["getoetst", "beantwoord", "deels"].map(s => `<i class="m-${s}" style="width:${L.filter(i => i.st === s).length / n * 100}%"></i>`).join("") + "</div>"; };
+  $("gates").innerHTML = DS.fasen.map(([f, n, oms]) => { const L = I.filter(i => i.fase === f), klaar = L.filter(i => i.st === "beantwoord" || i.st === "getoetst").length;
+    return `<div class="gate"><h3>${f}. ${n}</h3><p>${oms}</p>${meter(L)}<p><b>${klaar}</b> van ${L.length} beantwoord · ${L.filter(i => i.st === "deels").length} deels${klaar === L.length ? ' · <b class="st-getoetst">compleet</b>' : ""}</p></div>`; }).join("");
+  const lst = r => DS.hoofdstukken.filter(h => h[1] === r).map(([k, , n]) => { const L = I.filter(i => i.h === k); return `<li><b>${k}</b> ${n} <span class="note">(${L.filter(i => i.st !== "open").length}/${L.length})</span></li>`; }).join("");
+  $("lstO").innerHTML = lst("O"); $("lstA").innerHTML = lst("A");
+  if (!ED) ["Nick", "Douwe", "Melvin"].forEach((n, k) => $(["nN", "nD", "nM"][k]).textContent = I.filter(i => i.wie.includes(n) && i.st !== "beantwoord" && i.st !== "getoetst").length);
+  $("lst0").innerHTML = I.filter(i => i.fase === 0 && i.st !== "beantwoord" && i.st !== "getoetst").map(i => `<li>${esc(i.vraag)}${ED ? "" : ` <span class="note">(${i.wie})</span>`}</li>`).join("");
+  function seg(el, naam, opties) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${i === 0 ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
+  seg("fRol", "rol", [["", "Beide"], ["O", "Ontwikkelaar"], ["A", "Gemeente"]]);
+  seg("fFase", "fase", [["", "Alle"], ...DS.fasen.map(([f, n]) => [String(f), f + ". " + n])]);
+  seg("fSt", "st", [["", "Alle"], ["open", "Open"], ["deels", "Deels"], ["klaar", "Beantwoord"]]);
+  const val = n => document.querySelector(`input[name=${n}]:checked`).value;
+  function run() {
+    const r = val("rol"), f = val("fase"), s = val("st"); let hPrev = "";
+    $("tbl").querySelector("tbody").innerHTML = I.filter(i => (!r || i.rol === r) && (f === "" || i.fase === +f) && (!s || (s === "klaar" ? (i.st === "beantwoord" || i.st === "getoetst") : i.st === s)))
+      .map(i => (i.h !== hPrev ? (hPrev = i.h, `<tr><th colspan="${ED ? 6 : 7}" style="text-align:left">${i.h} · ${HN[i.h]} <span class="note">(${i.rol === "O" ? "ontwikkelaar" : "gemeente"})</span></th></tr>`) : "") +
+        `<tr><td class="mono">${i.id}</td><td class="v">${esc(i.vraag)}</td><td>${i.fase}</td><td><span class="pill st-${i.st}">${ST[i.st]}</span></td><td>${i.waar ? (/^http/.test(i.waar) ? (ED ? "–" : `<a href="${i.waar}">beleidsonderzoek</a>`) : `<a href="${i.waar}">${i.waar.replace(".html", "")}</a>`) : "–"}</td>${ED ? "" : `<td>${esc(i.wie)}</td>`}<td>${esc(i.afh || "–")}</td></tr>`).join("");
+  }
+  document.querySelectorAll(".filters input").forEach(x => x.addEventListener("change", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

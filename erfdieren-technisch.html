@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dieren op het erf – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Kippenhouderij voor Hanzedorp: dimensionering op eiervraag, voer, ruimte, regelgeving dierlijke bijproducten, vogelgriep, registratie, risico's en compliance-register.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Dieren op het erf</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Dieren op het erf – technische verantwoording</h1>
+  <dl class="meta read"><dt>Auteur</dt><dd><span data-k="auteur"></span></dd><dt>Status</dt><dd>concept; niet extern getoetst</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten/bron · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Een kleine legkippenhouderij wordt gedimensioneerd op de eiervraag van de bewoners. Bij <span data-k="eiPP"></span> eieren per persoon per week (N) en <span data-k="pers"></span> bewoners zijn <span data-k="kippen"></span> kippen nodig (± <span data-k="leg"></span> eieren per kip per jaar<sup class="ref"><a href="#bron-100">[100]</a></sup>, 20 % reserve), met ± <span data-k="voer"></span> ton voer per jaar, een nachthok van ± <span data-k="hok"></span> m² en een ren van ≥ <span data-k="ren"></span> m². Het voeren van keuken- en etensresten aan landbouwhuisdieren is verboden (Verordening (EG) 1069/2009, art. 11 lid 1 b)<sup class="ref"><a href="#bron-99">[99]</a></sup>; volgens het LICG geldt dit verbod ook voor particulier gehouden kippen, met uitzondering van onbewerkte plantaardige producten die niet met dierlijke producten in contact zijn geweest<sup class="ref"><a href="#bron-106">[106]</a></sup>. Het RIVM adviseert landelijk geen eieren van hobbykippen te eten vanwege PFAS, voor een groot deel afkomstig uit wormen (advies 15-04-2025, bevestigd 16-03-2026)<sup class="ref"><a href="#bron-107">[107]</a></sup><sup class="ref"><a href="#bron-108">[108]</a></sup>; daarmee verschuift de functie van de kippen naar plaagbestrijding en mestproductie, tenzij de bewoners bewust anders kiezen. Bij een uitbraak van vogelgriep geldt voor hobbyhouders een afschermplicht<sup class="ref"><a href="#bron-101">[101]</a></sup>.</p>
+</section>
+
+<section id="s1"><h2 class="num">Methode en invoer</h2>
+  <div class="formula">E_jaar = n_pers · e_week · 52
+n_kip = ⌈ E_jaar / e_kip · (1 + r) ⌉              (r = reserve rui, broedsheid, leeftijd)
+Voer  = n_kip · m_voer · 365 / 1000   [kg·a⁻¹]
+Hok   = n_kip · 0,5 m²;   Ren = n_kip · A_ren;   Water = n_kip · 0,25 L·d⁻¹</div>
+  <div class="scroll"><table id="tblIn"><caption>Tabel 1 – Invoergegevens.</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s2"><h2 class="num">Resultaten per levensfase</h2>
+  <div class="scroll"><table id="tblR"><caption>Tabel 2 – Dimensionering per levensfase (standaard eiervraag).</caption><thead><tr><th>Levensfase</th><th class="num">Bewoners</th><th class="num">Kippen</th><th class="num">Voer (t/jr)</th><th class="num">Hok (m²)</th><th class="num">Ren (m²)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Ontwerpwaarde voor hok en ren is het theoretisch maximum (besluit 27-10-2026); het aantal kippen wordt jaarlijks afgestemd op de werkelijke bezetting. Mest (± 20–40 kg per kip per jaar, S) gaat via de compost naar de akker.</p>
+</section>
+
+<section id="s3"><h2 class="num">Regelgeving en interpretatie</h2>
+  <ul class="read" style="display:grid;gap:8px;padding-left:1.2em">
+    <li><b>Dierlijke bijproducten.</b> Art. 11 lid 1 b van Verordening (EG) 1069/2009 verbiedt het voederen van landbouwhuisdieren (behalve pelsdieren) met keuken- en etensresten<sup class="ref"><a href="#bron-99">[99]</a></sup>. In het Verenigd Koninkrijk wordt dit expliciet toegepast op particulier gehouden kippen; Brusselse voorlichting noemt groente- en fruitschillen geschikt als aanvulling<sup class="ref"><a href="#bron-100">[100]</a></sup>. Nederlandse handhavingspraktijk: navragen bij de NVWA.</li>
+    <li><b>Vogelgriep.</b> Afschermplicht voor hobbyhouders van hoenderachtigen, watervogels en loopvogels bij een uitbraak; geen evenementen met risicovogels<sup class="ref"><a href="#bron-101">[101]</a></sup>. Ontwerp: ren met overkapt deel en net.</li>
+    <li><b>Registratie.</b> Bedrijfsmatig vanaf 250 dieren (dan altijd UBN en meldingen); daaronder UBN alleen bij vervoer binnen de EU<sup class="ref"><a href="#bron-102">[102]</a></sup>.</li>
+    <li><b>Schapen en geiten.</b> Identificatie en registratie (oormerken, melden bij RVO) is verplicht, ook voor hobbyhouders; uit te werken als deze dieren worden gekozen.</li>
+    <li><b>Voedselveiligheid.</b> RIVM: geen eieren van hobbykippen eten (PFAS; op ruim de helft van 60 locaties bij &lt; 1 ei per week al overschrijding van de gezondheidskundige grenswaarde)<sup class="ref"><a href="#bron-107">[107]</a></sup>. Meten per ei geeft geen garantie (variatie per ei en periode)<sup class="ref"><a href="#bron-108">[108]</a></sup>. Mogelijke beperking: droge, overdekte ren met zand- of houtsnipperbodem (weinig wormen) – niet gevalideerd.</li>
+  </ul>
+</section>
+
+<section id="s4"><h2 class="num">Risico's en toetsing</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Overtreding voerregels <span class="pill s-aanname">volksgezondheid / dierziekte</span></td><td>Keukenresten aan kippen</td><td>Alleen onbewerkte plantaardige resten zonder contact met dierlijke producten [106]</td><td>deels</td></tr>
+    <tr><td>PFAS in eieren <span class="pill s-aanname">volksgezondheid</span></td><td>Wormen en bodem</td><td>RIVM-advies volgen; eieren eten als bewuste keuze; droge overdekte ren</td><td>open</td></tr>
+    <tr><td>Vogelgriep</td><td>Contact met wilde vogels</td><td>Afschermbare ren, voer binnen, hygiënesluis</td><td>deels</td></tr>
+    <tr><td>Salmonella</td><td>Eieren en contact met kippen</td><td>Eieren dagelijks rapen en koel bewaren, handen wassen</td><td>deels</td></tr>
+    <tr><td>Ratten en muizen</td><td>Voer en mest</td><td>Voer in gesloten bakken, verhoogd hok</td><td>deels</td></tr>
+    <tr><td>Geur en geluid</td><td>Hok bij woningen; hanen</td><td>Afstand tot woningen, geen haan of haan met nachthok</td><td>open</td></tr>
+  </tbody></table></div>
+  <div class="scroll"><table><caption>Compliance-register (selectie)</caption><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Voeren dierlijke bijproducten</td><td>Verordening (EG) 1069/2009 art. 11</td><td>Geen keukenresten; NVWA-bevestiging</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Dierenwelzijn</td><td>Wet dieren; Besluit houders van dieren</td><td>Hok, ren, water, voer, verzorgingsrooster</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Afschermplicht bij vogelgriep</td><td>Regeling op basis van de Wet dieren [101]</td><td>Afschermbare ren</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Registratie</td><td>Regeling identificatie en registratie van dieren [102]</td><td>&lt; 250 kippen; UBN alleen bij EU-vervoer</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Hok als bouwwerk</td><td>Omgevingsplan gemeente</td><td>Klein bijbehorend bouwwerk; toetsen aan omgevingsplan</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s6"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.15</td><td>27-10-2026</td><td>Eerste versie.</td><td>Melvin de Vries (opgave [103]); uitwerking met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="erfdieren-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, K = D.erfdieren, $ = id => document.getElementById(id);
+  const r = ED.rekenen();
+  bindAll({ eiPP: nl(K.eierenPPweek), pers: nl(r.pers), kippen: nl(r.kippen), leg: nl(K.eierenPerKip), voer: nl(r.voerKg / 1000, 1), hok: nl(r.hok), ren: nl(r.ren) });
+  renderBronnen($("bronnen"), [99, 100, 101, 102, 103, 106, 107, 108]);
+  $("tblIn").querySelector("tbody").innerHTML = [
+    ["Eieren per persoon per week", K.eierenPPweek, "N", "opgave te bevestigen"], ["Eieren per kip per jaar", K.eierenPerKip, "G", "[100]"], ["Voer per kip per dag (g)", K.voerG, "G", "[106] 30–100; [100] 150–200"],
+    ["Hok per kip (m²)", K.hokM2, "G", "[100]"], ["Ren per kip (m², minimum)", K.renM2, "G", "[100]"], ["Water per kip per dag (L)", K.waterL, "S", "—"], ["Reserve", K.reserve, "N", "—"]
+  ].map(x => `<tr><td>${x[0]}</td><td class="num">${nl(x[1], x[1] % 1 ? 2 : 0)}</td><td><span class="st st-${x[2]}">${x[2]}</span></td><td>${x[3]}</td></tr>`).join("");
+  $("tblR").querySelector("tbody").innerHTML = D.levensfase.map(f => { const x = ED.rekenen({ levensfase: f.id }); return `<tr${f.ontwerp ? ' style="font-weight:600"' : ""}><td>${f.naam}</td><td class="num">${x.pers}</td><td class="num">${x.kippen}</td><td class="num">${nl(x.voerKg / 1000, 1)}</td><td class="num">${x.hok}</td><td class="num">${x.ren}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Technische verantwoording van de waterhuishouding van Hanzedorp: hemelwatergebruik van harde dakdelen, groendaken, bergingseis waterschap, beregeningsbehoefte tuinderij en kosten, op basis van gemeten verbruik en 31 jaar KNMI-gegevens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.heat td.num{min-width:3.2em}
+.lv0{background:color-mix(in srgb, var(--warn) 28%, transparent)}
+.lv1{background:color-mix(in srgb, var(--warn) 12%, transparent)}
+.lv2{background:color-mix(in srgb, var(--rain) 18%, transparent)}
+.lv3{background:color-mix(in srgb, var(--water) 22%, transparent)}
+.lv4{background:color-mix(in srgb, var(--water) 38%, transparent)}
+.base{outline:2px solid var(--fg);outline-offset:-2px}
+</style>
+<style>.ok{color:var(--green)} .nok{color:var(--warn)}</style>
+</head>
+<body>
+<div class="wrap paper">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Waterhuishouding Hanzedorp: hemelwatergebruik, berging en beregeningsbehoefte op basis van gemeten verbruik en een neerslagreeks van 31 jaar</h1>
+  <dl class="meta">
+    <dt>Auteur</dt><dd data-k="auteur"></dd>
+    <dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+    <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd>
+  </dl>
+</header>
+
+<section class="abstract" aria-labelledby="h-abs">
+  <h2 id="h-abs" style="font-size:1.2rem">Samenvatting</h2>
+  <p>Dit document kwantificeert voor Hanzedorp (<span data-k="nWoningen"></span> woningen, <span data-k="nBewoners"></span> bewoners) de dekking van de watervraag voor toiletspoeling en wasmachine met hemelwater, de bergingseis van het waterschap, de beregeningsbehoefte van de tuinderij en de kosten van hemelwaterbuffers. De watervraag is gebaseerd op een jaarmeting met kwartierresolutie in een vierpersoonshuishouden<sup class="ref"><a href="#bron-1">[1]</a></sup><sup class="ref"><a href="#bron-2">[2]</a></sup><sup class="ref"><a href="#bron-4">[4]</a></sup>: <span data-k="lpd"></span> L·d⁻¹, waarvan circa <span data-k="regenPct"></span> % voor toiletspoeling en wasmachine.</p>
+  <p>Omdat afvoerwater van groendaken verkleurd kan zijn, wordt uitsluitend hemelwater van de harde dakdelen benut (A·C = <span data-k="acHard"></span> m²; gemiddeld circa <span data-k="opbrHard"></span> m³·a⁻¹)<sup class="ref"><a href="#bron-9">[9]</a></sup>. Een dagbalans over <span data-k="dbJaren"></span> jaren (<span data-k="dbVan"></span>–<span data-k="dbTot"></span>) van KNMI-station Heino<sup class="ref"><a href="#bron-11">[11]</a></sup> geeft bij een buffer van 5 m³ per woning een gemiddelde dekking van <span data-k="t5"></span> % voor alleen toiletspoeling en <span data-k="tw5"></span> % voor toiletspoeling en wasmachine; in het laatste geval is de jaarlijkse dakafvoer de beperkende factor en levert een buffer boven circa 2 m³ per woning geen winst op. Besloten (27-10-2026) is dat het hemelwater van de harde daken zowel toiletspoeling als wasmachine voedt (zacht water: geen kalkafzetting, minder wasmiddel); toiletspoeling alleen is geen variant meer. Afstromend straatwater wordt niet benut: het infiltreert via kratten en wadi's. De vergelijkingsvariant met straatwater (circa <span data-k="ts5"></span> %) is vervallen en alleen historisch vermeld. Al het huishoudelijk afvalwater gaat naar het gemeentelijk riool; een helofytenfilter is uitsluitend een optie voor de behandeling van opgepompt grondwater. De bergingseis bedraagt <span data-k="wsBerging"></span> mm per m² toename verhard oppervlak<sup class="ref"><a href="#bron-15">[15]</a></sup>, voor Hanzedorp <span data-k="bergMin"></span>–<span data-k="bergMax"></span> m³, afhankelijk van de waardering van groendaken. De mediane beregeningsbehoefte van 1 ha tuinderij is circa <span data-k="tuinMed"></span> m³ per jaar. De besparing op drinkwater (circa € <span data-k="besTW"></span> per woning per jaar) weegt niet op tegen de investering in buffers; de motivering is klimaatadaptief en ecologisch.</p>
+  <p>Versie 0.8 voegt een bewonersmodel toe dat het verbruik afhankelijk maakt van aanwezigheid overdag (thuiswerk, school, pensioen) en levensfase (start, +10 en +20 jaar), afgeleid uit dezelfde meetdata. Een urinoir (0,5 L per spoeling) verlaagt de toiletvraag met circa <span data-k="uPct"></span> % en verhoogt de dekking van de toiletspoeling tot circa <span data-k="tU5"></span> %. Een literatuurverkenning (§6.10) concludeert dat afstromend straatwater niet geschikt is voor gebruik in de woning of de zwemvijver, en na een helofytenfilter onder voorwaarden voor beregening.</p>
+</section>
+
+<nav aria-label="Inhoud">
+  <h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2>
+  <ol class="toc">
+    <li><a href="#s1">Inleiding en vraagstelling</a></li>
+    <li><a href="#s2">Systeemgrens</a></li>
+    <li><a href="#s3">Gegevens</a></li>
+    <li><a href="#s4">Methode</a></li>
+    <li><a href="#s5">Invoerparameters</a></li>
+    <li><a href="#s6">Resultaten</a></li>
+    <li><a href="#s6b">Drinkwater: inkoop, aansluiting en hydrauliek</a></li>
+    <li><a href="#s7">Gevoeligheidsanalyse</a></li>
+    <li><a href="#s8">Validatie</a></li>
+    <li><a href="#s9">Toetsingskader</a></li>
+    <li><a href="#s10">Discussie</a></li>
+    <li><a href="#s11">Conclusies</a></li>
+    <li><a href="#s12">Openstaande gegevens</a></li>
+    <li><a href="#s13">Literatuur en bronnen</a></li>
+    <li><a href="#s14">Versiebeheer</a></li>
+  </ol>
+</nav>
+
+<section id="s1" aria-labelledby="h1">
+  <h2 class="num" id="h1">Inleiding en vraagstelling</h2>
+  <div class="read" style="display:grid;gap:12px">
+    <p>Hanzedorp is een kleinschalig woonproject met natuurinclusieve, klimaatadaptieve en energiepositieve uitgangspunten, waaronder hemelwateropvang en -berging en een akker van circa 1 ha voor een tuinderij<sup class="ref"><a href="#bron-10">[10]</a></sup>. Het zoekgebied ligt in de driehoek Zwolle – Dalfsen – Wijhe. Het programma omvat maximaal <span data-k="nWoningen"></span> woningen (<span data-k="woningMix"></span> gezins-, senioren- en jongerenwoningen) met circa de helft groendak en circa <span data-k="verhardPW"></span> m² verharding per woning<sup class="ref"><a href="#bron-9">[9]</a></sup>. Uitsluitend hemelwater van harde dakdelen wordt opgevangen. Stroom, riolering en datakabels worden vanuit het buurthuis aangelegd; in dezelfde sleuf kan een hemelwaterleiding naar een centrale buffer worden opgenomen. Dit document beantwoordt de volgende vragen:</p>
+    <ol style="margin:0;padding-left:1.3em;display:grid;gap:4px">
+      <li>Welk deel van de vraag voor toiletspoeling, respectievelijk toiletspoeling en wasmachine, kan hemelwater van de harde dakdelen dekken?</li>
+      <li>Welk buffervolume is zinvol, per woning of centraal?</li>
+      <li>Welke berging vereist het waterschap?</li>
+      <li>Hoe groot is de beregeningsbehoefte van de tuinderij?</li>
+      <li>Wat kost een hemelwatersysteem in verhouding tot de besparing op drinkwater?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="s2" aria-labelledby="h2s">
+  <h2 class="num" id="h2s">Systeemgrens</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px"><h3>Binnen de systeemgrens</h3>
+      <ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+        <li>Huishoudelijk watergebruik van <span data-k="nWoningen"></span> woningen (<span data-k="nBewoners"></span> bewoners)<sup class="ref"><a href="#bron-9">[9]</a></sup></li>
+        <li>Hemelwater van de harde dakdelen; variant met afstromend straatwater (<span data-k="verhardStraat"></span> m²)</li>
+        <li>Buffer, bijvulling uit het drinkwaternet, overloop naar de waterberging</li>
+        <li>Bergingseis waterschap (§6.6); beregeningsbehoefte tuinderij (§6.7)</li>
+        <li>Investering versus besparing op drinkwater (§6.5, indicatief)</li>
+      </ul></div>
+    <div class="read" style="display:grid;gap:8px"><h3>Buiten de systeemgrens</h3>
+      <ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+        <li>Buurthuis; verdamping en infiltratie in de waterberging</li>
+        <li>Afvalwater en helofytenfilter (afzonderlijk thema)</li>
+        <li>Kosten van een centrale buffer en leidingen (nog onbekend)</li>
+        <li>Energie voor pompen; warm tapwater alleen indicatief (§6.8)</li>
+      </ul></div>
+  </div>
+</section>
+
+<section id="s3" aria-labelledby="h3s">
+  <h2 class="num" id="h3s">Gegevens</h2>
+  <div class="read" style="display:grid;gap:12px">
+    <h3>3.1 Referentiewoning en meetopzet</h3>
+    <p>De referentiewoning (Zwolle) is een twee-onder-een-kapwoning (bouwjaar rond 2000) (191 m², energielabel B) met vier bewoners: twee volwassenen en twee adolescenten. De woning is geen passiefhuis; huishoudelijk waterverbruik is echter overwegend gebruiksgebonden en daarom overdraagbaar. Meetperiode <span data-k="periode"></span>, tijdstap 15 min. De watermeter registreert een cumulatieve stand in deciliter<sup class="ref"><a href="#bron-1">[1]</a></sup>; wasmachine en vaatwasser zijn voorzien van een elektriciteitstussenmeter<sup class="ref"><a href="#bron-2">[2]</a></sup>.</p>
+    <h3>3.2 Opschoning</h3>
+    <ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+      <li>Verbruik per tijdstap = verschil tussen opeenvolgende meterstanden, omgerekend van dL naar L.</li>
+      <li><span data-k="nulwaarden"></span> registraties met waarde 0 (uitval) verwijderd; geen negatieve verschillen.</li>
+      <li><span data-k="gaten"></span> tijdsgaten groter dan 15 min (langste <span data-k="langsteGat"></span>); de jaarsom blijft behouden.</li>
+      <li>Jaargrootheden genormaliseerd naar 365 dagen (gemeten: 364,5 d).</li>
+    </ul>
+    <h3>3.3 Verbruik per toepassing</h3>
+    <p><b>Wasbeurten.</b> Een beurt is een reeks tijdstappen met elektriciteitsverbruik &gt; 0,005 kWh; onderbrekingen &lt; 60 min worden samengevoegd, reeksen &lt; 0,1 kWh vervallen: <span data-k="wmCycli"></span> wasmachine- en <span data-k="vwCycli"></span> vaatwasserbeurten per jaar <span class="st st-G">G</span>. Waterverbruik per wasmachinebeurt = verbruik in het venster minus de basislijn (gemiddeld verbruik op hetzelfde uur van dezelfde weekdag): mediaan circa <span data-k="wmL"></span> L, interval <span data-k="wmBand"></span> L <span class="st st-A">A</span>. Vaatwasser: beurten met start 00:00–05:00 (n = <span data-k="vwNacht"></span>), mediaan <span data-k="vwL"></span> L <span class="st st-A">A</span>.</p>
+    <p><b>Toiletspoeling.</b> Spoelvolumes <span data-k="tlLKlein"></span> L en <span data-k="tlLGroot"></span> L; <span data-k="tlKleinDag"></span> kleine en <span data-k="tlGrootDag"></span> grote spoelingen per dag voor het huishouden<sup class="ref"><a href="#bron-4">[4]</a></sup>, ofwel <span data-k="tlLpd"></span> L·d⁻¹ <span class="st st-G">G</span>.</p>
+    <h3>3.4 Neerslag en verdamping</h3>
+    <p><b>Klimaatnormalen</b> 1991–2020 van station Heino, jaarsom <span data-k="mmNormaal"></span> mm<sup class="ref"><a href="#bron-5">[5]</a></sup>.</p>
+    <p><b>Dagreeks.</b> Etmaalsom van de neerslag (RH) en referentiegewasverdamping (EV24) van <span data-k="dbStation"></span> (<span data-k="dbCoord"></span>), <span data-k="dbReeks"></span><sup class="ref"><a href="#bron-11">[11]</a></sup>. Opgenomen zijn volledige kalenderjaren met ten hoogste 5 ontbrekende neerslagdagen: <span data-k="dbJaren"></span> jaren; uitgesloten zijn <span data-k="dbUitgesloten"></span>. Gemiddelde jaarsom neerslag <span data-k="dbMm"></span> mm, verdamping <span data-k="evGem"></span> mm; langste periode met &lt; 1 mm·d⁻¹: <span data-k="droogDagen"></span> dagen (<span data-k="droogJaar"></span>). KNMI merkt de reeks aan als niet gehomogeniseerd.</p>
+    <p><b>Meetperiode.</b> In de meetperiode viel <span data-k="wRh"></span> mm (<span data-k="wPct"></span> % van het reeksgemiddelde)<sup class="ref"><a href="#bron-12">[12]</a></sup>. De correlatie tussen dagverbruik en T<sub>max</sub> is verwaarloosbaar (r = <span data-k="wCorr"></span>); op dagen met T<sub>max</sub> ≥ 25 °C was het verbruik <span data-k="wWarmPct"></span> % hoger.</p>
+    <h3>3.5 Dakvlakken en afvoercoëfficiënten</h3>
+    <p>Totaal dakoppervlak <span data-k="dakTot"></span> m², waarvan circa 50 % groendak<sup class="ref"><a href="#bron-9">[9]</a></sup>. Voor groendaken wordt een cumulatieve jaarlijkse neerslagretentie van circa 50 % gerapporteerd (Stovin et al., in <sup class="ref"><a href="#bron-13">[13]</a></sup>), wat C<sub>groen</sub> ≈ <span data-k="cGroen"></span> <span class="st st-S">S</span> geeft; voor harde daken C<sub>hard</sub> = <span data-k="cHard"></span> <span class="st st-N">N</span>. Besloten is uitsluitend de harde dakdelen op de buffer aan te sluiten, omdat afvoerwater van groendaken verkleurd kan zijn<sup class="ref"><a href="#bron-9">[9]</a></sup>: A·C = <span data-k="dakTot"></span> · 0,5 · <span data-k="cHard"></span> = <span data-k="acHard"></span> m² (C<sub>eff</sub> = <span data-k="cHalfHard"></span> over het totale dak). Voor de variant met straatwater is C<sub>straat</sub> = <span data-k="cStraat"></span> <span class="st st-N">N</span> over <span data-k="verhardStraat"></span> m², wat A·C = <span data-k="tsAC"></span> m² geeft.</p>
+  </div>
+  <div class="cols">
+    <figure class="panel"><div id="hourChart"></div><figcaption>Figuur 1 – Gemiddeld waterverbruik per uur, L·h⁻¹, referentiewoning <span class="st st-G">G</span> [1].</figcaption></figure>
+    <figure class="panel"><div id="monthChart"></div><figcaption>Figuur 2 – Gemiddeld waterverbruik per dag per maand, L·d⁻¹ <span class="st st-G">G</span> [1].</figcaption></figure>
+  </div>
+  <figure class="panel"><div id="rainYearChart"></div><figcaption>Figuur 3 – Jaarsom neerslag Heino, <span data-k="dbVan"></span>–<span data-k="dbTot"></span>, mm; stippellijn: gemiddelde <span class="st st-G">G</span> [11].</figcaption></figure>
+</section>
+
+<section id="s4" aria-labelledby="h4s">
+  <h2 class="num" id="h4s">Methode</h2>
+  <h3>4.1 Dagbalans hemelwater</h3>
+  <div class="formula">Q_in,t   [m³]  = (A·C) · P_t / 1000
+S_t            = S_(t−1) + Q_in,t − V_d
+   S_t &gt; S_max  →  O_t = S_t − S_max ;  S_t = S_max     (overloop naar waterberging)
+   S_t &lt; 0      →  B_t = −S_t       ;  S_t = 0         (bijvulling uit drinkwaternet)
+S_max          = n_woningen · V_tank
+Dekking_jaar   = 1 − Σ_jaar B_t / Σ_jaar V_d
+S_0            = S_max / 2 op 1994-01-01 (v0.8; was 1992-01-01); S loopt door over jaargrenzen</div>
+  <div class="read" style="display:grid;gap:8px">
+    <p class="note">t: dag; A·C: effectief afwaterend oppervlak (m²); P_t: neerslag (mm); V_d: regenwatervraag per dag (m³); S: bufferinhoud (m³); O: overloop; B: bijvulling.</p>
+    <p>Ontbrekende dagwaarden en RH = −1 (&lt; 0,05 mm) zijn als 0 mm behandeld (conservatief). Sinds v0.8 wordt de dagbalans in de browser doorgerekend op de dagreeks in <code>hanzedorp-weer.js</code> (controlesommen per jaar); het eerder voorgerekende raster in <code>hanzedorp-dagbalans.js</code> (start 1992) wijkt hooguit circa 1 procentpunt af en wordt alleen nog voor het neerslagtekort gebruikt. Een buffer per woning en een centrale buffer met gelijk totaalvolume zijn hydrologisch equivalent indien alle harde dakdelen op de buffer(s) afwateren.</p>
+    <p><b>Regenwatervraag.</b> V_d = Σ<sub>type</sub> n<sub>type</sub> · V<sub>type</sub> · a. Scenario <i>zoals gemeten</i>: V<sub>type</sub> = bewoners × <span data-k="lpp"></span> L·d⁻¹; a uit de eigen meting (toilet <span data-k="tlPct"></span> %, wasmachine <span data-k="wmPct"></span> %). Scenario <i>landelijk</i>: V<sub>type</sub> volgens CBS per huishoudgrootte; a<sub>toilet</sub> = 23,6 %, a<sub>wasmachine</sub> = 13,7 %<sup class="ref"><a href="#bron-7">[7]</a></sup>. Jaarvraag zoals gemeten: toilet <span data-k="vraagT"></span> m³, toilet en wasmachine <span data-k="vraagTW"></span> m³.</p>
+  </div>
+  <h3>4.2 Bergingseis, beregeningsbehoefte en kosten</h3>
+  <div class="formula">V_berging [m³]    = ΔA_verhard · h_berging / 1000          (h_berging = 92 mm; ΔA_verhard ≥ 500 m²)
+NT_jaar   [mm]    = max_t Σ_(1 apr..t) max(0, EV24 − RH)   (t ≤ 30 sep)
+V_beregening [m³] = NT_jaar · 10 · A_tuin [ha]
+T_terug [a]       = I_woning / (V_bespaard,woning · p_drinkwater)</div>
+  <p class="read note">De beregeningsbehoefte is benaderd als het potentieel neerslagtekort met gewasfactor 1 zonder bodemvochtbuffer (indicatieve bovengrens). De kostenvergelijking is statisch, zonder rente, onderhoud of energie voor pompen.</p>
+  <h3>4.3 Maandbalans (ter vergelijking)</h3>
+  <p class="read">Dezelfde hemelwaterbalans met tijdstap één maand op de klimaatnormalen<sup class="ref"><a href="#bron-5">[5]</a></sup>, twee jaar doorgerekend; uitsluitend om de invloed van de tijdresolutie te kwantificeren (§6.4).</p>
+  <h3>4.4 Bewonersmodel: aanwezigheid, levensfase en urinoir (v0.8)</h3>
+  <div class="read" style="display:grid;gap:8px">
+    <p>Het waterverbruik per persoon wordt gesplitst in een deel dat onafhankelijk is van aanwezigheid overdag en een deel dat evenredig is met de gemiddelde aanwezigheid overdag p̄ (werkdagen 9–16 u; weekend als aanwezig verondersteld). De parameters zijn afgeleid uit de meetdata op aanwezigheidsdagen (dagverbruik ≥ 40 L; 350 van 364 dagen)<sup class="ref"><a href="#bron-1">[1]</a></sup> en de opgave van de aanwezigheid in het meetjaar<sup class="ref"><a href="#bron-29">[29]</a></sup>: gemiddeld <span data-k="bWerk"></span> L·d⁻¹ op werkdagen (1,2 persoon overdag thuis) en <span data-k="bWeekend"></span> L·d⁻¹ in het weekend (4 personen).</p>
+    <div class="formula">ΔL / Δp     = (L_weekend − L_werkdag) / (4 − 1,2) = <span data-k="bDag"></span> L·d⁻¹ per persoon        [A]
+L_vol       = L_weekend / 4 = 93,5 L·d⁻¹ ;  L_basis = L_vol − ΔL/Δp = <span data-k="bBasis"></span> L·d⁻¹   [A]
+p̄_werkend   = (d_thuis + 2) / 7 ;  p̄_school = 2/7 ;  p̄_pensioen = 1
+L_persoon   = (L_basis + ΔL/Δp · p̄) · f_vak ;  f_vak = 311,7 / 324,2 = <span data-k="bVak"></span>           [G]
+n_klein     = n_klein,vol · (1 − φ + φ·p̄) · f_vak ;  φ = 7/16 (dagdeel van wakkere uren)     [N]
+n_klein,vol = 10 / Σ(1 − φ + φ·p̄_i) = <span data-k="bKlein"></span> ;  n_groot,vol = 4 / Σ(…) = <span data-k="bGroot"></span>
+V_toilet    = n_klein · [u·V_urinoir + (1 − u)·V_klein] + n_groot · V_groot
+               V_klein = 4,5 L ; V_groot = 11 L ; V_urinoir = 0,5 L ; u = 0 of <span data-k="bU"></span> (aandeel kleine spoelingen via urinoir)  [N]</div>
+    <p>Rollen per woningtype en levensfase (start, +10 jaar, +20 jaar) en het aantal thuiswerkdagen zijn scenario-invoer (Tabel 10)<sup class="ref"><a href="#bron-29">[29]</a></sup>. De variant <i>gemiddeld in NL</i> schaalt totaal, toilet en wasmachine met de verhouding CBS-vierpersoonshuishouden / referentiehuishouden<sup class="ref"><a href="#bron-7">[7]</a></sup> (factoren <span data-k="bKcbs"></span>). De regenwatervraag voedt de dagbalans van §4.1, die sinds v0.8 live in de browser wordt doorgerekend op de dagreeks in <code>hanzedorp-weer.js</code> (controlesommen per jaar).</p>
+  </div>
+</section>
+
+<section id="s5" aria-labelledby="h5s">
+  <h2 class="num" id="h5s">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInvoer">
+    <caption>Tabel 1 – Invoerparameters met waarde, eenheid, status en bron.</caption>
+    <thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron / toelichting</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section id="s6" aria-labelledby="h6s">
+  <h2 class="num" id="h6s">Resultaten</h2>
+  <h3>6.1 Verdeling van het verbruik</h3>
+  <div class="scroll"><table id="tblVerdeling">
+    <caption>Tabel 2 – Waterverbruik per toepassing, referentiewoning, per jaar.</caption>
+    <thead><tr><th>Toepassing</th><th class="num">Gebruik/jaar</th><th class="num">L per gebruik</th><th class="num">m³/jaar</th><th class="num">Aandeel</th><th>Status</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3>6.2 Dekking per toepassing en buffervolume</h3>
+  <div class="scroll"><table id="tblToep">
+    <caption>Tabel 3 – Gemiddelde jaardekking (%) volgens de dagbalans, opvang van de harde dakdelen, scenario zoals gemeten [11]. Tussen haakjes: landelijk verbruik. Omkaderd: buffer 5 m³ per woning.</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+  <div class="scroll"><table id="tblToepDet">
+    <caption>Tabel 4 – Toilet en wasmachine, harde dakdelen: jaardekking (%) en gemiddelde jaarlijkse bijvulling en overloop (m³), zoals gemeten.</caption>
+    <thead><tr><th>Buffer per woning</th><th class="num">Centraal (m³)</th><th class="num">Gem.</th><th class="num">P10</th><th class="num">Min. (jaar)</th><th class="num">Bijvullen</th><th class="num">Overloop</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="read">Bij opvang van alleen de harde dakdelen is de gemiddelde jaarlijkse dakafvoer (circa <span data-k="opbrHard"></span> m³) kleiner dan de vraag van toiletspoeling en wasmachine samen (<span data-k="vraagTW"></span> m³). De dekking is daardoor begrensd op circa <span data-k="tw5"></span> %, en een buffer boven circa 2 m³ per woning (<span data-k="tw2"></span> % bij 2 m³) levert geen extra dekking op. Voor alleen toiletspoeling (<span data-k="vraagT"></span> m³) is het aanbod eveneens krap; de dekking neemt toe tot circa <span data-k="t5"></span> % bij 5 m³ per woning.</p>
+
+  <h3>6.3 Dekking per jaar</h3>
+  <figure class="panel">
+    <div class="legend"><span><i style="background:var(--water)"></i>Alleen toilet</span><span><i style="background:var(--rain)"></i>Toilet en wasmachine</span><span><i style="background:var(--clay)"></i>Jaarneerslag (mm)</span></div>
+    <div id="jaarChart"></div>
+    <figcaption>Figuur 4 – Jaardekking volgens de dagbalans (harde dakdelen, buffer 5 m³ per woning, zoals gemeten) en jaarneerslag Heino [11].</figcaption>
+  </figure>
+
+  <h3>6.4 Invloed van de tijdresolutie</h3>
+  <div class="scroll"><table id="tblRes">
+    <caption>Tabel 5 – Gemiddelde dekking volgens de dagbalans (31 jaren) en de maandbalans (klimaatnormalen), toilet en wasmachine, harde dakdelen.</caption>
+    <thead><tr><th>Buffer per woning</th><th class="num">Dagbalans</th><th class="num">Maandbalans</th><th class="num">Verschil</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="read">De maandbalans middelt droge perioden binnen een maand uit en overschat de dekking, het sterkst bij kleine buffers. Voor de dimensionering is de dagbalans leidend.</p>
+
+  <h3>6.5 Investering en besparing (indicatief)</h3>
+  <div class="scroll"><table id="tblKosten">
+    <caption>Tabel 6 – Investering per woning (systeem 5.000 L, inclusief installatie) [17], besparing op drinkwater bij € <span data-k="prijs"></span> per m³ [9] en enkelvoudige terugverdientijd; buffer 5 m³ per woning, zoals gemeten.</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+  <p class="read">De besparing op drinkwater bedraagt circa € 50–90 per woning per jaar. De terugverdientijd overschrijdt in alle varianten ruimschoots de technische levensduur van de installatie. Kostenramingen voor kleinere buffers (die bij opvang van alleen de harde dakdelen volstaan) en voor een centrale buffer met leidingen ontbreken; deze kunnen de investering verlagen, maar niet in die mate dat het systeem op financiële gronden rendabel wordt. De motivering van hemelwatergebruik ligt daarom in klimaatadaptatie, droogtebestendigheid en ecologie.</p>
+
+  <h3>6.6 Bergingseis waterschap</h3>
+  <p class="read">Het waterschap Drents Overijsselse Delta hanteert sinds 24 oktober 2025 een bergingseis van <span data-k="wsBerging"></span> mm per m² toename verhard oppervlak bij een toename van ten minste <span data-k="wsDrempel"></span> m², gebaseerd op een toetsbui van <span data-k="wsBui"></span> mm in <span data-k="wsBuiUur"></span> uur (T = 100), minus 14 mm afvoer en 3 mm berging op daken en straten<sup class="ref"><a href="#bron-15">[15]</a></sup>; dit vervangt de eerdere eis van <span data-k="ws2024"></span> mm<sup class="ref"><a href="#bron-14">[14]</a></sup>. Infiltratie telt niet mee; ondergrondse berging alleen boven de GHG<sup class="ref"><a href="#bron-14">[14]</a></sup>. Groendaken worden in beide documenten niet behandeld. Landelijk telt <span data-k="gdJa"></span> % van de waterschappen groendaken altijd mee als onverhard, <span data-k="gdJaMits"></span> % onder voorwaarden, <span data-k="gdNeeTenzij"></span> % alleen na aantonen en <span data-k="gdNee"></span> % nooit (n = <span data-k="gdN"></span>)<sup class="ref"><a href="#bron-16">[16]</a></sup>. Voor Hanzedorp (<span data-k="dakTot"></span> m² dak en <span data-k="verhardStraat"></span> m² overige verharding) volgt V<sub>berging</sub> = <span data-k="bergMax"></span> m³ indien groendak als verhard telt, en <span data-k="bergMin"></span> m³ indien groendak als onverhard telt. Hemelwaterbuffers voor hergebruik zijn grotendeels gevuld en tellen naar verwachting niet als berging.</p>
+
+  <h3>6.7 Beregeningsbehoefte tuinderij</h3>
+  <figure class="panel">
+    <div id="tekortChart"></div>
+    <figcaption>Figuur 5 – Potentieel neerslagtekort 1 april – 30 september per jaar (mm), Heino [11]; stippellijn: mediaan. 1 mm = 10 m³·ha⁻¹.</figcaption>
+  </figure>
+  <p class="read">Het mediane potentiële neerslagtekort bedraagt <span data-k="tekMed"></span> mm (P90 <span data-k="tekP90"></span> mm; maximum <span data-k="tekMax"></span> mm in 2022), voor <span data-k="tuinHa"></span> ha overeenkomend met circa <span data-k="tuinMed"></span> m³ in een mediaan jaar en <span data-k="tuinP90"></span> m³ in een droog jaar. Dit overschrijdt de jaarlijkse afvoer van de harde dakdelen ruim. In de variant met straatwater stroomt bij 5 m³ per woning gemiddeld circa <span data-k="ts5over"></span> m³ per jaar over naar de waterberging; via de berging kan dit water bijdragen aan de beregening, mits kwaliteit en vergunningen dit toelaten.</p>
+
+  <h3>6.8 Warm tapwater (indicatief)</h3>
+  <p class="read">In de zomermaanden verwarmt de lucht-waterwarmtepomp van de referentiewoning uitsluitend tapwater; het elektriciteitsverbruik bedraagt dan circa <span data-k="wwKwhDag"></span> kWh·d⁻¹, ofwel circa <span data-k="wwKwhJaar"></span> kWh per jaar <span class="st st-A">A</span><sup class="ref"><a href="#bron-3">[3]</a></sup>. In een passiefhuis bedraagt de netto warmtevraag voor ruimteverwarming ten hoogste <span data-k="phRv"></span> kWh·m⁻²·a⁻¹, waardoor warm tapwater de dominante warmtevraag wordt<sup class="ref"><a href="#bron-8">[8]</a></sup>.</p>
+
+  <h3>6.9 Bewonersscenario's, thuiswerk en urinoir</h3>
+  <div class="scroll"><table id="tblScen">
+    <caption>Tabel 10 – Watervraag en jaardekking (buffer 5 m³ per woning, harde dakdelen) per levensfase, thuiswerkvariant en urinoir; verbruik zoals het referentiehuishouden. Vet: referentiescenario.</caption>
+    <thead><tr><th>Levensfase</th><th>Thuiswerk</th><th>Urinoir</th><th class="num">Bewoners</th><th class="num">m³·a⁻¹</th><th class="num">Toilet (m³·a⁻¹)</th><th class="num">Dekking toilet (%)</th><th class="num">Dekking toilet + was (%)</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="read">Een urinoir (0,5 L per spoeling, aandeel <span data-k="bU"></span> van de kleine spoelingen) verlaagt de toiletvraag met circa <span data-k="uPct"></span> % en verhoogt de gemiddelde dekking van de toiletspoeling bij 5 m³ per woning van <span data-k="t5"></span> % naar <span data-k="tU5"></span> %; voor toilet en wasmachine van <span data-k="tw5"></span> % naar <span data-k="twU5"></span> %. Meer thuiswerken verhoogt de vraag en verlaagt de dekking; het vertrek van kinderen (levensfase +10 jaar) verlaagt de vraag sterk. Het aantal bewoners is daarmee een belangrijkere variabele dan de aanwezigheid overdag.</p>
+
+  <h3>6.10 Straatwater: literatuurverkenning</h3>
+  <div class="read" style="display:grid;gap:8px">
+    <p><b>Kwaliteit.</b> In de Nederlandse database van afstromend hemelwater (1.742 monsters, 191 locaties) valt afstroming van wegen in woongebieden in de laagste vuilcategorie; deze mag in de meeste gevallen zonder zuivering worden geïnfiltreerd, mits de bodem voldoende adsorptiecapaciteit heeft (≥ 1 % humus en ≥ 1 % lutum). Wel worden in wadibodems na jaren van infiltratie gehalten aan lood, koper en zink boven de interventiewaarden aangetroffen, vooral nabij inlaatpunten; het rapport noemt autowassen als bewonersgedrag met negatieve invloed, zonder kwantificering<sup class="ref"><a href="#bron-25">[25]</a></sup>.</p>
+    <p><b>Zuivering.</b> Voor stormwater-wetlands is de mediane verwijdering 76 % voor zwevende stof, 49 % voor totaal-fosfor, 35 % voor opgelost fosfor, 40 % voor koper en 44 % voor zink<sup class="ref"><a href="#bron-26">[26]</a></sup>. Een helofytenfilter halveert de fosfaatvracht dus ongeveer, maar verwijdert deze niet; dat onderbouwt het advies om afstromend water niet in een zwemvijver te leiden<sup class="ref"><a href="#bron-22">[22]</a></sup>.</p>
+    <p><b>Voedselteelt.</b> In een experiment met beregening van groenten met (synthetisch) stedelijk afstromend water overschreed lood in boon en bietenblad de voedselnorm al bij onbelaste bodem; boerenkool bleef onder de detectiegrens. De auteurs achten beregening haalbaar bij geschikte gewaskeuze, regelmatig omzetten of verversen van de bodem en voorbehandeling van het water<sup class="ref"><a href="#bron-27">[27]</a></sup>.</p>
+    <p><b>Autowassen.</b> Een verbod op autowassen op straat is gemeentelijk geregeld (APV); bij een gescheiden stelsel komt waswater ongezuiverd in grond- of oppervlaktewater<sup class="ref"><a href="#bron-28">[28]</a></sup>. Voor Hanzedorp ligt een eigen afspraak (geen autowassen op verharding die op de tuinvijver afwatert, of een wasplaats op het vuilwaterriool) voor de hand.</p>
+    <p><b>Interpretatie.</b> Straatwater is niet geschikt voor gebruik in de woning of in de zwemvijver. Na een helofytenfilter is inzet voor tuin- en akkerberegening verdedigbaar, onder voorwaarden van gewaskeuze en monitoring van water en bodem. Specifieke Nederlandse normen voor hergebruik van afstromend wegwater in voedselteelt zijn in deze verkenning niet gevonden; dit wordt in de controleursfase verder onderzocht.</p>
+  </div>
+</section>
+
+<section id="s6b" aria-labelledby="h6b">
+  <h2 class="num" id="h6b">Drinkwater: inkoop, aansluitcapaciteit en hydrauliek</h2>
+  <p class="read">Vraag (opgave [126]): kan Hanzedorp met één drinkwateraansluiting functioneren, hoeveel drinkwater wordt wanneer ingekocht en welke maatregelen houden druk en debiet op peil? Systeemgrens: aansluiting Vitens in het buurthuis → submeters per woning → dorpsleiding langs de rondweg → woningen; buurthuis meegenomen als <span id="tBh"></span> m³·d⁻¹ (S).</p>
+  <div class="formula">Dagvolume: V<sub>dw,t</sub> = V<sub>basis</sub> + B<sub>t</sub>,   V<sub>basis</sub> = Σ (q<sub>tot</sub> − q<sub>toilet</sub> − q<sub>was</sub>) + V<sub>buurthuis</sub>
+B<sub>t</sub> = max(0, −(S<sub>t−1</sub> + A·C·P<sub>t</sub>/1000 − V<sub>regen</sub>))   (tekort regenwatertank, zie § 4)
+Uurprofiel: Q<sub>h</sub> = V<sub>dw</sub> · u<sub>h</sub> / Σu   (u<sub>h</sub> = gemeten uurgemiddelde referentiewoning [1])
+Momentaan ontwerpdebiet (KWR 06.104 [125]): MMV<sub>dorp</sub> = a + b·n, n &lt; 15;  laag a = 0,36, b = 0,030;  hoog a = 0,70, b = 0,090 l·s⁻¹
+Drukverlies: Δp = f · L/d · ρv²/2, f volgens Swamee-Jain (PE, k = 0,007 mm, ν = 1,31·10⁻⁶ m²·s⁻¹)</div>
+  <div class="scroll"><table id="tDw"><caption>Tabel D1 – Drinkwaterinkoop (A; KNMI Heino 1994–2025, tank <span id="tTank"></span> m³ per woning, urinoir).</caption><thead><tr><th>Bewoners</th><th class="num">V<sub>basis</sub> (m³·d⁻¹)</th><th class="num">Bijkoop gem. (m³·a⁻¹)</th><th class="num">Totaal gem. (m³·a⁻¹)</th><th class="num">Max. dag (m³)</th><th class="num">Droogste jaar: bijkoop (m³) / dagen</th><th class="num">Kosten (€·a⁻¹)</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tCap"><caption>Tabel D2 – Ontwerpdebiet en aansluitcapaciteit (G [124], A [125]).</caption><thead><tr><th>Grootheid</th><th class="num">Waarde</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tHyd"><caption>Tabel D3 – Dorpsleiding bij MMV hoog, L = <span id="tL"></span> m (S).</caption><thead><tr><th>Leiding (PE100 SDR11, d<sub>uitw</sub>)</th><th class="num">d<sub>i</sub> (mm)</th><th class="num">v (m·s⁻¹)</th><th class="num">Δp (kPa)</th><th>Beoordeling</th></tr></thead><tbody></tbody></table></div>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Interpretatie.</b> Het dagvolume (2–4 m³) is geen beperking: een aansluiting van 6 m³·h⁻¹ levert dat in minder dan een uur. Bepalend is het momentane debiet bij gelijktijdig gebruik. Een standaard woningaansluiting (Q3 2,5; nominaal <span id="tStd"></span> m³·h⁻¹) volstaat niet voor 12 woningen. Advies: hoofdaansluiting 10 m³·h⁻¹ (marge voor buurthuis en de hoge MMV-schatting); 6 m³·h⁻¹ alleen bij zuinige tappunten.</li>
+    <li><b>Druk.</b> NEN 1006 vraagt een voldoende dynamische druk aan het tappunt (orde 100 kPa; waarde te verifiëren). Beschikbaar = leveringsdruk Vitens (op te vragen) − verlies aansluiting/meter/keerklep − Δp dorpsleiding − hoogteverschil (gelijkvloers ≈ 0). Bij PE63 blijft Δp beperkt; drukverhoging (hydrofoor met klein membraanvat) alleen als de leveringsdruk onvoldoende blijkt; geen open buffertank (stilstand, legionella).</li>
+    <li><b>Terugstroombeveiliging.</b> Bijvulling van regenwatertanks met drinkwater uitsluitend via onderbroken uitloop (luchtonderbreking, type AA/AB – Waterwerkblad 1.4); per woning keerklep (EA) na de submeter; geen verbinding tussen regenwater- en drinkwaterinstallatie.</li>
+    <li><b>Temperatuur en stilstand.</b> Koud water ≤ 25 °C (Vitens aansluitvoorwaarden 3.3.4 [127]): dorpsleiding op vorstvrije diepte, niet naast stroomkabels; geen doodlopende leidingdelen; ring- of lusleiding verdient voorkeur.</li>
+    <li><b>Vraagsturing.</b> EMS plant vaatwasser en wasmachine bij voorkeur tussen 11 en 16 u (zonne-overschot); dat verlaagt ook de ochtendpiek.</li>
+  </ul>
+  <div class="scroll"><table><caption>Tabel D4 – Risico's en toetsing drinkwater.</caption><thead><tr><th>Eis / risico</th><th>Kader</th><th>Maatregel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Meerdere grondgebonden woningen achter één aansluiting</td><td>Vitens aansluitvoorwaarden [127]; Drinkwaterwet</td><td>Vooroverleg Vitens; collectieve installatie in beheer van de eigenaren; submeters per woning</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Onvoldoende debiet bij gelijktijdig gebruik</td><td>NEN 1006; KWR 06.104 [125]</td><td>Hoofdaansluiting 10 m³·h⁻¹; dorpsleiding PE63</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Terugstroming regenwater <b>[volksgezondheid]</b></td><td>NEN 1006; Waterwerkblad 1.4</td><td>Luchtonderbreking bij bijvulling; keerklep per woning; jaarlijkse controle</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Legionella door opwarming of stilstand <b>[volksgezondheid]</b></td><td>Vitens 3.3.4 [127]; Drinkwaterbesluit</td><td>Diepteligging, afstand kabels, geen dode einden, geen buffertank</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Verrekening per woning</td><td>Meetinstrumentenwet (MID)</td><td>Gecertificeerde submeters (MID MI-001)</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s7" aria-labelledby="h7s">
+  <h2 class="num" id="h7s">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table class="heat" id="tblHeat">
+    <caption>Tabel 7 – Gemiddelde jaardekking (%) voor toilet en wasmachine als functie van de effectieve afvoercoëfficiënt C<sub>eff</sub> over het totale dak (rijen) en het buffervolume per woning in m³ (kolommen), zoals gemeten. Omkaderd: gekozen opzet (alleen harde dakdelen).</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+  <div class="read" style="display:grid;gap:10px">
+    <p>Het afwaterend oppervlak dat op de buffer is aangesloten, is de belangrijkste ontwerpvariabele. Bij C<sub>eff</sub> ≤ 0,55 is de jaarlijkse dakafvoer kleiner dan de vraag en vlakt de dekking af, ongeacht het buffervolume; een groter buffervolume compenseert dan geen structureel jaartekort. Opvang van ook het groendak (C<sub>eff</sub> = 0,65) zou de dekking bij 5 m³ verhogen tot circa 90 %, maar is om kwaliteitsredenen uitgesloten. De keuze van toepassing (alleen toilet of ook wasmachine) en het eventueel benutten van straatwater bepalen vervolgens de haalbare dekking (tabel 3).</p>
+  </div>
+</section>
+
+<section id="s8" aria-labelledby="h8s">
+  <h2 class="num" id="h8s">Validatie</h2>
+  <div class="scroll"><table id="tblVal">
+    <caption>Tabel 8 – Vergelijking van afgeleide grootheden met onafhankelijke referenties.</caption>
+    <thead><tr><th>Grootheid</th><th class="num">Dit onderzoek</th><th class="num">Referentie</th><th>Beoordeling</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="read">Het totale verbruik ligt circa 30 % onder het landelijke gemiddelde voor vierpersoonshuishoudens. De afgeleide aandelen van wasmachine en vaatwasser komen goed overeen met CBS-waarden. Het hogere toiletaandeel is verenigbaar met het lagere totaalverbruik en het spoelvolume van 11 L. Het gemiddelde van de dagreeks wijkt minder dan 1 % af van de klimaatnormaal.</p>
+</section>
+
+<section id="s9" aria-labelledby="h9s">
+  <h2 class="num" id="h9s">Toetsingskader</h2>
+  <div class="scroll"><table>
+    <caption>Tabel 9 – Relevante kaders en status van de toetsing.</caption>
+    <thead><tr><th>Kader</th><th>Onderwerp</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>WDOD, richtlijn bergingsopgave nieuwe ontwikkelingen (2025) [15]</td><td>Berging 92 mm per m² toename verharding bij ≥ 500 m²; toetsbui 109 mm in 24 uur</td><td><span class="pill s-onderzocht">verwerkt</span></td></tr>
+      <tr><td>WDOD, Uitgangspunten Wateradvies 2024 [14]</td><td>Afvoer ≤ 1,6 L·s⁻¹·ha⁻¹; infiltratie telt niet; vloerpeil ≥ 80 cm boven GHG; drempel 30 cm boven straatpeil</td><td><span class="pill s-onderzocht">verwerkt</span></td></tr>
+      <tr><td>Idem</td><td>Waardering groendaken in de bergingseis</td><td><span class="pill s-idee">af te stemmen</span></td></tr>
+      <tr><td>Drinkwaterwet / Drinkwaterbesluit</td><td>Collectieve levering van water dat geen drinkwater is (centrale buffer)</td><td><span class="pill s-idee">te toetsen</span></td></tr>
+      <tr><td>Besluit bouwwerken leefomgeving (Bbl)</td><td>Drinkwater- en hemelwatervoorzieningen; tapwatertemperatuur</td><td><span class="pill s-idee">te toetsen</span></td></tr>
+      <tr><td>NEN 1006 en Waterwerkbladen</td><td>Scheiding drinkwater- en hemelwaterinstallatie, markering, terugstroombeveiliging, bijvulling via vrije uitloop</td><td><span class="pill s-idee">te toetsen</span></td></tr>
+      <tr><td>Omgevingsverordening provincie Overijssel</td><td>Grondwateronttrekking (boorput, beregening tuinderij)</td><td><span class="pill s-idee">te toetsen</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s10" aria-labelledby="h10s">
+  <h2 class="num" id="h10s">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Groendak en hemelwatergebruik.</b> Door alleen harde dakdelen aan te sluiten wordt verkleuring vermeden, maar halveert het aangesloten oppervlak. Groendaken dragen wel bij aan piekreductie, verkoeling en biodiversiteit, en mogelijk aan de bergingseis.</li>
+    <li><b>Straatwater.</b> Zie §6.10. De variant met straatwater voor toilet en wasmachine is uitsluitend ter vergelijking opgenomen; toepassing is beperkt tot beregening via een aparte vijver na een helofytenfilter (zie <a href="tuinwater-technisch.html">zwemvijver en tuinwater</a>).</li>
+    <li><b>Bewonersmodel.</b> De splitsing in aanwezigheidsafhankelijk en -onafhankelijk verbruik berust op één huishouden en op de aanname dat het weekendverschil volledig door aanwezigheid wordt verklaard; ook wasbeurten en douchegedrag kunnen in het weekend afwijken. De herkenning van spoelingen in de kwartierdata (circa <span data-k="bHerkK"></span> kleine en <span data-k="bHerkG"></span> grote per dag) is indicatief en ligt onder de opgave (10 en 4), mede omdat spoelingen in hetzelfde kwartier samenvallen met ander gebruik. Het referentiehuishouden is bovengemiddeld zuinig; met name voor jongeren en senioren ligt het CBS-verbruik per persoon hoger.</li>
+    <li><b>Kosten.</b> De prijsindicaties betreffen systemen van 5.000 L en zijn niet geverifieerd<sup class="ref"><a href="#bron-17">[17]</a></sup>. Een regenwaterzak vereist een kruipruimte van ten minste 50 cm; bij prefab passiefhuizen is niet vastgesteld of die aanwezig is.</li>
+    <li><b>Representativiteit.</b> De watervraag is gebaseerd op één huishouden; het scenario <i>landelijk</i> geeft een conservatieve bovengrens.</li>
+    <li><b>Beregeningsbehoefte.</b> Het potentieel neerslagtekort met gewasfactor 1 is een indicatieve bovengrens.</li>
+    <li><b>Klimaat en ruimte.</b> Klimaatscenario's zijn niet doorgerekend; de reeks is niet gehomogeniseerd<sup class="ref"><a href="#bron-11">[11]</a></sup>. Vergelijking met de neerslagstations Zwolle, Dalfsen en Wijhe staat open.</li>
+  </ul>
+</section>
+
+<section id="s11" aria-labelledby="h11s">
+  <h2 class="num" id="h11s">Conclusies</h2>
+  <ol class="read" style="margin:0;padding-left:1.3em;display:grid;gap:8px">
+    <li>Toiletspoeling en wasmachine vormen circa <span data-k="regenPct"></span> % van het gemeten huishoudelijk waterverbruik.</li>
+    <li>Bij opvang van alleen de harde dakdelen dekt hemelwater gemiddeld circa <span data-k="t5"></span> % van de toiletspoeling of <span data-k="tw5"></span> % van toiletspoeling en wasmachine samen (buffer 5 m³ per woning, zoals gemeten). In het laatste geval volstaat een buffer van circa 2 m³ per woning.</li>
+    <li>Benutting van straatwater zou de dekking tot circa <span data-k="ts5"></span> % verhogen, maar vereist een kwaliteitsbeoordeling.</li>
+    <li>De bergingseis bedraagt <span data-k="wsBerging"></span> mm per m² toename verharding: <span data-k="bergMin"></span>–<span data-k="bergMax"></span> m³ voor Hanzedorp, afhankelijk van de waardering van groendaken.</li>
+    <li>De beregeningsbehoefte van de tuinderij (mediaan circa <span data-k="tuinMed"></span> m³ per jaar) vereist een afzonderlijke bron.</li>
+    <li>Een urinoir in elke woning verlaagt de toiletvraag met circa <span data-k="uPct"></span> % en verhoogt de dekking van de toiletspoeling met hemelwater tot circa <span data-k="tU5"></span> %.</li>
+    <li>De watervraag hangt sterker af van het aantal bewoners (levensfase) dan van thuiswerken; het rekenmodel bevat schakelaars voor beide.</li>
+    <li>De besparing op drinkwater weegt niet op tegen de investering; hemelwatergebruik is te motiveren vanuit klimaatadaptatie en ecologie. Een bijvulvoorziening uit het drinkwaternet is in alle varianten noodzakelijk.</li>
+  </ol>
+</section>
+
+<section id="s12" aria-labelledby="h12s">
+  <h2 class="num" id="h12s">Openstaande gegevens</h2>
+  <ol class="open read">
+    <li>Keuze toepassing: alleen toilet, of toilet en wasmachine.</li>
+    <li>Straatwater: aparte tuinvijver met helofytenfilter (keuze), monitoring en afspraken over autowassen.</li>
+      <li>Keuze urinoir (wel/niet; type) en onderbouwing van het spoelvolume 0,5 L met fabrikantgegevens.</li>
+      <li>Verwachte bewonerssamenstelling per woningtype (thans opgave levensfase; huishoudgrootte senioren op termijn).</li>
+    <li>Waardering van groendaken in de bergingseis (afstemming waterschap).</li>
+    <li>Kosten van kleinere buffers en van een centrale buffer met leidingen in de infrasleuf; aanwezigheid van een kruipruimte.</li>
+    <li>Grondwaterstand (GHG) en bodemopbouw: te bepalen na locatiekeuze.</li>
+    <li>Waterbehoefte van de tuinderij volgens de tuinder; waterbehoefte buurthuis.</li>
+    <li>Vergelijking van Heino met de neerslagstations Zwolle, Dalfsen en Wijhe.</li>
+  </ol>
+</section>
+
+<section id="s13" aria-labelledby="h13s">
+  <h2 class="num" id="h13s">Literatuur en bronnen</h2>
+  <ol class="src" id="bronnen"></ol>
+</section>
+
+<section id="s14" aria-labelledby="h14s">
+  <h2 class="num" id="h14s">Versiebeheer</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead>
+    <tbody>
+      <tr><td>0.16</td><td>27-10-2026</td><td>Drinkwater: dagelijkse inkoop (basis + bijkoop bij leeg regenwater), uurprofiel, aansluitcapaciteit Vitens, ontwerpdebiet (KWR 06.104), dorpsleiding en maatregelen; drinkwaterprijs Vitens 2026 € 1,82/m³ i.p.v. aanname € 2,50 (opgave [126]).</td><td data-k="auteur"></td></tr>
+      <tr><td>0.14</td><td>27-10-2026</td><td>Toepassing vast: toilet + wasmachine; straatwatervariant uit het rekenmodel; schema aangepast (groendak → tuinvijver, straat/tuin → infiltratiekratten, afvalwater altijd riool, helofytenfilter alleen voor grondwater).</td><td>Melvin de Vries (besluit [68]); uitwerking met Claude</td></tr>
+      <tr><td>0.1–0.4</td><td>23-10-2026</td><td>Meetdata, maand- en dagbalans, splitsing basis/technisch, raster buffer × dakoppervlak</td><td data-k="auteur"></td></tr>
+      <tr><td>0.5</td><td>23-10-2026</td><td>15 woningen (9/3/3); gemeten toiletfrequentie; daktypes met groendak; bergingseis; tuinderij; drinkwaterbesparing</td><td data-k="auteur"></td></tr>
+      <tr><td>0.6</td><td>23-10-2026</td><td>Alleen harde dakdelen; toepassingen (toilet / toilet en wasmachine / met straatwater) als keuze; buffer per woning en centraal; kosten en terugverdientijd; bergingseis 92 mm (WDOD 2025) met waardering groendaken</td><td data-k="auteur"></td></tr>
+      <tr><td>0.8</td><td>24-10-2026</td><td>Bewonersmodel met aanwezigheid (thuiswerk, school, pensioen) en levensfase (start, +10, +20 jaar) uit meetdata; urinoir 0,5 L als schakelaar; dagbalans live in de browser op de dagreeks Heino (hanzedorp-weer.js, controlesommen per jaar); literatuurverkenning straatwater (§6.10); zwemvijver alleen regen- en dakwater (Pagan Butler).</td><td data-k="auteur"></td></tr>
+      <tr><td>0.7</td><td>23-10-2026</td><td>Besluit: groendak- en straatwater via voorzuivering naar een natuurlijke zwemvijver voor tuinberegening; straatwatervariant voor toilet en wasmachine alleen ter vergelijking. Uitwerking in <a href="tuinwater-technisch.html">Zwemvijver en tuinwater – technisch</a>.</td><td data-k="auteur"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span>
+  <span>Alle getallen worden berekend uit <code>hanzedorp-data.js</code>, <code>hanzedorp-weer.js</code> en <code>hanzedorp-dagbalans.js</code>; dezelfde databron voedt de basispagina.</span>
+</footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="water-drink.js"></script>
+<script>
+window.addEventListener("load", function () {
+  const { D, nl } = HZ, DW = D.drinkwater, $ = id => document.getElementById(id), prijs = DW.prijsM3 + DW.bolM3, p = WD.piek();
+  $("tBh").textContent = nl(DW.buurthuisM3Dag, 1); $("tTank").textContent = nl(D.tankPerWoning); $("tL").textContent = DW.leidingL; $("tStd").textContent = nl(DW.std.nominaal, 1);
+  $("tDw").querySelector("tbody").innerHTML = [["start", "Bij de start"], ["max", "Theoretisch maximum"]].map(([k, n]) => { const r = WD.reeks({ levensfase: k });
+    return `<tr><td>${n} (${r.q.bewoners})</td><td class="num">${nl(r.basis, 2)}</td><td class="num">${nl(r.gemBij)}</td><td class="num">${nl(r.gemJaar)}</td><td class="num">${nl(r.maxDag, 2)}</td><td class="num">${nl(r.droog.bij)} / ${r.droog.tekortDagen} (${r.droog.jaar})</td><td class="num">${nl(Math.round(r.gemJaar * prijs / 10) * 10)}</td></tr>`; }).join("");
+  $("tCap").querySelector("tbody").innerHTML = [
+    ["MMV per woning, standaard – standaard-plus", nl(DW.mmvWoning.laag, 2) + "–" + nl(DW.mmvWoning.hoog, 2) + " l·s⁻¹", "G [125]"],
+    ["MMV dorp (n = " + HM.nW + "), laag – hoog", nl(p.laag, 2) + "–" + nl(p.hoog, 2) + " l·s⁻¹ = " + nl(p.laag * 3.6, 1) + "–" + nl(p.hoog * 3.6, 1) + " m³·h⁻¹", "A [125]"],
+    ["Standaard woningaansluiting (Q3 2,5)", nl(DW.std.nominaal, 1) + " m³·h⁻¹ nominaal; wettelijk min. " + nl(DW.std.wettelijkMin, 0) + " m³·h⁻¹", "G [124]"],
+    ["Hoofdaansluiting Vitens", DW.hoofd.map(h => h[0]).join(" / ") + " m³·h⁻¹; aanleg € " + DW.hoofd.map(h => nl(h[1])).join(" / "), "G [124]"],
+    ["Alternatief: " + HM.nW + " standaardaansluitingen", "aanleg € " + nl(HM.nW * DW.std.aanleg) + "; vastrecht € " + nl(HM.nW * DW.std.vastrecht) + "·a⁻¹ (één hoofdaansluiting: zakelijk vastrecht – te verifiëren)", "G [124]"],
+    ["Submeters per woning", "€ " + nl(DW.submeter, 2) + " per meter (Vitens-appartementsmeter) of eigen MID-meters", "G [124]"]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+  $("tHyd").querySelector("tbody").innerHTML = [[40, 32.6], [50, 40.8], [63, 51.4], [75, 61.4]].map(([da, di]) => { const h = WD.dp(p.hoog, di);
+    const oord = h.v > DW.vMax ? "te hoge snelheid" : h.kPa > 60 ? "groot drukverlies" : "geschikt";
+    return `<tr><td>${da} mm</td><td class="num">${nl(di, 1)}</td><td class="num">${nl(h.v, 2)}</td><td class="num">${nl(h.kPa)}</td><td class="${oord === "geschikt" ? "ok" : "nok"}">${oord}</td></tr>`; }).join("");
+});
+</script>
+<script>
+(function () {
+  const { D, G, A, dtStd, MND, nl, fmtTank, maandModel, bindAll, renderBronnen, bars } = HZ;
+  /* v0.8: dagbalans live op hanzedorp-weer.js (zelfde methode als het voorgerekende raster, nu met bewonersmodel) */
+  const vM = HM.vraag({}), vC = HM.vraag({ cbs: true });
+  function dagT(toep, scen, tank) {
+    const v = scen === "cbs" ? vC : vM, straat = toep === "toiletWasStraat";
+    const r = HM.tank({ vraag: v.regenvraag(straat ? "toiletWas" : toep), tankPW: tank, AC: straat ? G.toep.toiletWasStraat.AC : undefined });
+    return Object.assign({}, r, { aanv: r.aanvulling, over: r.overloop, bespaardM3: r.vraagJ * r.gem / 100 });
+  }
+  function dag(scen, tank, C) {
+    const v = scen === "cbs" ? vC : vM, r = HM.tank({ vraag: v.regenvraag("toiletWas"), tankPW: tank, AC: HM.dakTot * C });
+    return Object.assign({}, r, { aanv: r.aanvulling, over: r.overloop });
+  }
+  const M = D.meting, nW = A.nWoningen;
+  const B = D.bewoners, HMv0 = HM.vraag({}), HMvU = HM.vraag({ urinoir: true });
+  const tkT = (v, toep, t) => HM.tank({ vraag: v.regenvraag(toep), tankPW: t });
+  const sumT = (1 - B.fDag) * 4 + B.fDag * 2.0;
+  bindAll({
+    bWerk: nl(B.werkdagThuisRef, 1), bWeekend: nl(B.weekendRef, 1), bDag: nl(B.lDag, 1), bBasis: nl(B.lBasis, 1), bVak: nl(B.vakantie, 3),
+    bKlein: nl(B.kleinVol, 2), bGroot: nl(B.grootVol, 2), bU: nl(B.urinoirAandeel, 2),
+    bKcbs: [HM.kCbs.tot, HM.kCbs.toilet, HM.kCbs.was].map(x => nl(x, 2)).join("; "),
+    bHerkK: nl(B.spoelHerkend.klein, 1), bHerkG: nl(B.spoelHerkend.groot, 1),
+    t5: nl(tkT(HMv0, "toilet", 5).gem), tw5: nl(tkT(HMv0, "toiletWas", 5).gem), tU5: nl(tkT(HMvU, "toilet", 5).gem), twU5: nl(tkT(HMvU, "toiletWas", 5).gem),
+    uPct: nl((1 - HMvU.toiletTot / HMv0.toiletTot) * 100)
+  });
+  /* Tabel 10 */
+  (function () {
+    let h = "";
+    D.levensfase.forEach(lf => D.thuiswerk.forEach(tw => [false, true].forEach(u => {
+      const v = HM.vraag({ levensfase: lf.id, thuiswerk: tw.id, urinoir: u });
+      const a = tkT(v, "toilet", 5), b = tkT(v, "toiletWas", 5), ref = lf.id === "start" && tw.id === "ref" && !u;
+      h += `<tr${ref ? ' style="font-weight:600"' : ""}><td>${lf.naam}</td><td>${tw.naam}</td><td>${u ? "ja" : "nee"}</td><td class="num">${v.bewoners}</td><td class="num">${nl(v.m3Jaar)}</td><td class="num">${nl(v.toiletTot * 365 / 1000)}</td><td class="num">${nl(a.gem, 1)}</td><td class="num">${nl(b.gem, 1)}</td></tr>`;
+    })));
+    document.querySelector("#tblScen tbody").innerHTML = h;
+  })();
+  renderBronnen(document.getElementById("bronnen"));
+  const st = s => `<span class="st st-${s}">${s}</span>`;
+  const ref = (...ids) => ids.map(i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`).join("");
+
+  bars(document.getElementById("hourChart"), { labels: [...Array(24).keys()].map(h => String(h).padStart(2, "0")), labelEvery: 3, unit: "L/h", series: [{ name: "water", values: M.uurL, color: "var(--water)", dec: 1 }] });
+  bars(document.getElementById("monthChart"), { labels: MND, unit: "L/d", series: [{ name: "water", values: M.maandLpd, color: "var(--water)" }] });
+  bars(document.getElementById("rainYearChart"), { labels: G.years.map(String), labelEvery: 3, unit: "mm", ref: D.dagbalans.mmGemiddeld, height: 220, series: [{ name: "neerslag", values: G.jaarMm, color: "var(--rain)" }] });
+  bars(document.getElementById("tekortChart"), { labels: G.years.map(String), labelEvery: 3, unit: "mm", ref: G.tekort.mediaan, height: 220, series: [{ name: "neerslagtekort", values: G.tekort.perJaar, color: "var(--clay)" }] });
+
+  /* Tabel 1 */
+  const inv = [
+    ["Woningen (gezin / senior / jongere)", D.woningen.map(w => w.n).join(" / "), "–", "G", ref(9)],
+    ["Bewoners per type", D.woningen.map(w => w.pers).join(" / "), "–", "N", "Totaal " + nl(A.nBewoners)],
+    ["Dakoppervlak per type", D.woningen.map(w => w.dak).join(" / "), "m²", "G", ref(9) + "; totaal " + nl(A.dakTot) + " m²"],
+    ["Aandeel groendak; aangesloten", nl(D.dak.aandeelGroen * 100) + " %; alleen hard", "–", "G", ref(9)],
+    ["Afvoercoëfficiënt hard dak / groendak", nl(D.dak.cHard, 2) + " / " + nl(D.dak.cGroen, 2), "–", "N / S", ref(13)],
+    ["Verharding buiten daken; C straat", nl(D.verhard.perWoningM2) + " per woning; " + nl(D.verhard.cStraat, 2), "m²; –", "G; N", ref(9)],
+    ["Waterverbruik referentiehuishouden", nl(M.lpd), "L·d⁻¹", "G", ref(1)],
+    ["Toilet: spoelingen klein / groot per dag", nl(M.toilet.kleinDag) + " / " + nl(M.toilet.grootDag), "d⁻¹", "G", ref(4)],
+    ["Toilet: spoelvolume klein / groot", nl(M.toilet.lKlein, 1) + " / " + nl(M.toilet.lGroot), "L", "G", ref(4)],
+    ["Wasmachine: beurten / volume", nl(M.wasmachine.cycli) + " / " + nl(M.wasmachine.lPerCyclus), "a⁻¹ / L", "A", ref(1, 2)],
+    ["Verbruik landelijk, 1 / 2 / 4 personen", [1, 2, 4].map(p => nl(D.cbs.huishouden[p])).join(" / "), "L·hh⁻¹·d⁻¹", "G", ref(7)],
+    ["Regenwatervraag toilet / toilet + wasmachine (start, referentie)", nl(vM.regenvraag("toilet"), 3) + " / " + nl(vM.regenvraag("toiletWas"), 3), "m³·d⁻¹", "A", "§4.1, §4.4"],
+    ["Neerslag, dagreeks (gem.)", nl(D.dagbalans.mmGemiddeld), "mm·a⁻¹", "G", ref(11)],
+    ["Bergingseis", nl(D.waterschap.bergingMm), "mm", "G", ref(15)],
+    ["Tuinderij", nl(D.tuinderij.ha), "ha", "G", ref(10)],
+    ["Investering systeem 5.000 L (zak / ondergronds)", "€ " + nl(D.kosten[0].min) + "–" + nl(D.kosten[0].max) + " / € " + nl(D.kosten[1].min) + "–" + nl(D.kosten[1].max), "per woning", "S", ref(17)],
+    ["Drinkwaterprijs", nl(D.drinkwaterPrijs, 2), "€·m⁻³", "N", ref(9)]
+  ];
+  document.querySelector("#tblInvoer tbody").innerHTML = inv.map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${r[3].split("; ").map(st).join(" ")}</td><td>${r[4]}</td></tr>`).join("");
+
+  /* Tabel 2 */
+  const ver = [
+    ["Toiletspoeling", nl((M.toilet.kleinDag + M.toilet.grootDag) * 365), nl(M.toilet.lKlein, 1) + " / " + nl(M.toilet.lGroot), A.tlM3, A.tlPct, "G"],
+    ["Wasmachine", nl(M.wasmachine.cycli), nl(M.wasmachine.lPerCyclus), A.wmM3, A.wmPct, "A"],
+    ["Vaatwasser", nl(M.vaatwasser.cycli), nl(M.vaatwasser.lPerCyclus, 1), A.vwM3, A.vwPct, "A"],
+    ["Overig (douche, kranen, wastafel)", "–", "–", M.m3jaar - A.tlM3 - A.wmM3 - A.vwM3, 100 - A.tlPct - A.wmPct - A.vwPct, "A"],
+    ["Totaal", "–", "–", M.m3jaar, 100, "G"]
+  ];
+  document.querySelector("#tblVerdeling tbody").innerHTML = ver.map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num">${nl(r[3], 1)}</td><td class="num">${nl(r[4])} %</td><td>${st(r[5])}</td></tr>`).join("");
+
+  /* Tabel 3 – toepassingen */
+  const tSel = [0, 1, 2, 2.5, 3, 5, 10, 20];
+  const tT = document.getElementById("tblToep");
+  tT.querySelector("thead").innerHTML = `<tr><th>Toepassing</th>${tSel.map(t => `<th class="num">${fmtTank(t)} m³</th>`).join("")}</tr>`;
+  tT.querySelector("tbody").innerHTML = D.toepassingen.map(tp => `<tr><td>${tp.naam}${tp.open ? " *" : ""}</td>${tSel.map(t => { const m = dagT(tp.id, "meting", t), c = dagT(tp.id, "cbs", t); return `<td class="num${t === 5 ? " base" : ""}">${nl(m.gem, 1)} <span class="note">(${nl(c.gem, 0)})</span></td>`; }).join("")}</tr>`).join("") +
+    `<tr><td colspan="${tSel.length + 1}" class="note">* Variant met straatwater, A·C = ${nl(G.toep.toiletWasStraat.AC)} m²; kwaliteit niet beoordeeld.</td></tr>`;
+
+  /* Tabel 4 */
+  document.querySelector("#tblToepDet tbody").innerHTML = G.tanks.map(t => { const m = dagT("toiletWas", "meting", t);
+    return `<tr${t === 2 ? ' class="base"' : ""}><td>${fmtTank(t)} m³</td><td class="num">${nl(t * nW, t * nW % 1 ? 1 : 0)}</td><td class="num">${nl(m.gem, 1)}</td><td class="num">${nl(m.p10, 1)}</td><td class="num">${nl(m.min, 1)} (${m.minJaar})</td><td class="num">${nl(m.aanv)}</td><td class="num">${nl(m.over)}</td></tr>`; }).join("");
+
+  /* Figuur 4 */
+  const t5 = dagT("toilet", "meting", 5), tw5 = dagT("toiletWas", "meting", 5);
+  bars(document.getElementById("jaarChart"), { labels: HM.W.jaren.map(String), labelEvery: 3, unit: "% dekking", yMax: 100, height: 250,
+    series: [{ name: "alleen toilet", unit: "%", values: t5.perJaar, color: "var(--water)", dec: 1 }, { name: "toilet en wasmachine", unit: "%", values: tw5.perJaar, color: "var(--rain)", dec: 1 }],
+    line: { values: HM.jaarMm(), color: "var(--clay)", max: 1200 }, lineUnit: "mm" });
+
+  /* Tabel 5 */
+  document.querySelector("#tblRes tbody").innerHTML = [0, 1, 2, 5, 10, 20].map(t => { const d = dagT("toiletWas", "meting", t).gem, m = maandModel({ tankPW: t, C: dtStd.C }).dek * 100;
+    return `<tr><td>${fmtTank(t)} m³</td><td class="num">${nl(d, 1)} %</td><td class="num">${nl(m, 1)} %</td><td class="num">${m - d >= 0 ? "+" : "−"}${nl(Math.abs(m - d), 1)} %-punt</td></tr>`; }).join("");
+
+  /* Tabel 6 – kosten */
+  const tk = document.getElementById("tblKosten");
+  const kOpt = D.kosten.filter(k => k.min !== null);
+  tk.querySelector("thead").innerHTML = `<tr><th>Toepassing</th><th class="num">Besparing €/woning/jaar</th>${kOpt.map(k => `<th class="num">Terugverdientijd ${k.naam.toLowerCase()} (jaar)</th>`).join("")}</tr>`;
+  tk.querySelector("tbody").innerHTML = D.toepassingen.map(tp => { const r = dagT(tp.id, "meting", 5); const b = r.bespaardM3 * D.drinkwaterPrijs / nW;
+    return `<tr><td>${tp.naam}</td><td class="num">${nl(b)}</td>${kOpt.map(k => `<td class="num">${nl(k.min / b)}–${nl(k.max / b)}</td>`).join("")}</tr>`; }).join("") +
+    `<tr><td colspan="${kOpt.length + 2}" class="note">Centrale buffer: kosten onbekend; op de basispagina kan een totaalbedrag worden ingevuld.</td></tr>`;
+
+  /* Tabel 7 – raster */
+  const heat = document.getElementById("tblHeat");
+  heat.querySelector("thead").innerHTML = `<tr><th>C<sub>eff</sub> \\ buffer</th>${G.tanks.map(t => `<th class="num">${fmtTank(t)}</th>`).join("")}</tr>`;
+  const lv = v => v >= 99 ? 4 : v >= 95 ? 3 : v >= 85 ? 2 : v >= 70 ? 1 : 0;
+  heat.querySelector("tbody").innerHTML = G.Cs.map(C => `<tr><td>${nl(C, 2)}</td>${G.tanks.map(t => { const v = dag("meting", t, C).gem; const base = Math.abs(C - dtStd.C) < 1e-9 && t === D.tankPerWoning; return `<td class="num lv${lv(v)}${base ? " base" : ""}">${nl(v, 0)}</td>`; }).join("")}</tr>`).join("");
+
+  /* Tabel 8 */
+  const val = [
+    ["Verbruik per persoon per dag (4-pers.)", nl(A.lpp) + " L", nl(D.cbs.pp4) + " L " + ref(7), "Ruim onder gemiddeld"],
+    ["Aandeel wasmachine", nl(A.wmPct, 1) + " %", nl(D.cbs.aandeel.wasmachine * 100, 1) + " % " + ref(7), "Goede overeenkomst"],
+    ["Aandeel vaatwasser", nl(A.vwPct, 1) + " %", nl(D.cbs.aandeel.vaatwasser * 100, 1) + " % " + ref(7), "Goede overeenkomst"],
+    ["Aandeel toilet", nl(A.tlPct, 1) + " %", nl(D.cbs.aandeel.toilet * 100, 1) + " % " + ref(7), "Hoger; verenigbaar met spoelvolume 11 L"],
+    ["Gemiddelde jaarneerslag Heino", nl(D.dagbalans.mmGemiddeld) + " mm " + ref(11), nl(A.mmNormaal) + " mm " + ref(5), "Afwijking < 1 %"]
+  ];
+  document.querySelector("#tblVal tbody").innerHTML = val.map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

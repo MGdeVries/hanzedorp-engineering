@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onderhoud en vervanging – Hanzedorp</title>
+<meta name="description" content="Meerjarenonderhoudsplan van de gedeelde voorzieningen van Hanzedorp: wat we samen bezitten, wat het onderhoud kost, wanneer iets vervangen moet worden en hoeveel we daarvoor per maand opzij zetten. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Onderhoud en vervanging</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Onderhoud en vervanging</h1>
+  <p class="lead read">In Hanzedorp bezitten we veel samen: het buurthuis, de schuren, de carport, de zonnepanelen, de buurtaccu, de erfmolens, de vijvers, de put en de wegen. Alles wat we samen bezitten, moeten we ook samen onderhouden en op tijd vervangen. Op deze pagina staat wat dat kost en hoeveel geld we daarvoor elke maand opzij zetten.</p>
+  <ul class="kern read">
+    <li><span><b>Alleen wat we delen:</b> je eigen huis onderhoud je zelf. De panelen op je dak zijn van ons samen en staan er wél in. Die staan niet in dit plan.</span></li>
+    <li><span><b>Elk jaar een vast bedrag opzij:</b> zo is er geld als de accu na ± 15 jaar of de erfmolens na ± 20 jaar vervangen moeten worden. Niemand krijgt dan ineens een grote rekening.</span></li>
+    <li><span><b>Eén onderhoudsmanager</b> houdt het plan bij, plant het werk en laat keuringen op tijd doen.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-wat">
+  <h2 id="h-wat">Wat valt eronder en wat niet?</h2>
+  <div class="cols">
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Wel in dit plan (samen)</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Energie: alle zonnepanelen (ook op de daken van de woningen), op buurthuis, schuren, carport en akker, de omvormers, de buurtaccu, de erfmolens, de kabels in de sleuf, en de laadpalen op het laadplein (iedere woning heeft daar een vaste plek met een eigen paal in gebruik).</li>
+        <li>Gebouwen: buurthuis, schuren, carport.</li>
+        <li>Voedsel en akker: koel- en vriescellen, put, pomp, filters, druppelslangen, bassin, nutsgebouw.</li>
+        <li>Water: zwemvijver, tuinvijver, wadi's, de drinkwaterleiding in het dorp, de watermeters, de aanzuigpunten voor de brandweer.</li>
+        <li>Terrein: rondweg, paden, hek, verlichting, gezamenlijk groen.</li>
+        <li>Netwerk: glasvezel, switches, wifi, servers en camera's.</li>
+        <li>Keuringen: elektrische installatie, accu, blusmiddelen, legionella.</li>
+      </ul>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Niet in dit plan (privé)</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Je eigen woning: dak, gevel, kozijnen, de warmtepomp, de ventilatie.</li>
+        <li>Je eigen tuin.</li>
+      </ul>
+      <p>Voor je eigen woning maak je zelf een plan. Een vuistregel voor een nieuw huis is 1 tot 2 % van de bouwkosten per jaar opzij zetten.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-plan">
+  <h2 id="h-plan">Wat kost het en wanneer?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Elk onderdeel gaat een bepaald aantal jaren mee. De netwerkapparatuur ± 7 jaar, de omvormers ± 13 jaar, de accu ± 15 jaar, de erfmolens ± 20 jaar, de zonnepanelen ± 30 jaar en het buurthuis ± 50 jaar. In de grafiek zie je in welk jaar welk bedrag nodig is (gele staven).</p>
+      <p>We sparen elk jaar zoveel dat de spaarpot (blauwe lijn) nooit leeg raakt. Er blijft altijd een buffer over voor iets onverwachts. Het bedrag stijgt elk jaar mee met de prijzen.</p>
+      <p>Speel met de schuiven. Kies je een goedkopere of duurdere uitvoering, of gaan onderdelen korter mee? Dan zie je meteen wat er per woning per maand nodig is.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label>Prijzen</label><div class="seg" id="sScen"></div></div>
+        <div class="ctl"><label>Bedragen</label><div class="seg" id="sBtw"></div></div>
+        <div class="ctl"><label for="mInf">Prijsstijging per jaar: <output id="mInfO"></output> %</label><input type="range" id="mInf" min="0" max="5" step="0.5"></div>
+        <div class="ctl"><label for="mL">Levensduur van de onderdelen: <output id="mLO"></output> % van normaal</label><input type="range" id="mL" min="70" max="130" step="5"></div>
+        <div class="ctl"><label for="mAccu">Buurtaccu: <output id="mAccuO"></output> kWh</label><input type="range" id="mAccu" min="300" max="1000" step="150"></div>
+        <div class="ctl"><label for="mBuf">Buffer in de spaarpot: € <output id="mBufO"></output></label><input type="range" id="mBuf" min="0" max="100000" step="5000"></div>
+      </div>
+      <button type="button" id="mReset" class="seg" style="justify-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+  <div class="result" id="mKpi" aria-live="polite" style="margin-top:12px"></div>
+  <div id="mChart" style="margin-top:10px"></div>
+  <div class="scroll"><table id="tblGroep"><caption>Per groep (k€). Afschrijving = investering gedeeld door levensduur: wat het onderdeel per jaar ‘verbruikt’.</caption>
+    <thead><tr><th>Groep</th><th class="num">Waarde</th><th class="num">Onderhoud per jaar</th><th class="num">Afschrijving per jaar</th></tr></thead><tbody></tbody></table></div>
+  <details style="margin-top:8px"><summary>Alle onderdelen</summary>
+    <div class="scroll"><table id="tblComp"><thead><tr><th>Onderdeel</th><th>Groep</th><th class="num">Waarde (k€)</th><th class="num">Gaat mee (jaar)</th><th class="num">Onderhoud (€/jr)</th><th>Vervangen in</th></tr></thead><tbody></tbody></table></div>
+  </details>
+  <p class="read note">Alle bedragen zijn schattingen (status S) tot er offertes zijn. Grond, bouwrijp maken en de aanleg van de wegen staan op <a href="grond.html">Grond &amp; kosten</a>; de vervanging van de wegen staat wél hier. Hoe het geld wordt opgebracht, staat op <a href="financien.html">Financiële planning</a>.</p>
+</section>
+
+<section aria-labelledby="h-taken">
+  <h2 id="h-taken">Wat moet er gebeuren, en hoe vaak?</h2>
+  <div class="scroll"><table><thead><tr><th>Hoe vaak</th><th>Wat</th><th>Wie</th></tr></thead><tbody>
+    <tr><td>Elke week</td><td>Weinig gebruikte kranen in het buurthuis doorspoelen (legionella). Temperaturen koel- en vriescellen nakijken (staan ook in het EMS).</td><td>Bewoners volgens rooster</td></tr>
+    <tr><td>Elke maand</td><td>Meldingen van het EMS nalopen (accu, omvormers, opbrengst). Filters van de put en de beregening schoonmaken in het seizoen.</td><td>Onderhoudsmanager</td></tr>
+    <tr><td>Elk voorjaar</td><td>Beregening opstarten, lekken zoeken. Vijvers: planten snoeien, blad weghalen. Wadi's en goten nakijken.</td><td>Bewoners (werkdag)</td></tr>
+    <tr><td>Elk najaar</td><td>Beregening aftappen (vorst). Bladruimen. Hemelwaterafvoeren en kratten controleren.</td><td>Bewoners (werkdag)</td></tr>
+    <tr><td>Elk jaar</td><td>Erfmolens: onderhoudsbeurt door leverancier. Koelmachines: lekcontrole. Blusmiddelen en noodverlichting. Netwerk: updates. Legionella-controle door vakbedrijf.</td><td>Vakbedrijf, onderhoudsmanager plant</td></tr>
+    <tr><td>Elke 3 tot 5 jaar</td><td>Elektrische installatie keuren (NEN 3140). Slib uit de vijvers halen. Zonnepanelen nakijken en zo nodig reinigen.</td><td>Erkend bedrijf</td></tr>
+    <tr><td>Elke 5 jaar</td><td>Het hele onderhoudsplan opnieuw bekijken: wat is versleten, wat kost het nu?</td><td>Onderhoudsmanager, ledenvergadering</td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="h-rol">
+  <h2 id="h-rol">De onderhoudsmanager</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>De onderhoudsmanager is een bewoner (of iemand die we inhuren) die het onderhoudsplan bijhoudt. Hij of zij is niet degene die alles zelf repareert, maar zorgt dat het werk op tijd gebeurt.</p>
+      <p>Grote vervangingen, zoals een nieuwe accu, besluiten we samen in de ledenvergadering. De onderhoudsmanager legt dan een voorstel voor met offertes.</p>
+    </div>
+    <div class="read panel">
+      <h3>Taken</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Het onderhoudsplan bijhouden en elke 5 jaar laten herzien.</li>
+        <li>Een jaarplanning maken met werkdagen en vakbedrijven.</li>
+        <li>Keuringen en certificaten bewaren (accu, elektra, legionella).</li>
+        <li>Samen met de penningmeester de jaarlijkse storting in de spaarpot voorstellen.</li>
+        <li>Storingen registreren en een lijst van leveranciers bijhouden.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Wat kan er misgaan?</h2>
+  <ul class="read">
+    <li><b>Te weinig gespaard.</b> Dan komt er bij een grote vervanging toch een rekening. Daarom sparen we met buffer en kijken we elke 5 jaar opnieuw.</li>
+    <li><b>Niemand voelt zich eigenaar.</b> Dat gebeurt met gedeelde spullen. Daarom is er één onderhoudsmanager en een vast rooster.</li>
+    <li><b>Keuring vergeten.</b> Bij de accu en de elektrische installatie kan dat gevaarlijk zijn en problemen geven met de verzekering. De onderhoudsmanager houdt een kalender bij.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Alleen gedeelde voorzieningen in het onderhoudsplan, woningen apart</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Rol onderhoudsmanager</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Prijzen en levensduren per onderdeel</td><td><span class="pill s-aanname">schatting, offertes nodig</span></td></tr>
+    <tr><td>Wie wordt onderhoudsmanager, betaald of vrijwillig</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">De rekenmethode, alle onderdelen met prijs en status, de gevoeligheid en de regels staan op de technische pagina.</p><a href="onderhoud-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="beheer-gedeeld.js"></script>
+<script src="beheer-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, B = D.beheer, $ = id => document.getElementById(id);
+  bindAll({}); renderBronnen($("bronnen"), [169, 165, 166, 167, 168, 130, 74, 124]);
+  BHU.seg($("sScen"), "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
+  BHU.seg($("sBtw"), "bt", [["1.21", "Incl. btw"], ["1", "Excl. btw"]], "1.21");
+  const std = { mInf: B.inflatie * 100, mL: 100, mAccu: D.energie.accu.kWh, mBuf: B.bufferEur };
+  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v);
+  function run() {
+    const o = { scen: BHU.val("sc"), inflatie: +$("mInf").value / 100, levensduurFactor: +$("mL").value / 100, accuKWh: +$("mAccu").value, buffer: +$("mBuf").value }, f = +BHU.val("bt");
+    $("mInfO").value = nl(+$("mInf").value, 1); $("mLO").value = $("mL").value; $("mAccuO").value = nl(o.accuKWh); $("mBufO").value = nl(o.buffer);
+    const M = BH.mjop(o);
+    BHU.kpiMjop($("mKpi"), M, f); BHU.chartMjop($("mChart"), M, f); BHU.tabelGroep($("tblGroep").querySelector("tbody"), M, f); BHU.tabelComp($("tblComp").querySelector("tbody"), M, false, f);
+  }
+  zet(); $("mReset").addEventListener("click", () => { zet(); run(); });
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

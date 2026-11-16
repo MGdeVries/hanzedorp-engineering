@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netaansluiting en stroomhandel – Hanzedorp</title>
+<meta name="description" content="Hoe groot moet de aansluiting op het stroomnet zijn, en welke grootte levert Hanzedorp per jaar het meeste op? Simulatie met echte stroomprijzen 2023–2025. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}
+tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-weight:600}
+.inp{display:flex;gap:6px;align-items:center} .inp input{width:6.5em;font:inherit;padding:4px 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Netaansluiting</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Netaansluiting en stroomhandel</h1>
+  <p class="lead read">Hanzedorp maakt veel meer stroom dan het zelf gebruikt. Het dorp moet altijd zelfstandig door kunnen draaien (eilandbedrijf). Het stroomnet is vooral de reserve. Op deze pagina rekenen we uit welke aansluiting per jaar het voordeligst is, met de echte stroomprijzen van 2023, 2024 en 2025.</p>
+  <p class="read warnbox" style="border-left:3px solid var(--gold);padding:6px 12px">Handelen in stroom wordt steeds minder interessant. Er komen steeds meer accu's en handelaars bij, daardoor worden de verschillen tussen dure en goedkope uren kleiner. Wij verdienen ons geld daarom niet met handelen, maar met goedkoop zelf opwekken en zelf gebruiken. Handelen met de accu staat standaard uit; je kunt het aanzetten om het verschil te zien.</p>
+  <ul class="kern read">
+    <li><span>Met de buurtaccu is een kleine aansluiting genoeg om nooit zonder stroom te zitten. Ook bij <b>3 × 25 A</b> was er in 2023–2025 geen enkel uur tekort.</span></li>
+    <li><span>Een grotere aansluiting laat ons meer verkopen, maar kost ook meer netwerkkosten. Met de huidige instellingen is <b><span data-k="bestNaam"></span></b> het voordeligst: <span data-k="bestTekst"></span>.</span></li>
+    <li><span>De stroom die we niet kwijt kunnen, zetten we stil (afschakelen). Dat is gemiddeld <span data-k="bestAfg"></span> MWh per jaar. Die stroom is in de zomer bijna niets waard.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-hoe">
+  <h2 id="h-hoe">Hoe het werkt</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het dorp heeft één eigen stroomnet (privénet) met de buurtaccu als hart. Zon en wind laden eerst de accu. Wat over is, verkopen we aan het net als de prijs boven nul is. Is de prijs onder nul, dan zetten we panelen stil.</p>
+      <p>Is er te weinig zon en wind, dan komt de stroom eerst uit de accu. Pas daarna kopen we bij, het liefst in de goedkoopste uren van de komende dag. De energiecomputer (EMS) weet die prijzen een dag van tevoren.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>De aansluiting op het net is als een deur. Een grotere deur laat meer stroom tegelijk door, maar de netbeheerder rekent er elk jaar meer voor. Bij 3 × 25 A betaal je € 546 per jaar, bij 3 × 80 A € 4.715 (Liander 2026, incl. btw).</p>
+      <p>De vraag is dus: verdient een grotere deur zichzelf terug met extra verkoop?</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Reken het zelf uit</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Buurtaccu</legend><div class="seg" id="sAccu"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Handelen met de accu</legend><div class="seg" id="sHandel"></div></fieldset></div>
+      <div class="ctl"><label for="mDr">Verkopen uit de accu vanaf: <output id="mDrO"></output> per kWh (beursprijs)</label><input type="range" id="mDr" min="0.08" max="0.50" step="0.01"></div>
+      <div class="ctl"><label for="mRes">Reserve in de accu voor stroomstoringen: <output id="mResO"></output></label><input type="range" id="mRes" min="0.1" max="0.6" step="0.05"></div>
+      <div class="ctl inp"><label for="mOpIn">Opslag leverancier bij inkoop (€/kWh)</label><input type="number" id="mOpIn" min="0" max="0.2" step="0.005"></div>
+      <div class="ctl inp"><label for="mOpUit">Inhouding bij verkoop (€/kWh)</label><input type="number" id="mOpUit" min="0" max="0.2" step="0.005"></div>
+      <div class="ctl"><fieldset><legend>Belasting op stroom binnen ons eigen net?</legend><div class="seg" id="sEb"></div></fieldset></div>
+    </div>
+    <div class="scroll"><table id="tbl"><caption>Gemiddeld per jaar over 2023–2025. Saldo = verkoop − inkoop − netwerkkosten − vaste kosten + belastingvermindering − slijtage accu. Hoger is beter.</caption>
+      <thead><tr><th>Aansluiting</th><th class="num">Max. vermogen</th><th class="num">Inkoop (MWh)</th><th class="num">Verkoop (MWh)</th><th class="num">Stilgezet (MWh)</th><th class="num">Uren tekort</th><th class="num">Netwerkkosten</th><th class="num">Saldo per jaar</th></tr></thead><tbody></tbody></table></div>
+    <p class="note" style="margin:0">Hoeveel euro per jaar elke aansluiting beter scoort dan de slechtste:</p><div id="chart"></div>
+    <p class="note" id="noot"></p>
+  </div>
+</section>
+
+<section aria-labelledby="h-genoeg">
+  <h2 id="h-genoeg">Is 3 × 25 A genoeg als we stroom tekortkomen?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Een aansluiting van 3 × 25 A levert hooguit ± <b>17 kW</b> tegelijk. Dat lijkt weinig voor een heel dorp. Maar de buurtaccu doet het zware werk: die vangt de pieken op, en het net vult de accu langzaam bij in donkere, windstille periodes.</p>
+      <p>We hebben dat getest over 31 jaar weer, ook in zware omstandigheden. Zolang de accu werkt, is er <b>in geen enkel uur een tekort</b>: ook niet met het maximale aantal bewoners, als iedereen thuiswerkt of zonder erfmolens.</p>
+      <p>Valt de hele accu uit, dan is 17 kW niet genoeg om alles tegelijk te laten draaien. Dan moet de energiecomputer kiezen: eerst de woningen en de koelcellen, en het laden van auto's wacht. Daarom bestaat de accu uit drie losse blokken, elk met een eigen omvormer, zodat hij vrijwel nooit helemaal uitvalt. Hoe groot die blokken moeten zijn, staat hieronder.</p>
+    </div>
+    <div class="scroll"><table id="tblGenoeg"><caption>Stresstest 3 × 25 A (± 17 kW), uursimulatie 31 jaar, 12 woningen</caption><thead><tr><th>Situatie</th><th class="num">Van het net (MWh/jr)</th><th class="num">Uren tekort per jaar</th></tr></thead><tbody><tr><td colspan="3" class="note">wordt berekend…</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-winter">
+  <h2 id="h-winter">In de winter: wanneer kopen we stroom bij?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Over de hele winter (november tot en met maart) maken zon en de twee erfmolens samen méér stroom dan het dorp gebruikt. Toch kopen we soms bij. Dat gebeurt in een paar <b>donkere, windstille periodes</b> in december en januari. In februari en maart hoeft het bijna nooit.</p>
+      <p>De energiecomputer kent de stroomprijzen en het weer een dag vooruit. Komt er een donkere periode aan, dan vult hij de accu op tijd bij, in de <b>goedkoopste uren</b>: vooral 's nachts. Zo kopen we in minder uren en tegen een lagere prijs.</p>
+      <p>Staande panelen helpen in de winter weinig. Ze maken iets meer stroom als de zon laag staat, maar de tekorten vallen 's nachts en op grijze dagen zonder wind. Dan maakt ook een staand paneel bijna niets.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Woningen gaan altijd voor.</b> Een woning kan nergens anders aan stroom komen, een auto wel. Is het een paar dagen donker en windstil, dan laadt de energiecomputer auto's alleen nog met eigen stroom. Wie toch moet rijden, laadt onderweg of even bij een snellader (bijvoorbeeld een Tesla Supercharger, die open is voor alle merken).</p>
+    </div>
+  </div>
+  <div class="panel" style="display:grid;gap:10px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Winter</legend><div class="seg" id="sWin"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Energiecomputer</legend><div class="seg" id="sStrat"></div></fieldset></div>
+    </div>
+    <div id="winChart"></div>
+    <p class="note" style="margin:0" id="winLeg"></p>
+    <p class="note" style="margin:0">Elke staaf is één dag. Boven de lijn: waar de stroom vandaan komt. Onder de lijn: waar hij naartoe gaat. Op zonnige of winderige dagen is er boven meer dan onder: dat gaat de accu in of wordt stilgezet. Ga met de muis over een dag voor de getallen. Accu <span data-k="accuWin"></span> kWh, aansluiting 3 × 25 A (± 17 kW).</p>
+  </div>
+  <div class="cols" style="margin-top:12px">
+    <div class="scroll"><table id="tblMix"><caption>Waar gaat de stroom heen in de winter (november t/m maart)? MWh voor het hele dorp (<span data-k="nWw"></span> woningen) en kWh per woning.</caption>
+      <thead><tr><th></th><th class="num" colspan="3">2023/24</th><th class="num" colspan="3">2024/25</th></tr><tr><th>Verbruiker</th><th class="num">MWh</th><th class="num">aandeel</th><th class="num">kWh/woning</th><th class="num">MWh</th><th class="num">aandeel</th><th class="num">kWh/woning</th></tr></thead><tbody></tbody></table></div>
+    <div class="read" style="display:grid;gap:8px" id="mixTekst"></div>
+  </div>
+  <div class="scroll"><table id="tblWin"><caption>Bijkoop per winter (november t/m maart) bij 3 × 25 A en een accu van <span data-k="accuWin"></span> kWh. Prijs = kale beursprijs (EPEX day-ahead); daar komen opslag, energiebelasting en btw nog bij.</caption>
+    <thead><tr><th>Winter</th><th>Energiecomputer</th><th class="num">Uren bijkoop</th><th class="num">Dagen</th><th class="num">MWh</th><th class="num">Gem. prijs per kWh</th><th class="num">Beurskosten</th><th class="num">'s Nachts (22–6 u)</th></tr></thead><tbody></tbody></table></div>
+  <p class="note">Bijkoop per uur van de dag over de hele winter:</p><div id="uurChart"></div>
+  <p class="read note" id="winNoot"></p>
+  <h3>Auto's naar de snellader als het dorp anders moet bijkopen</h3>
+  <div class="scroll"><table id="tblSnel"><caption>Effect als de energiecomputer auto's niet meer uit het net laadt zodra de accu op de reserve staat (die lading gebeurt dan bij een snellader). Strategie: gestuurd op dalprijs. Extra kosten = snellader (± € <span data-k="snelPrijs"></span>/kWh) min uitgespaarde inkoop thuis (incl. belasting).</caption>
+    <thead><tr><th>Accu</th><th>Winter</th><th class="num">Uren bijkoop</th><th class="num">Bijkoop MWh</th><th class="num">Bij snellader</th><th class="num">Laadbeurten</th><th class="num">Extra kosten</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note" id="snelNoot"></p>
+</section>
+
+<section aria-labelledby="h-accu">
+  <h2 id="h-accu">Hoe groot moet de buurtaccu zijn?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We rekenen nu met 600 kWh. Is dat de beste maat? We hebben 31 jaar weer doorgerekend voor accu's van 100 tot 1.000 kWh, steeds met een aansluiting van 3 × 25 A.</p>
+      <p><b>Altijd stroom.</b> Vanaf ± <b><span data-k="accuMin"></span> kWh</b> is er in 31 jaar geen enkel uur tekort, ook niet als de energiecomputer het weer niet goed voorspelt. Een kleinere accu redt het niet in de donkerste dagen of bij de grootste pieken (± <span data-k="maxTek"></span> kW tekort in één uur).</p>
+      <p><b>Geld.</b> Een grotere accu scheelt wat inkoop, maar weinig: elke extra 100 kWh bespaart maar ± € 40 tot € 160 per jaar. Die 100 kWh kost ± € 15.000 tot € 25.000. Dat verdien je in de levensduur van de accu niet terug.</p>
+      <p><b>Reserve en storingen.</b> Een grotere accu geeft wel meer zekerheid: langer stroom bij een storing op het net, en een blok kan kapot gaan zonder dat het dorp het merkt.</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="aMin"></b><span>kleinste accu zonder tekort in 31 jaar (3 × 25 A)</span></div>
+      <div><b>3 × 150 kWh</b><span>advies: 450 kWh in drie blokken; als één blok kapot is, blijft er 300 kWh over en is er nog steeds geen tekort</span></div>
+      <div><b id="aBesparing"></b><span>wat 600 kWh in plaats van 450 kWh per jaar kost (meerkosten min besparing)</span></div>
+    </div>
+  </div>
+  <div class="panel" style="display:grid;gap:12px">
+    <div class="controls"><div class="ctl"><label for="mPrijsAccu">Meerprijs per extra kWh accu: <output id="mPrijsAccuO"></output></label><input type="range" id="mPrijsAccu" min="100" max="400" step="10"></div></div>
+    <div class="scroll"><table id="tblAccu"><caption>Accugrootte bij 3 × 25 A. Tekort over 31 jaar (1994–2025); bijkoop gemiddeld per jaar; geld gemiddeld per jaar 2023–2025, vergeleken met de kleinste accu zonder tekort. Meerkosten = extra kWh × meerprijs, afgeschreven in <span data-k="accuJaren"></span> jaar tegen <span data-k="accuRente"></span> rente.</caption>
+      <thead><tr><th>Accu</th><th class="num">Tekort (gestuurd)</th><th class="num">Tekort (zonder voorspelling)</th><th class="num">Bijkoop MWh/jr</th><th class="num">Uren bijkoop/jr</th><th class="num">Stroom bij netstoring (vol / reserve)</th><th class="num">Besparing/jr</th><th class="num">Meerkosten/jr</th><th class="num">Saldo/jr</th></tr></thead><tbody></tbody></table></div>
+    <p class="note" style="margin:0">'Stroom bij netstoring' = hoeveel uur de accu de belangrijkste verbruikers (± <span data-k="kritiek"></span> kW: woningen basis, koelcellen, netwerk) alleen kan voeden, zonder zon en wind: met een volle accu / als de accu net op de reserve staat.</p>
+  </div>
+  <div class="read warnbox" style="margin-top:12px"><b>Advies (engineer):</b> de beste maat ligt rond <b>450 kWh in drie blokken van 150 kWh</b>, met plek en aansluitingen voor een vierde blok. Dat is ± € 20.000–40.000 goedkoper dan 600 kWh, zonder tekort, ook met één blok kapot. Wil Hanzedorp bij een langere netstoring bijna drie dagen zonder zon en wind kunnen draaien (600 kWh: ± 68 uur; de overheid adviseert 72 uur voorbereid te zijn), dan is 600 kWh de juiste keuze. Let op: dat geldt alleen als de accu vol is; staat hij op de reserve, dan is het ± 20 uur. Rond 2030 kunnen auto's met terugleveren (V2G) samen ± 100–200 kWh extra buffer geven. <b>Besluit Melvin nodig.</b> Het rekenmodel blijft voorlopig op 600 kWh staan.</div>
+</section>
+
+<section aria-labelledby="h-eb">
+  <h2 id="h-eb">Belasting op stroom binnen het dorp</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Wij zijn allemaal samen eigenaar van de zonnepanelen, de molens, de accu en het eigen stroomnet. We hebben er naar rato voor betaald. De stroom die eraf komt, is van ons zelf, net zoals de stroom van je eigen dak nu van jou is. Daar betaal je geen energiebelasting over.</p>
+      <p>Twee rechters hebben hierover geoordeeld:</p>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>Gerechtshof Den Bosch, augustus 2025:</b> een appartementencomplex met zonnepanelen en een eigen net. De panelen en het net waren <b>samen eigendom van de bewoners</b>. De vereniging regelde alleen het beheer. Geen levering, dus <b>geen energiebelasting</b>.</li>
+        <li><b>Gerechtshof Amsterdam, mei 2025:</b> een vakantiepark waar de vereniging zelf de panelen, het net en de warmtepompen had en de stroom aan de huisjes gaf. Dat was wél levering, met belasting.</li>
+      </ul>
+      <p>Het verschil zit in <b>wie eigenaar is</b>. Daarom regelen we het zo: de installatie en het net zijn <b>gezamenlijk eigendom van de bewoners</b> (mandelig eigendom), de vereniging beheert alleen. Dan betalen we alleen belasting over de stroom die we van het openbare net kopen.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:6px">
+      <h3>Waar we op letten</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Eigendom vastleggen bij de notaris: elke woning een aandeel in installatie en net.</li>
+        <li>De vereniging verkoopt geen stroom aan bewoners en mag er niet zelf over beschikken.</li>
+        <li>Stroom die we van het net kopen, delen we wel door. Daarover betalen we gewoon belasting.</li>
+        <li>Een fiscalist toetst de opzet vooraf; de Belastingdienst kan nog in cassatie gaan.</li>
+      </ul>
+      <p class="note">In het rekenmodel staat de belasting op eigen stroom daarom standaard <b>uit</b>. Zet hem aan om het risico te zien: ± <span data-k="ebInt"></span> per jaar.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-woning">
+  <h2 id="h-woning">En als elke woning een eigen aansluiting krijgt?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Dan krijgt elke woning een eigen belastingvermindering van € 629 per jaar. Dat lijkt gunstig. Maar dan gaat de stroom van de buurtaccu naar de woningen óver het openbare net. Over die stroom betaal je dan energiebelasting, btw en de opslag van de leverancier.</p>
+      <p>Ook tellen <span data-k="nW"></span> kleine aansluitingen niet op tot één grote. Het net in een woonwijk is gebouwd op ongeveer <span data-k="kva"></span> kVA per woning tegelijk, niet op 17 kW per woning.</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="wSaldo"></b><span>saldo per jaar met <span data-k="nW"></span> woningaansluitingen + 1 voor het buurthuis</span></div>
+      <div><b id="wDeel"></b><span>kosten om eigen stroom via het openbare net te delen</span></div>
+      <div><b id="wVerschil"></b><span id="wVerschilL">verschil per jaar met één eigen privénet</span></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Altijd stroom</h3><p>De accu houdt altijd een reserve vast. Valt het net uit, dan draait het dorp door op de accu, zon en wind.</p></div>
+    <div class="read"><h3>Kosten</h3><p>De opbrengst van verkochte stroom en de kosten van de aansluiting delen we samen. Je eigen gebruik meet een geijkte meter in je groepenkast.</p></div>
+    <div class="read"><h3>Niets doen</h3><p>De energiecomputer koopt, verkoopt en zet panelen stil. Jij merkt daar niets van.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Wat kan er misgaan?</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Belasting binnen ons eigen net.</b> Als de installatie niet goed als gezamenlijk eigendom van de bewoners is geregeld, kan de Belastingdienst het als levering zien: ± <span data-k="ebInt"></span> per jaar. Zie hierboven.</li>
+    <li><b>Mag één aansluiting voor 12 woningen?</b> Dat moet juridisch getoetst worden (Energiewet: gesloten distributiesysteem of energiegemeenschap).</li>
+    <li><b>Prijzen veranderen.</b> We rekenen met 2023–2025. Na 2030 kunnen prijzen en regels anders zijn.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Eén eigen privénet met buurtaccu (eilandbedrijf altijd mogelijk)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Grootte aansluiting</td><td><span class="pill s-onderzocht">doorgerekend</span></td></tr>
+    <tr><td>Grootte buurtaccu (600 kWh of 3 × 150 kWh)</td><td><span class="pill s-onderzocht">doorgerekend, besluit nodig</span></td></tr>
+    <tr><td>Juridische en fiscale toets privénet</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Gesprek met netbeheerder over capaciteit</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Formules, aannames, uitkomsten per jaar en de toetsing staan op de technische pagina.</p><a href="netaansluiting-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="hanzedorp-prijs.js"></script>
+<script src="hanzedorp-net.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script src="netaansluiting-gedeeld.js"></script>
+<script src="netaansluiting-accu.js"></script>
+<script src="netaansluiting-accu-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
+  bindAll({});
+  renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 130, 131, 132, 133]);
+  NA.bind({ kva: nl(N.ontwerpKVAperWoning, 1), nW: nl(D.energie.mix.gezin + D.energie.mix.senior + D.energie.mix.junior) });
+  const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
+  const S = NA.std();
+  seg("sAccu", "ac", [[400, "2 × 200 kWh"], [600, "3 × 200 kWh"], [800, "4 × 200 kWh"]], S.accu);
+  seg("sHandel", "ha", [[1, "Aan"], [0, "Uit"]], 0);   // besluit 27-10-2026: focus op eilandbedrijf, niet op handel
+  seg("sEb", "eb", [[0, "Nee (gezamenlijk eigendom)"], [1, "Ja (risico)"]], 0);
+  $("mDr").value = S.verkoopDrempel; $("mRes").value = S.reserve; $("mOpIn").value = S.opslagIn; $("mOpUit").value = S.opslagUit;
+  const val = n => +document.querySelector(`input[name=${n}]:checked`).value;
+  let t = null;
+  function run() {
+    const p = Object.assign(NA.std(), { accu: val("ac"), handel: !!val("ha"), ebIntern: !!val("eb"), verkoopDrempel: +$("mDr").value, reserve: +$("mRes").value,
+      opslagIn: Math.max(0, +$("mOpIn").value || 0), opslagUit: Math.max(0, +$("mOpUit").value || 0) });
+    $("mDrO").value = "€ " + nl(p.verkoopDrempel, 2); $("mResO").value = nl(p.reserve * 100) + " %";
+    clearTimeout(t); t = setTimeout(() => {
+      const { rs, best } = NA.rekenen(p);
+      $("tbl").querySelector("tbody").innerHTML = rs.map(r => `<tr${r === best ? ' class="best"' : ""}><td>${naam(r.A)}</td><td class="num">${nl(r.kW, 1)} kW</td><td class="num">${MWh(r.imp)}</td><td class="num">${MWh(r.exp)}</td><td class="num">${nl(r.afg / 1000)}</td><td class="num">${nl(r.tekort > 0.5 ? r.tekort : 0)}</td><td class="num">${eur(r.kostJr)}</td><td class="num">${eur(r.netto)}</td></tr>`).join("");
+      const minS = Math.min(...rs.map(r => r.netto));
+      EG.hbars($("chart"), rs.map(r => [naam(r.A), r.netto - minS + 1, r === best ? "var(--water)" : "var(--line)"]), { unit: "€", dec: 0 });
+      NA.bind({ bestNaam: naam(best.A), bestTekst: best.netto < 0 ? "per saldo kost het dorp dan € " + nl(Math.round(-best.netto)) + " per jaar aan net, belasting en stroom" : "het dorp houdt dan € " + nl(Math.round(best.netto)) + " per jaar over", bestAfg: nl(best.afg / 1000), ebInt: eur(HN.ebIntern(best)) });
+      $("noot").textContent = `Beste keuze bij deze instellingen: ${naam(best.A)}. 3 × 35 A en 3 × 40 A kosten bij Liander evenveel; dan is 3 × 40 A altijd minstens zo goed. Verkocht uit de accu: ${MWh(best.verkocht)} MWh per jaar.`;
+      const r80 = rs.find(r => r.A === 80), w = HN.scenarioWoningen(p, rs.find(r => r.A === 50));
+      $("wSaldo").textContent = eur(w.saldo); $("wDeel").textContent = eur(w.deelKost); $("wVerschil").textContent = eur(Math.abs(w.saldo - best.netto)); $("wVerschilL").textContent = w.saldo > best.netto ? "per jaar voordeliger dan één eigen privénet (bij deze instellingen)" : "per jaar duurder dan één eigen privénet (bij deze instellingen)";
+    }, 30);
+  }
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener(i.type === "range" || i.type === "number" ? "input" : "change", run)); run();
+})();
+</script>
+<script>
+setTimeout(function () {
+  const E = HANZEDORP_DATA.energie, C = { kWpDakType: E.scenarioC.kWpDakType, pvVlakken: E.scenarioC.vlakken, accuKW: 150, reserve: 0.3 }, kw = 3 * 230 * 25 / 1000, nl = HZ.nl;
+  const V = [["Normaal (bij de start)", { accu: 600 }], ["Maximaal aantal bewoners", { accu: 600, levensfase: "max" }], ["Maximaal, iedereen werkt thuis", { accu: 600, levensfase: "max", thuiswerk: "alles" }],
+    ["Maximaal, zonder erfmolens", { accu: 600, levensfase: "max", wind: 0 }], ["Maximaal, één accublok kapot (2 × 200 kWh)", { accu: 400, accuKW: 100, levensfase: "max" }], ["Maximaal, hele accu uitgevallen", { accu: 0, accuKW: 0, levensfase: "max" }]];
+  document.querySelector("#tblGenoeg tbody").innerHTML = V.map(([n, o]) => { const s = HE.simuleer(Object.assign({}, C, { netKW: kw, expKW: kw }, o));
+    return `<tr${s.uTekort > 0 ? ' style="color:var(--warn)"' : ""}><td>${n}</td><td class="num">${nl(s.imp / 1000, 1)}</td><td class="num">${s.uTekort > 0 ? nl(s.uTekort) + " (max. " + nl(s.pTekort) + " kW te weinig)" : "0"}</td></tr>`; }).join("");
+}, 60);
+</script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id), nl = HZ.nl, A = NAC.A, K = NAC.K;
+  const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
+  seg("sWin", "wi", A.winters.map((w, i) => [i, w.naam]), 0);
+  seg("sStrat", "st", [["dal", "gestuurd op dalprijs"], ["snel", "gestuurd + auto's naar snellader"], ["reactief", "zonder voorspelling"]], "dal");
+  const v = n => document.querySelector(`input[name=${n}]:checked`).value;
+  const min = A.groottes.find(g => g.cap > 0 && g.dal.tekU === 0 && g.reactief.tekU === 0);
+  NAC_bind();
+  function NAC_bind() { document.querySelectorAll("[data-k=accuWin]").forEach(e => e.textContent = nl(A.besluitKWh));
+    document.querySelectorAll("[data-k=accuMin]").forEach(e => e.textContent = nl(min.cap)); $("aMin").textContent = nl(min.cap) + " kWh"; document.querySelectorAll("[data-k=maxTek]").forEach(e => e.textContent = nl(A.maxUurTekort));
+    document.querySelectorAll("[data-k=kritiek]").forEach(e => e.textContent = nl(K.kritiekKW)); document.querySelectorAll("[data-k=accuJaren]").forEach(e => e.textContent = nl(K.jaren));
+    document.querySelectorAll("[data-k=accuRente]").forEach(e => e.textContent = nl(K.rente * 100) + " %"); }
+  function win() { const i = +v("wi"); NAC.balansChart($("winChart"), i, v("st")); NAC.uurChart($("uurChart"), i); }
+  $("winLeg").innerHTML = NAC.legenda();
+  document.querySelectorAll("[data-k=nWw]").forEach(e => e.textContent = nl(A.nW)); document.querySelectorAll("[data-k=snelPrijs]").forEach(e => e.textContent = nl(HANZEDORP_DATA.mobiliteit.snellader.eurKWh, 2));
+  NAC.mixTabel($("tblMix").querySelector("tbody"), true);
+  { const w = A.winters, nw = A.nW, f = (W, k) => nl((typeof k === "function" ? k(W.som) : W.som[k]) / nw);
+    $("mixTekst").innerHTML = `<p><b>De warmtepomp is in een passiefhuis klein.</b> Per woning gebruikt hij in de winter ± ${f(w[0], "wp")} tot ${f(w[1], "wp")} kWh: ± ${f(w[0], "verw")}–${f(w[1], "verw")} kWh voor verwarming en ± ${f(w[0], s => s.wp - s.verw)} kWh voor warm water. Dat is ± ${nl(w[0].som.wp / (w[0].som.wp + w[0].som.woning + w[0].som.ev + w[0].som.gemeen) * 100)}–${nl(w[1].som.wp / (w[1].som.wp + w[1].som.woning + w[1].som.ev + w[1].som.gemeen) * 100)} % van alle stroom in het dorp.</p><p><b>De rest van de woning gebruikt ruim twee keer zoveel</b>: ± ${f(w[0], "woning")} kWh per woning in de winter (apparaten, koken, kokendwaterkraan, wassen, koelkast en vriezer, ventilatie, thuiswerken).</p><p><b>Auto's</b> zijn de tweede grote verbruiker: ± ${f(w[0], "ev")} kWh per woning. Dat is het deel dat we kunnen verschuiven, en desnoods buiten het dorp laden.</p>`; }
+  NAC.snelTabel($("tblSnel").querySelector("tbody"), HANZEDORP_DATA.mobiliteit.snellader.eurKWh);
+  { const x = A.snellader.find(s => s.cap === A.besluitKWh) || A.snellader[A.snellader.length - 1], w0 = x.met.win[2023], w1 = x.met.win[2024], z0 = x.zonder.win[2023], z1 = x.zonder.win[2024];
+    $("snelNoot").textContent = `Bij ${nl(x.cap)} kWh: per winter ± ${nl(Math.ceil(w0.snel / 40))}–${nl(Math.ceil(w1.snel / 40))} laadbeurten bij een snellader, verdeeld over alle auto's. Het dorp koopt dan ${nl((z0.imp - w0.imp) / 1000, 1)}–${nl((z1.imp - w1.imp) / 1000, 1)} MWh minder bij, in ${nl(z0.uren - w0.uren)}–${nl(z1.uren - w1.uren)} uur minder. Goedkoper wordt het niet: snelladen kost per kWh ongeveer twee keer zoveel als bijkopen thuis. Het is een noodvoorziening, geen besparing. Met 3 × 25 A is er ook zonder snellader geen tekort.`; }
+  document.querySelectorAll("#sWin input, #sStrat input").forEach(e => e.addEventListener("change", win)); win();
+  NAC.winterTabel($("tblWin").querySelector("tbody"));
+  const w = A.winters, f = (x, k) => nl(x[k] / 1000, 1);
+  $("winNoot").textContent = `Met sturing kopen we in ${nl(w[0].dal.uren)} en ${nl(w[1].dal.uren)} uur bij in plaats van ${nl(w[0].reactief.uren)} en ${nl(w[1].reactief.uren)} uur, tegen een ${nl((1 - w[0].dal.gemPrijs / w[0].reactief.gemPrijs) * 100)}–${nl((1 - w[1].dal.gemPrijs / w[1].reactief.gemPrijs) * 100)} % lagere prijs per kWh. We kopen wel iets meer kWh (${f(w[0].dal, "imp")} tegen ${f(w[0].reactief, "imp")} MWh en ${f(w[1].dal, "imp")} tegen ${f(w[1].reactief, "imp")} MWh), omdat de accu vooruit wordt gevuld. In beide gevallen is er geen enkel uur tekort. Het grootste voordeel van sturing is dus de lagere prijs en minder uren, niet minder kWh.`;
+  $("mPrijsAccu").value = K.eurKWhStd;
+  function accu() { const p = +$("mPrijsAccu").value; $("mPrijsAccuO").value = "€ " + nl(p);
+    const { rijen } = NAC.grootteTabel($("tblAccu").querySelector("tbody"), p, false);
+    const r6 = rijen.find(r => r.g.cap === 600), r45 = rijen.find(r => r.g.cap === 450);
+    $("aBesparing").textContent = NAC.eur(-(r6.saldo - r45.saldo)); }
+  $("mPrijsAccu").addEventListener("input", accu); accu();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

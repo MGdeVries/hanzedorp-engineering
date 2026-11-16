@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grond &amp; kosten – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Ruimteprogramma, grondverwerving, onderzoeken, planologie, bouwrijp en woonrijp maken, aansluitingen en organisatiekosten van Hanzedorp: methode, invoer, gevoeligheid, risico's en toetsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Grond &amp; kosten</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Grond &amp; kosten – technische verantwoording</h1>
+  <dl class="meta read"><dt>Auteur</dt><dd><span data-k="auteur"></span></dd><dt>Status</dt><dd>concept; kostenramingen grotendeels schatting (S), niet extern getoetst</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> officieel tarief/opgave · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Het ruimteprogramma voor <span data-k="nW"></span> woningen (<span data-k="mix"></span>), gemeenschappelijke voorzieningen en een akker van 5.000 m² (waarvan bij de start een deel weiland), inclusief rondweg, bermen, wadi's en een houtsingel langs de buitengrens, vraagt circa <span data-k="m2"></span> m² (<span data-k="ha"></span> ha), minder dan de 2–3 ha die op hanzedorp.nl wordt genoemd. Bij aankoop als landbouwgrond tegen het landelijk gemiddelde van Q2 2026 (€ 108.500·ha⁻¹)<sup class="ref"><a href="#bron-87">[87]</a></sup> en overdrachtsbelasting 10,4 %<sup class="ref"><a href="#bron-88">[88]</a></sup> bedragen grondverwerving, planologie, onderzoeken, bouwrijp en woonrijp maken, aansluitingen en organisatie samen € <span data-k="tMin"></span> – <span data-k="tMax"></span> (midden € <span data-k="tStd"></span>, incl. 10 % onvoorzien), of gemiddeld € <span data-k="pwStd"></span> per woning. Worden de woonkavels als bouwgrond verworven (S € 300·m⁻²), dan stijgt het totaal naar circa € <span data-k="tBouw"></span>. De raming is een ordegrootte; vrijwel alle posten buiten grond en netaansluiting zijn schattingen die door offertes en de gemeentelijke grondprijs- en legesverordening moeten worden vervangen. Bouwkosten van de woningen vallen buiten deze raming.</p>
+</section>
+
+<section id="s1"><h2 class="num">Vraagstelling en systeemgrens</h2>
+  <p class="read">Vraag: hoeveel grond is nodig en welke kosten ontstaan vóór en rond de bouw (grondverwerving tot en met woonrijp maken)? Binnen de grens: grond, transactiekosten, planologische procedure, onderzoeken, bouwrijp en woonrijp maken, nutsaansluitingen op het openbare net, organisatie. Buiten de grens: bouwkosten woningen en gemeenschappelijke gebouwen, installaties (PV, accu, laders, netwerk: zie de betreffende thema's), btw-optimalisatie, financieringsrente.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <div class="formula">Ruimte:      A_tot = Σ_t n_t · (A_bebouwd,t + A_tuin + A_verhard) + Σ A_gemeenschappelijk
+Grond:       K_grond = (A_tot − f_B·A_kavels)/10⁴ · p_land + f_B·A_kavels · p_bouw ;   OB = 0,104 · K_grond
+Posten:      K_i = q_i · p_i,  p_i ∈ {min, (min+max)/2, max};  q_i = 1 | ha | sonderingen | m² plangebied (excl. akker) | m sleuf | m² weg | m² groen | bouwsom
+Bouwsom:     Σ n_t · A_gebruik,t · <span data-k="bsM2"></span> €·m⁻² (S; alleen als grondslag voor leges, begeleiding, verzekering)
+Totaal:      K = (Σ K_i + K_grond + OB) · (1 + f_onvoorzien)
+Verdeling:   naar kavel (A_kavel,t / Σ A_kavel) | gelijk (1/n) | naar gebruiksoppervlak</div>
+</section>
+
+<section id="s2b"><h2 class="num">Ruimteprogramma per doel</h2>
+  <p class="read">Opgave<sup class="ref"><a href="#bron-161">[161]</a></sup>: per doel het oppervlak, zo specifiek mogelijk, waarbij afhankelijke delen meeschalen met de keuzes. Elk onderdeel heeft een <b>functie</b> (aansluitend bij de functie-indeling van een omgevingsplan: wonen – bebouwd, tuin, erf; maatschappelijk; nuts en bedrijf; verkeer; groen; water; agrarisch), een <b>eigendom</b> (privékavel of mandelig) en een <b>soort</b>: <i>keuze</i> (ontwerpvariabele), <i>gevolg</i> (afgeleid uit keuzes) of <i>norm</i> (afgeleid uit een regel).</p>
+  <div class="formula">Kavel t:        A_kavel,t = A_woning,t + (A_kavel,t − A_woning,t)·f_tuin + (A_kavel,t − A_woning,t)·(1 − f_tuin)      f_tuin = <span data-k="fTuin"></span> [119]
+Daken:          A_groendak = A_woning·f_gd,  A_pv-dak = A_woning·(1 − f_gd)   (overlappend, telt niet mee)               f_gd = <span data-k="fGd"></span>
+Kern:           A_kern = Σ A_kavel + gebouwen + erven + carport + accu/verdeelkast/afval + kippen + vijvers + gezamenlijk groen
+Rondweg:        L = L_ref · √(A_kern / A_kern,ref),  A_weg = L · b_weg      L_ref = <span data-k="Lref"></span> m (S), A_kern,ref = <span data-k="Kref"></span> m², b_weg = <span data-k="bWeg"></span> m [110]
+Bermen:         A_berm = 2 · L · b_berm                                       b_berm = <span data-k="bBerm"></span> m (N)
+Paden, plein:   A_pad = n · a_pad + A_plein                                   a_pad = <span data-k="aPad"></span> m² (N)
+Wadi's:         V = max[(A_groen+A_berm)·C_g + A_verh·C_v) · P_toets ; A_verh · h_berging],  A_wadi = V / d · f_talud
+                (A_verh = weg + paden + plein; P_toets = <span data-k="pToets"></span> mm; h_berging = <span data-k="hBerg"></span> mm [15]; d = <span data-k="dWadi"></span> m; f_talud = <span data-k="fTal"></span>)
+Singel:         A_singel = b_s · 4,24 · √A_plan  (iteratief; omtrek rechthoek 1:2)  b_s = <span data-k="bSingel"></span> m (N)
+Akker:          A_akker,start (in teelt, tuinderij) + (A_akker,max − A_akker,start) als weiland in reserve</div>
+  <div class="result" id="rKpiT" style="margin:10px 0"></div>
+  <div class="scroll"><table id="tblDoelT"><caption>Tabel R1 – Ruimteprogramma per doel, standaardinvoer (m²), met afleiding en status.</caption>
+    <thead><tr><th>Onderdeel</th><th>Eigendom</th><th>Soort</th><th class="num">m²</th><th class="num">Δ</th><th>Status</th><th class="num">Aandeel</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblGevR"><caption>Tabel R2 – Doorwerking van keuzes op de gevolgdelen (m²).</caption>
+    <thead><tr><th>Variant</th><th class="num">Rondweg</th><th class="num">Bermen</th><th class="num">Wadi's</th><th class="num">Singel</th><th class="num">Plangebied</th><th class="num">Woningen/ha</th></tr></thead><tbody></tbody></table></div>
+  <p class="read"><b>Toetsing en discussie.</b> (1) De functie-indeling volgt de gangbare indeling van omgevingsplannen; de werkelijke functies, bouwvlakken en maximale bebouwingspercentages stelt de gemeente vast (open punt, dossier V2). (2) Een houtsingel als landschappelijke inpassing is gebruikelijk bij woningbouw in het buitengebied (Kwaliteitsimpuls Groene Omgeving, Overijssel<sup class="ref"><a href="#bron-129">[129]</a></sup>); breedte en ligging zijn een aanname tot de provincie/gemeente eisen stelt. (3) Het wadivolume volgt de bergingsregel van het waterschap (92 mm per m² nieuw verhard) en de toetsbui<sup class="ref"><a href="#bron-15">[15]</a></sup>; daken voeren af naar regenwatertanks en vijvers, erfverharding naar infiltratiekratten, en tellen daarom niet mee in de wadi's. (4) De rondweglengte is een schaalregel op basis van één schatting (290 m); een stedenbouwkundig plan vervangt deze. (5) De veiligheidszone van de buurtaccu en de slagschaduwzone van de erfmolens leggen beperkingen op de inrichting, maar vragen geen extra grond zolang er alleen groen, weg of akker in ligt. (6) Bij een bestaand erf (route volgens het beleidsonderzoek<sup class="ref"><a href="#bron-129">[129]</a></sup>) vallen buurthuis, schuren en werkplaats mogelijk in bestaande stallen; dan dalen de keuzedelen ‘Maatschappelijk’ en ‘Nuts en bedrijf’ en de bijbehorende rondweg.</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoergegevens</h2>
+  <div class="scroll"><table id="tblRuimte"><caption>Tabel 1 – Ruimteprogramma.</caption><thead><tr><th>Onderdeel</th><th class="num">m²</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblIn"><caption>Tabel 2 – Kostenposten: eenheidsprijzen en hoeveelheden.</caption><thead><tr><th>Groep</th><th>Post</th><th class="num">Min</th><th class="num">Max</th><th>Eenheid</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten en gevoeligheid</h2>
+  <div class="scroll"><table id="tblRes"><caption>Tabel 3 – Kosten per groep (€, excl. btw).</caption><thead><tr><th>Groep</th><th class="num">Laag</th><th class="num">Midden</th><th class="num">Hoog</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 4 – Gevoeligheid (midden).</caption><thead><tr><th>Variant</th><th class="num">Grond (ha)</th><th class="num">Totaal (€)</th><th class="num">Per woning (€)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">De grondprijs domineert zodra (een deel van) de grond tegen een woonbestemmingswaarde wordt verworven. Bij aankoop als landbouwgrond zijn bouwrijp maken (infrasleuf, grondwerk) en de planologische procedure inclusief kostenverhaal de grootste posten. De hoeveelheid infrasleuf (N 600 m) hangt sterk af van de verkaveling.</p>
+</section>
+
+<section id="s5"><h2 class="num">Risico's</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Geen planologische medewerking</td><td>Gemeente of provincie wijst wonen in het buitengebied af</td><td>Vooroverleg; koop onder ontbindende voorwaarde; aansluiten bij CPO-beleid gemeente</td><td>hoog</td><td>open</td></tr>
+    <tr><td>Grondprijsopdrijving</td><td>Verkoper anticipeert op woonbestemming</td><td>Optie- of koopovereenkomst vóór planvorming; taxatie</td><td>middel</td><td>open</td></tr>
+    <tr><td>Bodemverontreiniging <span class="pill s-aanname">volksgezondheid</span></td><td>Voormalig landbouwgebruik, PFAS, asbest → sanering, beperking moestuin</td><td>Verkennend bodemonderzoek vóór koop; RIVM-advies moestuinen</td><td>middel</td><td>open</td></tr>
+    <tr><td>Beschermde soorten / archeologie</td><td>Vertraging, aanvullend onderzoek, ontheffing</td><td>Quickscans vroeg; werken buiten broedseizoen</td><td>middel</td><td>open</td></tr>
+    <tr><td>Stikstof</td><td>Depositie bouw- en gebruiksfase op Natura 2000</td><td>AERIUS-berekening; elektrisch bouwen, geen gas</td><td>laag–middel</td><td>open</td></tr>
+    <tr><td>Hoge grondwaterstand</td><td>Ophogen, duurdere fundering, wadi's en vijver</td><td>Geohydrologisch onderzoek vóór koop</td><td>middel</td><td>open</td></tr>
+    <tr><td>Voorfinanciering</td><td>Kosten vóór hypotheek (5–10 % woningprijs)<sup class="ref"><a href="#bron-89">[89]</a></sup></td><td>Inleg per huishouden, eventueel startlening/subsidie</td><td>middel</td><td>open</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s6"><h2 class="num">Toetsing – regelgeving</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / regeling</th><th>Wat geëist wordt</th><th>Hoe Hanzedorp voldoet</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Woonbestemming</td><td>Omgevingswet: omgevingsplan (wijziging) of buitenplanse omgevingsplanactiviteit</td><td>Evenwichtige toedeling van functies aan locaties</td><td>Ruimtelijke onderbouwing met onderzoeken</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Kostenverhaal</td><td>Omgevingswet afd. 13.6</td><td>Gemeente verhaalt kosten bij bouwplannen</td><td>Anterieure overeenkomst</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Bodemkwaliteit</td><td>Omgevingswet / Bal (bodem), Besluit bodemkwaliteit</td><td>Bodem geschikt voor wonen en moestuin</td><td>Verkennend bodemonderzoek (NEN 5740), asbest (NEN 5707)</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Beschermde soorten</td><td>Omgevingswet (natuur, voorheen Wnb)</td><td>Geen verboden handelingen zonder vergunning</td><td>Quickscan flora en fauna</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Archeologie</td><td>Omgevingsplan / Erfgoedwet</td><td>Onderzoek bij verwachtingswaarde</td><td>Bureauonderzoek</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Stikstofdepositie</td><td>Omgevingswet (Natura 2000-activiteit)</td><td>Geen significante effecten</td><td>AERIUS Calculator</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Water</td><td>Waterschap WDOD: watertoets, berging</td><td>Compensatie verharding</td><td>Kratten, wadi's (zie hemelwater)</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Overdrachtsbelasting / btw</td><td>Wet op belastingen van rechtsverkeer; Wet OB 1968 (bouwterrein)</td><td>10,4 % onbebouwde grond; bouwterrein mogelijk btw 21 % i.p.v. OB</td><td>Fiscale toets bij aankoop</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s7"><h2 class="num">Discussie en open punten</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li>Regionale grondprijzen (Overijssel) en de grondprijsbrieven van Dalfsen, Raalte, Olst-Wijhe en Zwolle zijn nog niet verwerkt; het landelijke gemiddelde is een eerste benadering.</li>
+    <li>Vrijwel alle eenheidsprijzen zijn schattingen (S); offertes van een bodemadviesbureau, ecoloog, archeoloog, grondwerker en CPO-begeleider zijn nodig.</li>
+    <li>Gemeentelijke leges en aansluitkosten (drinkwater, riool) volgen uit de verordeningen en tarievenbladen van de gekozen gemeente en het waterbedrijf.</li>
+    <li>De verdeelsleutel per woning is een groepsbesluit.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s9"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.15</td><td>27-10-2026</td><td>Eerste versie: ruimteprogramma, kostenstructuur, rekenmodel, risico's en regelgeving.</td><td>Melvin de Vries (opdracht [82]); uitwerking met Claude</td></tr>
+  <tr><td>0.19</td><td>04-11-2026</td><td>Ruimteprogramma per doel (functie, eigendom, keuze/gevolg/norm): kavels per type met dak en tuin, gebouwen, rondweg die meeschaalt, bermen, paden, wadi's volgens waterschapsregel, houtsingel, akker met weiland in reserve; doorwerking van keuzes (tabel R2).</td><td>Melvin de Vries (opgave [161]); uitwerking met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="grond-ruimte-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, G = D.grond, $ = id => document.getElementById(id);
+  const lo = GK.rekenen({ scen: "min" }), md = GK.rekenen(), hi = GK.rekenen({ scen: "max" }), bg = GK.rekenen({ aandeelBouwgrond: 1 });
+  const k = v => nl(Math.round(v / 1000) * 1000);
+  bindAll({ nW: nl(md.nW), mix: `${md.mix.gezin} gezin / ${md.mix.senior} senior / ${md.mix.junior} jongere`, m2: nl(md.totaalM2), ha: nl(md.ha, 2),
+    tMin: k(lo.totaal), tMax: k(hi.totaal), tStd: k(md.totaal), pwStd: k(md.gemPerWoning), tBouw: k(bg.totaal), bsM2: nl(G.bouwsomPerM2) });
+  renderBronnen($("bronnen"), [82, 87, 88, 89, 90, 60, 15, 110, 119, 129, 161]);
+  { const R0 = D.grond.ruimteR, RP = G.ruimte, WS = D.waterschap, H = D.hemelwater, st = (k2, v) => document.querySelectorAll(`[data-k=${k2}]`).forEach(e => e.textContent = v);
+    st("fTuin", nl(G.aandeelTuin, 2)); st("fGd", nl(D.dak.aandeelGroen, 2)); st("Lref", nl(RP.rondwegRefM)); st("Kref", nl(RP.kernRefM2)); st("bWeg", nl(RP.wegBreedte, 1)); st("bBerm", nl(RP.bermBreedte, 2));
+    st("aPad", nl(RP.padenPerWoning)); st("pToets", nl(WS.toetsbuiMm)); st("hBerg", nl(WS.bergingMm)); st("dWadi", nl(H.wadiDiepte, 2)); st("fTal", nl(RP.wadiTalud, 2)); st("bSingel", nl(RP.singelBreedte, 1));
+    GRU.kpis($("rKpiT"), R0); GRU.tabel($("tblDoelT").querySelector("tbody"), R0, R0, true);
+    const VR = [["Standaard", {}], ["Kavels +50 % (alle types)", { kavel: { gezin: G.kavel.gezin * 1.5, senior: G.kavel.senior * 1.5, junior: G.kavel.junior * 1.5 } }], ["Kavels −30 %", { kavel: { gezin: G.kavel.gezin * 0.7, senior: G.kavel.senior * 0.7, junior: G.kavel.junior * 0.7 } }],
+      ["Gezamenlijk groen 4.000 m²", { groenM2: 4000 }], ["Akker 10.000 m²", { akkerM2: 10000 }], ["Geen houtsingel", { singelBreedte: 0 }], ["Singel 8 m", { singelBreedte: 8 }]];
+    $("tblGevR").querySelector("tbody").innerHTML = VR.map(([n, o]) => { const r = window.HZ_RUIMTE(D, o), g = id => (r.items.find(x => x.id === id) || { m2: 0 }).m2;
+      return `<tr><td>${n}</td><td class="num">${nl(g("rondweg"))}</td><td class="num">${nl(g("berm"))}</td><td class="num">${nl(g("wadi"))}</td><td class="num">${nl(g("singel"))}</td><td class="num">${nl(r.kpi.totaal)}</td><td class="num">${nl(r.kpi.dichtheid, 1)}</td></tr>`; }).join(""); }
+
+  $("tblRuimte").querySelector("tbody").innerHTML =
+    GK.TYPES.map(t => `<tr><td>${md.mix[t]} × ${GK.NAAM[t].toLowerCase()}: kavel ${G.kavel[t]} = bebouwd ${G.bebouwd[t]} + tuin ${nl(G.tuinType[t])} + verharding ${nl(G.verhardType[t])}</td><td class="num">${nl(md.mix[t] * md.kavel[t])}</td><td>G/N</td></tr>`).join("") +
+    md.gem.map(g => `<tr><td>${g[0]}</td><td class="num">${nl(g[1])}</td><td>${g[2]}</td></tr>`).join("") + `<tr style="font-weight:600"><td>Totaal</td><td class="num">${nl(md.totaalM2)}</td><td></td></tr>`;
+  $("tblIn").querySelector("tbody").innerHTML = `<tr><td>Grondverwerving</td><td>Landbouwgrond</td><td class="num">${nl(G.landbouwgrondHa)}</td><td class="num">${nl(G.landbouwgrondHa)}</td><td>€ per ha</td><td>G [87]</td></tr><tr><td>Grondverwerving</td><td>Bouwgrond (variant)</td><td class="num">${nl(G.bouwgrondM2)}</td><td class="num">${nl(G.bouwgrondM2)}</td><td>€ per m² kavel</td><td>S</td></tr>` +
+    G.posten.map(p => `<tr><td>${p[0]}</td><td>${p[1]}</td><td class="num">${nl(p[3], p[3] < 1 ? 3 : 0)}</td><td class="num">${nl(p[4], p[4] < 1 ? 3 : 0)}</td><td>${p[5]}</td><td>${p[6]}</td></tr>`).join("");
+  const grp = Object.keys(md.groepen);
+  $("tblRes").querySelector("tbody").innerHTML = grp.map(g => `<tr><td>${g}</td><td class="num">${k(lo.groepen[g])}</td><td class="num">${k(md.groepen[g])}</td><td class="num">${k(hi.groepen[g])}</td></tr>`).join("") +
+    `<tr><td>Onvoorzien (${nl(G.onvoorzien * 100)} %)</td><td class="num">${k(lo.onv)}</td><td class="num">${k(md.onv)}</td><td class="num">${k(hi.onv)}</td></tr><tr style="font-weight:600"><td>Totaal</td><td class="num">${k(lo.totaal)}</td><td class="num">${k(md.totaal)}</td><td class="num">${k(hi.totaal)}</td></tr>`;
+  const V = [["Standaard", {}], ["Landbouwgrond € 80.000/ha", { prijsLandHa: 80000 }], ["Landbouwgrond € 150.000/ha", { prijsLandHa: 150000 }], ["Woonkavels als bouwgrond € 200/m²", { aandeelBouwgrond: 1, bouwgrondM2: 200 }], ["Woonkavels als bouwgrond € 400/m²", { aandeelBouwgrond: 1, bouwgrondM2: 400 }], ["Akker 2.500 m²", { akkerM2: 2500 }], ["Akker 10.000 m² (1 ha, website)", { akkerM2: 10000 }], ["Onvoorzien 20 %", { onvoorzien: 0.2 }]];
+  $("tblGev").querySelector("tbody").innerHTML = V.map(([n, o]) => { const r = GK.rekenen(o); return `<tr><td>${n}</td><td class="num">${nl(r.ha, 2)}</td><td class="num">${k(r.totaal)}</td><td class="num">${k(r.gemPerWoning)}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

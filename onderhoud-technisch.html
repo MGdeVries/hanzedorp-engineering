@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onderhoud en vervanging – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Meerjarenonderhoudsplan (MJOP) gedeelde voorzieningen Hanzedorp: componenten, eenheidsprijzen, levensduren, onderhoudspercentages, vervangingsmomenten, reservefondsmodel, gevoeligheid, risico's en compliance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Onderhoud en vervanging</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Meerjarenonderhoudsplan (MJOP) van de gedeelde voorzieningen van Hanzedorp: componenten, levensduren, vervangingsmomenten en de vereiste reservering</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Het MJOP omvat uitsluitend de gedeelde voorzieningen in mandelig eigendom (opgave Melvin de Vries, 04-11-2026<sup class="ref"><a href="#bron-165">[165]</a></sup>); de woningen vallen erbuiten; alle PV inclusief de woningdaken [171] en de laadpalen op het laadplein horen erbij<sup class="ref"><a href="#bron-169">[169]</a></sup>. Op basis van 29 componenten met hoeveelheden uit het ruimteprogramma en het energieontwerp bedraagt de vervangingswaarde (midden, excl. btw, prijspeil <span data-k="bhStart"></span>) <b>€ <span data-k="bhInv"></span></b>, het jaarlijkse onderhoud inclusief keuringen <b>€ <span data-k="bhOnd"></span></b> en de rechtlijnige afschrijving <b>€ <span data-k="bhAfschr"></span></b> per jaar. De kleinste geïndexeerde jaarstorting waarbij het reservefonds over <span data-k="bhN"></span> jaar nooit onder de buffer van € <span data-k="bhBuf"></span> zakt, is <b>€ <span data-k="bhC"></span></b> in het eerste jaar; samen met het onderhoud is dat ± <b>€ <span data-k="bhPW"></span> per woning per maand</b> (excl. btw). De uitkomst is het gevoeligst voor de eenheidsprijzen van buurtaccu en gebouwen en voor de levensduur van accu en erfmolens. Alle prijzen zijn schattingen (S) tot er offertes zijn.</p>
+</section>
+
+<section id="s1"><h2 class="num">Inleiding en systeemgrens</h2>
+  <p class="read">Doel: een herleidbare onderhouds- en kostenplanning van de gedeelde installaties en voorzieningen, als basis voor de financiële planning (<a href="financien-technisch.html">financien-technisch</a>) en het eigendomsmodel (eigendom-technisch). Binnen de grens: energie (PV buiten woningdaken incl. agri-PV, omvormers, buurtaccu met PCS, erfmolens, hoofdverdeling, kabels), gebouwen (buurthuis, schuren, carportconstructie), voedsel (koel-/vriescellen en koelmachines), akker (put, pomp, filters, irrigatie, bassin, nutsgebouw), water (zwemvijver, tuinvijver, wadi's, drinkwaterleiding, submeters, aanzuigpunten bluswater), terrein (rondweg, grastegels, paden, hek/verlichting, groenbeheer), digitaal (stuklijst digitale infrastructuur) en periodieke keuringen. Laadpalen op het laadplein zijn gezamenlijk bezit (besluit 04-11-2026<sup class="ref"><a href="#bron-169">[169]</a></sup>) en vallen binnen de grens. Ook PV en omvormers op de woningdaken zijn gezamenlijk bezit (besluit 04-11-2026<sup class="ref"><a href="#bron-171">[171]</a></sup>). Buiten de grens: woningen (casco en installaties), grondverwerving en bouw-/woonrijp maken (<a href="grond-technisch.html">grond-technisch</a>). Het aanlegbedrag van wegen, paden en hek staat al in Grond &amp; kosten; die componenten tellen hier mee voor onderhoud en vervanging, niet opnieuw voor de investering.</p>
+  <p class="read">Normatief kader: voor een VvE schrijft de wet een jaarlijkse reservering voor op basis van een MJOP voor ten minste 10 jaar, of zonder MJOP ten minste 0,5 % van de herbouwwaarde, op een aparte rekening<sup class="ref"><a href="#bron-168">[168]</a></sup>. Hanzedorp is (vermoedelijk) geen VvE maar een vereniging als beheerder van mandelige zaken (BW 5:60–5:69); de VvE-regel wordt hier als ondergrens gehanteerd.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <p class="read">Per component <i>c</i>: hoeveelheid <i>n<sub>c</sub></i> (uit databron), eenheidsprijs <i>p<sub>c</sub></i> ∈ [p<sub>min</sub>, p<sub>max</sub>] (scenario laag/midden/hoog), technische levensduur <i>L<sub>c</sub></i> (jaar) en onderhoudsfractie <i>q<sub>c</sub></i> (per jaar van de investering) plus een vaste onderhoudspost <i>v<sub>c</sub></i> per eenheid.</p>
+  <ul class="read">
+    <li>Investering: I<sub>c</sub> = n<sub>c</sub> · p<sub>c</sub> [€]</li>
+    <li>Onderhoud in jaar t: O<sub>t</sub> = Σ<sub>c</sub> (I<sub>c</sub> · q<sub>c</sub> + v<sub>c</sub> · n<sub>c</sub>) · (1 + i)<sup>t</sup> [€/jr], met prijsstijging i</li>
+    <li>Vervanging in jaar t: V<sub>t</sub> = Σ<sub>c</sub> I<sub>c</sub> · (1 + i)<sup>t</sup> · 𝟙[t mod L<sub>c</sub> = 0], t = 1…N</li>
+    <li>Reservefonds: F<sub>0</sub> = buffer; F<sub>t</sub> = F<sub>t−1</sub> · (1 + r) + C · (1 + i)<sup>t</sup> − V<sub>t</sub>, met rente r</li>
+    <li>Storting: C = min{C ≥ 0 : F<sub>t</sub> ≥ buffer ∀ t ≤ N} (bisectie, 60 iteraties)</li>
+    <li>Ter vergelijking: afschrijving A = Σ I<sub>c</sub> / L<sub>c</sub>; VvE-minimum 0,005 · Σ I<sub>c</sub></li>
+  </ul>
+  <p class="read">Aannames: vervanging tegen de huidige eenheidsprijs (geen technologische prijsdaling; voor PV en accu conservatief); restwaarde aan het eind van de horizon niet meegeteld; geen gedeeltelijke vervanging (bv. accu per blok) – in werkelijkheid worden de drie accublokken gespreid vervangen, wat de piek dempt. Rekenmodel: <code>beheer-gedeeld.js</code> (BH.mjop).</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoergegevens</h2>
+  <div class="cols">
+    <div class="scroll"><table><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Status</th></tr></thead><tbody id="tblPar"></tbody></table></div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label>Prijsscenario</label><div class="seg" id="sScen"></div></div>
+        <div class="ctl"><label for="mInf">Prijsstijging i: <output id="mInfO"></output> %/jr</label><input type="range" id="mInf" min="0" max="5" step="0.5"></div>
+        <div class="ctl"><label for="mR">Rente reservefonds r: <output id="mRO"></output> %/jr</label><input type="range" id="mR" min="0" max="4" step="0.25"></div>
+        <div class="ctl"><label for="mL">Levensduurfactor: <output id="mLO"></output> %</label><input type="range" id="mL" min="70" max="130" step="5"></div>
+        <div class="ctl"><label for="mN">Horizon N: <output id="mNO"></output> jaar</label><input type="range" id="mN" min="10" max="50" step="5"></div>
+        <div class="ctl"><label for="mAccu">Buurtaccu: <output id="mAccuO"></output> kWh</label><input type="range" id="mAccu" min="300" max="1000" step="150"></div>
+        <div class="ctl"><label for="mBuf">Buffer: € <output id="mBufO"></output></label><input type="range" id="mBuf" min="0" max="100000" step="5000"></div>
+      </div>
+      <button type="button" id="mReset" class="seg" style="justify-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+  <div class="scroll" style="margin-top:10px"><table id="tblComp"><caption>Tabel O1 – Componenten (excl. btw). Hoeveelheden afgeleid uit het ruimteprogramma (grond-technisch §2b), energieontwerp scenario C en de stuklijst digitale infrastructuur.</caption>
+    <thead><tr><th>Component</th><th>Groep</th><th class="num">Hoeveelheid</th><th class="num">€ per eenheid</th><th class="num">I (k€)</th><th class="num">L (jr)</th><th class="num">O (€/jr)</th><th>Vervangen in</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten</h2>
+  <div class="result" id="mKpi" aria-live="polite"></div>
+  <div id="mChart" style="margin-top:10px"></div>
+  <p class="note">Figuur O1 – Vervangingen per jaar (staven) en saldo reservefonds (lijn), nominaal, excl. btw.</p>
+  <div class="scroll"><table id="tblGroep"><caption>Tabel O2 – Per groep (k€, excl. btw).</caption>
+    <thead><tr><th>Groep</th><th class="num">I</th><th class="num">O per jaar</th><th class="num">A per jaar</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Gevoeligheid en onzekerheid</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel O3 – Eén parameter tegelijk gevarieerd t.o.v. de standaard. Uitkomst: onderhoud + storting per woning per maand (excl. btw).</caption>
+    <thead><tr><th>Variant</th><th class="num">€/woning/mnd</th><th class="num">Δ</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">De horizon heeft een sterk effect: bij N = 30 vallen de vervanging van PV, bassin, put en een derde accu- en omvormerronde samen in het laatste jaar, zodat het fonds daar naartoe moet sparen. Een korter planvenster (10 jaar, zoals de VvE-regel) geeft een lagere storting, maar schuift de rekening door naar latere bewoners; voor de intergenerationele gelijkheid is een lange horizon met periodieke herziening (elke 5 jaar) passender.</p>
+</section>
+
+<section id="s6"><h2 class="num">Validatie</h2>
+  <p class="read">Kruiscontrole met openbare indicaties: erfmolen ± € 50.000 per stuk, bij goed onderhoud tientallen jaren<sup class="ref"><a href="#bron-166">[166]</a></sup> → model € 45–60k, L = 20 jr (conservatief); natuurlijke zwemvijver € 100–650/m² incl. arbeid en btw, slib ± eens per 3 jaar<sup class="ref"><a href="#bron-167">[167]</a></sup> → model € 200–400/m² excl. btw, q = 2 %; buurtaccu (C&amp;I BESS, € 330–720/kWh TIC<sup class="ref"><a href="#bron-130">[130]</a></sup>) → model € 350–550/kWh incl. PCS; submeter drinkwater € 457,80 (Vitens 2026)<sup class="ref"><a href="#bron-124">[124]</a></sup>. Gebouwprijzen (buurthuis € 2.000–2.800/m², schuren € 800–1.400/m²) zijn schattingen zonder externe bron en moeten worden gevalideerd met de installatiebegroting (dossier H3.6, Douwe Kunst). Er is geen wetenschappelijke publicatie met levensduren specifiek voor deze combinatie; de levensduren volgen fabrikantgaranties en gangbare MJOP-praktijk (te verifiëren met NEN 2767-conditiemeting na oplevering).</p>
+</section>
+
+<section id="s7"><h2 class="num">Risico's per deelonderwerp</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Wie / bewijs</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Onderreservering</td><td>Prijzen hoger of levensduur korter dan aangenomen → tekort bij vervanging, ad-hocbijdrage</td><td>Buffer; herziening MJOP elke 5 jaar; conditiemeting NEN 2767</td><td>Onderhoudsmanager; ledenvergadering</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Achterstallig onderhoud (‘tragedy of the commons’)</td><td>Onduidelijk eigenaarschap → verwaarlozing (vgl. besluit wasruimte 04-11-2026)</td><td>Rol onderhoudsmanager; rooster; jaarverslag</td><td>Bestuur</td><td>middel</td><td>deels</td></tr>
+    <tr><td><b>Keuring accu/elektra verlopen</b> (brandveiligheid)</td><td>Geen periodieke inspectie → onveilige situatie, dekking verzekering</td><td>Keuringskalender; NEN 3140; PGS 37-1-inspecties; certificaten in dossier</td><td>Onderhoudsmanager; erkend bedrijf</td><td>laag</td><td>open</td></tr>
+    <tr><td><b>Legionella</b> (volksgezondheid)</td><td>Stilstand in leidingen buurthuis</td><td>Spoelrooster; jaarlijkse controle</td><td>Bewoners; vakbedrijf</td><td>laag</td><td>open</td></tr>
+    <tr><td>Gelijktijdige vervangingen</td><td>Piekuitgaven (jaar 15, 30)</td><td>Accublokken gespreid vervangen; reservefonds; vervroegen/uitstellen binnen marge</td><td>Onderhoudsmanager + controller</td><td>laag</td><td>afgedekt</td></tr>
+    <tr><td>Leverancier niet meer beschikbaar</td><td>Erfmolen, PCS of EMS-hardware zonder onderdelen</td><td>Open standaarden; reserveonderdelen; meerdere leveranciers</td><td>Onderhoudsmanager</td><td>middel</td><td>open</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s8"><h2 class="num">Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Reservering groot onderhoud</td><td>BW 5:126 (VvE; MJOP of ≥ 0,5 % herbouwwaarde)<sup class="ref"><a href="#bron-168">[168]</a></sup>; voor mandeligheid BW 5:65 (kosten naar aandeel)</td><td>MJOP 30 jaar, reservering ruim boven 0,5 %; aparte rekening</td><td>Statuten/reglement beheervereniging; notaris</td><td>voldoet onder voorwaarde (statuten)</td></tr>
+    <tr><td>Periodieke inspectie elektrische installatie</td><td>NEN 3140 (arbo/verzekeraar), NEN 1010 bij wijziging</td><td>Keuringspost in MJOP</td><td>Erkend inspectiebedrijf</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Energieopslag</td><td>PGS 37-1 (Bal-aanwijzing verwacht 2028)</td><td>Inspecties volgens PGS 37-1 in keuringspost</td><td>Leverancier, inspectiebedrijf</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Koelmachines (lekcontrole)</td><td>F-gassenverordening (EU) 2024/573</td><td>Natuurlijk koudemiddel; lekcontrole volgens fabrikant</td><td>Erkend koeltechnisch bedrijf</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Legionellabeheer collectief net</td><td>Drinkwaterbesluit; BRL 6010</td><td>Spoelrooster en jaarlijkse controle</td><td>Vakbedrijf</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Blusmiddelen en noodverlichting</td><td>Bbl (gebruik), NEN 2559 / NEN-EN 1838</td><td>Jaarlijks onderhoud in keuringspost</td><td>Erkend bedrijf</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s9"><h2 class="num">Discussie en conclusie</h2>
+  <p class="read">Het MJOP laat zien dat de gedeelde voorzieningen een aanzienlijke structurele last meebrengen: de reservering ligt in dezelfde orde als de afschrijving, omdat de buurtaccu, omvormers en netwerkapparatuur relatief kort meegaan. Kostenbesparende opties (voorstel engineer, besluit Melvin): (1) accu 3 × 150 kWh in plaats van 3 × 200 kWh (vraag 79) verlaagt investering en storting; (2) erfmolens pas plaatsen na een windmeting – ze vormen ± 7 % van de vervangingswaarde maar leveren vooral winterstroom; (3) gebouwen sober en met lange levensduur (CLT, hergebruik stallen bij een erflocatie) verlagen de storting; (4) zelfwerkzaamheid bij groen- en vijveronderhoud. Conclusie: met ± € <span data-k="bhPW"></span> per woning per maand (excl. btw) is het onderhoud van alle gedeelde voorzieningen gedekt zonder ad-hocbijdragen; dit bedrag moet terugkomen in de maandlastenberekening (dossier H4) en per 5 jaar worden herzien.</p>
+</section>
+
+<section id="s10"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s11"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.19</td><td>04-11-2026</td><td>PV en omvormers op de woningdaken en laadpalen toegevoegd als gezamenlijk bezit [169][171]</td><td>Melvin de Vries / Claude</td></tr>
+  <tr><td>0.19</td><td>04-11-2026</td><td>Nieuwe pagina: MJOP gedeelde voorzieningen, reservefondsmodel, gevoeligheid, risico's, compliance; rol onderhoudsmanager</td><td>Melvin de Vries / Claude</td></tr>
+</tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span><a href="onderhoud.html">← Basispagina</a></span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="beheer-gedeeld.js"></script>
+<script src="beheer-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, B = D.beheer, $ = id => document.getElementById(id), M0 = BH.mjop();
+  const r100 = v => nl(Math.round(v / 100) * 100);
+  bindAll({ bhStart: B.startJaar, bhInv: r100(M0.inv), bhOnd: r100(M0.ondJaar), bhAfschr: r100(M0.afschr), bhN: M0.N, bhBuf: nl(B.bufferEur), bhC: r100(M0.C), bhPW: nl(Math.round(M0.perWoningMnd)) });
+  renderBronnen($("bronnen"), [171, 169, 165, 166, 167, 168, 130, 124, 74, 161]);
+  $("tblPar").innerHTML = [["Startjaar", B.startJaar, "N"], ["Horizon N", B.horizon + " jaar", "N"], ["Prijsstijging i", nl(B.inflatie * 100, 1) + " %/jr", "N"], ["Rente reservefonds r", nl(B.renteFonds * 100, 1) + " %/jr", "N"],
+    ["Buffer reservefonds", "€ " + nl(B.bufferEur), "N"], ["Woningen", M0.nW, "B"], ["PV gedeeld (incl. agri-PV " + nl(M0.q.pvAgri, 1) + " kWp)", nl(M0.q.pvKWp, 1) + " kWp", "A"], ["Buurtaccu", nl(M0.q.accuKWh) + " kWh", "B"], ["Erfmolens", M0.q.molens, "B"]]
+    .map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+  BHU.seg($("sScen"), "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
+  const std = { mInf: B.inflatie * 100, mR: B.renteFonds * 100, mL: 100, mN: B.horizon, mAccu: D.energie.accu.kWh, mBuf: B.bufferEur };
+  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v);
+  function run() {
+    const o = { scen: BHU.val("sc"), inflatie: +$("mInf").value / 100, renteFonds: +$("mR").value / 100, levensduurFactor: +$("mL").value / 100, horizon: +$("mN").value, accuKWh: +$("mAccu").value, buffer: +$("mBuf").value };
+    $("mInfO").value = nl(+$("mInf").value, 1); $("mRO").value = nl(+$("mR").value, 2); $("mLO").value = $("mL").value; $("mNO").value = o.horizon; $("mAccuO").value = nl(o.accuKWh); $("mBufO").value = nl(o.buffer);
+    const M = BH.mjop(o);
+    BHU.kpiMjop($("mKpi"), M); BHU.chartMjop($("mChart"), M); BHU.tabelGroep($("tblGroep").querySelector("tbody"), M); BHU.tabelComp($("tblComp").querySelector("tbody"), M, true);
+  }
+  zet(); $("mReset").addEventListener("click", () => { zet(); run(); });
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+  const base = M0.perWoningMnd, v = [["Standaard", {}], ["Prijzen laag", { scen: "min" }], ["Prijzen hoog", { scen: "max" }], ["Prijsstijging 1,5 %", { inflatie: 0.015 }], ["Prijsstijging 3,5 %", { inflatie: 0.035 }],
+    ["Levensduur −20 %", { levensduurFactor: 0.8 }], ["Levensduur +20 %", { levensduurFactor: 1.2 }], ["Horizon 10 jaar", { horizon: 10 }], ["Horizon 50 jaar", { horizon: 50 }], ["Accu 450 kWh", { accuKWh: 450 }],
+    ["Zonder erfmolens", { molens: 0 }], ["Buffer € 0", { buffer: 0 }]];
+  $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.mjop(o).perWoningMnd, d = x - base; return `<tr><td>${n}</td><td class="num">${nl(Math.round(x))}</td><td class="num">${d ? (d > 0 ? "+" : "−") + nl(Math.abs(Math.round(d))) : ""}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

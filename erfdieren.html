@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dieren op het erf – Hanzedorp</title>
+<meta name="description" content="Kippen voor eieren en andere nuttige dieren op het erf van Hanzedorp: hoeveel kippen, ruimte, voer, wat mag met etensresten, vogelgriep en andere dieren. Basispagina met rekenmodel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Dieren op het erf</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Dieren op het erf</h1>
+  <p class="lead read">Dieren horen bij een dorp dat zijn eigen voedsel teelt. Kippen eten slakken en onkruidzaden, geven mest voor de akker en leggen eieren. Later kunnen er bijen, eenden of schapen bij komen. Op deze pagina rekenen we uit hoeveel kippen we nodig hebben en wat daarvoor nodig is.</p>
+  <ul class="kern read">
+    <li><span>Voor <span data-k="eiPP"></span> eieren per persoon per week zijn ongeveer <b><span data-k="kippen"></span> kippen</b> nodig, met een ren van minstens <span data-k="ren"></span> m².</span></li>
+    <li><span><b>Let op, eieren:</b> het RIVM adviseert sinds 2025 om <b>geen eieren van hobbykippen</b> te eten. Kippen die buiten scharrelen eten wormen, en daarin zit PFAS. Dat advies geldt in heel Nederland. Supermarkteieren zijn wel veilig.</span></li>
+    <li><span><b>Restjes uit de keuken</b> mogen niet naar de kippen, ook niet bij hobbykippen. Rauwe groente en fruit die rechtstreeks van de snijplank komen en niet in aanraking zijn geweest met vlees, vis, zuivel of eieren, mogen wel.</span></li>
+    <li><span>Bij vogelgriep moeten kippen binnen of onder een net. Daarom krijgt de ren een dak of net dat snel dicht kan.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-kip">
+  <h2 id="h-kip">Probeer het zelf: hoeveel kippen?</h2>
+  <div class="panel" style="display:grid;gap:18px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Wie wonen er?</legend><div class="seg" id="sLf"></div></fieldset></div>
+      <div class="ctl"><label for="mE">Eieren per persoon per week: <output id="mEO"></output></label><input type="range" id="mE" min="0" max="10" step="1"></div>
+      <div class="ctl"><label for="mR">Ren per kip: <output id="mRO"></output> m²</label><input type="range" id="mR" min="5" max="20" step="1"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rK"></b><span>kippen (incl. reserve voor rui en broedsheid)</span></div>
+      <div><b id="rEi"></b><span>eieren per jaar</span></div>
+      <div><b id="rVoer"></b><span>kippenvoer per jaar</span></div>
+      <div><b id="rHok"></b><span>nachthok</span></div>
+      <div><b id="rRen"></b><span>ren of weide</span></div>
+      <div><b id="rW"></b><span>drinkwater per dag</span></div>
+    </div>
+    <p class="note read" id="noot"></p>
+  </div>
+</section>
+
+<section aria-labelledby="h-rest">
+  <h2 id="h-rest">Restjes: wat mag wel en wat niet?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het voeren van <b>keukenafval en etensresten</b> aan kippen is bij wet verboden. Dat geldt ook voor kippen die je als hobby houdt. Het verbod geldt in heel Europa, om ernstige dierziektes zoals varkenspest en vogelgriep tegen te houden. Het toezicht ligt bij de NVWA (niet bij de ACM).</p>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>Wel:</b> rauwe groente en fruit, rechtstreeks van de snijplank, die niet in contact zijn geweest met vlees, vis, zuivel of eieren. En groente van de tuinderij of uit de koelcel die niet meer goed genoeg is om te eten.</li>
+        <li><b>Niet:</b> restjes van de maaltijd, gekookt eten, brood met beleg, of iets dat met dierlijke producten in aanraking is geweest.</li>
+        <li>Restjes van de maaltijd gaan naar de compost of de wormenbak.</li>
+      </ul>
+    </div>
+    <p class="warnbox read">Het idee om de kippen de restjes van het eten te laten opruimen, kan dus niet. Rauwe groenteschillen wel.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-gezond">
+  <h2 id="h-gezond">Gezonde kippen, gezonde eieren</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Vogelgriep.</b> Bij een uitbraak geldt voor hobbyhouders een afschermplicht: de kippen moeten in een hok of volière, uit de buurt van wilde vogels. De ren krijgt daarom een deel met een dicht dak en een net dat snel dicht kan.</p>
+      <p><b>Registratie.</b> Bij minder dan 250 kippen ben je geen bedrijf. Een registratienummer (UBN) is dan alleen nodig als je met de kippen de grens over gaat.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Eieren en PFAS.</b> Het RIVM onderzocht eieren van hobbykippen op 60 plekken in Nederland. Op meer dan de helft kreeg een volwassene met minder dan één ei per week al te veel PFAS binnen. In 2026 bleek dat dit vooral komt doordat kippen wormen eten. Het advies blijft: eet geen eieren van hobbykippen. Een ei laten testen geeft geen zekerheid, want het verschilt per ei. Wat dat voor ons betekent, staat hieronder.</p>
+      <p><b>Welzijn.</b> Iedereen die dieren houdt, moet goed voor ze zorgen. We maken een rooster: voeren, water, eieren rapen, hok schoonmaken.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-pfas">
+  <h2 id="h-pfas">Wat betekent het eieradvies voor ons?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Besluit:</b> we houden kippen ook voor de eieren. Of je de eieren eet, kiest ieder huishouden zelf, met kennis van het RIVM-advies. Wie wil, kan supermarkteieren blijven kopen.</p>
+      <p>Om de kans op PFAS te verkleinen, maken we de ren zo dat er weinig wormen zijn: een droog deel met een dak en een bodem van zand of houtsnippers. Dat zijn tips van een dierenarts; het RIVM heeft niet onderzocht hoeveel ze helpen.</p>
+    </div>
+    <p class="warnbox read">Let op voor kinderen en mensen met een zwakkere gezondheid: zij krijgen sneller te veel PFAS binnen. Het advies van het RIVM is voor hen extra belangrijk.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-ander">
+  <h2 id="h-ander">Andere nuttige dieren</h2>
+  <div class="scroll"><table><thead><tr><th>Dier</th><th>Wat levert het op?</th><th>Wat is ervoor nodig?</th><th>Voorstel</th></tr></thead><tbody>
+    <tr><td>Kippen</td><td>Eieren, mest, slakken- en onkruidbestrijding</td><td>Hok, ren, voer, dagelijkse zorg</td><td><span class="pill s-besloten">starten</span></td></tr>
+    <tr><td>Honingbijen</td><td>Bestuiving van fruit en groente, honing</td><td>Imker met kennis, plek op afstand van paden</td><td><span class="pill s-aanname">later</span></td></tr>
+    <tr><td>Loopeenden</td><td>Eten slakken op de akker</td><td>Nachthok, water; ook onder de afschermplicht</td><td><span class="pill s-aanname">later</span></td></tr>
+    <tr><td>Schapen of geiten</td><td>Maaien van wadi's en boomgaard, vlees, wol</td><td>Weide, stal, oormerk en registratie (verplicht)</td><td><span class="pill s-idee">onderzoeken</span></td></tr>
+    <tr><td>Wormen (wormenbak)</td><td>Compost van keukenresten</td><td>Bak in de schaduw</td><td><span class="pill s-besloten">starten</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Eten</h3><p>Verse eieren van het eigen erf, en minder slakken in de moestuin.</p></div>
+    <div class="read"><h3>Kosten</h3><p>Voer is de grootste vaste kostenpost. Hok en ren bouwen we zelf.</p></div>
+    <div class="read"><h3>Eigen inzet</h3><p>Elke dag iemand die voert en eieren raapt; een rooster maakt het licht.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Kippen voor eieren (eten is eigen keuze, RIVM-advies bekend)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Regels voor etensresten (NVWA)</td><td><span class="pill s-idee">na te vragen</span></td></tr>
+    <tr><td>Plek, hok en ren in het inrichtingsplan</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Kengetallen, regels, risico's en de toetsing staan op de technische pagina.</p><a href="erfdieren-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="erfdieren-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, K = D.erfdieren, $ = id => document.getElementById(id);
+  const s = ED.rekenen();
+  bindAll({ eiPP: nl(K.eierenPPweek), kippen: nl(s.kippen), ren: nl(Math.round(s.ren / 10) * 10) });
+  renderBronnen($("bronnen"), [99, 106, 107, 108, 100, 101, 102, 103, 109]);
+  $("sLf").innerHTML = D.levensfase.map((f, i) => `<input type="radio" name="lf" id="lf${i}" value="${f.id}"${f.id === "start" ? " checked" : ""}><label for="lf${i}">${f.naam}</label>`).join("");
+  $("mE").value = K.eierenPPweek; $("mR").value = K.renM2;
+  function run() {
+    const r = ED.rekenen({ levensfase: document.querySelector("input[name=lf]:checked").value, eieren: +$("mE").value, renM2: +$("mR").value });
+    $("mEO").value = $("mE").value; $("mRO").value = $("mR").value;
+    $("rK").textContent = nl(r.kippen); $("rEi").textContent = nl(Math.round(r.eieren / 100) * 100);
+    $("rVoer").textContent = nl(r.voerKg / 1000, 1) + " ton"; $("rHok").textContent = nl(r.hok) + " m²"; $("rRen").textContent = nl(r.ren) + " m²"; $("rW").textContent = nl(r.water, 1) + " liter";
+    $("noot").textContent = `${nl(r.pers)} bewoners. Een kip legt ± ${K.eierenPerKip} eieren per jaar en eet ${K.voerG} gram voer per dag (gemiddeld). Na ± ${K.legjaren} jaar neemt de leg af; dan vervangen we een deel van de kippen.`;
+  }
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

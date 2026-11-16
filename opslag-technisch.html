@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voorraad en koelcellen – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Weekmodel van oogst, veldbuffer en voorraad per bewaarwijze; dimensionering, warmtelasten, isolatiedikte en flexibel bedrijf van twee koelcellen en een vriescel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Oogst, veldbuffer en gekoelde voorraad: dimensionering en flexibel bedrijf van gemeenschappelijke koel- en vriescellen</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Met een weekmodel van rijping, veldbuffer, consumptie en opslag is voor <span data-k="monden"></span> personen en <span data-k="akkerM2"></span> m² akker bepaald hoeveel voedsel wanneer wordt geoogst en hoeveel ruimte de voorraad vraagt<sup class="ref"><a href="#bron-56">[56]</a></sup>. Van de jaaroogst (± <span data-k="oogstKg"></span> kg netto) wordt <span data-k="versPct"></span> % vers of rechtstreeks van het veld gegeten. De piekvoorraad bedraagt <span data-k="k2Kg"></span> kg in de koelcel van ± 2 °C (<span data-k="k2Week"></span>), <span data-k="k8Kg"></span> kg in de koelcel van ± 10 °C (<span data-k="k8Week"></span>), <span data-k="vKg"></span> kg in de vriescel (<span data-k="vWeek"></span>) en <span data-k="bKg"></span> kg in de kast (± <span data-k="potten"></span> weckpotten). Bij een netto benutting van 40 % volgen binnenmaten van <span data-k="k2Maat"></span>, <span data-k="k8Maat"></span> en <span data-k="vMaat"></span>. Met <span data-k="dv"></span>/<span data-k="dk2"></span>/<span data-k="dk8"></span> cm PIR gebruiken de cellen samen ± <span data-k="celKWh"></span> kWh·a⁻¹; ± <span data-k="celPct"></span> % daarvan kan op lokaal overschot worden geleverd (<span data-k="celPctPcm"></span> % met extra koudebuffer). Van <span data-k="tekortVan"></span> tot <span data-k="tekortTot"></span> treedt een tekort op van ± <span data-k="tekortKg"></span> kg (hongergat).</p>
+</section>
+
+<nav aria-label="Inhoud"><h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2><ol class="toc">
+  <li><a href="#s1">Inleiding en systeemgrens</a></li><li><a href="#s2">Methode</a></li><li><a href="#s3">Invoerparameters</a></li><li><a href="#s4">Resultaten</a></li>
+  <li><a href="#s5">Gevoeligheidsanalyse</a></li><li><a href="#s6">Validatie</a></li><li><a href="#s7">Toetsing aan regelgeving</a></li><li><a href="#s8">Discussie</a></li>
+  <li><a href="#s9">Conclusies</a></li><li><a href="#s10">Openstaande gegevens</a></li><li><a href="#s11">Literatuur en bronnen</a></li><li><a href="#s12">Versiebeheer</a></li></ol></nav>
+
+<section id="s1"><h2 class="num">Inleiding en systeemgrens</h2>
+  <p class="read">Uitgangspunten<sup class="ref"><a href="#bron-56">[56]</a></sup>: voedsel van het veld halen wanneer het kan en nodig is; laten staan wat kan blijven staan; de rest opslaan voor de winter. Centrale voorraad in twee koelcellen (± 2 °C groente en fruit; ± 10 °C aardappel, pompoen, ui) en een vriescel, zelfgebouwd en extreem geïsoleerd, met ingekochte koelmachines; thuis een manshoge koelkast en vriezer voor één week grijpvoorraad. Koelen bij voorkeur bij overschot of lage prijs, rusten bij piek. Binnen de systeemgrens: groente en fruit van de tuinderij op de akker (zie <a href="voedsel-technisch.html">voedsel – technisch</a>). Buiten: overige levensmiddelen, energie voor wecken en drogen (zie bewoners-technisch), investeringskosten.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <div class="formula">Productie:  P_g = A · f_g · y_g · (1 − v),  f_groente = (c_g/y_g) / (c_g/y_g + c_f/y_f)            [kg·a⁻¹]
+Per gewas:  P_c = a_c · P_g(c);  rijping r_c,w = P_c / n_w,c  in de weken van de oogstmaanden
+Veld:       gewas met vt: r → veldvoorraad; aan het eind van het staanvenster → opslag
+Eten (week, groep g, vraag D_g):  1) vers geplukt, 2) van het veld, elk ≤ 3·a_c·D_g; 3) uit opslag ∝ voorraad
+Opslag:     overschot_c → k2, k8, v, b volgens op_c, tot ΣS_g ≤ 40·D_g;  niet bewaarbaar → compost; boven de grens → overschot
+Celmaat:    V_net = max_w S_c,w / ρ_c;  V_bruto = V_net / 0,40;  b = d = max(1,2 m; √(V_bruto/h))
+Warmtelast: Q = U·A·ΔT + Q_deur + q_adem·m + Q_product;  U = λ·f_kb / t
+Elektrisch: E = Q/COP·(1 + f_ontdooi) + P_vent;   cel uit bij voorraad < 5 kg;  k8 buitenluchtkoeling als T_buiten < T_cel − 3 K
+Buffer:     E_buf = m·c_p·ΔT_band (+ PCM);  rusttijd = E_buf / Q</div>
+  <p class="read">Tijdstap 1 week, twee jaar doorgerekend (het tweede jaar is de evenwichtstoestand). Het flexibele bedrijf is in de uursimulatie van het dorp opgenomen (zie <a href="energie-technisch.html">energie – technisch</a>): de cellen worden voorgekoeld bij overschot tot de buffer vol is en koelen gedwongen als de buffer leeg is.</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInv"><caption>Tabel 1 – Algemene invoer.</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblGew"><caption>Tabel 2 – Per gewas: aandeel in groente- of fruitproductie, oogstmaanden, laatste veldmaand en bewaarroute (alle N).</caption><thead><tr><th>Gewas</th><th class="num">Aandeel</th><th>Oogst (mnd)</th><th class="num">Veld t/m</th><th>k2</th><th>k8</th><th>vries</th><th>kast</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note">Aardappel is in deze verkenning binnen de groentenorm meegeteld; volgens de Schijf van Vijf valt aardappel onder de zetmeelproducten<sup class="ref"><a href="#bron-34">[34]</a></sup>. Dit is een vereenvoudiging.</p>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten</h2>
+  <div class="scroll"><table id="tblMnd"><caption>Tabel 3 – Maandoverzicht (kg; voorraad aan het begin van de maand).</caption><thead><tr><th>Maand</th><th class="num">Oogst</th><th class="num">Vers + veld gegeten</th><th class="num">Uit opslag</th><th class="num">Tekort</th><th class="num">Veld</th><th class="num">k2</th><th class="num">k8</th><th class="num">Vries</th><th class="num">Kast</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblCel"><caption>Tabel 4 – Cellen: maat, warmtelast (jaargemiddeld, W) en energie.</caption><thead><tr><th>Cel</th><th class="num">Piek (kg)</th><th class="num">V_net (L)</th><th>Binnenmaat</th><th class="num">t (cm)</th><th class="num">U (W·m⁻²·K⁻¹)</th><th class="num">Transmissie</th><th class="num">Deur</th><th class="num">Ademhaling</th><th class="num">Product</th><th class="num">kWh·a⁻¹</th><th class="num">Rusttijd mediaan / min (h)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Condensorwarmte ± <span data-k="celWarm"></span> kWh·a⁻¹ (niet als besparing meegerekend). Grijpvoorraad thuis bij <span data-k="weekThuis"></span> week: ± <span data-k="thuisKg"></span> kg per huishouden, ± <span data-k="thuisKoelL"></span> L koel en <span data-k="thuisVriesL"></span> L vries, tegen <span data-k="manKoelL"></span> L en <span data-k="manVriesL"></span> L van manshoge apparaten.</p>
+</section>
+
+<section id="s5"><h2 class="num">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblDik"><caption>Tabel 5 – Elektriciteit per cel (kWh·a⁻¹) naar isolatiedikte t.</caption><thead></thead><tbody></tbody></table></div>
+  <p class="read">De besparing per extra 10 cm neemt snel af omdat transmissie evenredig is met 1/t, terwijl deur-, product- en ventilatorlasten constant blijven. Boven circa 40 cm (vries) en 30 cm (koel) levert extra dikte minder dan 10 kWh·a⁻¹ per 10 cm op; dikker isoleren verhoogt vooral de buffertijd niet (die wordt door de voorraadmassa bepaald).</p>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 6 – Overige parameters (één tegelijk).</caption><thead><tr><th>Variant</th><th class="num">Piek k2 / k8 / vries (kg)</th><th class="num">kWh·a⁻¹</th><th class="num">Tekort (kg)</th><th class="num">Overschot (kg)</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s6"><h2 class="num">Validatie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Bewaartemperaturen.</b> CPMA (op basis van UC Davis en USDA Handbook 66)<sup class="ref"><a href="#bron-57">[57]</a></sup>: peen, kool, biet, pastinaak 0 °C; appel 0–4 °C; late aardappel 4–10 °C; winterpompoen 10–13 °C; ui droog 0 °C. De koelcel van ± 2 °C valt binnen het bereik voor appel en iets boven het optimum voor wortelgewassen; de tweede cel is daarom van 8 naar 10 °C verhoogd (pompoen gevoelig voor kouschade). Uien vragen lage luchtvochtigheid; in de 10 °C-cel is kiemremming beperkt.</li>
+    <li><b>Ethyleen.</b> Appel produceert ethyleen<sup class="ref"><a href="#bron-57">[57]</a></sup>; gemengde opslag met peen en kool geeft kwaliteitsverlies. Scheidingswand of ethyleenfilter in de koelcel van 2 °C nodig.</li>
+    <li><b>Energie cellen.</b> Een peer-reviewed referentie voor kleine, coöperatieve, extreem geïsoleerde cellen is niet gevonden. Alternatieven: praktijkdata commerciële cellen VS (± <span data-k="celLit"></span> kWh·a⁻¹ voor twee grotere cellen bij intensief gebruik)<sup class="ref"><a href="#bron-46">[46]</a></sup> — niet representatief; verbruiksopgave van de leverancier van de koelmachine en een tussenmeting na het eerste seizoen.</li>
+    <li><b>Ademhalingswarmte.</b> Waarden 6–12 mW·kg⁻¹ (N) zijn ordegrootte voor laag-ademende producten bij 0–10 °C; de CPMA-gids geeft alleen klassen (laag/matig)<sup class="ref"><a href="#bron-57">[57]</a></sup>. Te verifiëren met USDA Handbook 66.</li>
+  </ul>
+</section>
+
+<section id="s7"><h2 class="num">Toetsing aan regelgeving</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Koudemiddel.</b> Onder F-gassenverordening (EU) 2024/573 moet zelfstandige koelapparatuur vanaf 2025 natuurlijke koudemiddelen met GWP &lt; 150 gebruiken; koudemiddelen met GWP &gt; 750 zijn vanaf 2032 verboden<sup class="ref"><a href="#bron-58">[58]</a></sup>. Keuze: propaan (R290) of CO₂ (R744); veiligheidseisen volgens EN 378 (vulling, ventilatie).</li>
+    <li><b>Brandveiligheid.</b> PIR-sandwichpanelen: brandklasse en afstand tot vluchtwegen afstemmen met de Bbl-eisen voor het buurthuis.</li>
+    <li><b>Voedselveiligheid.</b> Opslag voor eigen gebruik binnen de gemeenschap; geen commerciële levering verondersteld (N). Bij verkoop aan derden gelden Warenwet/hygiënecode.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li>De gewasverdeling, het staanvenster en de bewaarroutes zijn aannames; een teeltplan van een teler vervangt ze.</li>
+    <li>Er is geen bederf gemodelleerd; voorraad wordt naar rato gegeten. In werkelijkheid eet men eerst wat het minst lang goed blijft.</li>
+    <li>De minimale celbreedte van 1,2 m maakt de 10 °C-cel en de vriescel ruimer dan nodig; een gecombineerde cel met tussenwand is een alternatief.</li>
+    <li>Het hongergat (juni) is structureel: meer invriezen in de nazomer of vroege gewassen (spinazie, radijs, tuinbonen, kas) lossen het op.</li>
+    <li>Thuis is het grootste deel van het koelverbruik (manshoge apparaten ± <span data-k="koelGroot"></span> kWh·a⁻¹ per woning); de grijpvoorraad uit de akker vult daarvan maar een klein deel.</li>
+  </ul>
+</section>
+
+<section id="s9"><h2 class="num">Conclusies</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Voor <span data-k="monden"></span> personen volstaan cellen van <span data-k="k2Maat"></span> (2 °C), <span data-k="k8Maat"></span> (10 °C) en <span data-k="vMaat"></span> (vries).</li>
+    <li>Extreem geïsoleerd gebruiken ze samen ± <span data-k="celKWh"></span> kWh·a⁻¹ (± <span data-k="celKWhDag"></span> kWh·d⁻¹); de bevroren voorraad overbrugt in de winter ± <span data-k="rustV"></span> h zonder koeling.</li>
+    <li>Isoleren dikker dan ± 40/30/20 cm levert weinig extra op.</li>
+  </ol>
+</section>
+
+<section id="s10"><h2 class="num">Openstaande gegevens</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Teeltplan met verdeling over gewassen en verwachte opbrengst per gewas.</li>
+    <li>Offerte koelmachines (R290/CO₂) met verbruiksopgave; ontdooiwijze vriescel.</li>
+    <li>Plaats van de cellen in het buurthuis; temperatuur van de omringende ruimte.</li>
+    <li>Ethyleenscheiding koelcel; luchtvochtigheid per cel.</li>
+  </ol>
+</section>
+
+<section id="s11"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s12"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.11</td><td>26-10-2026</td><td>Eerste versie: weekmodel oogst/veld/voorraad, celmaat, warmtelasten, isolatiedikte, flexibel koelen. Tweede koelcel van 8 naar 10 °C (pompoen [57]).</td><td>Melvin de Vries (opgave, besluiten); berekening met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="opslag-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, MND, renderBronnen } = HZ, V = D.voedsel, VR = V.voorraad, E = D.energie, $ = id => document.getElementById(id);
+  OG.bind({ celLit: nl(Math.round(HE.cellen().lit / 100) * 100), koelGroot: nl(E.koel.thuisGroot.koel + E.koel.thuisGroot.vries) });
+  renderBronnen($("bronnen"), [31, 34, 35, 46, 56, 57, 58]);
+  const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
+  $("tblInv").querySelector("tbody").innerHTML = [
+    ["Monden; akker", `${V.monden}; ${nl(D.akker.maxM2)} m²`, "N/G", ref(31)], ["Consumptie groente / fruit", `${V.groenteGpd} / ${V.fruitGpd} g·p⁻¹·d⁻¹`, "G", ref(34)],
+    ["Opbrengst groente / fruit; verlies", `${V.opbrGroente} / ${V.opbrFruit} kg·m⁻²; ${V.verlies * 100} %`, "N", ref(35)],
+    ["Max. vers per gewas per week", `${VR.versMaxFactor} × aandeel`, "N", ""], ["Dichtheid k2 / k8 / v / kast", `${VR.dichtheid.k2} / ${VR.dichtheid.k8} / ${VR.dichtheid.v} / ${VR.dichtheid.b} kg·L⁻¹`, "N", ""],
+    ["Benutting; binnenhoogte", `${VR.benutting}; ${VR.celHoogte} m`, "N", ""], ["Celtemperatuur k2 / k8 / v", `${VR.temp.k2} / ${VR.temp.k8} / ${VR.temp.v} °C`, "G/N", ref(56) + ref(57)],
+    ["Bandbreedte k2 / k8 / v", `${VR.band.k2.join("…")} / ${VR.band.k8.join("…")} / ${VR.band.v.join("…")} °C`, "G/N", ref(56)],
+    ["Ruimtetemperatuur", `${VR.ruimteT} °C`, "N", ""], ["λ PIR; koudebrugtoeslag", `${VR.lambda} W·m⁻¹·K⁻¹; ${VR.koudebrug}`, "N", ""],
+    ["Isolatiedikte k2 / k8 / v", `${VR.dikte.k2 * 100} / ${VR.dikte.k8 * 100} / ${VR.dikte.v * 100} cm`, "N", ref(56)], ["COP k2 / k8 / v", `${VR.cop.k2} / ${VR.cop.k8} / ${VR.cop.v}`, "N", ""],
+    ["Ventilator k2 / k8 / v", `${VR.ventilator.k2} / ${VR.ventilator.k8} / ${VR.ventilator.v} W`, "N", ""], ["Ontdooien vriescel", `${VR.ontdooi * 100} %`, "N", ""],
+    ["Deuropeningen; luchtwissel", `${VR.bezoekenPerWeek} per week; ${VR.deurM3} m³`, "N", ""], ["Ademhaling k2 / k8", `${VR.ademhaling.k2 * 1000} / ${VR.ademhaling.k8 * 1000} mW·kg⁻¹`, "N", ""],
+    ["Koudebuffer optie (PCM) k2 / v", `${VR.pcmOptie.k2} / ${VR.pcmOptie.v} kWh_th`, "N", ""], ["Vermogen koelmachines", `${VR.pMax} kW`, "N", ""]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${st(r[2].split("/")[0])}</td><td>${r[3]}</td></tr>`).join("");
+  $("tblGew").querySelector("tbody").innerHTML = V.gewassen.map(g => `<tr><td>${g.n}</td><td class="num">${nl(g.a * 100)} %</td><td>${g.o.join(", ")}</td><td class="num">${g.vt || "–"}</td>${["k2", "k8", "v", "b"].map(c => `<td>${g.op[c] ? nl(g.op[c] * 100) + " %" : ""}</td>`).join("")}</tr>`).join("");
+  const o = OG.std(), R = o.s.R;
+  const wk = m => Math.round(m * 52 / 12), we = m => Math.round((m + 1) * 52 / 12), sm = (a, m) => a.slice(wk(m), we(m)).reduce((x, y) => x + y, 0);
+  $("tblMnd").querySelector("tbody").innerHTML = MND.map((n, m) => `<tr><td>${n}</td>${[sm(R.oogst, m), sm(R.vers, m) + sm(R.veldEten, m), sm(R.uitVoorraad, m), sm(R.tekort, m), R.voorraad.veld[wk(m)], R.voorraad.k2[wk(m)], R.voorraad.k8[wk(m)], R.voorraad.v[wk(m)], R.voorraad.b[wk(m)]].map(v => `<td class="num">${nl(v)}</td>`).join("")}</tr>`).join("");
+  const gem = (c, k) => { const w = o.cel[c].weken.filter(x => !x.uit); return w.length ? w.reduce((a, x) => a + x[k], 0) / w.length : 0; };
+  $("tblCel").querySelector("tbody").innerHTML = [["k2", "Koel ±2 °C"], ["k8", "Koel ±10 °C"], ["v", "Vries −20 °C"]].map(([c, n]) => { const C = o.cel[c], m = C.maat, ru = OG.rust(C);
+    return `<tr><td>${n}</td><td class="num">${nl(o.s.piek[c].kg)}</td><td class="num">${nl(m.netL)}</td><td>${nl(m.b, 2)} × ${nl(m.d, 2)} × ${nl(m.h, 1)} m</td><td class="num">${nl(VR.dikte[c] * 100)}</td><td class="num">${nl(C.U, 3)}</td>` +
+      ["trans", "deur", "adem", "product"].map(k => `<td class="num">${nl(gem(c, k), 1)}</td>`).join("") + `<td class="num">${nl(C.kWh)}</td><td class="num">${nl(ru.med)} / ${nl(ru.min)}</td></tr>`; }).join("");
+  const T = [0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6];
+  $("tblDik").querySelector("thead").innerHTML = "<tr><th>Cel</th>" + T.map(t => `<th class="num">${nl(t * 100)} cm</th>`).join("") + "</tr>";
+  $("tblDik").querySelector("tbody").innerHTML = [["k2", "Koel ±2 °C"], ["k8", "Koel ±10 °C"], ["v", "Vries −20 °C"]].map(([c, n]) => `<tr><td>${n}</td>` + HV.dikteReeks(c, T).map(r => `<td class="num${Math.abs(r.t - VR.dikte[c]) < 1e-9 ? " base" : ""}">${nl(r.kWh)}</td>`).join("") + "</tr>").join("");
+  const G = [["Standaard", {}], ["Monden 30", { monden: 30 }], ["Monden 60 (zelfde akker)", { monden: 60 }], ["Akker 2.500 m²", { akkerM2: 2500 }], ["Met koudebuffer", { pcm: VR.pcmOptie }]];
+  $("tblGev").querySelector("tbody").innerHTML = G.map(([l, x]) => { const r = HV.ontwerp(x); return `<tr><td>${l}</td><td class="num">${nl(r.s.piek.k2.kg)} / ${nl(r.s.piek.k8.kg)} / ${nl(r.s.piek.v.kg)}</td><td class="num">${nl(r.kWh)}</td><td class="num">${nl(r.s.tekortJr)}</td><td class="num">${nl(r.s.overJr)}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

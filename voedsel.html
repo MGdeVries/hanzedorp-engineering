@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuinderij: zaaien en oogsten – Hanzedorp</title>
+<meta name="description" content="Hoeveel groente en fruit Hanzedorp kan telen, wanneer we zaaien en oogsten, en hoe we voorraad maken voor de 12 weken dat er niets groeit. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px} input[type=range]{width:100%}</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>De tuinderij: zaaien, oogsten en bewaren</h1>
+  <p class="lead read">Hanzedorp heeft een akker. Op de akker maken we een <b>tuinderij</b> die professioneel geleid wordt: een vakkundige tuinder maakt het teeltplan en zorgt samen met de bewoners voor een rijke oogst. Er groeit groente, kleinfruit en er staan fruitbomen. Ongeveer 40 weken per jaar is er iets te oogsten. In de 12 weken van de winter groeit er bijna niets. Daarom maken we voorraad.</p>
+  <ul class="kern read">
+    <li><span>Iedereen hoort per dag <span data-k="vGroente"></span> gram groente en <span data-k="vFruit"></span> gram fruit te eten. Voor <span data-k="vMonden"></span> mensen is dat zo'n <span data-k="vEetG"></span> kg groente en <span data-k="vEetF"></span> kg fruit per jaar.</span></li>
+    <li><span>Wat we in 40 weken oogsten, moet voor 52 weken genoeg zijn. Dus oogsten we minstens <b><span data-k="vSeizoen"></span> %</b> van wat we in die 40 weken opeten. Met wat verlies erbij is dat <span data-k="vSeizoenBruto"></span> %.</span></li>
+    <li><span>Met onze aannames is <span data-k="aMax"></span> m² genoeg voor ongeveer <b><span data-k="vMaxMonden"></span> mensen</b>. Dat zijn ongeveer de bewoners van Hanzedorp.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-begrip">
+  <h2 id="h-begrip">Weiland, akker en tuinderij</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We gebruiken drie woorden, elk met een eigen betekenis:</p>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>Weiland</b> (grasland): zo ligt de grond er waarschijnlijk bij als we hem kopen. Wat we (nog) niet gebruiken voor teelt, blijft eerst weiland.</li>
+        <li><b>Akker</b>: de grond die we geschikt maken om op te telen, met de put, de druppelslangen en de staande zonnepanelen. De akker is van alle bewoners samen.</li>
+        <li><b>Tuinderij</b>: het werk op de akker. Een vakkundige tuinder maakt het teeltplan, zaait, verzorgt en oogst, samen met bewoners die willen meehelpen. De tuinderij zorgt voor een rijke oogst.</li>
+        <li><b>Voor wie?</b> De tuinderij is eerst voor de bewoners. Is er genoeg grond, dan kunnen ook mensen uit de omgeving lid worden van de tuinderij. Dat versterkt de band met de buurt.</li>
+      </ul>
+      <p>Kort gezegd: Hanzedorp heeft een akker, en op die akker maken we een tuinderij. Het weiland wordt stap voor stap akker, zoveel als de tuinderij nodig heeft.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Wat nog geregeld moet worden</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Wie is de tuinder: in dienst van de vereniging, een eigen bedrijf dat de akker gebruikt, of een bewoner?</li>
+        <li>Hoe betalen we de tuinder, en wat gebeurt er met oogst die we over hebben?</li>
+        <li>Van weiland naar akker: voor het omzetten van grasland gelden regels (mest en grond). Die zoeken we uit bij de locatiekeuze.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-reken">
+  <h2 id="h-reken">Hoeveel akker hebben we nodig?</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="vm">Aantal monden: <output id="vmO"></output></label><input type="range" id="vm" min="10" max="400" step="5"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rM2"></b><span>akker nodig (groente en fruit)</span></div>
+      <div><b id="rM2G"></b><span>waarvan groente</span></div>
+      <div><b id="rM2F"></b><span>waarvan fruit</span></div>
+      <div><b id="rVoor"></b><span>voorraad maken voor de winter</span></div>
+      <div><b id="rPast"></b><span>past op <span data-k="aMax"></span> m²?</span></div>
+    </div>
+    <p class="note read">We rekenen met <span data-k="vOpbrG"></span> kg groente en <span data-k="vOpbrF"></span> kg fruit per m² per jaar, paden meegeteld. Dat is ongeveer de helft van wat een beroepsteler haalt. En we rekenen met <span data-k="vVerlies"></span> % verlies bij oogsten, bewaren en verwerken.</p>
+  </div>
+  <p class="warnbox read">Een 100-tal gezinnen van groente en fruit voorzien vraagt met deze aannames <span data-k="v100m2b"></span> tot <span data-k="v100m2"></span> m² (2,2 tot 4 mensen per gezin). Dat is meer dan 5.000 m². Halen we veel hogere opbrengsten, of eten mensen een deel van hun groente nog uit de winkel, dan kan het wel. Dat zoeken we verder uit.</p>
+</section>
+
+<section aria-labelledby="h-plan">
+  <h2 id="h-plan">Zaaiplan</h2>
+  <p class="read">Wanneer zaaien, planten en oogsten we? Dit is een eerste plan. Een teler kijkt er nog naar.</p>
+  <div class="legend"><span><i style="background:var(--rain)"></i>binnen zaaien</span><span><i style="background:var(--green)"></i>buiten zaaien of planten</span><span><i style="background:var(--clay)"></i>oogst groente</span><span><i style="background:var(--warn)"></i>oogst fruit</span></div>
+  <div class="panel scroll" id="zaaiplan"></div>
+  <p class="note read">Prei, kool, pastinaak en veldsla kunnen ook in de winter op het veld blijven staan. Dat is een extra buffer, maar we rekenen er niet op.</p>
+</section>
+
+<section aria-labelledby="h-verw">
+  <h2 id="h-verw">Wanneer verwerken we wat?</h2>
+  <p class="read">Van juli tot en met oktober is er het meeste te oogsten. Dan maken we samen voorraad: wecken, drogen, pekelen, invriezen, of kant-en-klare maaltijden maken en inblikken.</p>
+  <div class="scroll"><table id="tblVerw"><thead><tr><th>Maand</th><th>Oogst om te bewaren</th><th>Vooral</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-bewaar">
+  <h2 id="h-bewaar">Zo bewaren we</h2>
+  <div class="cols">
+    <div class="read"><h3>Koel bewaren</h3><p>Aardappels, peen, kool, pompoen, appels en peren blijven maanden goed in een koele, donkere ruimte of in een kuil.</p></div>
+    <div class="read"><h3>Wecken en inblikken</h3><p>Groente, saus, soep en fruit in glazen potten of blikken, verhit zodat het jaren goed blijft. Ook kant-en-klare maaltijden.</p></div>
+    <div class="read"><h3>Invriezen</h3><p>Bonen, erwten, spinazie, kool, bessen. Snel en lekker, maar het kost stroom.</p></div>
+    <div class="read"><h3>Drogen</h3><p>Bonen, uien, kruiden, appel en pruim. Drogen kan met de zon of met de warmte van de zonnepanelen.</p></div>
+    <div class="read"><h3>Pekelen en fermenteren</h3><p>Zuurkool, snijbonen in zout, ingemaakte uien en bieten.</p></div>
+  </div>
+  <div class="scroll"><table id="tblVoorraad"><caption>Voorraad voor de winter bij het gekozen aantal monden (verdeling is een eerste schatting)</caption><thead><tr><th>Manier</th><th class="num">kg</th><th class="num">Ongeveer</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Groente, kleinfruit en fruitbomen op de akker</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Professioneel geleide tuinderij op de akker</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Organisatie tuinderij: wie is de tuinder, betaling, overschot</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Omzetten weiland naar akker (regels grasland)</td><td><span class="pill s-idee">bij locatiekeuze</span></td></tr>
+    <tr><td>40 weken oogst, 12 weken voorraad</td><td><span class="pill s-besloten">uitgangspunt</span></td></tr>
+    <tr><td>Opbrengst per m² en verlies</td><td><span class="pill s-aanname">aanname</span></td></tr>
+    <tr><td>Zaaiplan per gewas</td><td><span class="pill s-aanname">eerste versie</span></td></tr>
+    <tr><td>Voor wie: Hanzedorp of ook omgeving</td><td><span class="pill s-idee">keuze</span></td></tr>
+    <tr><td>Ruimte voor verwerken en bewaren (keuken, kelder, vriezers)</td><td><span class="pill s-idee">uitzoeken</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p><a href="voedsel-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="voedsel-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen } = HZ, V = D.voedsel, K = D.akker;
+  VO.bind(); VO.zaaiplan(document.getElementById("zaaiplan"));
+  renderBronnen(document.getElementById("bronnen"), [31, 34, 35, 160]);
+  document.querySelector("#tblVerw tbody").innerHTML = VO.verwerking().map(v => `<tr><td>${v.maand}</td><td>${v.gewassen.join(", ") || "–"}</td><td>${v.methoden.slice(0, 3).join(", ") || "–"}</td></tr>`).join("");
+  const $ = id => document.getElementById(id);
+  $("vm").value = V.monden;
+  function run() {
+    const n = +$("vm").value, b = VO.behoefte(n);
+    $("vmO").value = n;
+    $("rM2").textContent = nl(Math.round(b.m2 / 10) * 10) + " m²"; $("rM2G").textContent = nl(Math.round(b.m2G / 10) * 10) + " m²"; $("rM2F").textContent = nl(Math.round(b.m2F / 10) * 10) + " m²";
+    $("rVoor").textContent = nl(Math.round(b.voorraad / 10) * 10) + " kg";
+    $("rPast").textContent = b.m2 <= K.maxM2 ? "ja" : "nee (" + nl(b.m2 / K.maxM2, 1) + "×)";
+    document.querySelector("#tblVoorraad tbody").innerHTML = V.bewaarVerdeling.map(([m, f]) => {
+      const kg = b.voorraad * f, eenh = /Wecken/.test(m) ? nl(kg / V.weckKg) + " potten van 0,5 kg" : /Invriezen/.test(m) ? nl(kg / V.vriesKgPerL) + " liter vriesruimte" : "";
+      return `<tr><td>${m}</td><td class="num">${nl(kg)}</td><td class="num">${eenh}</td></tr>`; }).join("");
+  }
+  $("vm").addEventListener("input", run); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

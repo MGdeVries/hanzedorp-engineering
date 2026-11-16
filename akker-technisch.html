@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akkerirrigatie – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Dagbalans van akkerirrigatie uit grondwater met bassin, één pomp op zonnestroom en agri-PV (verticaal bifaciaal oost–west) voor Hanzedorp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Druppelirrigatie van de akker uit grondwater: dagbalans, pompregime op zonnestroom en agri-PV-opbrengst over 31 jaar (KNMI Heino)</h1>
+  <dl class="meta">
+    <dt>Auteur</dt><dd data-k="auteur"></dd>
+    <dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+    <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd>
+  </dl>
+</header>
+
+<section class="abstract" aria-labelledby="h-abs">
+  <h2 id="h-abs" style="font-size:1.2rem">Samenvatting</h2>
+  <p>De akker van Hanzedorp (maximaal <span data-k="aMax"></span> m²; aanvankelijk kleiner) wordt uitsluitend uit een eigen grondwaterput beregend<sup class="ref"><a href="#bron-31">[31]</a></sup>. Eén zelfaanzuigende pomp (P<sub>1</sub> <span data-k="pompP1"></span> kW<sup class="ref"><a href="#bron-32">[32]</a></sup>) vult via een beluchter een open bassin (ontijzering door oxidatie en bezinking) en voedt, via twee driewegkleppen, zandfilter, schijffilter, bemestingsinjectie en zonekleppen, de druppelslangen. De onttrekking is begrensd op 10 m³·h⁻¹. Een dagbalans over 31 jaren (1994–2025, excl. 1998) met neerslag, Makkink-verdamping en globale straling van KNMI Heino<sup class="ref"><a href="#bron-19">[19]</a></sup><sup class="ref"><a href="#bron-30">[30]</a></sup> geeft bij <span data-k="aMax"></span> m² een gemiddelde grondwateronttrekking van <span data-k="aPut"></span> m³·a⁻¹ (P90 <span data-k="aPutP90"></span>; maximum <span data-k="aPutMax"></span> m³), <span data-k="aUren"></span> pompuren en <span data-k="aKWh"></span> kWh·a⁻¹. De agri-PV (<span data-k="pvRijen"></span> rijen, <span data-k="pvKWp"></span> kWp, verticaal bifaciaal oost–west) levert naar schatting <span data-k="pvMWh"></span> MWh·a⁻¹ (<span data-k="pvSpec"></span> kWh·kWp⁻¹; S); de pomp gebruikt daarvan circa <span data-k="pompAandeel"></span> %. In de gesimuleerde reeks kan het pompregime volledig binnen zonne-uren worden uitgevoerd.</p>
+</section>
+
+<nav aria-label="Inhoud"><h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2><ol class="toc">
+  <li><a href="#s1">Inleiding en vraagstelling</a></li><li><a href="#s2">Systeemgrens en ontwerp</a></li><li><a href="#s3">Methode</a></li><li><a href="#s4">Invoerparameters</a></li>
+  <li><a href="#s5">Meetgegevens</a></li><li><a href="#s6">Resultaten</a></li><li><a href="#s7">Gevoeligheidsanalyse</a></li><li><a href="#s8">Validatie</a></li>
+  <li><a href="#s9">Toetsingskader</a></li><li><a href="#s10">Discussie</a></li><li><a href="#s11">Conclusies</a></li><li><a href="#s12">Openstaande gegevens</a></li>
+  <li><a href="#s13">Literatuur en bronnen</a></li><li><a href="#s14">Versiebeheer</a></li></ol></nav>
+
+<section id="s1"><h2 class="num">Inleiding en vraagstelling</h2>
+  <div class="read" style="display:grid;gap:10px">
+    <p>De akker moet groente en fruit leveren voor een instelbaar aantal monden (zie <a href="voedsel-technisch.html">voedsel – technisch</a>). Watertekorten worden aangevuld uit grondwater; de irrigatieplanning moet altijd worden gehaald, terwijl de pomp bij voorkeur op zonne-overschot draait<sup class="ref"><a href="#bron-31">[31]</a></sup>.</p>
+    <ol style="margin:0;padding-left:1.3em;display:grid;gap:4px">
+      <li>Hoeveel grondwater is per jaar en per maand nodig, gemiddeld en in droge jaren?</li>
+      <li>Wanneer zijn er tekorten en hoe lang moet worden gepompt?</li>
+      <li>Kan het pompregime binnen zonne-uren worden uitgevoerd, en wat levert de agri-PV?</li>
+      <li>Hoe wordt de installatie ingedeeld (zones, kleppen, filters, sensoren, besturing)?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="s2"><h2 class="num">Systeemgrens en ontwerp</h2>
+  <div class="panel scroll" id="akkerSchema"></div>
+  <p class="note">Figuur 1 – Schema van put tot druppelslang, met sensoren, besturing en energievoorziening.</p>
+  <div class="read" style="display:grid;gap:8px">
+    <p><b>Hydraulisch.</b> Driewegklep 1 (zuigzijde) kiest put of bassin; driewegklep 2 (perszijde) kiest bassin (via beluchter) of akker. In de modus <i>vullen</i> pompt de pomp putwater met lage tegendruk naar het bassin (aanname <span data-k="qVul"></span> m³·h⁻¹, begrensd op 10 m³·h⁻¹ door frequentieregeling en debietmeting); in de modus <i>irrigeren</i> zuigt hij uit het bassin en levert circa <span data-k="qIrr"></span> m³·h⁻¹ bij ± 2 bar (N; Q-H-curve te verifiëren<sup class="ref"><a href="#bron-32">[32]</a></sup>). Per zone is een magneetklep gebruikelijk; een cascade van driewegkleppen (7 kleppen voor 8 zones) is hydraulisch gelijkwaardig maar foutgevoeliger.</p>
+    <p><b>Zones.</b> Druppelslang 2 L·h⁻¹ per 0,30 m bij 0,75 m rijafstand geeft <span data-k="aMmH"></span> mm·h⁻¹; bij <span data-k="qIrr"></span> m³·h⁻¹ is een zone maximaal circa <span data-k="aZoneM2"></span> m², dus <span data-k="aZones"></span> zones bij <span data-k="aMax"></span> m².</p>
+    <p><b>Waterkwaliteit.</b> Verstoppingsrisico van druppelaars: ijzer en mangaan &lt; 0,1 mg·l⁻¹ gering, 0,1–1,5 matig, &gt; 1,5 ernstig; voor grondwater wordt circa 200 mesh filtratie aanbevolen<sup class="ref"><a href="#bron-33">[33]</a></sup>. Beluchting en bezinking in het bassin verwijderen een groot deel van het opgeloste ijzer; neerslaand ijzer legt ook fosfaat vast<sup class="ref"><a href="#bron-40">[40]</a></sup>. Bemesting wordt na de filters geïnjecteerd, met keerklep en terugstroombeveiliging naar de put.</p>
+    <p><b>Buiten de systeemgrens:</b> lekverlies van het bassin, energie van de besturing, bemestingsadvies, gewasspecifieke gewasfactoren, kwel en grondwaterstandsdaling rond de put.</p>
+  </div>
+</section>
+
+<section id="s3"><h2 class="num">Methode</h2>
+  <div class="read" style="display:grid;gap:10px">
+    <h3>3.1 Beregeningsbehoefte</h3>
+    <div class="formula">B_t = min( RAW , B_t−1 + P_t − k_c·E_t ) ;  I_t = max(0, −B_t) ;  B_t := max(0, B_t)     [mm]
+V_irr,t = A · I_t / (1000 · η)                                                        [m³]</div>
+    <h3>3.2 Bassin en pompregime</h3>
+    <div class="formula">V_t = min(V_max, V_t−1 + A_b·(P_t − f_ow·E_t)/1000)
+u_zon,t = aantal uren met P_PV,h ≥ P_1  of  GHI_h ≥ 300 W·m⁻² (dorpsoverschot; N)
+h_irr = V_irr,t / Q_irr ;  h_vul = max(0, u_zon,t − min(h_irr, u_zon,t))
+L_vul = min( Q_vul·h_vul , V_max − V_t + V_irr,t ) ;  Q_vul ≤ 10 m³·h⁻¹
+tekort → aanvullend pompen buiten zonne-uren (buurtaccu/net): L_extra = max(0, V_irr,t − V_t − L_vul)
+E_pomp = P_1 · (h_vul + h_irr)                                                        [kWh]</div>
+    <h3>3.3 Agri-PV</h3>
+    <p>Daggemiddelde globale straling (Q) wordt naar uren verdeeld evenredig met de extraterrestrische straling; de diffuse fractie volgt uit de daggemiddelde helderheidsindex volgens Erbs e.a.<sup class="ref"><a href="#bron-41">[41]</a></sup>. Instraling op verticale vlakken met azimut 90° en 270° volgt uit directe component (cos θ = sin θ<sub>z</sub>·cos(γ<sub>s</sub> − γ<sub>p</sub>)), isotrope diffuse straling (½·D<sub>h</sub>) en grondreflectie (½·ρ·GHI, ρ = 0,2). Effectieve instraling = zonzijde + φ·f<sub>a</sub>·schaduwzijde, met bifacialiteit φ = 0,9<sup class="ref"><a href="#bron-36">[36]</a></sup> en f<sub>a</sub> = 0,72 (constructie, rijafstand; N). Opbrengst = kWp · G<sub>eff</sub> · PR, PR = 0,80 (N).</p>
+  </div>
+</section>
+
+<section id="s4"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInvoer"><caption>Tabel 1 – Invoerparameters.</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron / toelichting</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Meetgegevens</h2>
+  <p class="read">Dagwaarden RH, EV24 en Q van KNMI-station 278 Heino, 1994–2025<sup class="ref"><a href="#bron-19">[19]</a></sup><sup class="ref"><a href="#bron-30">[30]</a></sup>. Q is gecodeerd met een resolutie van 50 J·cm⁻² (0,14 kWh·m⁻²); ontbrekende waarden in 1998 zijn aangevuld met het kalenderdaggemiddelde. Gemiddelde jaarsom Q circa 1.040 kWh·m⁻². Controlesommen per jaar in <code>hanzedorp-zon.js</code> en <code>hanzedorp-weer.js</code>.</p>
+</section>
+
+<section id="s6"><h2 class="num">Resultaten</h2>
+  <h3>6.1 Maandelijkse onttrekking en pomptijd</h3>
+  <div class="scroll"><table id="tblMnd"><caption>Tabel 2 – Gemiddelde per maand bij <span data-k="aMax"></span> m²: dagen met beregening, bruto irrigatie, grondwateronttrekking, pompuren, en onttrekking in 2018.</caption><thead><tr><th>Maand</th><th class="num">Dagen</th><th class="num">Irrigatie (m³)</th><th class="num">Grondwater (m³)</th><th class="num">Pompuren</th><th class="num">2018 (m³)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Beregening begint in een mediaan jaar rond <span data-k="aEerste"></span> en eindigt rond <span data-k="aLaatste"></span>. De piekbehoefte bedraagt <span data-k="aPiekMm"></span> mm·d⁻¹ bruto (<span data-k="aPiekM3"></span> m³·d⁻¹ bij <span data-k="aMax"></span> m²), ofwel circa <span data-k="aMinZone"></span> minuten per zone. De verdamping van het bassin (<span data-k="aEv"></span> m³·a⁻¹ bij 200 m²) is in de onttrekking begrepen.</p>
+  <h3>6.2 Akkeroppervlak</h3>
+  <div class="scroll"><table id="tblA"><caption>Tabel 3 – Jaargrootheden naar akkeroppervlak (bassin 200 m², 7 rijen PV).</caption><thead><tr><th>A (m²)</th><th class="num">Grondwater gem.</th><th class="num">P90</th><th class="num">Max.</th><th class="num">Pompuren</th><th class="num">kWh</th><th class="num">Zones</th></tr></thead><tbody></tbody></table></div>
+  <h3>6.3 Agri-PV</h3>
+  <div class="cols">
+    <div class="panel" style="display:grid;gap:6px"><div id="pvMnd"></div><p class="note">Figuur 2 – Gemiddelde opbrengst per maand (kWh), <span data-k="pvKWp"></span> kWp.</p></div>
+    <div class="panel" style="display:grid;gap:6px"><div id="pvProf"></div><p class="note">Figuur 3 – Gemiddeld uurprofiel juni (W per kWp; oranje) en globale straling (W·m⁻²; blauw, ÷ 2).</p></div>
+  </div>
+  <p class="read">Specifieke opbrengst <span data-k="pvSpec"></span> kWh·kWp⁻¹·a⁻¹ (S). December levert circa <span data-k="pvDec"></span> kWh, juni circa <span data-k="pvJun"></span> kWh. Het pompverbruik is circa <span data-k="pompAandeel"></span> % van de opwek; de rest is beschikbaar voor het dorpsnet en de buurtaccu.</p>
+</section>
+
+<section id="s7"><h2 class="num">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 4 – Grondwateronttrekking (m³·a⁻¹, gemiddeld / P90) bij <span data-k="aMax"></span> m² voor variatie in gewasfactor en bassin.</caption><thead><tr><th>Variant</th><th class="num">Gemiddeld</th><th class="num">P90</th><th class="num">Pompuren</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">De gewasfactor bepaalt de onttrekking vrijwel evenredig. Bij een gemengde teelt met wisselende bedekking is k<sub>c</sub> gemiddeld vermoedelijk lager dan 1,0 in voor- en najaar en hoger in de zomer voor vruchtgroenten; k<sub>c</sub> = 1,0 is als centrale waarde aangenomen. Het bassin beïnvloedt vooral de verdamping en de mate waarin pompen naar zonne-uren kan worden verschoven.</p>
+</section>
+
+<section id="s8"><h2 class="num">Validatie</h2>
+  <div class="read" style="display:grid;gap:10px">
+    <p><b>Beregeningsbehoefte.</b> De bruto behoefte van circa <span data-k="aIrr"></span> m³·a⁻¹ bij <span data-k="aMax"></span> m² (≈ 200 mm) is van dezelfde orde als het mediane potentiële neerslagtekort van 162 mm uit water – technisch, verhoogd met het irrigatierendement.</p>
+    <p><b>PV-opbrengst.</b> Voor verticale oost–westopstellingen wordt circa 5 % meer opbrengst opgegeven dan voor verticaal zuid, met een achterzijde van iets meer dan 90 % van de voorzijde en twee pieken per dag<sup class="ref"><a href="#bron-36">[36]</a></sup>. Een gevalideerde Nederlandse kWh·kWp⁻¹-waarde voor deze opstelling is niet gevonden; de modelwaarde is als schatting gemarkeerd en wordt in de controleursfase getoetst aan meetdata van vergelijkbare installaties.</p>
+  </div>
+</section>
+
+<section id="s9"><h2 class="num">Toetsingskader</h2>
+  <div class="scroll"><table><caption>Tabel 5 – Kaders.</caption><thead><tr><th>Kader</th><th>Inhoud</th><th>Beoordeling</th></tr></thead><tbody>
+    <tr><td>WDOD <sup class="ref"><a href="#bron-38">[38]</a></sup></td><td>10–60 m³·h⁻¹ melden, &gt; 60 vergunning; natuurgebieden max. 10 m³·h⁻¹; putten registreren.</td><td>Ontwerp ≤ 10 m³·h⁻¹; registreren en melden; actuele waterschapsverordening te raadplegen.</td></tr>
+    <tr><td>Provincie Overijssel <sup class="ref"><a href="#bron-37">[37]</a></sup></td><td>Vrijstelling ≤ 10 m³·h⁻¹ en ≤ 5.000 m³ per kwartaal; vergunning bij onttrekking &gt; 50 m diep in aangewezen gebied (versie 2007).</td><td>Maximale kwartaalonttrekking in het droogste jaar ruim onder 5.000 m³; actualiteit te controleren.</td></tr>
+    <tr><td>Terugstroombeveiliging</td><td>Bemesting mag niet in de put of het bassin terugstromen.</td><td>Keerklep na injectie; uitvoering te toetsen.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s10"><h2 class="num">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Pomptype.</b> Een zelfaanzuigende oppervlaktepomp kan in de praktijk tot circa 7 m aanzuigen. Bij een dieper grondwaterpeil is een onderwaterpomp in de put nodig; dan vervalt driewegklep 1 en is voor de irrigatie vanuit het bassin een tweede (kleinere) pomp nodig.</li>
+    <li><b>Zonne-uren.</b> Het pompregime vergt in het droogste scenario enkele uren per dag; bij <span data-k="pvKWp"></span> kWp agri-PV is de drempel P<sub>1</sub> vrijwel altijd gehaald zodra de zon op is. Bij een kleiner eigen veld is het dorpsoverschot (daken) de aanvulling; netstroom is reserve.</li>
+    <li><b>Bassin.</b> Open water warmt op en kan algen vormen, zeker bij inbreng van bemesting; bemesting daarom pas na het bassin injecteren. IJzerslib periodiek verwijderen.</li>
+    <li><b>Agri-PV en gewas.</b> Rijen om de 10 m beschaduwen een smalle strook en verminderen wind; het effect op gewasverdamping is niet gemodelleerd.</li>
+  </ul>
+</section>
+
+<section id="s11"><h2 class="num">Conclusies</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Bij <span data-k="aMax"></span> m² is gemiddeld <span data-k="aPut"></span> m³ grondwater per jaar nodig (P90 <span data-k="aPutP90"></span> m³), vrijwel geheel van april tot september.</li>
+    <li>De grens van 10 m³·h⁻¹ is ruim voldoende; de piek vraagt enkele pompuren per dag.</li>
+    <li>De pomp kan volledig op zonnestroom draaien; de agri-PV levert circa <span data-k="pvMWh"></span> MWh·a⁻¹, circa <span data-k="pvFactor"></span> keer de pompvraag.</li>
+    <li>Ontijzering (beluchten + bezinken + filters) is voorwaarde voor betrouwbare druppelirrigatie.</li>
+  </ol>
+</section>
+
+<section id="s12"><h2 class="num">Openstaande gegevens</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Grondwaterpeil, filterdiepte en putopbrengst (proefpomping); analyse Fe, Mn, NH₄, PO₄, EC, pH.</li>
+    <li>Q-H-curve van de gekozen pomp bij de werkelijke opvoerhoogte; keuze oppervlakte- of onderwaterpomp.</li>
+    <li>Gewasfactoren per teelt en zaaiplan (koppeling met voedsel – technisch).</li>
+    <li>Bassinafmetingen en -locatie; afdekking en hek.</li>
+    <li>Gemeten opbrengst van verticale bifaciale oost–west-PV in Nederland (validatie).</li>
+    <li>Actuele regels WDOD en provincie Overijssel.</li>
+  </ol>
+</section>
+
+<section id="s13"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s14"><h2 class="num">Versiebeheer</h2>
+  <div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+    <tr><td>0.9</td><td>26-10-2026</td><td>Eerste versie: dagbalans akker uit grondwater met bassin en pompregime op zonne-uren; agri-PV-model op globale straling Heino; schema van put tot druppelslang.</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr>
+  </tbody></table></div>
+</section>
+
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="akker-schema.js"></script>
+<script src="akker-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, MND, nl, renderBronnen, bars } = HZ, K = D.akker;
+  AK.bind(); tekenAkkerSchema();
+  renderBronnen(document.getElementById("bronnen"), [19, 20, 30, 31, 32, 33, 36, 37, 38, 40, 41]);
+  const st = s => s.split("/").map(x => `<span class="st st-${x.trim()}">${x.trim()}</span>`).join(" ");
+  const ref = (...ids) => ids.map(i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`).join("");
+  document.querySelector("#tblInvoer tbody").innerHTML = [
+    ["Akkeroppervlak A (max.; start)", nl(K.maxM2) + "; " + nl(K.startM2), "m²", "G; N", ref(31)],
+    ["Gewasfactor k_c; RAW; η", nl(K.kc, 1) + "; " + nl(K.raw) + "; " + nl(K.eta, 2), "–; mm; –", "N", ref(20)],
+    ["Max. onttrekking; putdiepte", "10; ≤ 50", "m³·h⁻¹; m", "G", ref(31) + ref(38)],
+    ["Pomp P1", nl(K.pompP1, 1), "kW", "G", ref(32)],
+    ["Debiet vullen / irrigeren", nl(K.pompQvul) + " / " + nl(K.pompQirr), "m³·h⁻¹", "N", "Q-H-curve te verifiëren"],
+    ["Bassin A_b × h", nl(K.bassinM2) + " × " + nl(K.bassinH, 1), "m² × m", "N", ref(31)],
+    ["Openwaterfactor f_ow", nl(K.fOpenWater, 2), "–", "N", "zie tuinwater – technisch"],
+    ["Druppelslang", "2 L·h⁻¹ / 0,30 m; rij 0,75 m", "–", "N", "gangbaar"],
+    ["PV: rijen × panelen per rij × Wp", nl(K.pv.rijen) + " × " + nl(AK.pv.perRij) + " × " + nl(K.pv.wp), "–", "G/N", ref(31)],
+    ["PV: φ; f_a; PR; albedo", "0,9; 0,72; 0,80; 0,2", "–", "N", ref(36)],
+    ["Dorpsoverschot-proxy", "GHI ≥ " + nl(K.dorpOverschotWm2), "W·m⁻²", "N", ref(31)],
+    ["Neerslag, verdamping, straling", "dagreeks", "–", "G", ref(19) + ref(30)]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join("");
+
+  const a0 = AK.std, m18 = AK.jaar2018(a0);
+  document.querySelector("#tblMnd tbody").innerHTML = a0.maand.map((m, i) => `<tr><td>${MND[i]}</td><td class="num">${nl(m.dagen, 1)}</td><td class="num">${nl(m.irr)}</td><td class="num">${nl(m.put)}</td><td class="num">${nl(m.put / K.pompQvul + m.irr / K.pompQirr, 1)}</td><td class="num">${nl(m18[i])}</td></tr>`).join("");
+  document.querySelector("#tblA tbody").innerHTML = AK.OPT.A.map(A => { const a = HM.akker({ A }); return `<tr><td>${nl(A)}</td><td class="num">${nl(a.put)}</td><td class="num">${nl(a.putP90)}</td><td class="num">${nl(a.putMax)}</td><td class="num">${nl(a.uren)}</td><td class="num">${nl(a.eKWh)}</td><td class="num">${a.zones}</td></tr>`; }).join("");
+  const pv = AK.pv, pj = HM.pvProfiel(5);
+  bars(document.getElementById("pvMnd"), { labels: MND, unit: "kWh", series: [{ name: "opwek", values: pv.maand, color: "var(--clay)" }] });
+  bars(document.getElementById("pvProf"), { labels: [...Array(24).keys()].map(String), labelEvery: 3, unit: "W", series: [
+    { name: "PV per kWp", values: pj.pv.map(v => v * 1000), color: "var(--clay)" }, { name: "GHI ÷ 2", values: pj.ghi.map(v => v * 500), color: "var(--water)" }] });
+  const gev = [["k_c = 0,8", { kc: 0.8 }], ["k_c = 1,0 (basis)", {}], ["k_c = 1,2", { kc: 1.2 }], ["bassin 50 m²", { bassinM2: 50 }], ["bassin 500 m²", { bassinM2: 500 }]];
+  document.querySelector("#tblGev tbody").innerHTML = gev.map(([n, o]) => { const a = HM.akker(Object.assign({ A: K.maxM2 }, o)); return `<tr><td>${n}</td><td class="num">${nl(a.put)}</td><td class="num">${nl(a.putP90)}</td><td class="num">${nl(a.uren)}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

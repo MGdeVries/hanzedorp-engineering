@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akker: water en panelen – Hanzedorp</title>
+<meta name="description" content="Hoe Hanzedorp de akker water geeft: eigen grondwaterput, één pomp op zonnestroom, een bassin en druppelslangen die sturen op bodemsensoren. Basispagina voor bewoners en gemeente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px} input[type=range]{width:100%}</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>De akker: water uit de grond, stroom van de zon</h1>
+  <p class="lead read">Hanzedorp heeft een akker. Op die akker komt een <b>tuinderij</b>: een professionele tuinder teelt er groente en fruit voor het hele dorp. Deze pagina gaat over de grond zelf: water en zonnepanelen. Wat er groeit en wanneer, staat op <a href="voedsel.html">Tuinderij: zaaien en oogsten</a>. De akker wordt straks maximaal <span data-k="aMax"></span> m². Hij krijgt water uit een eigen put, via druppelslangen bij de planten. Eén pomp doet het werk. Die draait op zonnestroom van panelen die op de akker zelf staan.</p>
+  <ul class="kern read">
+    <li><span>We pompen nooit meer dan 10 m³ per uur op. Dat is de grens die het waterschap stelt.</span></li>
+    <li><span>Bij <span data-k="aMax"></span> m² akker halen we gemiddeld <b><span data-k="aPut"></span> m³</b> grondwater per jaar op. In een droog jaar is dat <span data-k="aPutP90"></span> m³. Bijna alles valt tussen april en september.</span></li>
+    <li><span>De pomp heeft per jaar ongeveer <span data-k="aKWh"></span> kWh nodig. De panelen op de akker maken ongeveer <b><span data-k="pvMWh"></span> MWh</b>. Er is dus meer dan genoeg zonnestroom.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-schema">
+  <h2 id="h-schema">Van put tot plant</h2>
+  <div class="panel scroll" id="akkerSchema"></div>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Put en pomp.</b> De put is maximaal 50 meter diep. De pomp staat in een klein nutsgebouwtje. Een gewone zuigpomp haalt water van ongeveer 7 meter diep. Staat het grondwater dieper, dan is een pomp ín de put nodig. Dat weten we pas als de plek bekend is.</p>
+      <p><b>Twee driewegkleppen.</b> Eén klep kiest waar de pomp uit zuigt: de put of het bassin. De andere klep kiest waar het water naartoe gaat: het bassin of de akker. Zo doet één pomp beide taken.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Ijzer eruit.</b> Grondwater bevat vaak ijzer. Dat verstopt druppelslangen. Daarom gaat putwater eerst door een beluchter naar een open bassin. Het ijzer roest en zakt naar de bodem. Daarna gaat het water door twee filters naar de akker.</p>
+      <p><b>Voeding.</b> In het nutsgebouwtje kan plantenvoeding aan het water worden toegevoegd. Een keerklep zorgt dat die nooit terug de put in kan.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-slim">
+  <h2 id="h-slim">Slim water geven</h2>
+  <div class="cols">
+    <p class="read">De akker is verdeeld in <b><span data-k="aZones"></span> delen</b> van ongeveer <span data-k="aZoneM2"></span> m². Elk deel krijgt om de beurt water. In elk deel zitten sensoren in de grond, op 15 en 30 cm diep. Die meten hoe vochtig de grond is. Alleen als het te droog wordt, gaat de klep open.</p>
+    <p class="read">De computer kijkt ook naar het weerbericht. Komt er regen? Dan wacht hij. Wordt het warm en zonnig? Dan vult hij het bassin alvast, zolang de zon schijnt. Op de heetste dag krijgt elk deel ongeveer <span data-k="aMinZone"></span> minuten water.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-wanneer">
+  <h2 id="h-wanneer">Wanneer moeten we pompen?</h2>
+  <p class="read">We rekenen met 31 jaar weer in Heino: regen en verdamping per dag. Daarmee zien we hoeveel water de akker tekortkomt, en hoeveel we dus moeten oppompen.</p>
+  <div class="panel" style="display:grid;gap:6px">
+    <h3>Grondwater per maand</h3>
+    <p class="note">m³ per maand bij <span data-k="aMax"></span> m² akker. Blauw: gemiddeld jaar. Oranje: droog jaar 2018.</p>
+    <div class="legend"><span><i style="background:var(--water)"></i>gemiddeld</span><span><i style="background:var(--warn)"></i>2018</span></div>
+    <div id="mndChart"></div>
+  </div>
+  <div class="scroll"><table id="tblMnd"><caption>Gemiddeld per maand</caption><thead><tr><th>Maand</th><th class="num">Dagen met water geven</th><th class="num">Grondwater (m³)</th><th class="num">Pompuren</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf</h2>
+  <p class="read">In het begin is de akker kleiner dan <span data-k="aMax"></span> m². Kies hieronder de grootte, het bassin en het aantal rijen zonnepanelen.</p>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mA">Akker: <output id="mAO"></output> m²</label><input type="range" id="mA" min="0" max="5" step="1"></div>
+      <div class="ctl"><label for="mB">Bassin: <output id="mBO"></output> m² (1 m diep)</label><input type="range" id="mB" min="0" max="4" step="1"></div>
+      <div class="ctl"><label for="mR">Rijen zonnepanelen: <output id="mRO"></output></label><input type="range" id="mR" min="1" max="14" step="1"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rPut"></b><span>grondwater per jaar, gemiddeld</span></div>
+      <div><b id="rP90"></b><span>in een droog jaar (1 op 10)</span></div>
+      <div><b id="rUren"></b><span>pompuren per jaar</span></div>
+      <div><b id="rKWh"></b><span>stroom voor de pomp per jaar</span></div>
+      <div><b id="rZon"></b><span>daarvan op zonnestroom</span></div>
+      <div><b id="rPV"></b><span>opwek panelen op de akker per jaar</span></div>
+    </div>
+    <div style="display:grid;gap:6px"><h3>Elk jaar apart</h3><p class="note">m³ grondwater per jaar.</p><div id="jaarChart"></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-pv">
+  <h2 id="h-pv">Zonnepanelen op de akker</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Op de akker komen rijen zonnepanelen van ongeveer 30 meter lang, om de 10 meter. De panelen staan rechtop, in de lengte van noord naar zuid. Ze kijken dus naar het oosten en het westen, en vangen aan beide kanten licht. Ze hangen minstens 2 meter hoog. Zo kan je eronder werken, en breken ze de wind.</p>
+      <p>Zulke panelen leveren vooral 's ochtends en 's avonds. Rond de middag leveren de panelen op de daken al veel. Zo vullen ze elkaar aan. Met <span data-k="pvRijen"></span> rijen is dat ongeveer <span data-k="pvKWp"></span> kWp.</p>
+      <p>We bouwen bewust meer zonnepanelen (en kleine windmolens) dan nodig. In de winter is er weinig zon. Het stroomnet is de reserve.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Een gemiddelde dag in juni en december</h3><p class="note">kW opwek van de akkerpanelen per uur van de dag (zonnetijd).</p><div class="legend"><span><i style="background:var(--clay)"></i>juni</span><span><i style="background:var(--water)"></i>december</span></div><div id="profChart"></div></div>
+  </div>
+  <div class="panel" style="display:grid;gap:6px"><h3>Opwek per maand</h3><p class="note">kWh per maand, gemiddeld over 31 jaar.</p><div id="pvMndChart"></div></div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Werk</h3><p>De besturing doet het meeste vanzelf. Wel moeten we samen de filters schoonhouden, het bassin onderhouden en de druppelslangen controleren. In de winter tappen we alles af.</p></div>
+    <div class="read"><h3>Veilig</h3><p>Het bassin krijgt een hek. Plantenvoeding staat in een afgesloten ruimte met een lekbak.</p></div>
+    <div class="read"><h3>Regels</h3><p>We melden de put bij het waterschap en houden bij hoeveel we oppompen. Tot 10 m³ per uur mag zonder vergunning. Voor een put dieper dan 50 meter kan in sommige gebieden een vergunning nodig zijn.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Grondwaterput, max. 10 m³ per uur</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Akker max. 5.000 m², start kleiner</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Eén pomp, driewegkleppen, open bassin, druppelslangen</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Rijen zonnepanelen op de akker (verticaal, oost–west)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Diepte grondwater en welke pomp</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+    <tr><td>IJzer en andere stoffen in het putwater</td><td><span class="pill s-idee">wateranalyse nodig</span></td></tr>
+    <tr><td>Grootte bassin, aantal zones, sensoren en besturing</td><td><span class="pill s-idee">keuze</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p><a href="akker-technisch.html">Naar de technische verantwoording →</a></div>
+
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="akker-schema.js"></script>
+<script src="akker-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, MND, nl, renderBronnen, bars } = HZ, K = D.akker, W = HM.W;
+  AK.bind(); tekenAkkerSchema();
+  renderBronnen(document.getElementById("bronnen"), [19, 30, 31, 32, 33, 36, 37, 38, 160]);
+  const a0 = AK.std, y18 = AK.jaar2018(a0);
+  bars(document.getElementById("mndChart"), { labels: MND, unit: "m³ per maand", series: [
+    { name: "gemiddeld", values: a0.maand.map(m => m.put), color: "var(--water)" },
+    { name: "2018", values: y18, color: "var(--warn)" }] });
+  document.querySelector("#tblMnd tbody").innerHTML = a0.maand.map((m, i) => `<tr><td>${MND[i]}</td><td class="num">${nl(m.dagen)}</td><td class="num">${nl(m.put)}</td><td class="num">${nl(m.put / K.pompQvul + m.irr / K.pompQirr, 0)}</td></tr>`).join("");
+  const pv = HM.pvAkker(), pj = HM.pvProfiel(5), pd = HM.pvProfiel(11);
+  bars(document.getElementById("profChart"), { labels: [...Array(24).keys()].map(String), labelEvery: 3, unit: "kW", series: [
+    { name: "juni", values: pj.pv.map(v => v * pv.kWp), color: "var(--clay)", dec: 1 }, { name: "december", values: pd.pv.map(v => v * pv.kWp), color: "var(--water)", dec: 1 }] });
+  bars(document.getElementById("pvMndChart"), { labels: MND, unit: "kWh", series: [{ name: "opwek", values: pv.maand, color: "var(--clay)" }] });
+
+  const $ = id => document.getElementById(id), OA = AK.OPT;
+  $("mA").max = OA.A.length - 1; $("mA").value = OA.A.indexOf(K.maxM2);
+  $("mB").max = OA.B.length - 1; $("mB").value = OA.B.indexOf(K.bassinM2);
+  $("mR").value = K.pv.rijen;
+  function run() {
+    const A = OA.A[+$("mA").value], Bm = OA.B[+$("mB").value], rij = +$("mR").value;
+    const a = HM.akker({ A, bassinM2: Bm, rijen: rij }), p = HM.pvAkker({ rijen: rij });
+    $("mAO").value = nl(A); $("mBO").value = nl(Bm); $("mRO").value = rij;
+    $("rPut").textContent = nl(a.put) + " m³"; $("rP90").textContent = nl(a.putP90) + " m³";
+    $("rUren").textContent = nl(a.uren); $("rKWh").textContent = nl(a.eKWh) + " kWh";
+    $("rZon").textContent = nl(a.zonAandeel * 100) + " %"; $("rPV").textContent = nl(p.gem / 1000, 1) + " MWh";
+    bars($("jaarChart"), { labels: W.jaren.map(String), labelEvery: 6, unit: "m³", series: [{ name: "grondwater", values: a.perJaar, color: "var(--water)" }] });
+  }
+  ["mA", "mB", "mR"].forEach(i => $(i).addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

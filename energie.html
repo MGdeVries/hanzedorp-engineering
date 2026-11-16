@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energieopwek – Hanzedorp</title>
+<meta name="description" content="Energieopwek in Hanzedorp: hoeveel stroom we nodig hebben, waar de zonnepanelen komen (schuin op daken, loodrecht op de akker, tegen gevels, op en aan de carport), erfmolens, buurtaccu en wat we doen als het echt krap wordt. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px} .ok{color:var(--green)} .nok{color:var(--warn)}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Energieopwek</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Energieopwek</h1>
+  <p class="lead read">Hanzedorp wil zijn eigen stroom maken: met zonnepanelen op de daken, panelen op de akker en kleine windmolens (erfmolens). We bouwen bewust méér dan we nodig hebben, want in de winter is er weinig zon. Het stroomnet is de reserve.</p>
+  <ul class="kern read">
+    <li><span><b>Auto's vragen de meeste stroom:</b> <span id="kMob"></span> % van alles wat het dorp gebruikt. Daarom laden ze vooral als de zon schijnt.</span></li>
+    <li><span>Het hele dorp gebruikt ongeveer <b><span data-k="dorpVraag"></span> MWh</b> stroom per jaar, inclusief alle auto's. Met <span data-k="nWind"></span> erfmolens maken we zelf ongeveer <span data-k="opwek"></span> MWh. Dat is <span data-k="dekking"></span> % van wat we nodig hebben.</span></li>
+    <li><span>Maar in de winter (november–februari) maken we maar <b><span data-k="winterDekking"></span> %</b> van wat we gebruiken. Om de winter rond te krijgen zijn ongeveer <b><span data-k="molensWinter"></span> erfmolens</b> nodig.</span></li>
+    <li><span>Zon en wind waaien niet altijd als wij stroom nodig hebben. Met een buurtaccu van <span data-k="accu"></span> kWh komt <b><span data-k="zelf"></span> %</b> van onze stroom van eigen opwek. De rest, ± <span data-k="imp"></span> MWh per jaar, komt van het net.</span></li>
+  </ul>
+</header>
+<p class="read note">De dakoppervlakken van de woningen zijn een schatting; de huizen zijn nog niet ontworpen. Zie <a href="bewoners.html#h-daken">De woningen en hun daken</a>.</p>
+
+
+<section aria-labelledby="h-schema">
+  <h2 id="h-schema">Hoe het werkt</h2>
+  <div class="panel scroll">
+    <svg viewBox="0 0 760 300" width="100%" style="min-width:600px" role="img" aria-labelledby="schT"><title id="schT">Zonnepanelen op daken, panelen op de akker en erfmolens leveren stroom aan het dorpsnet in het buurthuis. Daar zitten de buurtaccu en de energiecomputer. Het dorpsnet levert aan de woningen, het laadplein, het buurthuis met koelcellen en keuken, en de pomp van de akker. Eén aansluiting op het stroomnet is de reserve.</title>
+      <defs><marker id="pijl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
+      <g style="fill:var(--surface);stroke:var(--line)">
+        <rect x="20" y="20" width="170" height="54" rx="8"/><rect x="20" y="122" width="170" height="54" rx="8"/><rect x="20" y="224" width="170" height="54" rx="8"/>
+        <rect x="290" y="96" width="180" height="108" rx="10" style="stroke:var(--water);stroke-width:2"/>
+        <rect x="570" y="14" width="170" height="44" rx="8"/><rect x="570" y="70" width="170" height="44" rx="8"/><rect x="570" y="126" width="170" height="44" rx="8"/><rect x="570" y="182" width="170" height="44" rx="8"/>
+        <rect x="290" y="240" width="180" height="44" rx="8" style="stroke-dasharray:4 4"/>
+      </g>
+      <text x="105" y="44" text-anchor="middle">Zon op de daken</text><text x="105" y="62" text-anchor="middle" class="sm"><tspan data-k="kWpDak"></tspan> kWp</text>
+      <text x="105" y="146" text-anchor="middle">Panelen op de akker</text><text x="105" y="164" text-anchor="middle" class="sm"><tspan data-k="kWpAgri"></tspan> kWp, oost–west</text>
+      <text x="105" y="248" text-anchor="middle">Erfmolens</text><text x="105" y="266" text-anchor="middle" class="sm"><tspan data-k="nWind"></tspan> × 15 kW</text>
+      <text x="380" y="124" text-anchor="middle" style="font-weight:600">Dorpsnet</text><text x="380" y="144" text-anchor="middle" class="sm">in het buurthuis:</text>
+      <text x="380" y="164" text-anchor="middle" class="sm">buurtaccu <tspan data-k="accu"></tspan> kWh</text><text x="380" y="184" text-anchor="middle" class="sm">energiecomputer (EMS)</text>
+      <text x="655" y="41" text-anchor="middle">Woningen</text><text x="655" y="97" text-anchor="middle">Laadplein</text><text x="655" y="153" text-anchor="middle">Buurthuis, cellen</text><text x="655" y="209" text-anchor="middle">Pomp akker</text>
+      <text x="380" y="266" text-anchor="middle">Stroomnet (reserve)</text>
+      <g style="stroke:var(--muted);fill:none;stroke-width:1.5" marker-end="url(#pijl)">
+        <path d="M190 47 L288 120"/><path d="M190 149 L288 150"/><path d="M190 251 L288 180"/>
+        <path d="M470 120 L568 36"/><path d="M470 135 L568 92"/><path d="M470 150 L568 148"/><path d="M470 170 L568 204"/>
+      </g>
+      <path d="M380 204 L380 238" style="stroke:var(--muted);stroke-dasharray:4 4"/><text x="388" y="226" class="sm">heen en terug</text>
+    </svg>
+  </div>
+  <p class="read">De energiecomputer stuurt slim: warm water maken, auto's laden en de pomp van de akker draaien we zoveel mogelijk als de zon schijnt of het waait. Wat over is gaat in de buurtaccu. Pas daarna leveren we terug aan het net.</p>
+</section>
+
+<section aria-labelledby="h-vraag">
+  <h2 id="h-vraag">Wie gebruikt de stroom?</h2>
+  <div class="cols">
+    <div class="panel" style="display:grid;gap:6px"><h3>Gebruik per jaar, hele dorp</h3><p class="note">MWh per jaar, met de standaardkeuzes (bewoners bij de start). Overig: koelcellen, pomp akker, vijver, gedeelde keuken.</p><div id="vraagChart"></div></div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>De auto's zijn de grootste gebruiker. Elke auto rijdt gemiddeld meer dan 10.000 km per jaar en vraagt daarvoor duizenden kWh. Een passiefhuis zelf gebruikt weinig voor verwarming.</p>
+      <p>Het goede nieuws: auto's staan bijna altijd aangesloten op het laadplein en hoeven niet op een vast moment te laden. De energiecomputer laadt ze vooral als de zon schijnt of het waait.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-pv">
+  <h2 id="h-pv">Waar komen de zonnepanelen?</h2>
+  <p class="read">Overal waar het kan. We leggen panelen op vier soorten plekken:</p>
+  <div class="cols">
+    <div class="read"><h3>Schuin op de daken</h3><p>Op de woningen, het buurthuis en de schuren. Op het zuiden geven panelen per stuk de meeste stroom per jaar. Bij de woningen zie je ze niet vanaf de straat: ze liggen aan de binnenkant van de dakrand.</p></div>
+    <div class="read"><h3>Loodrecht op de akker</h3><p>Rijen staande panelen tussen de gewassen, met de voorkant naar het oosten en de achterkant naar het westen. Ze vangen licht aan twee kanten: 's ochtends en 's avonds. De trekker kan ertussen door.</p></div>
+    <div class="read"><h3>Tegen de gevels</h3><p>Op de zuidgevels van de schuren en het buurthuis. Ze geven minder per jaar, maar juist in de winter relatief veel, als de zon laag staat. Er blijft geen sneeuw op liggen.</p></div>
+    <div class="read"><h3>Op en aan de carport</h3><p>Een dak vol panelen (<span id="cpDak"></span> kWp) en een staande zuidwand (<span id="cpWand"></span> kWp, 1.800 Wp per parkeerplek).</p></div>
+  </div>
+  <div class="scroll"><table id="tblPV"><caption>Opbrengst per kWp panelen, per plek (gemiddeld jaar, KNMI Heino 1994–2025)</caption><thead><tr><th>Plek</th><th class="num">Per jaar (kWh)</th><th class="num">Winter nov–feb (kWh)</th><th class="num">Zomer mei–aug (kWh)</th><th class="num">Winter t.o.v. zomer</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-loodrecht">
+  <h2 id="h-loodrecht">Waarom zoveel mogelijk loodrecht?</h2>
+  <div class="cols">
+    <p class="read">Een staand paneel op het zuiden maakt in de zomer veel minder stroom dan een schuin paneel, maar in de winter evenveel of zelfs iets meer. Dat past precies bij ons probleem: in de zomer hebben we al te veel en moeten we panelen uitzetten, in de winter komen we tekort en kopen we bij. Met staande panelen zetten we in de zomer minder panelen uit en maken we in de winter meer zelf. Het bijkopen gebeurt vooral 's nachts en op donkere, windstille dagen; daar helpen de accu en de erfmolens, de stand van de panelen nauwelijks.</p>
+    <p class="read">Staande panelen op de akker met de voorkant naar het oosten werken anders: zij maken vooral stroom in de ochtend en de avond, als mensen thuis zijn, en minder rond het middaguur, als er al te veel is. Ook dat helpt. Er blijft geen sneeuw op liggen en er hoopt zich minder vuil op.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-jaar">
+  <h2 id="h-jaar">Zomer en winter</h2>
+  <p class="read">We rekenen met 31 jaar weer in Heino, per uur: zon, wind en temperatuur. In de zomer maken we veel meer dan we nodig hebben. In de winter tekort.</p>
+  <div class="panel" style="display:grid;gap:6px">
+    <h3>Gebruik en opwek per maand</h3><p class="note">MWh per maand, gemiddeld jaar, met de standaardkeuzes.</p>
+    <div class="legend"><span><i style="background:var(--muted)"></i>gebruik</span><span><i style="background:var(--clay)"></i>zon (daken + akker)</span><span><i style="background:var(--water)"></i>wind</span></div>
+    <div id="mndChart"></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-molen">
+  <h2 id="h-molen">De erfmolen</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We denken aan een erfmolen zoals die van Ecoways: 15 kW, de as op 15 meter hoogte en wieken van 13,2 meter. De fabrikant noemt <span data-k="fabMin"></span> tot <span data-k="fabMax"></span> MWh per jaar.</p>
+      <p>Met de wind die in Heino gemeten is, komen wij op gemiddeld <b><span data-k="windGem"></span> MWh</b> per molen per jaar: tussen <span data-k="windMin"></span> MWh (<span data-k="windMinJ"></span>) en <span data-k="windMax"></span> MWh (<span data-k="windMaxJ"></span>). Dat is minder dan de fabrikant zegt. Het meetpunt in Heino ligt tussen bomen en gebouwen; op een open plek waait het harder. Een windmeting op de echte plek geeft zekerheid.</p>
+      <p>Een erfmolen draait vooral in de herfst en winter. Juist dan is er weinig zon. Daarom vullen zon en wind elkaar goed aan.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Opbrengst per molen per jaar</h3><p class="note">MWh, berekend uit KNMI-uurwind Heino.</p><div id="windJaar"></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-hoeveel">
+  <h2 id="h-hoeveel">Hoeveel erfmolens?</h2>
+  <div class="scroll"><table id="tblMol"><caption>Gevolg van het aantal erfmolens (overige keuzes standaard)</caption><thead><tr><th>Erfmolens</th><th class="num">Opwek (MWh)</th><th class="num">Winter gedekt</th><th class="num">Eigen stroom gebruikt</th><th class="num">Van het net (MWh)</th><th class="num">Naar het net (MWh)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Met <span data-k="molensWinter"></span> erfmolens maken we in de winter ongeveer evenveel als we gebruiken. Toch blijven we stroom van het net halen: op windstille, donkere dagen. De slechtste twee weken in 31 jaar (vanaf <span data-k="slechtstDatum"></span>) haalden we <span data-k="slechtst"></span> MWh van het net. Daarvoor is geen accu groot genoeg.</p>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mW">Erfmolens: <output id="mWO"></output></label><input type="range" id="mW" min="0" max="4" step="1"></div>
+      <div class="ctl"><label for="mA">Buurtaccu (blokken van 200 kWh): <output id="mAO"></output> kWh</label><input type="range" id="mA" min="0" max="8" step="1"></div>
+      <div class="ctl"><label for="mP">Extra zonnepanelen bovenop het plan: <output id="mPO"></output> kWp</label><input type="range" id="mP" min="0" max="200" step="10"></div>
+      <div class="ctl"><label for="mR">Rijen panelen op de akker: <output id="mRO"></output></label><input type="range" id="mR" min="0" max="14" step="1"></div>
+      <div class="ctl"><fieldset><legend>Auto's laden</legend><div class="seg" id="sEv"></div></fieldset></div>
+      <div class="ctl" id="ctlInv" hidden><fieldset><legend>Rekenen met</legend><div class="seg" id="sInv"></div></fieldset></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rVraag"></b><span>gebruik per jaar</span></div>
+      <div><b id="rOpwek"></b><span>eigen opwek per jaar</span></div>
+      <div><b id="rWinter"></b><span>winter gedekt (nov–feb)</span></div>
+      <div><b id="rZelf"></b><span>van eigen opwek</span></div>
+      <div><b id="rImp"></b><span>van het net per jaar</span></div>
+      <div><b id="rExp"></b><span>naar het net per jaar</span></div>
+      <div><b id="rPImp"></b><span>grootste vraag aan het net</span></div>
+      <div><b id="rPExp"></b><span>grootste teruglevering</span></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-nood">
+  <h2 id="h-nood">Als het echt krap wordt</h2>
+  <div class="cols">
+    <p class="read">Normaal is er altijd stroom: van de zon, de wind, de buurtaccu of het net. Is het een lange, donkere, windstille week en is ook bijkopen uit het net niet genoeg, dan laadt de energiecomputer de auto's minder of later. Moet je toch weg, dan laad je je auto bij een snellader in de buurt. Dat is duurder dan thuis laden, maar het kan altijd. Er is dus nooit nood aan de man.</p>
+    <p class="read">Het huis, de koelkast, het koken en de koelcellen gaan altijd voor. Auto's zijn de grootste verbruiker, en ook de enige die makkelijk kan wachten of ergens anders kan laden.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Stroom</h3><p>Je merkt er thuis niets van: als de eigen opwek op is, komt de stroom van het net. De energiecomputer zorgt dat we eigen stroom zo goed mogelijk gebruiken.</p></div>
+    <div class="read"><h3>Zomeroverschot</h3><p>In de zomer maken we veel te veel. Het net kan dat niet altijd aan (netcongestie). We zoeken daarom naar slimme bestemmingen: laden, warm water, koelen, of soms panelen tijdelijk uitzetten.</p><p>Meer panelen dan nodig is geen verspilling. Onze eigen stroom kost ± € 0,03 per kWh; stroom kopen kost gemiddeld ± € 0,25 per kWh, ongeveer acht keer zoveel. In de zomer panelen uitzetten is dus goedkoper dan in de winter stroom bijkopen. Daarom: zoveel panelen als er passen, ook op de gevels.</p></div>
+    <div class="read"><h3>Erfmolens</h3><p>Een erfmolen is ruim 21 meter hoog met de wieken omhoog. Er gelden regels voor geluid en slagschaduw, en de gemeente moet akkoord gaan.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Overcapaciteit opwek, net als reserve</td><td><span class="pill s-besloten">uitgangspunt</span></td></tr>
+    <tr><td>Panelen op daken, akker, gevels en carport (scenario C), waar het kan staand</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Buurtaccu 3 × 200 kWh</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Erfmolen type Ecoways (15 kW)</td><td><span class="pill s-onderzocht">keuze</span></td></tr>
+    <tr><td>Aantal erfmolens</td><td><span class="pill s-onderzocht">doorgerekend</span></td></tr>
+    <tr><td>Windmeting op de locatie</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+    <tr><td>Netaansluiting (voorkeur 3 × 25 A)</td><td><span class="pill s-onderzocht">doorgerekend</span></td></tr>
+    <tr><td>Vergunning erfmolens (gemeente)</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p><a href="energie-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-inventaris.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script src="energie-pv.js"></script>
+<script>
+(function () {
+  const { D, nl, MND, renderBronnen, bars } = HZ, E = D.energie, $ = id => document.getElementById(id), MW = EG.MW;
+  EG.bind();
+  renderBronnen($("bronnen"), [30, 42, 43, 44, 45, 50, 109, 115]);
+  EPV.render({ D, nl, $, s: EG.std(), hbars: EG.hbars });
+  const s = EG.std();
+  bars($("mndChart"), { labels: MND, series: [
+    { name: "gebruik", values: s.maand.map(m => m.vraag / 1000), color: "var(--muted)", dec: 1, unit: "MWh" },
+    { name: "zon", values: s.maand.map(m => (m.zon + m.agri) / 1000), color: "var(--clay)", dec: 1, unit: "MWh" },
+    { name: "wind", values: s.maand.map(m => m.wind / 1000), color: "var(--water)", dec: 1, unit: "MWh" }], unit: "MWh" });
+  const ws = HE.windStat();
+  bars($("windJaar"), { labels: HANZEDORP_WEER.jaren.map(y => String(y).slice(2)), series: [{ name: "MWh", values: ws.perJaar.map(v => v / 1000), color: "var(--water)", dec: 1, unit: "MWh" }], unit: "MWh", labelEvery: 3, height: 210 });
+  $("tblMol").querySelector("tbody").innerHTML = EG.molens().map(({ n, s }) => `<tr${n === E.wind.n ? ' style="font-weight:600"' : ""}><td>${n}</td><td class="num">${MW(s.opwek)}</td><td class="num ${s.winterDekking >= 1 ? "ok" : "nok"}">${nl(s.winterDekking * 100)} %</td><td class="num">${nl(s.zelf * 100)} %</td><td class="num">${MW(s.imp)}</td><td class="num">${MW(s.exp)}</td></tr>`).join("");
+  function seg(el, naam, opties, std) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
+  seg("sEv", "ev", [["slim", "Slim (op zon en wind)"], ["dom", "Als je thuiskomt"]], "slim");
+  if (EG.inv) { $("ctlInv").hidden = false; seg("sInv", "iv", [["0", "Aannames"], ["1", "Inventarisatie"]], "0"); }
+  const ACCU = [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600];   // in segmenten van 200 kWh (besluit 27-10-2026)
+  $("mW").value = E.wind.n; $("mA").value = ACCU.indexOf(E.accu.kWh); $("mP").value = E.pvExtraKWp; $("mR").value = D.akker.pv.rijen;
+  const val = n => (document.querySelector(`input[name=${n}]:checked`) || {}).value;
+  let t = null;
+  function run() {
+    const o = { wind: +$("mW").value, accu: ACCU[+$("mA").value], accuKW: Math.max(E.accu.kW, ACCU[+$("mA").value] / 4), pvExtra: +$("mP").value, rijen: +$("mR").value, evDom: val("ev") === "dom" };
+    if (+$("mR").value === 0) o.agri = false;
+    if (EG.inv && val("iv") === "1") o.inv = EG.inv;
+    $("mWO").value = o.wind; $("mAO").value = nl(o.accu); $("mPO").value = o.pvExtra; $("mRO").value = o.rijen;
+    clearTimeout(t); t = setTimeout(() => {
+      const r = HE.simuleer(o);
+      $("rVraag").textContent = MW(r.vraag) + " MWh"; $("rOpwek").textContent = MW(r.opwek) + " MWh"; $("rWinter").textContent = nl(r.winterDekking * 100) + " %";
+      $("rZelf").textContent = nl(r.zelf * 100) + " %"; $("rImp").textContent = MW(r.imp) + " MWh"; $("rExp").textContent = MW(r.exp) + " MWh";
+      $("rPImp").textContent = nl(r.pImp) + " kW"; $("rPExp").textContent = nl(r.pExp) + " kW";
+    }, 60);
+  }
+  document.querySelectorAll("input").forEach(i => i.addEventListener(i.type === "range" ? "input" : "change", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

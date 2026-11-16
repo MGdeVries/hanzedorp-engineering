@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digitale infrastructuur – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Netwerkarchitectuur, redundantie, segmentatie (VLAN), servers voor EMS, camerabewaking, LoRaWAN, kosten, risico's en compliance-register van de digitale infrastructuur van Hanzedorp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Digitale infrastructuur</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Digitale infrastructuur – technische verantwoording</h1>
+  <dl class="meta read"><dt>Auteur</dt><dd><span data-k="auteur"></span></dd><dt>Status</dt><dd>concept; niet extern getoetst</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten/opgave · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting · <span class="st st-G">B</span> prijs leverancier</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Hanzedorp krijgt één centraal beheerd campusnetwerk met de technische ruimte in het buurthuis als kern, glasvezel (single-mode, stertopologie) naar alle woningen en bijgebouwen, en logische segmentatie per woning en per functie (VLAN)<sup class="ref"><a href="#bron-74">[74]</a></sup>. De internettoegang is drievoudig: zakelijk glas, satelliet (Starlink) en 5G, in een dual-WAN-configuratie met sessiegebaseerde lastverdeling en failover. Twee servers in gescheiden gebouwen (buurthuis en schuur) met een quorumapparaat vormen een cluster voor het energiemanagementsysteem (EMS), Home Assistant en back-up; de operationele technologie (OT: accu, omvormers, laadpalen, meters, koelcellen) is geïsoleerd en functioneert zonder internet. De eenmalige kosten bedragen ± € <span data-k="eenmalig"></span> (± € <span data-k="perWoning"></span> per woning; ± <span data-k="pctB"></span> % op leveranciersprijzen, rest schatting)<sup class="ref"><a href="#bron-75">[75]</a></sup>; de maandelijkse kosten voor internet en beheer ± € <span data-k="maand"></span> (doel € <span data-k="doel"></span>), ofwel € <span data-k="perHH"></span> per huishouden tegen € <span data-k="nuHH"></span> nu (−<span data-k="besp"></span> %). Het doorgeven van internet uitsluitend aan bewoners is naar verwachting geen openbaar aanbod in de zin van de Telecommunicatiewet<sup class="ref"><a href="#bron-76">[76]</a></sup>; cameratoezicht wordt beperkt tot gedeelde objecten, zonder audio<sup class="ref"><a href="#bron-78">[78]</a></sup><sup class="ref"><a href="#bron-79">[79]</a></sup>.</p>
+</section>
+
+<section id="s1"><h2 class="num">Inleiding en systeemgrens</h2>
+  <p class="read">Vraag: welke digitale infrastructuur levert betrouwbare internettoegang voor ± 12 huishoudens, een veilige en autonome besturing van de energie-infrastructuur, beperkte bewaking en sensornetwerken, tegen lagere maandlasten dan individuele abonnementen? Binnen de grens: WAN-toegang, kern- en toegangsnetwerk, glasvezel in de infrasleuf, servers, UPS, camera's, LoRaWAN, personenalarmering (aansluiting). Buiten de grens: graafwerk van de infrasleuf (gezamenlijke sleuf, zie mobiliteit – technisch), energie-apparatuur zelf, software-inrichting van het EMS (zie netaansluiting – technisch), apparatuur die bewoners zelf aansluiten.</p>
+</section>
+
+<section id="s2"><h2 class="num">Architectuur</h2>
+  <ol class="read" style="display:grid;gap:8px;padding-left:1.3em">
+    <li><b>WAN.</b> Drie onafhankelijke media (glas, satelliet, mobiel) verminderen het risico op gelijktijdige uitval (common-cause: graafschade, storing provider). Lastverdeling werkt per sessie: de totale capaciteit voor alle huishoudens neemt toe, de doorvoer van één sessie niet. Link-aggregatie (LACP) is alleen mogelijk tussen twee apparaten op dezelfde verbinding en bundelt geen providers. Bij voorkeur verschillende tracés de locatie in.</li>
+    <li><b>Kern.</b> Twee firewalls/gateways in actief-passief (shadow mode) en twee aggregatieswitches; iedere woning en ieder bijgebouw is met één vezelpaar aangesloten (optioneel tweede paar in dezelfde kabel als reserve). Kabel: 4-vezel OS2 in mantelbuis; reserve-vezels maken een later open netwerk (eigen provider per woning) mogelijk zonder graafwerk.</li>
+    <li><b>Segmentatie.</b> Zie Tabel 1. Verkeer tussen VLAN's is standaard geweigerd (firewallregels per zone). OT heeft geen route naar internet; updates verlopen via de beheerzone. Beheer met MFA, lokaal beheerplatform zonder verplichte cloud.</li>
+    <li><b>Servers.</b> Twee nodes (buurthuis, schuur) + quorumapparaat (derde stem) voorkomen ‘split brain’; replicatie van virtuele machines (EMS, Home Assistant, videorecorder-export, back-up). Offsite back-up versleuteld (3-2-1-regel). De veiligheid van accu en laadpalen (beveiligingen, noodstop, BMS) is in hardware geborgd; het EMS optimaliseert alleen en valt bij uitval terug op lokale regels van de apparatuur.</li>
+    <li><b>Voeding.</b> Online-UPS (dubbele conversie) per serverlocatie naast de buurtaccu: naadloze overgang bij omschakelen naar eilandbedrijf en gecontroleerde shutdown.</li>
+    <li><b>Draadloos.</b> Wifi 7-toegangspunten in woningen, buurthuis en buiten; LoRaWAN-gateway (868 MHz) voor bodemvocht-/EC-sensoren (8 zones) en later watermeters.</li>
+  </ol>
+  <div class="scroll"><table id="tblVlan"><caption>Tabel 1 – Segmentatie (voorstel).</caption><thead><tr><th>Zone / VLAN</th><th>Inhoud</th><th>Internet</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s3"><h2 class="num">Methode en invoer</h2>
+  <div class="formula">Opslag camera's:  V = n · b / 8 · 86 400 · d · f_bew / 10⁶   [TB]   (b Mbit·s⁻¹, d dagen, f_bew 1/3 bij opname op beweging, N)
+Maandlast:        M = Σ abonnementen + beheer;   per huishouden M / n_w
+Afschrijving:     A = I / (L · 12)   (L = <span data-k="lev"></span> jaar, N)
+Schaling:         per-woningposten ∝ n_w; glasvezel 30 % vast + 70 % ∝ n_w (N); camera's per stuk; recorder vast</div>
+  <div class="scroll"><table id="tblStuk"><caption>Tabel 2 – Eenmalige kosten per categorie (stuklijst 27-10-2026, opgesteld voor 15 woningen en geschaald naar het actuele aantal)<sup class="ref"><a href="#bron-75">[75]</a></sup>. B = prijs leverancier (btw-status per regel in de stuklijst); S = schatting/aanname.</caption><thead><tr><th>Categorie</th><th>Inhoud</th><th class="num">€</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblMnd"><caption>Tabel 3 – Maandelijkse kosten.</caption><thead><tr><th>Post</th><th class="num">€/mnd</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten en gevoeligheid</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 4 – Gevoeligheid.</caption><thead><tr><th>Variant</th><th class="num">Eenmalig (€)</th><th class="num">Per woning (€)</th><th class="num">Internet + beheer per hh (€/mnd)</th><th class="num">Incl. afschrijving per hh (€/mnd)</th><th class="num">Camera-opslag (TB)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Het doel van −60 % (€ <span data-k="doel"></span> per maand) wordt met de huidige aannames net niet gehaald (€ <span data-k="maand"></span>); de grootste onzekerheid is de prijs van zakelijk glas (aanname € 190). Met Starlink Lite of zonder satelliet (alleen 5G als reserve) ligt het dorp binnen het budget, ten koste van redundantie. Inclusief afschrijving van de apparatuur bedragen de lasten ± € <span data-k="totHH"></span> per huishouden per maand; nog steeds lager dan het huidige abonnement. Bij continue opname van 12 camera's en 28 dagen bewaren is ± <span data-k="tbCont"></span> TB nodig, meer dan de ± 24 TB van de recorder; op beweging ± <span data-k="tbBew"></span> TB.</p>
+</section>
+
+<section id="s5"><h2 class="num">Risico's per deelonderwerp</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Bewijs / wie</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Uitval internet</td><td>Graafschade, storing provider</td><td>Drie media, gescheiden tracés, failover</td><td>Failovertest bij oplevering (zzp'er)</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Uitval EMS-server</td><td>Hardwaredefect, brand in één gebouw</td><td>Cluster over twee gebouwen + quorum; lokale terugvalregels apparatuur</td><td>Uitvaltest; documentatie</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Cyberaanval op OT <span class="pill s-aanname">brand-/elektrische veiligheid</span></td><td>Ongeautoriseerde sturing accu/laders</td><td>OT zonder internetroute; veiligheid in hardware; MFA; updates via beheerzone; leveranciers met CE/RED-cybereisen</td><td>Pentest/configuratiereview</td><td>laag</td><td>open</td></tr>
+    <tr><td>Privacy bewoners</td><td>Logging, camera's, beheerder heeft toegang</td><td>Segmentatie, geen DPI, verwerkersovereenkomst zzp'er, gebruiksreglement, DPIA camera's</td><td>DPIA; reglement</td><td>middel</td><td>open</td></tr>
+    <tr><td>Camerabeelden misbruikt</td><td>Ongeoorloofd kijken</td><td>Vier-ogenprincipe, logging van inzage, bewaartermijn ≤ 4 weken, geen audio</td><td>Inzagelog</td><td>laag</td><td>besloten</td></tr>
+    <tr><td>Afhankelijkheid van één beheerder</td><td>Ziekte, vertrek zzp'er</td><td>Documentatie, wachtwoordkluis met noodtoegang, tweede beheerder als vervanger</td><td>Beheerdossier</td><td>middel</td><td>open</td></tr>
+    <tr><td>Afhankelijkheid van één merk</td><td>Leverancier stopt ondersteuning of vereist cloud</td><td>Lokaal beheer; standaardprotocollen (802.1Q, SFP+); vervangbaar per laag</td><td>—</td><td>middel</td><td>deels</td></tr>
+    <tr><td>Juridische kwalificatie als aanbieder</td><td>Internet doorgeven aan huishoudens</td><td>Bevestiging ACM; zakelijk contract dat delen toestaat</td><td>Schriftelijk antwoord ACM</td><td>laag</td><td>open</td></tr>
+    <tr><td>Personenalarmering faalt</td><td>Stroom- of internetstoring</td><td>Alarmering met eigen mobiele verbinding en batterij; erkende zorgcentrale</td><td>Contract zorgcentrale</td><td>laag</td><td>deels</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s6"><h2 class="num">Toetsing – compliance-register</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Wat geëist wordt</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Registratie telecomaanbieder</td><td>Telecommunicatiewet art. 2.1; ACM<sup class="ref"><a href="#bron-76">[76]</a></sup></td><td>Registratie bij openbaar netwerk/dienst</td><td>Netwerk uitsluitend voor bewoners/leden → vermoedelijk niet openbaar</td><td>Bevestiging ACM</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Cameratoezicht</td><td>AVG art. 6, 13, 35; richtlijnen AP<sup class="ref"><a href="#bron-79">[79]</a></sup></td><td>Grondslag, informatieplicht, DPIA bij systematisch toezicht, bewaartermijn</td><td>Alleen eigen terrein; borden; ≤ 4 weken; DPIA; verwerkingsregister</td><td>DPIA door Hanzedorp (rechtspersoon)</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Geen opname van gesprekken</td><td>Sr art. 139a–139c<sup class="ref"><a href="#bron-78">[78]</a></sup></td><td>Geen heimelijk opnemen met technisch hulpmiddel</td><td>Camera's zonder audio (besluit)</td><td>Configuratie</td><td>voldoet</td></tr>
+    <tr><td>Radioapparatuur en cyberbeveiliging</td><td>Richtlijn 2014/53/EU (RED) en Gedelegeerde Verordening (EU) 2022/30</td><td>CE; basiseisen cyberbeveiliging voor draadloze apparatuur</td><td>Alleen CE-gemarkeerde apparatuur</td><td>DoC leverancier</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Producten met digitale elementen</td><td>Cyberweerbaarheidsverordening (EU) 2024/2847 (CRA)</td><td>Updateverplichtingen fabrikant</td><td>Bij aanschaf ondersteuningstermijn en updatebeleid vastleggen</td><td>Leveranciersverklaring</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Kabels en installatie</td><td>NEN 1010 (laagspanning); NEN-EN 50173 (bekabeling)</td><td>Veilige installatie, scheiding sterkstroom</td><td>Glas (niet-geleidend) in mantelbuis; aarding racks</td><td>Installateur</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Verwerking door beheerder</td><td>AVG art. 28</td><td>Verwerkersovereenkomst</td><td>Overeenkomst met zzp'er</td><td>Hanzedorp</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s7"><h2 class="num">Discussie</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li>Zakelijk glas op de (onbekende) locatie is de grootste kostenonzekerheid, zowel aanleg als abonnement.</li>
+    <li>De eenmalige kosten (± € <span data-k="perWoning"></span> per woning) vervangen ook apparatuur die huishoudens anders zelf kopen (router, mesh-wifi).</li>
+    <li>Het servercluster is dimensioneel ruim voor EMS en Home Assistant; de videorecorder blijft een apart apparaat.</li>
+    <li>Een rechtspersoon (vereniging/coöperatie) is nodig als contractpartij voor internet, verwerkingsverantwoordelijke en werkgever/opdrachtgever van de beheerder.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s9"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.14</td><td>27-10-2026</td><td>Eerste versie op basis van besluiten 26–27-10-2026 en de stuklijst.</td><td>Melvin de Vries (besluiten [74]); uitwerking met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="digitaal-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, G = D.digitaal, $ = id => document.getElementById(id);
+  const r = DI.rekenen(), B = G.stuk.filter(x => x.st === "B").reduce((a, x) => a + x.eur, 0);
+  bindAll({ eenmalig: nl(Math.round(r.eenmalig / 100) * 100), perWoning: nl(Math.round(r.perWoning / 10) * 10), pctB: nl(B / r.eenmalig * 100),
+    maand: nl(r.maand), doel: nl(r.doel), perHH: nl(r.perHuisMaand, 2), nuHH: nl(G.nuPerHuishouden, 2), besp: nl(r.besparing * 100), lev: nl(G.levensduur),
+    totHH: nl(r.totaalPerHuis - r.alarmMnd / r.nW, 2), tbCont: nl(DI.rekenen({ beweging: false }).TB, 1), tbBew: nl(r.TB, 1) });
+  renderBronnen($("bronnen"), [74, 75, 76, 77, 78, 79]);
+  $("tblVlan").querySelector("tbody").innerHTML = G.vlans.map(v => `<tr><td>${v[0]}</td><td>${v[1]}</td><td>${v[2]}</td></tr>`).join("");
+  $("tblStuk").querySelector("tbody").innerHTML = r.regels.map(x => `<tr><td>${x.cat}</td><td>${x.wat}</td><td class="num">${nl(Math.round(x.eur))}</td><td>${x.st}</td></tr>`).join("") +
+    `<tr style="font-weight:600"><td>Totaal</td><td></td><td class="num">${nl(r.eenmalig)}</td><td></td></tr>`;
+  $("tblMnd").querySelector("tbody").innerHTML = G.maand.map(m => `<tr><td>${m.post}</td><td class="num">${nl(m.eur, m.eur % 1 ? 2 : 0)}</td><td>${m.st}</td></tr>`).join("") +
+    `<tr><td>Afschrijving apparatuur (${G.levensduur} jaar)</td><td class="num">${nl(r.afschr)}</td><td>A</td></tr>`;
+  const V = [["Standaard", {}], ["Starlink Lite", { lijn2: "lite" }], ["Geen satelliet (alleen 5G-reserve)", { lijn2: "geen" }], ["10 woningen", { nW: 10 }], ["20 woningen", { nW: 20 }],
+    ["Camera's continu, 28 dagen", { beweging: false }], ["Camera's continu, 14 dagen", { beweging: false, dagen: 14 }], ["Geen alarmering", { alarm: 0 }]];
+  $("tblGev").querySelector("tbody").innerHTML = V.map(([n, o]) => { const x = DI.rekenen(o); return `<tr><td>${n}</td><td class="num">${nl(Math.round(x.eenmalig / 100) * 100)}</td><td class="num">${nl(Math.round(x.perWoning / 10) * 10)}</td><td class="num">${nl(x.perHuisMaand, 2)}</td><td class="num">${nl(x.totaalPerHuis, 2)}</td><td class="num">${nl(x.TB, 1)}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

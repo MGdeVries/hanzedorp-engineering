@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grond &amp; kosten – Hanzedorp</title>
+<meta name="description" content="Hoeveel grond heeft Hanzedorp nodig, wat kost die grond en wat komt er nog meer bij voordat we kunnen bouwen: onderzoeken, vergunningen, bouwrijp maken, aansluitingen en organisatie. Basispagina met rekenmodel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.stappen{margin:0;padding-left:1.3em;display:grid;gap:6px}.stappen li::marker{color:var(--gold);font-weight:700}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Grond &amp; kosten</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Grond &amp; kosten</h1>
+  <p class="lead read">Voordat er één huis staat, moeten we grond kopen, laten onderzoeken, een vergunning krijgen en de grond klaarmaken om op te bouwen. Op deze pagina rekenen we uit hoeveel grond Hanzedorp nodig heeft en wat er allemaal bij komt kijken.</p>
+  <ul class="kern read">
+    <li><span>Voor <span data-k="nW"></span> woningen met tuin, de gedeelde voorzieningen en de akker is ongeveer <b><span data-k="ha"></span> hectare</b> nodig.</span></li>
+    <li><span>Grond, onderzoeken, vergunningen en het bouwrijp maken kosten samen ongeveer <b>€ <span data-k="totaal"></span></b>: gemiddeld <b>€ <span data-k="perWoning"></span> per woning</b>. De bouw van de huizen zelf komt daar nog bij.</span></li>
+    <li><span>De grootste onzekerheid is de grondprijs: kopen we landbouwgrond die we zelf laten bestemmen, of kopen we bouwkavels? Dat scheelt een veelvoud.</span></li>
+  </ul>
+</header>
+<p class="read note">De dakoppervlakken van de woningen zijn een schatting; de huizen zijn nog niet ontworpen. Zie <a href="bewoners.html#h-daken">De woningen en hun daken</a>.</p>
+
+
+<section aria-labelledby="h-ruimte">
+  <h2 id="h-ruimte">Hoeveel grond hebben we nodig, en waarvoor?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Elke woning krijgt een eigen kavel: het huis, een privétuin en een stukje verharding. Daarnaast is er grond voor alles wat we samen delen.</p>
+      <p>Sommige delen <b>kiezen we zelf</b>: hoe groot een kavel is, hoeveel groen we willen, hoe groot de akker wordt. Andere delen zijn <b>een gevolg</b>. Grotere kavels maken het dorp groter. Dan wordt de rondweg langer, dus komen er meer bermen, is er meer regenwater op te vangen in wadi's, en wordt de houtsingel rond het terrein langer. Weer andere delen volgen uit <b>regels</b>, zoals de berging die het waterschap vraagt.</p>
+      <p>Op de website noemen we een terrein van 2 tot 3 hectare. Met dit programma is ± <b><span data-k="ha"></span> hectare</b> nodig.</p>
+      <div class="panel" id="pToets"></div>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label for="rKG">Kavel gezinswoning: <output id="rKGO"></output> m²</label><input type="range" id="rKG" min="200" max="1500" step="10"></div>
+        <div class="ctl"><label for="rKS">Kavel seniorenwoning: <output id="rKSO"></output> m²</label><input type="range" id="rKS" min="120" max="1000" step="10"></div>
+        <div class="ctl"><label for="rKJ">Kavel jongerenwoning: <output id="rKJO"></output> m²</label><input type="range" id="rKJ" min="70" max="500" step="5"></div>
+        <div class="ctl"><label for="rTuin">Deel van de kavel (zonder huis) dat tuin is: <output id="rTuinO"></output></label><input type="range" id="rTuin" min="0.5" max="0.95" step="0.05"></div>
+        <div class="ctl"><label for="rGD">Deel van het woningdak dat groendak is: <output id="rGDO"></output></label><input type="range" id="rGD" min="0" max="1" step="0.05"></div>
+        <div class="ctl"><label for="rGroen">Gezamenlijk groen: <output id="rGroenO"></output> m²</label><input type="range" id="rGroen" min="0" max="6000" step="100"></div>
+        <div class="ctl"><label for="rAk">Akker (eindgrootte): <output id="rAkO"></output> m²</label><input type="range" id="rAk" min="0" max="10000" step="250"></div>
+        <div class="ctl"><label for="rAkS">Akker in teelt bij de start: <output id="rAkSO"></output> m²</label><input type="range" id="rAkS" min="0" max="10000" step="250"></div>
+        <div class="ctl"><label for="rSingel">Houtsingel rond het terrein: <output id="rSingelO"></output> m breed</label><input type="range" id="rSingel" min="0" max="10" step="0.5"></div>
+        <div class="ctl"><label for="rBerm">Berm langs de weg: <output id="rBermO"></output> m per kant</label><input type="range" id="rBerm" min="0" max="3" step="0.25"></div>
+      </div>
+      <button type="button" id="rReset" class="seg" style="justify-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+  <div class="result" id="rKpi" aria-live="polite" style="margin-top:12px"></div>
+  <div id="rBalk" style="margin-top:10px"></div>
+  <div class="scroll" style="margin-top:10px"><table id="tblDoel"><caption>Ruimteprogramma per doel (m²). <b>Keuze</b> = kiezen we zelf · <b>gevolg</b> = groeit of krimpt mee met de keuzes · <b>norm</b> = volgt uit een regel. Kolom Δ: verschil met de standaard.</caption>
+    <thead><tr><th>Onderdeel</th><th>Eigendom</th><th>Soort</th><th class="num">m²</th><th class="num">Δ</th><th class="num">Aandeel</th></tr></thead><tbody></tbody></table></div>
+  <div class="cols" style="margin-top:12px">
+    <div class="scroll"><table id="tblKavel"><caption>Per kavel (m²): woning, dak en tuin. Bebouwing = woning / kavel.</caption>
+      <thead><tr><th>Type</th><th class="num">Kavel</th><th class="num">Woning</th><th class="num">Groendak</th><th class="num">Dak met panelen</th><th class="num">Tuin</th><th class="num">Verharding</th><th class="num">Bebouwing</th></tr></thead><tbody></tbody></table></div>
+    <div class="scroll"><table id="tblDak"><caption>Daken (m²). Liggen óp de gebouwen, tellen dus niet extra mee. Pijl: waar het regenwater heen gaat.</caption>
+      <thead><tr><th>Dak</th><th class="num">m²</th><th>Status</th><th>Water</th></tr></thead><tbody></tbody></table></div>
+  </div>
+  <div class="scroll" style="margin-top:10px"><table id="tblOverlap"><caption>Zones die over andere delen heen liggen (tellen niet extra mee).</caption>
+    <thead><tr><th>Zone</th><th class="num">m²</th><th>Status</th><th>Toelichting</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note">Weiland is grond die we al kopen voor de akker, maar die pas akker wordt als de tuinderij hem nodig heeft. De houtsingel, bermen en wadi's zijn schattingen: de gemeente, de provincie en het waterschap bepalen bij een echte locatie wat er nodig is. De methode staat op de <a href="grond-technisch.html#s2b">technische pagina</a>.</p>
+</section>
+
+<section aria-labelledby="h-stappen">
+  <h2 id="h-stappen">Wat moet er allemaal gebeuren?</h2>
+  <ol class="stappen read">
+    <li><b>Grond zoeken</b> in de driehoek Zwolle – Dalfsen – Wijhe. Eerst met de gemeente praten: wil zij hier een klein woonproject (CPO)?</li>
+    <li><b>Koopovereenkomst met voorbehoud.</b> We tekenen alleen met ontbindende voorwaarden: dat de grond een woonbestemming kan krijgen, dat de bodem schoon is en dat de financiering rond komt.</li>
+    <li><b>Snelle onderzoeken</b> (quickscans): bodem, planten en dieren, archeologie, stikstof en grondwater. Die laten zien of er iets in de weg zit.</li>
+    <li><b>Omgevingsplan aanpassen.</b> De gemeente moet de grond een woonbestemming geven. Wij leveren de onderbouwing. Vaak sluiten we een overeenkomst over de kosten die de gemeente maakt.</li>
+    <li><b>Vereniging of coöperatie oprichten</b> die de grond koopt en het project trekt.</li>
+    <li><b>Omgevingsvergunning</b> voor het bouwen aanvragen, met sonderingen voor de fundering.</li>
+    <li><b>Bouwrijp maken:</b> grondwerk, bouwweg, de gezamenlijke geul met kabels en leidingen, riool en aansluitingen.</li>
+    <li><b>Bouwen</b> (zie het thema Bouwen, nog te maken).</li>
+    <li><b>Woonrijp maken:</b> wegen, paden, groen, wadi's, vijvers en verlichting.</li>
+  </ol>
+  <p class="read note">Een CPO-project duurt vaak ± 2 jaar van inschrijven tot oplevering (gemeente Deventer). Het zoeken en bestemmen van de grond komt daar nog vóór.</p>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf: wat kost de grond en de voorbereiding?</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mLand">Prijs landbouwgrond: € <output id="mLandO"></output> per hectare</label><input type="range" id="mLand" min="50000" max="200000" step="5000"></div>
+      <div class="ctl"><fieldset><legend>Woonkavels kopen als</legend><div class="seg" id="sBouw"></div></fieldset></div>
+      <div class="ctl" id="ctlBouwM2"><label for="mBouw">Prijs bouwgrond: € <output id="mBouwO"></output> per m²</label><input type="range" id="mBouw" min="100" max="600" step="10"></div>
+      <div class="ctl"><fieldset><legend>Kosten</legend><div class="seg" id="sScen"></div></fieldset></div>
+      <div class="ctl"><label for="mOnv">Onvoorzien: <output id="mOnvO"></output> %</label><input type="range" id="mOnv" min="0" max="25" step="1"></div>
+      <div class="ctl"><fieldset><legend>Verdelen over de woningen</legend><div class="seg" id="sVerd"></div></fieldset></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rHa"></b><span>grond nodig</span></div>
+      <div><b id="rGrond"></b><span>grond kopen, incl. overdrachtsbelasting</span></div>
+      <div><b id="rTot"></b><span>totaal grond en voorbereiding</span></div>
+      <div><b id="rPW"></b><span>gemiddeld per woning</span></div>
+      <div><b id="rG"></b><span>gezinswoning</span></div>
+      <div><b id="rS"></b><span>seniorenwoning</span></div>
+      <div><b id="rJ"></b><span>jongerenwoning</span></div>
+    </div>
+    <div style="display:grid;gap:6px"><h3>Waar gaat het geld naartoe?</h3><div id="chart"></div></div>
+    <div class="scroll"><table id="tblPost"><caption>Kostenposten (excl. btw). G = officieel tarief of opgave, S = schatting, te vervangen door een offerte.</caption><thead><tr><th>Groep</th><th>Post</th><th class="num">Bedrag</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Vooraf betalen</h3><p>Onderzoeken, adviseurs en leges moet je vaak betalen voordat de bank een hypotheek geeft. De bank noemt 5 tot 10 % van de woningprijs voor de planfase. Spreek af hoeveel ieder huishouden inlegt.</p></div>
+    <div class="read"><h3>Eerlijk verdelen</h3><p>Je kunt de kosten gelijk verdelen, naar de grootte van de kavel, of naar de grootte van de woning. Dat is een keuze van de groep.</p></div>
+    <div class="read"><h3>Dubbele lasten</h3><p>Tijdens de bouw betaal je vaak een paar maanden zowel je oude huis als je nieuwe hypotheek.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Wat kan er misgaan?</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Geen woonbestemming.</b> Zonder medewerking van de gemeente blijft landbouwgrond landbouwgrond. Daarom kopen we alleen met een ontbindende voorwaarde.</li>
+    <li><b>Grond wordt duurder.</b> Een verkoper die weet dat er woningen komen, vraagt meer. Landbouwgrond werd in 2026 al duurder.</li>
+    <li><b>Vervuilde grond, beschermde dieren of archeologie.</b> Dat kost tijd en geld. Snelle onderzoeken vóór de koop beperken dat risico.</li>
+    <li><b>Hoog grondwater.</b> Dan worden de wadi's, kratten, de zwemvijver en de fundering duurder.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Ruimteprogramma (± <span data-k="ha"></span> ha)</td><td><span class="pill s-onderzocht">berekend</span></td></tr>
+    <tr><td>Locatie en grondprijs</td><td><span class="pill s-idee">zoeken</span></td></tr>
+    <tr><td>Kosten onderzoeken, vergunning, bouwrijp maken</td><td><span class="pill s-aanname">schatting, offertes nodig</span></td></tr>
+    <tr><td>Verdeelsleutel per woning</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">De rekenmethode, alle invoer met status, de gevoeligheid en de regelgeving staan op de technische pagina.</p><a href="grond-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="grond-ruimte-ui.js"></script>
+<script src="energie-gedeeld.js" onerror="void 0"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, G = D.grond, $ = id => document.getElementById(id);
+  const r0 = GK.rekenen(), k = v => nl(Math.round(v / 1000) * 1000);
+  bindAll({ nW: nl(r0.nW), ha: nl(r0.ha, 1), totaal: k(r0.totaal), perWoning: k(r0.gemPerWoning) });
+  renderBronnen($("bronnen"), [82, 87, 88, 89, 90, 60, 15, 110, 119, 161]);
+  { const pr = D.project, T = pr.terreinM2;
+    $("pToets").innerHTML = `<h3>Past het op dit terrein?</h3><p><b>${pr.naam}</b>: ` + (T == null ? `het beschikbare terrein is nog niet bekend. Het plan vraagt ± ${nl(r0.totaalM2)} m².` :
+      `beschikbaar ${nl(T)} m², nodig ${nl(r0.totaalM2)} m². ` + (pr.toets === "past" ? `Het plan past, met ${nl(T - r0.totaalM2)} m² over.` :
+      pr.toets === "past met kleinere akker" ? `Het past als de akker kleiner wordt: ± ${nl(pr.akkerMogelijkM2)} m² in plaats van ${nl(pr.akkerPlanM2)} m². Dan passen er ook minder rijen panelen op de akker.` :
+      `Het past niet, ook niet zonder akker. Nodig: een andere indeling (bijvoorbeeld kleinere kavels of minder gezamenlijk groen) of meer grond.`)) +
+      (pr.bestaandeBebouwingM2 ? ` Er staat ${nl(pr.bestaandeBebouwingM2)} m² aan bestaande gebouwen; die kunnen het buurthuis, de schuren of de werkplaats worden.` : "") + `</p>`; }
+  /* ruimteprogramma per doel [161] */
+  const R0 = D.grond.ruimteR, RP = G.ruimte;
+  const std = { rKG: G.kavel.gezin, rKS: G.kavel.senior, rKJ: G.kavel.junior, rTuin: G.aandeelTuin, rGD: D.dak.aandeelGroen, rGroen: RP.groenM2, rAk: D.akker.maxM2, rAkS: D.akker.startM2, rSingel: RP.singelBreedte, rBerm: RP.bermBreedte };
+  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v);
+  function ruimte() {
+    if (+$("rAkS").value > +$("rAk").value) $("rAkS").value = $("rAk").value;
+    const o = { kavel: { gezin: +$("rKG").value, senior: +$("rKS").value, junior: +$("rKJ").value }, aandeelTuin: +$("rTuin").value, groendak: +$("rGD").value,
+      groenM2: +$("rGroen").value, akkerM2: +$("rAk").value, akkerStartM2: +$("rAkS").value, singelBreedte: +$("rSingel").value, bermBreedte: +$("rBerm").value };
+    ["rKG", "rKS", "rKJ", "rGroen", "rAk", "rAkS"].forEach(id => $(id + "O").value = nl(+$(id).value));
+    $("rTuinO").value = nl(o.aandeelTuin * 100) + " %"; $("rGDO").value = nl(o.groendak * 100) + " %"; $("rSingelO").value = nl(o.singelBreedte, 1); $("rBermO").value = nl(o.bermBreedte, 2);
+    const R = window.HZ_RUIMTE(D, o);
+    GRU.kpis($("rKpi"), R); GRU.balk($("rBalk"), R); GRU.tabel($("tblDoel").querySelector("tbody"), R, R0, false); GRU.kavels($("tblKavel").querySelector("tbody"), R);
+    GRU.lijst($("tblDak").querySelector("tbody"), R.daken); GRU.lijst($("tblOverlap").querySelector("tbody"), R.overlap);
+    document.querySelectorAll("[data-k=ha]").forEach(e => e.textContent = nl(R.kpi.ha, 1));
+    return R;
+  }
+  zet();
+  $("rReset").addEventListener("click", () => { zet(); run(); });
+  function seg(el, naam, opties, std) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
+  seg("sBouw", "bg", [["0", "Landbouwgrond"], ["0.5", "Half/half"], ["1", "Bouwkavels"]], "0");
+  seg("sScen", "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
+  seg("sVerd", "vd", [["kavel", "Naar kavel"], ["gelijk", "Gelijk"], ["woning", "Naar woning (m²)"]], "kavel");
+  $("mLand").value = G.landbouwgrondHa; $("mBouw").value = G.bouwgrondM2; $("mOnv").value = G.onvoorzien * 100;
+  const val = n => document.querySelector(`input[name=${n}]:checked`).value, eur = v => "€ " + nl(Math.round(v / 1000) * 1000);
+  function run() {
+    const o = { R: ruimte(), prijsLandHa: +$("mLand").value, aandeelBouwgrond: +val("bg"), bouwgrondM2: +$("mBouw").value, scen: val("sc"), onvoorzien: +$("mOnv").value / 100, verdeling: val("vd") };
+    $("ctlBouwM2").hidden = o.aandeelBouwgrond === 0;
+    $("mLandO").value = nl(o.prijsLandHa); $("mBouwO").value = nl(o.bouwgrondM2); $("mOnvO").value = nl(+$("mOnv").value);
+    const r = GK.rekenen(o);
+    $("rHa").textContent = nl(r.ha, 2) + " ha"; $("rGrond").textContent = eur(r.groepen["Grondverwerving"]); $("rTot").textContent = eur(r.totaal);
+    $("rPW").textContent = eur(r.gemPerWoning); $("rG").textContent = eur(r.perWoning.gezin); $("rS").textContent = eur(r.perWoning.senior); $("rJ").textContent = eur(r.perWoning.junior);
+    const gr = Object.entries(r.groepen).concat([["Onvoorzien", r.onv]]);
+    EG.hbars($("chart"), gr.map(([n, v]) => [n, v / 1000]), { unit: "k€", dec: 0 });
+    $("tblPost").querySelector("tbody").innerHTML = r.regels.map(x => `<tr><td>${x.groep}</td><td>${x.post}</td><td class="num">${nl(Math.round(x.eur / 100) * 100)}</td><td>${x.st}</td></tr>`).join("") +
+      `<tr><td>Onvoorzien</td><td>${nl(+$("mOnv").value)} % van het subtotaal</td><td class="num">${nl(Math.round(r.onv / 100) * 100)}</td><td>N</td></tr><tr style="font-weight:600"><td>Totaal</td><td></td><td class="num">${nl(Math.round(r.totaal / 100) * 100)}</td><td></td></tr>`;
+  }
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

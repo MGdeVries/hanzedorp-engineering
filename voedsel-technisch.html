@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuinderij en voedselproductie – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Oppervlaktebehoefte, seizoensfactor en voorraad voor groente en fruit van de Hanzedorp-akker; zaaiplan en verwerkingskalender.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Groente- en fruitvoorziening uit de tuinderij op de Hanzedorp-akker: oppervlaktebehoefte, seizoensfactor en voorraadvorming</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Uitgaande van het advies van 250 g groente en 200 g fruit per persoon per dag<sup class="ref"><a href="#bron-34">[34]</a></sup>, <span data-k="vVerlies"></span> % verlies en netto-opbrengsten van <span data-k="vOpbrG"></span> kg·m⁻²·a⁻¹ (groente) en <span data-k="vOpbrF"></span> kg·m⁻²·a⁻¹ (fruit) inclusief paden (N), is circa <span data-k="vM2pp"></span> m² per persoon nodig. De maximale akker van <span data-k="aMax"></span> m² voorziet dan in de groente- en fruitbehoefte van circa <span data-k="vMaxMonden"></span> personen. Omdat de oogst zich over 40 van de 52 weken uitstrekt<sup class="ref"><a href="#bron-31">[31]</a></sup>, moet de productie ten minste <span data-k="vSeizoen"></span> % van de consumptie in het oogstseizoen bedragen (<span data-k="vSeizoenBruto"></span> % inclusief verlies). Voor 100 gezinnen is <span data-k="v100m2b"></span>–<span data-k="v100m2"></span> m² nodig; de doelstelling '5.000 m² voor een 100-tal gezinnen' is met deze aannames niet haalbaar.</p>
+</section>
+
+<section aria-labelledby="h-begr"><h2 id="h-begr" style="font-size:1.2rem">Begrippen</h2>
+  <p class="read"><b>Weiland</b> (grasland): uitgangssituatie van de grond en bestemming van het deel dat (nog) niet in teelt is. <b>Akker</b> (bouwland): de grond die voor teelt geschikt is gemaakt, inclusief put, druppelirrigatie en agri-PV; mandelig eigendom van de bewoners. <b>Tuinderij</b>: de professioneel geleide teelt (vollegrondstuinbouw) op de akker – organisatie, teeltplan en arbeid – met als doel een rijke oogst voor het dorp. In de vakliteratuur duidt ‘tuinderij’ het bedrijf of de teelt aan, niet de grond; daarom blijft ‘akker’ de term voor oppervlakte, water en panelen, en ‘tuinderij’ de term voor teelt, oogst en organisatie<sup class="ref"><a href="#bron-160">[160]</a></sup>. Aandachtspunten: het omzetten van grasland in bouwland valt onder regels van de mestwetgeving (graslandvernieuwing en -scheuren) en is bij de locatiekeuze bij RVO te verifiëren; de organisatievorm van de tuinderij (tuinder in dienst van de beheervereniging, gebruiksovereenkomst met een zelfstandige tuinder, of bewonersinzet onder leiding) bepaalt fiscale en voedselveiligheidsverplichtingen (NVWA bij levering buiten de besloten kring) – open punt. <b>Doelgroep</b> (BESLUIT 04-11-2026<sup class="ref"><a href="#bron-171">[171]</a></sup>): de tuinderij is in eerste instantie voor de bewoners; bij voldoende grond staat zij open voor niet-bewoners (abonnementen naar het model van community-supported agriculture, zoals in het werkdocument<sup class="ref"><a href="#bron-170">[170]</a></sup>: ± 200 abonnees voor een rendabele exploitatie, ± 300 m² per gezin). Dat vraagt een eigen ingang voor de tuinderij en, bij verkoop buiten de groep, aandacht voor de hygiënecode (NVWA).</p>
+</section>
+
+<nav aria-label="Inhoud"><h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2><ol class="toc">
+  <li><a href="#s1">Inleiding</a></li><li><a href="#s2">Methode</a></li><li><a href="#s3">Invoerparameters</a></li><li><a href="#s4">Resultaten</a></li>
+  <li><a href="#s5">Gevoeligheidsanalyse</a></li><li><a href="#s6">Validatie</a></li><li><a href="#s7">Discussie</a></li><li><a href="#s8">Conclusies</a></li>
+  <li><a href="#s9">Openstaande gegevens</a></li><li><a href="#s10">Literatuur en bronnen</a></li><li><a href="#s11">Versiebeheer</a></li></ol></nav>
+
+<section id="s1"><h2 class="num">Inleiding</h2>
+  <p class="read">De akker (maximaal <span data-k="aMax"></span> m², gedeeld met verticale PV-rijen) wordt beplant met groente, kleinfruit en fruitbomen<sup class="ref"><a href="#bron-31">[31]</a></sup>. Gevraagd wordt hoeveel monden daarmee van groente en fruit kunnen worden voorzien, welke voorraad nodig is voor de 12 weken zonder oogst, en hoe zaaien, oogsten en verwerken in de tijd verlopen. Het aantal monden is een schuifparameter.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <div class="formula">C_g = n · c_g · 365 / 1000 ;  C_f = n · c_f · 365 / 1000                     [kg·a⁻¹]
+P_g = C_g / (1 − v) ;  P_f = C_f / (1 − v)                                   [kg·a⁻¹]
+A = P_g / y_g + P_f / y_f                                                     [m²]
+S = (C_g + C_f) · w_rust / (w_oogst + w_rust) / (1 − v)                      [kg voorraad]
+F_seizoen = (w_oogst + w_rust) / w_oogst ;  F_bruto = F_seizoen / (1 − v)</div>
+  <p class="read note">n: aantal personen; c: dagelijkse consumptie (kg); v: verliesfractie; y: netto-opbrengst incl. paden; w: weken. Kinderen hebben een lagere behoefte<sup class="ref"><a href="#bron-34">[34]</a></sup>; rekenen met de volwassenennorm is conservatief.</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInv"><caption>Tabel 1 – Invoer.</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblCbs"><caption>Tabel 2 – Opbrengst beroepsteelt vollegrond 2025 (t·ha⁻¹ = kg·10 m⁻²), berekend als oogst / teeltoppervlak [35].</caption><thead><tr><th>Gewas</th><th class="num">t·ha⁻¹</th><th class="num">kg·m⁻²</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Het ongewogen gemiddelde van tabel 2 bedraagt circa <span data-k="cbsGem"></span> kg·m⁻². Voor kleinschalige, gemengde en biologische teelt inclusief paden, wisselteelt en braak is circa de helft aangenomen (<span data-k="vOpbrG"></span> kg·m⁻²; N). Voor fruit (kleinfruit en hoog- en laagstam gemengd, inclusief aanloopjaren) is <span data-k="vOpbrF"></span> kg·m⁻² aangenomen (N); een onderbouwde bron ontbreekt.</p>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten</h2>
+  <div class="scroll"><table id="tblRes"><caption>Tabel 3 – Behoefte en oppervlak naar aantal personen.</caption><thead><tr><th>Personen</th><th class="num">Groente (kg·a⁻¹)</th><th class="num">Fruit (kg·a⁻¹)</th><th class="num">Oppervlak (m²)</th><th class="num">Voorraad (kg)</th><th class="num">Past op 5.000 m²</th></tr></thead><tbody></tbody></table></div>
+  <h3>Zaaiplan (indicatief)</h3>
+  <div class="panel scroll" id="zaaiplan"></div>
+  <p class="note">Figuur 1 – Zaaien binnen (blauw), buiten zaaien of planten (groen), oogst groente (bruin) en fruit (oranje) per maand (N; algemene teeltkennis, te toetsen).</p>
+  <h3>Verwerkingskalender</h3>
+  <div class="scroll"><table id="tblVerw"><caption>Tabel 4 – Gewassen met oogst en bewaarmethode per maand.</caption><thead><tr><th>Maand</th><th>Gewassen</th><th>Methoden</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 5 – Aantal personen dat op 5.000 m² kan worden voorzien, naar opbrengst groente (rijen) en fruit (kolommen), verlies 15 %.</caption><thead></thead><tbody></tbody></table></div>
+  <p class="read">De opbrengstaannames bepalen de uitkomst vrijwel evenredig. Bij opbrengsten op het niveau van de beroepsteelt (± 4 kg·m⁻² groente, ± 3 kg·m⁻² fruit) neemt het aantal monden toe tot circa 90.</p>
+</section>
+
+<section id="s6"><h2 class="num">Validatie</h2>
+  <p class="read">De norm van 250 g groente per dag ligt ruim boven de werkelijke gemiddelde inname van 165 g (VCP 2019–2021)<sup class="ref"><a href="#bron-34">[34]</a></sup>; rekenen met de werkelijke inname zou het oppervlak per persoon voor groente met circa een derde verlagen. De beroepsopbrengsten zijn ontleend aan CBS 2025<sup class="ref"><a href="#bron-35">[35]</a></sup>. Voor kleinschalige gemengde teelt en voor fruit zijn in deze verkenning geen gevalideerde Nederlandse kengetallen gevonden; dit is een taak voor de controleursfase.</p>
+</section>
+
+<section id="s7"><h2 class="num">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Dieet.</b> Groente en fruit vormen een deel van het dieet; aardappelen, peulvruchten en granen vragen aanzienlijk meer oppervlak en zijn niet meegerekend.</li>
+    <li><b>PV-rijen.</b> Staanders en een smalle strook onder de rijen gaan als teeltgrond verloren; windluwte kan opbrengst en waterbehoefte gunstig beïnvloeden.</li>
+    <li><b>Winterbuffer.</b> Winterharde gewassen (prei, kool, pastinaak, veldsla) verkleinen de benodigde voorraad, maar zijn niet meegerekend.</li>
+    <li><b>Verwerking.</b> Ruimte, apparatuur (weckketels, droogkasten, vriezers) en energie voor verwerking en bewaring zijn niet gedimensioneerd.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Conclusies</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Met de aannames is circa <span data-k="vM2pp"></span> m² per persoon nodig; <span data-k="aMax"></span> m² voorziet circa <span data-k="vMaxMonden"></span> personen van groente en fruit.</li>
+    <li>De productie moet ten minste <span data-k="vSeizoen"></span> % (bruto <span data-k="vSeizoenBruto"></span> %) van de consumptie in het oogstseizoen bedragen.</li>
+    <li>Voor <span data-k="vMonden"></span> personen is circa <span data-k="vVoorraad"></span> kg winterbuffer nodig.</li>
+  </ol>
+</section>
+
+<section id="s9"><h2 class="num">Openstaande gegevens</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Opbrengstkengetallen voor kleinschalige, gemengde (biologische) teelt en voor fruit.</li>
+    <li>Afnemers: alleen Hanzedorp of ook omgeving; aandeel van de groenteconsumptie uit eigen teelt.</li>
+    <li>Zaaiplan en vruchtwisseling met een teler uitwerken; gewasfactoren voor de irrigatie.</li>
+    <li>Ruimte en energie voor verwerking en bewaring.</li>
+  </ol>
+</section>
+
+<section id="s10"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s11"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.9</td><td>26-10-2026</td><td>Eerste versie: behoefte, oppervlak, seizoensfactor, voorraad, zaaiplan en verwerkingskalender.</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="voedsel-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen } = HZ, V = D.voedsel, K = D.akker;
+  const cbs = V.commercieel, cbsGem = cbs.reduce((a, c) => a + c[1], 0) / cbs.length / 10;
+  VO.bind({ cbsGem: nl(cbsGem, 1) }); VO.zaaiplan(document.getElementById("zaaiplan"));
+  renderBronnen(document.getElementById("bronnen"), [170, 171, 31, 34, 35, 160]);
+  const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
+  document.querySelector("#tblInv tbody").innerHTML = [
+    ["Groente c_g", nl(V.groenteGpd), "g·d⁻¹", "G", ref(34)], ["Fruit c_f", nl(V.fruitGpd), "g·d⁻¹", "G", ref(34)],
+    ["Verlies v", nl(V.verlies * 100), "%", "N", ""], ["Opbrengst groente y_g", nl(V.opbrGroente, 1), "kg·m⁻²·a⁻¹", "N", ref(35) + " × ± 0,5"],
+    ["Opbrengst fruit y_f", nl(V.opbrFruit, 1), "kg·m⁻²·a⁻¹", "N", "–"], ["Oogst- / rustweken", V.oogstWeken + " / " + V.rustWeken, "weken", "G", ref(31)],
+    ["Akker (max.)", nl(K.maxM2), "m²", "G", ref(31)]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join("");
+  document.querySelector("#tblCbs tbody").innerHTML = cbs.map(c => `<tr><td>${c[0]}</td><td class="num">${nl(c[1], 1)}</td><td class="num">${nl(c[1] / 10, 1)}</td></tr>`).join("");
+  document.querySelector("#tblRes tbody").innerHTML = [25, 45, 90, 220, 400].map(n => { const b = VO.behoefte(n);
+    return `<tr${n === V.monden ? ' style="font-weight:600"' : ""}><td>${n}</td><td class="num">${nl(b.eetG)}</td><td class="num">${nl(b.eetF)}</td><td class="num">${nl(b.m2)}</td><td class="num">${nl(b.voorraad)}</td><td class="num">${b.m2 <= K.maxM2 ? "ja" : "nee"}</td></tr>`; }).join("");
+  document.querySelector("#tblVerw tbody").innerHTML = VO.verwerking().map(v => `<tr><td>${v.maand}</td><td>${v.gewassen.join(", ") || "–"}</td><td>${v.methoden.join(", ") || "–"}</td></tr>`).join("");
+  const yg = [1.5, 2, 3, 4], yf = [1, 1.5, 2, 3];
+  document.querySelector("#tblGev thead").innerHTML = "<tr><th>y_g \\ y_f</th>" + yf.map(f => `<th class="num">${nl(f, 1)}</th>`).join("") + "</tr>";
+  document.querySelector("#tblGev tbody").innerHTML = yg.map(g => "<tr><td>" + nl(g, 1) + "</td>" + yf.map(f => `<td class="num${g === V.opbrGroente && f === V.opbrFruit ? " base" : ""}">${nl(VO.behoefte(45, { opbrGroente: g, opbrFruit: f }).mondenMax)}</td>`).join("") + "</tr>").join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>
