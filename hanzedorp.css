@@ -1,21 +1,19 @@
-/* hanzedorp.css – gedeelde stijl themapagina's (voorlopig palet; huisstijl hanzedorp.nl nog vast te leggen) */
+/* hanzedorp.css – gedeelde stijl themapagina's, in de huisstijl van hanzedorp.nl */
+/* Huisstijl volgens hanzedorp.nl (style.css, uitgelezen 16-11-2026): inkt #36217A, mos #1F4A3D, water #3F6A68,
+   mist #DCE8E6, papier #EEF3F1, schuim #F7FAF9, stro #E0AB17 / #9A6F1A, zand #F0E9DB; koppen Bricolage Grotesque, tekst Roboto.
+   Altijd licht (hanzedorp.nl heeft geen donkere modus). Datakleuren in grafieken (--water, --rain, --green, --clay) blijven herkenbaar. */
 :root{
-  --bg:#F6F4EE; --surface:#FFFFFF; --fg:#2C2C2C; --muted:#5E5F58; --line:#DCD7CA;
-  --water:#1D6A86; --rain:#5AA6C8; --green:#5E6E4B; --clay:#A9741A; --warn:#A35A12; --grid:#E8E4D8;
-  --gold:#E1AB12; --sage:#7D8E68; --ink:#2C2C2C;
-  --display:"Literata", Georgia, "Times New Roman", serif;
-  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --hz-ink:#36217A; --hz-ink-soft:#3A4D47; --moss:#1F4A3D; --hz-water:#3F6A68; --mist:#DCE8E6; --paper:#EEF3F1; --foam:#F7FAF9;
+  --straw:#E0AB17; --straw-deep:#9A6F1A; --sand:#F0E9DB; --edge-l:#E0AB17; --edge-r:#5A9E7A;
+  --edge:clamp(12px,1.6vw,40px);
+  --bg:#F0E9DB; --surface:#F7FAF9; --fg:#36217A; --muted:#4F5D58; --line:rgba(21,34,31,.14);
+  --water:#1D6A86; --rain:#5AA6C8; --green:#3F6E4F; --clay:#9A6F1A; --warn:#A35A12; --grid:#E2DCCD;
+  --gold:#E0AB17; --sage:#5A9E7A; --ink:#36217A;
+  --display:"Bricolage Grotesque", Georgia, serif;
+  --body:"Roboto", Verdana, system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#1B1B19; --surface:#252522; --fg:#ECEAE3; --muted:#A8A699; --line:#3A3934;
-  --water:#5DB3D3; --rain:#8FC9E3; --green:#A3B68C; --clay:#E1AB12; --warn:#E3A35C; --grid:#2E2D29;
-  --gold:#E1AB12; --sage:#93A47D; --ink:#ECEAE3; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#1B1B19; --surface:#252522; --fg:#ECEAE3; --muted:#A8A699; --line:#3A3934;
-  --water:#5DB3D3; --rain:#8FC9E3; --green:#A3B68C; --clay:#E1AB12; --warn:#E3A35C; --grid:#2E2D29;
-  --gold:#E1AB12; --sage:#93A47D; --ink:#ECEAE3; color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
@@ -176,3 +174,58 @@ header h1::after{content:"";display:block;width:56px;height:4px;background:var(-
 .sproj select{font:inherit;font-weight:600;width:100%;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .sproj .spm{color:var(--muted)}
 .sproj .spt-ok{color:var(--green)} .sproj .spt-nok{color:var(--warn)}
+
+/* ---------- huisstijl hanzedorp.nl (v0.21) ---------- */
+html{background:var(--bg)}
+body{background-color:var(--sand);background-image:linear-gradient(90deg,var(--edge-l) 0 var(--edge),transparent var(--edge) calc(100% - var(--edge)),var(--edge-r) calc(100% - var(--edge)) 100%);background-attachment:fixed;color:var(--fg);font-size:17px;line-height:1.65}
+.wrap{padding-left:max(calc(var(--edge) + 16px),env(safe-area-inset-left,0px));padding-right:max(calc(var(--edge) + 16px),env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.03em;color:var(--hz-ink)}
+h3,h4{font-weight:600;letter-spacing:-.02em}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1}
+p,li,.read{color:var(--fg)}
+.lead{color:var(--hz-ink-soft)}
+a{color:var(--moss);text-underline-offset:.18em}
+a:hover{color:var(--straw-deep)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--straw-deep)}
+header h1::after{background:var(--straw);height:4px;width:64px}
+.panel,.abstract,.cta,.sproj{background:var(--foam);border-color:var(--line);border-radius:6px}
+.abstract{border-left-color:var(--moss)}
+.cta{border-color:var(--moss)}
+.cta a,.knop,a.btn{font-family:var(--display);font-weight:600}
+a.btn,.knop{display:inline-flex;align-items:center;padding:.7rem 1.15rem;border-radius:.35rem;background:var(--straw-deep);color:var(--foam);text-decoration:none}
+a.btn:hover,.knop:hover{background:var(--straw);color:var(--hz-ink)}
+.stat{border-top-color:var(--straw)}
+.stat b,.result b{color:var(--hz-ink)}
+.eyebrow{color:var(--hz-water)}
+.pill{color:var(--straw-deep)}
+th{color:var(--hz-ink-soft)}
+.formula{background:var(--paper)}
+input[type=range],input[type=checkbox]{accent-color:var(--moss)}
+.ctl output{color:var(--moss)}
+.seg label{background:var(--foam)}
+.seg input:checked+label{border-color:var(--moss);color:var(--moss)}
+.seg input:focus-visible+label,.zoek input:focus{outline-color:var(--straw-deep)}
+footer{color:var(--hz-ink-soft)}
+/* zijmenu en kopbalk zoals de kopbalk van hanzedorp.nl */
+.side{background:var(--foam);border-right:1px solid var(--line)}
+.sbrand{border-bottom-color:var(--straw)}
+.sbrand a{font-family:var(--display);font-weight:700;letter-spacing:-.03em;color:var(--hz-ink)}
+.sbrand a span{font-family:var(--display);color:var(--moss);letter-spacing:.04em}
+.gh{color:var(--hz-water);font-family:var(--display);font-weight:600}
+.pl>li>a{color:var(--hz-ink-soft);font-family:var(--display);font-weight:500}
+.pl>li>a:hover{background:var(--paper);color:var(--hz-ink)}
+.pl>li.cur>a{background:var(--paper);color:var(--hz-ink);box-shadow:inset 3px 0 0 var(--straw)}
+.pl a[aria-current="page"]{color:var(--hz-ink)}
+.toc a.on{color:var(--hz-ink);box-shadow:inset 2px 0 0 var(--straw)}
+.sw a[aria-current="page"]{background:var(--moss);border-color:var(--moss);color:var(--foam)}
+.zoek input,.sproj select{background:var(--paper)}
+.zres{background:var(--foam)}
+.zres a:hover,.zres a.k{background:var(--paper)}
+@media (max-width:1099.98px){
+  .sbar{background:rgba(247,250,249,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(21,34,31,.08);padding-left:max(calc(var(--edge) + 12px),env(safe-area-inset-left,0px));padding-right:max(calc(var(--edge) + 12px),env(safe-area-inset-right,0px))}
+  .sbn{font-family:var(--display);font-weight:700;letter-spacing:-.03em;color:var(--hz-ink)}
+  .stand button,.sbar button{background:var(--foam)}
+}
+@media (min-width:1100px){body:has(#nav),body.met-side{background-image:linear-gradient(90deg,var(--foam) 0 280px,var(--sand) 280px calc(100% - var(--edge)),var(--edge-r) calc(100% - var(--edge)) 100%)}
+  .side{border-left:var(--edge) solid var(--edge-l);width:calc(280px);box-sizing:border-box}}
+@media print{body{background:#fff!important}}
