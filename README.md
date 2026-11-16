@@ -1,5 +1,7 @@
 # Hanzedorp Engineering
 
+Het technisch uitwerken van landgroottes, verbruik en opwek van elektriciteit, water en voedsel ten behoeve van project Hanzedorp.
+
 Openbare editie van de engineering-onderbouwing van **Hanzedorp**: een klein dorp van 12 passiefhuizen met gedeelde voorzieningen (buurthuis, buurtaccu, laadplein, koelcellen, zwemvijver, akker met tuinderij) in Salland.
 
 Per thema twee pagina's: een **basispagina** (B1, voor bewoners en gemeente) en een **technische pagina** (methode, invoer, resultaten, gevoeligheid, toetsing, bronnen). Alle cijfers komen uit één databron (`hanzedorp-data.js`) en worden in de browser doorgerekend met KNMI-gegevens van station Heino (1994–2025).
