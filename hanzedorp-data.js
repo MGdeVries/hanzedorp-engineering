@@ -9,7 +9,7 @@
 /* BASISDATA – gedeeld door alle projectkavels: woningen, bewoners, auto's, installaties, ontwerpkeuzes, landelijke regels en tarieven.
    Locatiespecifieke gegevens (klimaat, waterschap, netbeheerder, waterbedrijf, grondprijs, terrein) staan per project in hanzedorp-projecten.js. */
 window.HANZEDORP_DATA = {
-  versie: "0.21",
+  versie: "0.22",
   datum: "16-11-2026",
   auteur: "Melvin de Vries",
 
@@ -170,7 +170,8 @@ window.HANZEDORP_DATA = {
     // ruimteprogramma (m²); woningkavel = bebouwd + privétuin + verharding rond de woning
     bebouwd: { gezin: 150, senior: 85, junior: 55 },
     accuAfstand: 13,              // N afstand buurtaccu ↔ carport/gebouwen: RIVM indicatief brandscenario tot 13 m per module (gifwolk ≤ 24 m, explosie 57 m, overschat) [120]; te bevestigen Veiligheidsregio
-    kavel: { gezin: 500, senior: 300, junior: 120 },        // G opgave Melvin 27-10-2026 18:20 [119]: kavelgrootte per woningtype
+    kavel: { gezin: 500, senior: 300, junior: 120 },
+    kavelAfwijkend: [ { t: "gezin", n: 1, m2: 1100, wat: "gezinswoning met een grote loods ten noorden van de woning" } ],   // G opgave 16-11-2026 [173]: één gezinskavel van 1.100 m² (loods achter de woning)        // G opgave Melvin 27-10-2026 18:20 [119]: kavelgrootte per woningtype
     aandeelTuin: 0.75,                                      // G opgave 27-10-2026 18:24 [119]: kavel minus bebouwd = 75 % privétuin, 25 % verharding        // N bruto footprint bij gelijkvloers (gebruiksoppervlak + wanden)
     gemeenschappelijk: [
       ["Buurthuis met erf", 250, "N"], ["Twee schuren (werkplaats, opslag, server 2)", 300, "N"], ["Overdekte parkeerplaats (20 plekken van 2,75 × 8 m) met rijbaan aan de noordkant", 770, "A"],
@@ -443,8 +444,8 @@ window.HANZEDORP_DATA = {
     wasseretteBesparing: 0,                               // VERVALLEN [159]: geen gedeelde wasruimte in het buurthuis (was 0,5 N)
     vijverPompW: 100,                                     // N circulatiepomp zwemvijver apr–sep
     // erfmolen Ecoways EAZ-13.2 [43][44]; vermogenscurve in hanzedorp-wind.js
-    wind: { n: 2, P: 15, D: 13.2, as: 15, fabrikantMin: 25000, fabrikantMax: 45000, z0: 0.1, cp: 0.35 },
-    accu: { kWh: 600, kW: 150, eta: 0.90, segmenten: 3, kWhSegment: 200 },   // BESLUIT [104]: LFP 3 × 200 kWh (redundantie), PCS ± 150 kW
+    wind: { n: 1, max: 1, P: 15, D: 13.2, as: 15, fabrikantMin: 25000, fabrikantMax: 45000, z0: 0.1, cp: 0.35, ecowaysKWh: 30000, isdeEurM2: 140 },   // ISDE zakelijk kleinschalige wind: max € 140/m² rotoroppervlak (2024–2027) [180]   // BESLUIT 16-11-2026 [173]: keuze 0 of 1 erfmolen (2 gaat niet gebeuren); Ecoways business case: 30.000 kWh/jr op de locatie (G opgave fabrikant) [174]
+    accu: { kWh: 600, kW: 150, eta: 0.90, segmenten: 3, kWhSegment: 200, kasten: 3, maxKasten: 3, dubbel: [false, false, false], kWhKastMax: 400 },   // BESLUIT [104]: LFP 3 × 200 kWh (redundantie), PCS ± 150 kW; 16-11-2026 [173]: 1–3 kasten, elke kast ruimte voor een tweede set cellen van 200 kWh (400 kWh per kast)   // BESLUIT [104]: LFP 3 × 200 kWh (redundantie), PCS ± 150 kW
     // dagprofiel huishoudelijk verbruik (aandeel per uur, N: typisch woonprofiel)
     profiel: [0.55,0.5,0.48,0.48,0.5,0.6,0.9,1.15,1.05,0.95,0.95,1.0,1.1,1.0,0.95,0.95,1.1,1.45,1.75,1.65,1.45,1.25,0.95,0.7],
     wwUren: [11, 12, 13, 14]                              // N warm tapwater bij voorkeur midden op de dag (zonnestroom)
@@ -476,7 +477,7 @@ window.HANZEDORP_DATA = {
     },
     ontvanger: 0,                                        // B 'geen schaduw op een andere woning': gemeten tot maaiveld aan de zuidgevel (streng)
     randBinnen: 2, randBuiten: 3, doorwaadbaar: 2,       // B voorstel werkdocument [170], aanpasbaar
-    installatieruimte: { min: 4, gezin: 5 },             // B 'mee eens, liefst iets groter': minimaal 4 m², gezin 5 m² (was voorstel 3 m²)
+    installatieruimte: { min: 4, gezin: 8 },   // G opgave 16-11-2026 [173]: minstens 4 m², gezinswoning 8 m² (was 5); ook wasmachine en vouwblad             // B 'mee eens, liefst iets groter': minimaal 4 m², gezin 5 m² (was voorstel 3 m²)
     natuurPunten: 10,                                    // B natuur.html: ≥ 10 punten per woning
     passief: { verwarming: 15, primair: 120, n50: 0.6, oververhitting: 5 },   // G Praktijkboek Passiefhuis §2; oververhitting doel < 5 % uren > 25 °C
     materialen: [                                        // B werkdocument [170] bijlage natuurlijke bouwmaterialen; voorkeur = eis, negatief alleen met motivering
@@ -606,7 +607,9 @@ window.HANZEDORP_DATA = {
       ["pv", "Zonnepanelen en montage (buurthuis, schuren, carport, akker)", "Energie", "pvKWp", "kWp", 340, 400, 30, 0.010, 0, "A", "opgave ± € 0,45/Wp all-in, minus omvormers [opgave PV-kosten]"],
       ["pvdak", "Zonnepanelen op de woningdaken (gezamenlijk bezit, recht van opstal)", "Energie", "pvDakKWp", "kWp", 340, 400, 30, 0.010, 0, "S", "besluit [171]; prijs als overige PV"],
       ["omv", "Omvormers zonnepanelen (incl. woningdaken)", "Energie", "pvOmvKWp", "kWp", 60, 100, 13, 0.0, 0, "S", ""],
-      ["accu", "Buurtaccu met omvormer (PCS), behuizing en EMS-hardware", "Energie", "accuKWh", "kWh", 350, 550, 15, 0.010, 0, "S", "[130]"],
+      ["accu", "Buurtaccu: cellen met BMS en bekabeling (zelfbouw, 200 kWh ± € 15.000)", "Energie", "accuKWh", "kWh", 65, 90, 15, 0.010, 0, "G/S", "opgave zelfbouw [173]; compleet product ter vergelijking ± € 110/kWh incl. PCS [175]"],
+      ["accukast", "Brandwerende accukast/-container per accubank (ruimte voor 2 × 200 kWh, ventilatie, detectie, blussing)", "Energie", "accuKasten", "stuk", 8000, 15000, 30, 0.010, 0, "S", "geen openbare prijzen; offerte DENIOS, Storemasta e.a. [176][177]"],
+      ["pcs", "Omvormer buurtaccu (PCS, 150 kW) en EMS-hardware", "Energie", "accuKW", "kW", 100, 180, 15, 0.010, 0, "S", "[130]"],
       ["molen", "Erfmolens", "Energie", "molens", "stuk", 45000, 60000, 20, 0.020, 0, "S", "± € 50.000 per molen [166]"],
       ["verdeel", "Groepenkast-/omvormerbehuizing en hoofdverdeling dorpsnet", "Energie", "vast", "post", 20000, 40000, 30, 0.010, 0, "S", ""],
       ["kabel", "Kabels dorpsnet in de infrasleuf (sleuf zelf: Grond & kosten)", "Energie", "sleufM", "m", 40, 80, 40, 0.002, 0, "S", ""],
@@ -658,7 +661,7 @@ window.HANZEDORP_DATA = {
     btw: 0.21,
     opslagIn: 0.02, opslagUit: 0.02, vastLevering: 6,          // N leveranciersopslag €/kWh excl. btw en vaste leveringskosten €/mnd (dynamisch contract)
     accu: 600, accuKW: 150, reserve: 0.3, slijtage: 0.03,      // BESLUIT [104]: 3 × 200 kWh, eilandreserve 30 %, slijtage €/kWh doorzet (tot offerte)
-    accuKeuze: { eurKWhLaag: 150, eurKWhHoog: 250, eurKWhStd: 200, jaren: 15, rente: 0.03, blokKWh: 150, kritiekKW: 8 },   // S meerprijs per extra kWh opslag (hardware, grootschalige inkoop 2026 € 130–200/kWh [130]); N levensduur, rente; advies 29-10-2026 [131]
+    accuKeuze: { eurKWhLaag: 60, eurKWhHoog: 110, eurKWhStd: 75, jaren: 15, rente: 0.03, blokKWh: 200, kritiekKW: 8 },   // G/S 16-11-2026 [173]: zelfbouw 200 kWh ± € 15.000 = € 75/kWh cellen + BMS, excl. behuizing en PCS; tweede set cellen in een bestaande kast   // S meerprijs per extra kWh opslag (hardware, grootschalige inkoop 2026 € 130–200/kWh [130]); N levensduur, rente; advies 29-10-2026 [131]
     verkoopDrempel: 0.20, horizon: 24,                         // N verkoop uit accu vanaf € 0,20/kWh beurs; vooruitkijken 24 h (day-ahead + weersverwachting)
     ontwerpKVAperWoning: 1.1,                                  // G LS-net ontworpen op ± 1,1 kVA per woning [62]
     huisPVdirect: 0.30,                                        // N deel woningverbruik direct uit eigen dak-PV (scenario met woningaansluitingen)
@@ -1010,6 +1013,20 @@ window.HANZEDORP_DATA = {
     169: { titel: "Opgave 04-11-2026 14:55: laadpalen worden als gezamenlijk bezit ingebracht in de beheerentiteit; ze staan op het laadplein en iedere woning heeft een eigen parkeerplaats met laadpaal", auteur: "Melvin de Vries", soort: "eigen opgave" },
     170: { titel: "Hanzedorp – Duurzaam wonen op z'n Sallands! Werkdocument/brochure versie 2 (januari 2025): concept, woningen, wijk, tuinderij, energie, organisatie, financiering, bijlagen", auteur: "Nick Vollebergh, Melvin de Vries, Douwe Kunst – Stichting Hanzedorp", soort: "eigen document" },
     171: { titel: "Besluiten 04-11-2026 15:34: app is leidend boven het werkdocument (de aantallen in de app zijn versie 2); eigendom zo inrichten dat er geen belasting over eigen opgewekte stroom wordt betaald – zo nodig worden ook panelen en omvormers op de woningen gezamenlijk bezit van de beheerentiteit; tuinderij eerst voor bewoners en bij voldoende grond ook voor niet-bewoners; ketenpartner-module bouwen; grens 11 of 12 woningen voor CPO, 13 en meer = commercieel", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    173: { titel: "Opgave 16-11-2026: keuze 0 of 1 erfmolen (2 gaat niet gebeuren), aparte erfmolenpagina met en zonder molen en financieel plaatje; zelfbouw accubank 200 kWh ± € 15.000 excl. brandwerende behuizing; elke accukast ruimte voor een tweede set cellen (2 × 200 kWh); netaansluiting 1–3 × 200 kWh; installatieruimte gezinswoning 8 m² met wasmachine en vouwblad; één gezinskavel van 1.100 m² met loods; laadplein biedt ruimte voor extra panelen voor laag-lichtcondities; locaties en percelen gescheiden van de vaste gegevens", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    174: { titel: "Business case erfmolen EAZ-13.2 (Ecoways), invoerblad: 1 molen, mast 15 m, opwek 30.000 kWh/jaar, kabel 50 m 10 mm², aansluiting 3 × 25 A, ISDE wind ja, gemeentelijke/commerciële subsidie € 10.000, korting € 5.309, onderhoudscontract Comfort; ter vergelijking batterij Cesc Mercury 261 kWh / 104 kW € 55.000 (11-11-2026)", auteur: "Ecoways B.V. (A. Mascini); aangeleverd door Melvin de Vries", soort: "offerte/business case" },
+    175: { titel: "Sunwaytech SWMONET-100TS 215 kWh buitenkast (LFP, 768 V, modulaire PCS, brandbeveiliging, IP54): vanaf € 23.950", auteur: "sun.store (geraadpleegd 16-11-2026)", soort: "prijsopgave webwinkel", url: "https://sun.store/en/product/sunwaytech-swmonet-100ts215kwh-50076" },
+    176: { titel: "DENIOS RFP 615.30 – brandwerende opslagcontainer voor lithium-ionaccu's, REI 90 van binnen en buiten, 6,9 × 1,8 × 3,6 m (prijs op aanvraag)", auteur: "DENIOS (geraadpleegd 16-11-2026)", soort: "productinformatie", url: "https://denios.co.uk/fire-rated-storage-container-rfp-li-ion-263173/274111" },
+    177: { titel: "Battery Energy Storage Container 10 ft (BESC10): brandvertragende panelen, explosieveilige HVAC, drukontlasting, optioneel blussysteem (prijs op aanvraag)", auteur: "Storemasta (geraadpleegd 16-11-2026)", soort: "productinformatie", url: "https://shop.storemasta.com.au/products/battery-energy-storage-container-10ft" },
+    178: { titel: "Uniforme veiligheidsregels voor batterijen in 2028 van kracht: ondergrens 20 kWh, meldtermijn 1 week, vergunningplicht vanaf 50 MWh per systeem (400 MWh voor verbonden systemen), vaste afstandstabellen of RIVM-rekenmethode", auteur: "Solar & Storage Magazine, 25-06-2026", soort: "vakblad", url: "https://solarmagazine.nl/nieuws-zonne-energie/i44124/uniforme-veiligheidsregels-voor-batterijen-in-2028-van-kracht-thuisbatterijen-blijven-uitgezonderd" },
+    179: { titel: "Windmolen voor je boerderij: erfmolens 15–30 kW € 35.000–50.000 incl. btw en installatie; 15 kW op 15 m in het binnenland 25.000–35.000 kWh/jaar; levensduur 20–25 jaar", auteur: "Slimster (2026)", soort: "marktoverzicht", url: "https://slimster.nl/windturbine/windmolens-voor-agrariers/" },
+    180: { titel: "ISDE: kleinschalige windturbine zakelijke gebruikers – max. € 140 per m² rotoroppervlak, rotor ≥ 50 m², aansluiting ≤ 3 × 80 A, aanvragen vóór akkoord op de offerte en na indienen omgevingsvergunning, ingebruikname binnen 24 maanden, minimaal 1 jaar in bezit, niet te combineren met EIA; regeling 2024–2027, budget € 5 mln", auteur: "RVO (gecontroleerd 25-03-2026)", soort: "overheidsregeling", url: "https://www.rvo.nl/subsidies-financiering/isde/zakelijke-gebruikers/kleinschalige-windturbine" },
+    181: { titel: "Subsidie voor een windturbine in 2026: ISDE € 140/m², EIA 40 % (Energielijst, niet met ISDE), KIA tot 28 %, SDE++ vooral grote wind, SCE voor energiecoöperaties en VvE's", auteur: "Slimster (2026)", soort: "marktoverzicht", url: "https://slimster.nl/windturbine/windmolen-subsidie/" },
+    182: { titel: "Rabo Ontwikkelbijdrage Energiecoöperaties: max. € 25.000 voor projecten ≥ 1 MW (of € 5.000 met C-CBC), max. 50 % van de ontwikkelkosten, ≥ 20 % eigen inbreng, klant bij Rabobank", auteur: "Rabobank (18-07-2025)", soort: "fonds", url: "https://www.rabobank.nl/lokale-bank/nieuws/011166683/rabo-ontwikkelbijdrage-energiecooperaties" },
+    183: { titel: "Rabobank Salland – onze coöperatieve bijdrage (Coöperatief Dividend, Rabo ClubSupport) voor lokale initiatieven", auteur: "Rabobank Salland", soort: "fonds", url: "https://www.rabobank.nl/lokale-bank/salland/onze-cooperatieve-bijdrage" },
+    184: { titel: "Kleine, houten windmolen uit Groningen ongekend populair: EAZ-molen ± € 50.000, terugverdientijd 7–10 jaar, ± 35.000 kWh/jaar bij 5 m/s", auteur: "IO+", soort: "nieuwsartikel", url: "https://ioplus.nl/archive/nl/kleine-houten-windmolen-uit-groningen-ongekend-populair-boeren-uit-de-straat-willen-er-ook-een/" },
+    185: { titel: "Windturbinedatabase: Gaia 133-11kW (13,0 m, 133 m², as 15/18 m), Solid Wind SWP-25/14 (25 kW, 14 m, 154 m², as 18 m), Windmolens op Maat LWT25 (25 kW, 16 m, as 15 m), EAZ Wind EAZ-Twelve", auteur: "wind-turbine-models.com (geraadpleegd 16-11-2026)", soort: "productdatabase", url: "https://en.wind-turbine-models.com/turbines/245-gaia-133-11kw-lattice-tower" },
+    186: { titel: "Opgave 16-11-2026 13:41: subsidies voor een rechtspersoon met erfmolen achter een netaansluiting (ook Rabobank), alternatieve molens binnen de eigenschappen van Ecoways (prijzen en opwekdata opvragen), tijdelijke beheercoöperatie om de molen met subsidie aan te schaffen en later aan de bewoners over te dragen; uitgangspunt: alleen de kale stroomprijs betalen, nooit energiebelasting, ODE of btw", auteur: "Melvin de Vries", soort: "eigen opgave" },
     172: { titel: "Besluiten 04-11-2026 16:10 thema Bouwen: bouwsysteem vrij mits passiefhuisnorm, ecologische materialen hebben de voorkeur (ecodorp); senioren- en jongerenwoning 1 bouwlaag, gezinswoning 2 bouwlagen met goothoogte max. 6 m, zo geplaatst dat er ook op 21 december geen schaduw op een andere woning valt; vrije kavelrand 2 m / 3 m en doorwaadbare zone 2 m als aanpasbaar voorstel; materialenlijst werkdocument als eis; dakindeling (sedum rand, PV binnenzijde) alleen voor de eigen woning van Melvin – andere ontwerpen mogen anders, mits voldoende panelen op het dak of elders op het terrein, bij voorkeur loodrecht op het zuiden (wintermaximalisatie); installatieruimte liefst groter dan 3 m²; PHPP door Clarence Rose (Azimut Bouwbureau), blowerdoortest waarschijnlijk door Olaf Heinen (Franck); typologie 6/3/3 en 130/70/45 m² als rekenbasis; dakvorm: aangezicht telt, passiefbouweisen altijd leidend", auteur: "Melvin de Vries", soort: "eigen opgave" },
     116: { titel: "Politiekeurmerk Veilig Wonen (PKVW): keurmerk voor inbraakpreventie en sociale veiligheid van woning en woonomgeving (eisen aan hang- en sluitwerk, verlichting, zichtlijnen, overzichtelijke inrichting)", auteur: "Centrum voor Criminaliteitspreventie en Veiligheid (CCV)", soort: "keurmerk", url: "https://www.politiekeurmerk.nl/" },
     67: { titel: "Inmaken en fermenteren (Voedingscentrum raadt thuiswecken af vanwege botulisme; inmaken van zuur fruit wel veilig; fermenteren met 2 % zout)", auteur: "MAX Vandaag, met verwijzing naar Voedingscentrum (secundaire bron; primaire bron Voedingscentrum te raadplegen)", soort: "artikel", url: "https://www.maxvandaag.nl/?p=117360" },
@@ -1041,7 +1058,9 @@ window.HZ_RUIMTE = function (D, o = {}) {
     add("woning-" + t, `Woning (footprint), ${n} × ${NAAM[t]} van ${b} m²`, "Wonen – bebouwd", "privé (kavel)", "keuze", n * b, "N", "bruto footprint gelijkvloers");
     add("tuin-" + t, `Privétuin, ${n} × ${Math.round(rest * aT)} m²`, "Wonen – tuin", "privé (kavel)", "gevolg", n * rest * aT, "A", `(kavel ${kavel[t]} − woning ${b}) × ${Math.round(aT * 100)} %`);
     add("erf-" + t, `Erfverharding (oprit, terras, berging, paden), ${n} × ${Math.round(rest * (1 - aT))} m²`, "Wonen – erfverharding", "privé (kavel)", "gevolg", n * rest * (1 - aT), "A", `(kavel − woning) × ${Math.round((1 - aT) * 100)} %; afwatering naar infiltratiekrat`); });
-  const kavelsM2 = T3.reduce((a, t) => a + (mix[t] || 0) * kavel[t], 0);
+  const afw = (o.kavelAfwijkend || G.kavelAfwijkend || []).filter(k => (mix[k.t] || 0) >= k.n && k.m2 > kavel[k.t]);
+  afw.forEach((k, i) => add("kavel-extra-" + i, `Extra kavelgrond: ${k.n} × ${k.wat} (${k.m2} m² i.p.v. ${kavel[k.t]} m²)`, "Wonen – tuin", "privé (kavel)", "keuze", k.n * (k.m2 - kavel[k.t]), "G", "afwijkende kavel op verzoek van de bewoner"));
+  const kavelsM2 = T3.reduce((a, t) => a + (mix[t] || 0) * kavel[t], 0) + afw.reduce((a, k) => a + k.n * (k.m2 - kavel[k.t]), 0);
   // gemeenschappelijke gebouwen en voorzieningen
   add("buurthuis", "Buurthuis (gebouw)", "Maatschappelijk", "mandelig", "keuze", R.buurthuis.gebouw, "N", "gedeelde keuken, technische ruimte, ontmoeten");
   add("buurthuis-erf", "Erf en terras buurthuis", "Maatschappelijk", "mandelig", "keuze", R.buurthuis.erf, "N", "");

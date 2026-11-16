@@ -15,6 +15,8 @@
     if (!vind(id)) id = P.standaard;
   }
   const proj = vind(id) || P.lijst[0];
+  /* getekend perceel (locatie.html), per project in deze browser bewaard */
+  let perceel = null; try { perceel = JSON.parse(opslag.get("hz-perceel:" + proj.id) || "null"); } catch (e) {}
   /* samenvoegen: objecten recursief, lijsten en waarden vervangen */
   const isObj = v => v && typeof v === "object" && !Array.isArray(v);
   function merge(doel, bron) { for (const k of Object.keys(bron || {})) { if (isObj(bron[k]) && isObj(doel[k])) merge(doel[k], bron[k]); else doel[k] = JSON.parse(JSON.stringify(bron[k])); } return doel; }
@@ -22,11 +24,14 @@
   keten.forEach(x => merge(D, x.locatie || {}));
   D.project = { id: proj.id, naam: proj.naam, status: proj.status, gemeente: proj.gemeente, provincie: proj.provincie, omschrijving: proj.omschrijving,
                 terreinM2: proj.terreinM2, bestaandeBebouwingM2: proj.bestaandeBebouwingM2 || 0, station: proj.station, stationNaam: proj.stationNaam,
-                klimaatVoorlopig: !!proj.klimaatVoorlopig, partijen: proj.partijen || {}, vervang: proj.vervang || {} };
+                klimaatVoorlopig: !!proj.klimaatVoorlopig, partijen: proj.partijen || {}, vervang: proj.vervang || {},
+                nr: P.lijst.indexOf(proj) + 1, perceel: perceel && perceel.m2 ? perceel : null };
+  if (D.project.perceel && D.project.perceel.gebruik !== false) D.project.terreinM2 = Math.round(D.project.perceel.m2);
   if (window.HZ_AFLEIDEN) window.HZ_AFLEIDEN(D);
   /* ruimtetoets: benodigd oppervlak volgens het plan (kavels + gezamenlijke voorzieningen) tegenover het beschikbare terrein */
   if (D.grond && D.energie) {
-    const mix = D.energie.mix, kav = ["gezin", "senior", "junior"].reduce((a, t) => a + (mix[t] || 0) * (D.grond.kavel[t] || 0), 0);
+    const mix = D.energie.mix, kav = ["gezin", "senior", "junior"].reduce((a, t) => a + (mix[t] || 0) * (D.grond.kavel[t] || 0), 0)
+      + (D.grond.kavelAfwijkend || []).reduce((a, k) => a + ((mix[k.t] || 0) >= k.n && k.m2 > D.grond.kavel[k.t] ? k.n * (k.m2 - D.grond.kavel[k.t]) : 0), 0);
     const gem = D.grond.gemeenschappelijk.reduce((a, g) => a + g[1], 0), akker = (D.grond.gemeenschappelijk.find(g => /^Akker/.test(g[0])) || [0, 0])[1];
     const T = D.project.terreinM2;
     D.project.benodigdM2 = kav + gem; D.project.akkerPlanM2 = akker;
@@ -38,6 +43,7 @@
     kies(nieuw) { opslag.set("hz-project", nieuw); const u = new URL(location.href); u.searchParams.set("project", nieuw); location.href = u.toString(); },
     key: pagina => "hz-stand:" + proj.id + ":" + pagina,              // werkstand per project
     weerPad: bestand => "weer/" + proj.station + "/" + bestand,
+    perceelKey: "hz-perceel:" + proj.id,
     intern: ["eigendom.html", "eigendom-technisch.html", "inventarisatie.html", "projecten.html", "ketenpartners.html"]   // niet in edities voor gemeenten en partijen
   };
   /* locatienamen in lopende tekst vervangen (niet in bronnenlijsten) */

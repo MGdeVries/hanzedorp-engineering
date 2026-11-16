@@ -22,6 +22,7 @@
       pvKWp: vl.reduce((a, v) => a + v.kWp, 0) + agri, pvAgri: agri,
       pvDakKWp: ["gezin", "senior", "junior"].reduce((a, t) => a + ((D.energie.mix || {})[t] || 0) * ((D.energie.kWpDak || {})[t] || 0), 0),
       accuKWh: o.accuKWh != null ? o.accuKWh : D.energie.accu.kWh,
+      accuKasten: o.accuKasten != null ? o.accuKasten : (D.energie.accu.kasten || 3), accuKW: D.energie.accu.kW,
       molens: o.molens != null ? o.molens : Math.round(m("molens") / D.grond.ruimte.erfmolenM2),
       sleufM: D.grond.sleufM, drinkM: B.drinkM,
       digitaal: D.digitaal.stuk.reduce((a, s) => a + s.eur, 0),

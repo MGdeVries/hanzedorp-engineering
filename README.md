@@ -11,7 +11,7 @@ De pagina's zijn bedoeld voor (toekomstige) bewoners, voor ambtenaren en vergunn
 **Bekijken:** https://mgdevries.github.io/hanzedorp-engineering/
 
 ## Over deze editie
-- Versie 0.21 (16-11-2026), concept. Opmaak in de huisstijl van hanzedorp.nl.
+- Versie 0.22 (16-11-2026), concept. Opmaak in de huisstijl van hanzedorp.nl.
 - Openbare editie: zonder interne pagina's (projecten, eigendom, inventarisatie, ketenpartners) en zonder persoonsgegevens. De referentiewoning is een woning in Zwolle met vier bewoners; meetdata: Melvin de Vries.
 - Werkt in elke moderne browser (Windows, Mac, Android, iOS). Open de site via de link hierboven; een lokaal geopend `index.html` werkt op tablets en telefoons niet, omdat de browser daar de scripts en opmaak naast het bestand niet mag lezen.
 

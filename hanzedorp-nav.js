@@ -19,6 +19,7 @@
     ["erfdieren.html", "Dieren op het erf", "erfdieren-technisch.html"],
     ["opslag.html", "Voorraad & koelcellen", "opslag-technisch.html"],
     ["energie.html", "Energieopwek", "energie-technisch.html"],
+    ["erfmolen.html", "Erfmolen", "erfmolen-technisch.html"],
     ["mobiliteit.html", "Mobiliteit & laden", "mobiliteit-technisch.html"],
     ["netaansluiting.html", "Netaansluiting & handel", "netaansluiting-technisch.html"],
     ["digitale-infrastructuur.html", "Digitale infrastructuur", "digitale-infrastructuur-technisch.html"],
@@ -34,7 +35,8 @@
   const OVER = [["juridisch.html", "Juridisch & colofon"]];
   const HP = window.HZPROJECT || null, EDITIE = !!(HP && HP.editie), INTERN = HP ? HP.intern : [];
   if (EDITIE) [WERK, INVOER, DOSSIER].forEach(l => { for (let i = l.length - 1; i >= 0; i--) if (INTERN.includes(l[i][0])) l.splice(i, 1); });
-  else START.push(["projecten.html", "Projecten & kavels"]);
+  const LOCATIE = [["locatie.html", "Locatie & perceel"]];
+  if (!EDITIE) LOCATIE.push(["projecten.html", "Projecten (beheer)"]);
   window.HZNAV = { WERK };
 
   const hier = (decodeURIComponent(location.pathname.split("/").pop()) || "index.html");
@@ -69,10 +71,14 @@
     if (!HP) return "";
     const D = window.HANZEDORP_DATA, pr = D.project, nl = v => Math.round(v).toLocaleString("nl-NL");
     const toets = pr.toets === "past" ? "✓ past op het terrein" : pr.toets === "onbekend" ? "terrein nog onbekend" : "⚠ " + pr.toets;
-    const sel = EDITIE ? "" : `<label for="hzp" class="vh">Project kiezen</label><select id="hzp">${HP.lijst.map(p => `<option value="${esc(p.id)}"${p.id === pr.id ? " selected" : ""}>${esc(p.naam)}</option>`).join("")}</select>`;
-    return `<div class="sproj"><span class="spk">Project</span>${sel || `<b>${esc(pr.naam)}</b>`}` +
+    const sel = EDITIE ? "" : `<label for="hzp" class="vh">Project kiezen</label><select id="hzp">${HP.lijst.map((p, i) => `<option value="${esc(p.id)}"${p.id === pr.id ? " selected" : ""}>${i + 1}. ${esc(p.naam)}</option>`).join("")}</select>`;
+    const nr = pr.nr || 1, pc = pr.perceel;
+    return `<div class="sproj"><span class="spk">Variabel · locatie</span>` +
+      `<div class="spnr"><span class="spbadge" aria-hidden="true">P${nr}</span><span><span class="vh">Project ${nr}: </span>${sel || `<b>${esc(pr.naam)}</b>`}</span></div>` +
       `<span class="spm">Gemeente ${esc(pr.gemeente)} · klimaat ${esc(pr.stationNaam)}${pr.klimaatVoorlopig ? " (voorlopig)" : ""}</span>` +
-      `<span class="spm spt-${pr.toets === "past" ? "ok" : pr.toets === "onbekend" ? "nb" : "nok"}">${toets}${pr.terreinM2 ? `<br>nodig ${nl(pr.benodigdM2)} m², terrein ${nl(pr.terreinM2)} m²` : ""}</span></div>`;
+      `<span class="spm">${pc ? "Perceel getekend: " + nl(pc.m2) + " m²" : "Nog geen perceel gekozen"}</span>` +
+      `<span class="spm spt-${pr.toets === "past" ? "ok" : pr.toets === "onbekend" ? "nb" : "nok"}">${toets}${pr.terreinM2 ? `<br>nodig ${nl(pr.benodigdM2)} m², terrein ${nl(pr.terreinM2)} m²` : ""}</span>` +
+      `<a class="spbtn" href="locatie.html">Locatie en perceel kiezen →</a></div>`;
   }
   const oud = document.getElementById("nav");
   const aside = document.createElement("aside");
@@ -82,7 +88,7 @@
     `<div class="zoek" role="search"><label for="zq" class="vh">Zoeken in alle pagina's</label>` +
     `<input id="zq" type="search" placeholder="Zoeken…  ( / )" autocomplete="off" aria-controls="zres"><div id="zres" class="zres" hidden></div></div>` +
     projectBlok() +
-    `<div class="sidx">` + groep("Begin", START) + groep("Werkpagina's", WERK) + (INVOER.length ? groep("Invoer", INVOER) : "") + groep("Haalbaarheid & vergunning", DOSSIER) + groep("Uitkomst", SLOT) + groep("Over dit document", OVER) +
+    `<div class="sidx">` + groep("Begin", START) + groep("Vast · werkpagina's (wat we bouwen)", WERK) + groep("Variabel · locatie (waar we bouwen)", LOCATIE) + (INVOER.length ? groep("Invoer", INVOER) : "") + groep("Haalbaarheid & vergunning", DOSSIER) + groep("Uitkomst", SLOT) + groep("Over dit document", OVER) +
     `<div id="stand" class="stand" hidden></div></div>`;
   document.body.insertBefore(aside, document.body.firstChild);
   if (oud) oud.remove();

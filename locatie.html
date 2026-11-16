@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locatie en perceel – Hanzedorp</title>
+<meta name="description" content="Locatie en perceel van Hanzedorp: zoekgebied op de kaart, perceel intekenen, oppervlak tegenover wat het plan nodig heeft en het dichtstbijzijnde KNMI-weerstation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px} .ok{color:var(--green)} .nok{color:var(--warn)}#kaart{height:min(70vh,560px);border-radius:6px;border:1px solid var(--line);z-index:0} .knoppen{display:flex;flex-wrap:wrap;gap:8px} .knoppen button,.knoppen label.btnl{font:inherit;font-family:var(--display);font-weight:600;padding:.6rem 1rem;border-radius:.35rem;border:1px solid var(--line);background:var(--foam);color:var(--hz-ink);cursor:pointer} .knoppen button.hoofd{background:var(--straw-deep);color:var(--foam);border-color:var(--straw-deep)} .knoppen button:disabled{opacity:.5;cursor:default} .leaflet-container{font:inherit}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Variabel · locatie</span><span>Locatie &amp; perceel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Waar bouwen we?</h1>
+  <p class="lead read">De werkpagina's beschrijven wát we bouwen: dat is overal hetzelfde. Waar we bouwen, verschilt per project: het perceel, de gemeente, het waterschap en het weer. Hier kies je het project, teken je het perceel op de kaart en zie je of het plan erop past en welk weerstation het dichtstbij ligt.</p>
+</header>
+
+<section aria-labelledby="h-proj">
+  <h2 id="h-proj">1. Kies het project</h2>
+  <div class="panel read" style="display:grid;gap:10px">
+    <label for="selProj"><b>Project</b></label>
+    <select id="selProj" style="font:inherit;padding:8px;border-radius:6px;border:1px solid var(--line);background:var(--paper)"></select>
+    <p class="note" id="projInfo"></p>
+  </div>
+</section>
+
+<section aria-labelledby="h-kaart">
+  <h2 id="h-kaart">2. Teken het perceel</h2>
+  <p class="read">Klik op <b>Perceel tekenen</b> en klik daarna op de kaart de hoeken van het perceel aan. Klik op <b>Klaar</b> om de vorm te sluiten. Het perceel blijft bewaard in deze browser. Met <b>Exporteren</b> sla je het op als bestand (GeoJSON) om te delen.</p>
+  <div class="knoppen" role="group" aria-label="Tekenen">
+    <button type="button" id="bTeken" class="hoofd">Perceel tekenen</button>
+    <button type="button" id="bKlaar" disabled>Klaar</button>
+    <button type="button" id="bTerug" disabled>Laatste punt weg</button>
+    <button type="button" id="bWis">Perceel wissen</button>
+    <button type="button" id="bExport">Exporteren</button>
+    <label class="btnl" for="fImport">Importeren<input type="file" id="fImport" accept=".geojson,.json,application/geo+json,application/json" hidden></label>
+  </div>
+  <div id="kaart" role="application" aria-label="Kaart met zoekgebied, weerstations en perceel"></div>
+  <p class="note">Kaart © OpenStreetMap-bijdragers. Het zoekgebied is voorlopig getekend als de driehoek Zwolle – Dalfsen – Wijhe met 15 km rondom; de wens om richting Nunspeet en Apeldoorn uit te breiden staat gestippeld. Een precieze kaart van het zoekgebied volgt.</p>
+</section>
+
+<section aria-labelledby="h-uit">
+  <h2 id="h-uit">3. Past het plan?</h2>
+  <div class="result" aria-live="polite">
+    <div><b id="rOpp">–</b><span>oppervlak van het getekende perceel</span></div>
+    <div><b id="rNodig"></b><span>nodig volgens het plan (kavels en gezamenlijke voorzieningen)</span></div>
+    <div><b id="rToets">–</b><span>uitkomst</span></div>
+    <div><b id="rStation">–</b><span>dichtstbijzijnde KNMI-station met uurdata</span></div>
+  </div>
+  <div class="checks read" style="margin-top:12px"><label><input type="checkbox" id="cGebruik" checked> Reken op alle pagina's met dit perceel als beschikbaar terrein</label></div>
+  <p class="read note" id="stNoot"></p>
+</section>
+
+<section aria-labelledby="h-weer">
+  <h2 id="h-weer">Weerstations</h2>
+  <div class="read" style="display:grid;gap:8px">
+    <p>Het rekenmodel gebruikt 31 jaar weer van één KNMI-station: uurwind, zonnestraling en temperatuur, plus dagelijkse neerslag en verdamping. Nu is dat <b>Heino (278)</b>, midden in het zoekgebied. Ligt het perceel dichter bij een ander station, dan is dat station beter. De bestanden daarvan moeten nog worden toegevoegd.</p>
+    <div class="scroll"><table id="tblSt"><thead><tr><th>Station</th><th>Ligging</th><th class="num">Afstand tot perceel</th><th>In het model</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>Het perceel wordt alleen in deze browser bewaard; er gaat niets naar een server.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="locatie.js"></script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

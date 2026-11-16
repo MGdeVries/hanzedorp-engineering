@@ -148,7 +148,7 @@
   zet(); $("fReset").addEventListener("click", () => { zet(); run(); });
   document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
   const v = [["Standaard (eigen hypotheek, 30 % eigen geld)", {}], ["Lening vereniging, 30 % eigen inbreng", { financiering: "vereniging" }], ["Prijzen laag", { scen: "min" }], ["Prijzen hoog", { scen: "max" }],
-    ["Btw aftrekbaar", { btwAftrek: true }], ["Rente 3,5 %", { renteLening: 0.035 }], ["Rente 5,5 %", { renteLening: 0.055 }], ["Accu 450 kWh", { accuKWh: 450 }], ["Zonder erfmolens", { molens: 0 }], ["Met tuinder", { tuinder: true }]];
+    ["Btw aftrekbaar", { btwAftrek: true }], ["Rente 3,5 %", { renteLening: 0.035 }], ["Rente 5,5 %", { renteLening: 0.055 }], ["Accu 2 kasten (400 kWh)", { accuKWh: 400, accuKasten: 2 }], ["Zonder erfmolens", { molens: 0 }], ["Met tuinder", { tuinder: true }]];
   $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.financien(o); return `<tr><td>${n}</td><td class="num">${nl(Math.round(x.perWoningInv / 100) * 100)}</td><td class="num">${nl(Math.round(x.perWoningMnd))}</td><td class="num">${nl(Math.round(x.finPerWoningMnd))}</td></tr>`; }).join("");
 })();
 </script>

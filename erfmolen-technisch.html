@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erfmolen – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Erfmolen in Hanzedorp: wat levert één erfmolen op tegenover geen molen, in de winter en over het jaar, en wat kost en bespaart hij? Technische pagina: methode, invoer, gevoeligheid, risico's en toetsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px} .ok{color:var(--green)} .nok{color:var(--warn)}</style>
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Erfmolen</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Erfmolen: vergelijking zonder en met één molen</h1>
+</header>
+<div class="abstract read">
+  <p><b>Samenvatting.</b> Voor het dorp (scenario C, buurtaccu <span data-k="accu"></span> kWh, netaansluiting volgens de standaardinstelling) is de uursimulatie 1994–2025 (31 jaar, KNMI Heino) twee keer uitgevoerd: zonder erfmolen en met één erfmolen Ecoways EAZ-13.2 (15 kW, as 15 m, D = 13,2 m). De winterdekking (nov–feb) stijgt van <span data-k="w0"></span> % naar <span data-k="w1"></span> %; de netbijkoop daalt met <span data-k="dImp"></span> MWh·a⁻¹. Bij de gekozen invoer is het jaarsaldo <span data-k="saldoTxt"></span>. De uitkomst is vooral gevoelig voor de werkelijke windopbrengst (model <span data-k="modelMWh"></span> MWh·a⁻¹ tegen Ecoways <span data-k="ecoMWh"></span> MWh·a⁻¹) en de investering.</p>
+</div>
+
+<section aria-labelledby="s1"><h2 class="num" id="s1">Vraagstelling en systeemgrens</h2>
+  <p class="read">Besluit 16-11-2026<sup class="ref"><a href="#bron-173">[173]</a></sup>: hoogstens één erfmolen. Vraag: wat is het verschil in opwek, winterdekking, netbijkoop en jaarlasten tussen 0 en 1 molen, en is een klein wintertekort met bijkoop uit het net acceptabel? Systeemgrens: het dorpsnet met alle gedeelde opwek, de buurtaccu en de netaansluiting (energie.html, netaansluiting.html). Buiten de grens: handel op kwartierprijzen (zie netaansluiting-technisch), btw-positie en ISDE-bedrag (te bevestigen).</p>
+</section>
+
+<section aria-labelledby="s2"><h2 class="num" id="s2">Methode</h2>
+  <div class="formula">Simulatie:  S₀ = HE.simuleer({wind: 0}),  S₁ = HE.simuleer({wind: f})
+f = 1 (KNMI-uurwind Heino, vermogenscurve EAZ, z₀ = 0,1 m)  of  f = E_ecoways / E_model  of  f = E_fabrikant,midden / E_model
+ΔI = I₁ − I₀ (netbijkoop, kWh·a⁻¹),  ΔX = X₁ − X₀ (teruglevering, kWh·a⁻¹)
+Besparing  B = −ΔI · p_in + ΔX · p_uit                                   [€·a⁻¹]
+Jaarkosten K = (I − S) · r / (1 − (1 + r)^−n) + O                        [€·a⁻¹]
+Saldo = B − K;   T_terug = (I − S) / (B − O);   kostprijs molenstroom = K / E_molen   [€·kWh⁻¹]</div>
+  <p class="read">Tijdstap 1 h; opbrengst per dag uit KNMI-uurwind (FH, 10 m) opgeschaald naar ashoogte met het logaritmische windprofiel en verdeeld met het dagprofiel van de wind; de accu, het gestuurd laden en het afschakelen bij overschot volgen hanzedorp-energie.js. Winter = november t/m februari.</p>
+</section>
+
+<section aria-labelledby="s3"><h2 class="num" id="s3">Invoer en instellingen</h2>
+  <div class="panel" style="display:grid;gap:18px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Opbrengst molen</legend><div class="seg" id="sOpbr"></div></fieldset></div>
+      <div class="ctl"><label for="mInv">Investering I: <output id="mInvO"></output></label><input type="range" id="mInv" min="30000" max="75000" step="1000"></div>
+      <div class="ctl"><label for="mSub">Subsidie en korting S: <output id="mSubO"></output></label><input type="range" id="mSub" min="0" max="40000" step="500"></div>
+      <div class="ctl"><label for="mOnd">Onderhoud O: <output id="mOndO"></output></label><input type="range" id="mOnd" min="0" max="3000" step="100"></div>
+      <div class="ctl"><label for="mPrijs">p_in: <output id="mPrijsO"></output></label><input type="range" id="mPrijs" min="0.10" max="0.40" step="0.01"></div>
+      <div class="ctl"><label for="mExp">p_uit: <output id="mExpO"></output></label><input type="range" id="mExp" min="0" max="0.15" step="0.01"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rBesp"></b><span>B</span></div><div><b id="rKost"></b><span>K</span></div><div><b id="rSaldo"></b><span>B − K</span></div><div><b id="rTvt"></b><span>T_terug</span></div><div><b id="rLcoe"></b><span>K / E_molen</span></div>
+    </div>
+  </div>
+  <div class="scroll"><table><caption>Tabel 1 – Invoergegevens</caption><thead><tr><th>Parameter</th><th>Waarde</th><th>Status</th><th>Bron</th></tr></thead><tbody id="tblIn"></tbody></table></div>
+</section>
+
+<section aria-labelledby="s4"><h2 class="num" id="s4">Resultaten</h2>
+  <div class="scroll"><table id="tblVgl"><caption>Tabel 2 – Zonder en met één erfmolen (gemiddelde over 31 jaar)</caption><thead><tr><th></th><th class="num">0 molens</th><th class="num">1 molen</th><th class="num">Δ</th></tr></thead><tbody></tbody></table></div>
+  <figure><figcaption>Figuur 1 – Netbijkoop per maand (MWh), zonder (licht) en met (donker) molen.</figcaption><div id="mndImp"></div></figure>
+  <figure><figcaption>Figuur 2 – Berekende molenopbrengst per jaar (MWh·a⁻¹) met de schatting van Ecoways.</figcaption><div id="windJaar"></div></figure>
+</section>
+
+<section aria-labelledby="s5"><h2 class="num" id="s5">Gevoeligheid</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 3 – Jaarsaldo B − K bij variatie van één parameter (overige invoer zoals ingesteld)</caption><thead><tr><th>Variant</th><th class="num">E_molen (MWh)</th><th class="num">B</th><th class="num">K</th><th class="num">Saldo</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Interpretatie. De molen vervangt vooral wintervraag die anders 's nachts uit het net komt; in de zomer wordt de extra opbrengst grotendeels afgeschakeld of tegen een lage vergoeding teruggeleverd. Daardoor is de waarde per kWh molenstroom lager dan de inkoopprijs. Een hogere werkelijke windopbrengst (Ecoways) of een lagere investering maakt het verschil.</p>
+</section>
+
+<section aria-labelledby="s6"><h2 class="num" id="s6">Risico's</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Opbrengst lager dan verwacht</td><td>Obstakels, ruwheid, ashoogte 15 m; model en Ecoways verschillen ± 50 %</td><td>Windmeting (≥ 6 mnd) of gecertificeerde opbrengstberekening op de locatie; gecertificeerde vermogenscurve</td><td>middel</td><td>open</td></tr>
+    <tr><td>Geluid en slagschaduw</td><td>Woningen binnen ± 160 m (12 × D)</td><td>Plaatsing aan de rand (zuidwest, achter houtwal), stilstandsregeling; toets aan omgevingsplan</td><td>laag</td><td>open (locatie)</td></tr>
+    <tr><td>Geen toestemming gemeente</td><td>Omgevingsplan, landschappelijke inpassing</td><td>Vooroverleg; plan is ook zonder molen sluitend (bijkoop uit net)</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Storing / stilstand</td><td>Mechanisch, omvormer</td><td>Onderhoudscontract (Ecoways 'Comfort'), monitoring; dorp blijft beleverd via accu en net</td><td>laag</td><td>open</td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="s7"><h2 class="num" id="s7">Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Toelaatbaarheid kleine windturbine</td><td>Omgevingsplan gemeente (Ow)</td><td>Locatiekeuze; aanvraag omgevingsplanactiviteit indien niet toegestaan</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Geluid en slagschaduw bij geluidgevoelige gebouwen</td><td>Omgevingsplan / bruidsschat; Bkl-regels windturbines</td><td>Afstand en stilstandsregeling; geluidsberekening fabrikant</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Ecologie</td><td>Wet natuurbescherming (Ow, Bal)</td><td>Quickscan ecologie (in business case Ecoways)</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Netinpassing en beveiliging</td><td>EN 50549-1, NEN 1010</td><td>Aansluiting op het dorpsnet achter de PCS; omvormer met certificaat</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Subsidie</td><td>ISDE zakelijk, kleinschalige windturbine [180]</td><td>Aanvraag door rechtspersoon vóór akkoord offerte, na aanvraag omgevingsvergunning; rotor ≥ 50 m²; ≤ 3 × 80 A; ≥ 1 jaar in bezit; geen EIA</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Energiebelasting en btw op eigen stroom</td><td>Wbm art. 50; Wet OB 1968 (herziening roerende zaken 5 jaar)</td><td>Molen in mandelig eigendom van de bewoners na overdracht; tijdens coöperatiejaren verhuur of geen levering aan bewoners</td><td>onbekend – fiscalist/vooroverleg</td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="s8"><h2 class="num" id="s8">Conclusie</h2>
+  <p class="read">Zonder molen is het dorp energetisch en qua leveringszekerheid sluitend met de buurtaccu en bijkoop uit het net. Eén molen verhoogt de winterdekking en verlaagt de bijkoop, maar is financieel alleen aantrekkelijk als de werkelijke opbrengst dicht bij de schatting van Ecoways ligt en de netto-investering laag is. Besluit pas na offerte, ISDE-bedrag en windmeting op de gekozen locatie.</p>
+</section>
+<section aria-labelledby="s9"><h2 class="num" id="s9">Literatuur</h2><ol class="src" id="bronnen"></ol></section>
+<section aria-labelledby="s10"><h2 class="num" id="s10">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody><tr><td>0.22</td><td>16-11-2026</td><td>Eerste versie: 0 of 1 molen, business case Ecoways, financiële vergelijking.</td><td>Melvin de Vries (opgave [173][174]); uitwerking met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-inventaris.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script src="erfmolen-gedeeld.js"></script>
+<script>
+(function () {
+  const { nl, renderBronnen, bindAll, D } = HZ, $ = id => document.getElementById(id), E = D.energie, W = E.wind;
+  bindAll({ accu: nl(E.accu.kWh) }); renderBronnen($("bronnen"), [43, 44, 83, 105, 130, 166, 173, 174, 179, 180, 181, 182, 183, 184, 185, 186]);
+  const ref = n => `<a href="#bron-${n}">[${n}]</a>`, eur = v => (v < 0 ? "− € " : "€ ") + nl(Math.round(Math.abs(v) / 10) * 10);
+  EM.init({ $, bindAll, technisch: (r, o) => {
+    $("tblIn").innerHTML = [["Type molen", "Ecoways EAZ-13.2, " + W.P + " kW, as " + W.as + " m, D " + W.D + " m", "G", ref(43)], ["Opbrengst model (gem. 31 jaar)", nl(EM.modelKWh() / 1000, 1) + " MWh·a⁻¹", "A", "KNMI 278"],
+      ["Opbrengst Ecoways", nl(W.ecowaysKWh / 1000) + " MWh·a⁻¹", "G", ref(174)], ["Opbrengst fabrikant (bandbreedte)", nl(W.fabrikantMin / 1000) + "–" + nl(W.fabrikantMax / 1000) + " MWh·a⁻¹", "G", ref(43)],
+      ["Factor f (gekozen)", nl(r.f, 2), "A", ""], ["Investering I", eur(o.inv), "S", ref(166) + ref(179)], ["Subsidie + korting S", eur(o.sub), "A/G", "ISDE € " + nl(W.isdeEurM2) + "/m² × π·(D/2)² " + ref(180) + " + korting € 5.309 " + ref(174) + "; gemeentelijke € 10.000 niet standaard"],
+      ["Onderhoud O", eur(o.ond) + "·a⁻¹", "S", ""], ["Levensduur n, rente r", o.jaren + " jaar, " + nl(o.rente * 100, 1) + " %", "N", ""], ["p_in, p_uit", "€ " + nl(o.prijs, 2) + " / € " + nl(o.exp, 2) + " per kWh", "G/N", ""]]
+      .map(x => `<tr><td>${x[0]}</td><td>${x[1]}</td><td><span class="st st-${x[2][0]}">${x[2]}</span></td><td>${x[3]}</td></tr>`).join("");
+    const V = [["Ingesteld", {}], ["Opbrengst model", { opbr: "model" }], ["Opbrengst Ecoways", { opbr: "ecoways" }], ["Investering € 40.000", { inv: 40000 }], ["Investering € 60.000", { inv: 60000 }], ["Zonder subsidie", { sub: 0 }], ["p_in € 0,35", { prijs: 0.35 }], ["p_uit € 0", { exp: 0 }]];
+    $("tblGev").querySelector("tbody").innerHTML = V.map(([n, x]) => { const q = EM.reken(Object.assign({}, o, x)); return `<tr><td>${n}</td><td class="num">${nl(q.b.wind / 1000, 1)}</td><td class="num">${eur(q.besp)}</td><td class="num">${eur(q.kost)}</td><td class="num">${eur(q.saldo)}</td></tr>`; }).join("");
+  } });
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

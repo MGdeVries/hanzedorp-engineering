@@ -142,7 +142,7 @@
   document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
   const base = M0.perWoningMnd, v = [["Standaard", {}], ["Prijzen laag", { scen: "min" }], ["Prijzen hoog", { scen: "max" }], ["Prijsstijging 1,5 %", { inflatie: 0.015 }], ["Prijsstijging 3,5 %", { inflatie: 0.035 }],
     ["Levensduur −20 %", { levensduurFactor: 0.8 }], ["Levensduur +20 %", { levensduurFactor: 1.2 }], ["Horizon 10 jaar", { horizon: 10 }], ["Horizon 50 jaar", { horizon: 50 }], ["Accu 450 kWh", { accuKWh: 450 }],
-    ["Zonder erfmolens", { molens: 0 }], ["Buffer € 0", { buffer: 0 }]];
+    ["Zonder erfmolen", { molens: 0 }], ["Buffer € 0", { buffer: 0 }]];
   $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.mjop(o).perWoningMnd, d = x - base; return `<tr><td>${n}</td><td class="num">${nl(Math.round(x))}</td><td class="num">${d ? (d > 0 ? "+" : "−") + nl(Math.abs(Math.round(d))) : ""}</td></tr>`; }).join("");
 })();
 </script>

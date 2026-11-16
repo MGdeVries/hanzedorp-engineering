@@ -54,7 +54,7 @@ function sim(cap, o = {}) {
     impP: gem("imp", PRIJSJAREN), dagSnel, impKP: gem("impK", PRIJSJAREN), expP: gem("exp", PRIJSJAREN), expWP: gem("expW", PRIJSJAREN), nettoP: gem("expW", PRIJSJAREN) - gem("impK", PRIJSJAREN), win, dagImp };
 }
 const rnd = (o, d = 1) => JSON.parse(JSON.stringify(o, (k, v) => typeof v === "number" ? +v.toFixed(d) : v));
-const GROOTTES = [0, 100, 200, 300, 400, 450, 500, 600, 800, 1000];
+const GROOTTES = [0, 100, 200, 300, 400, 500, 600, 800, 1000, 1200];   // sets van 200 kWh, max 3 kasten × 400 kWh (16-11-2026)
 const groottes = GROOTTES.map(c => { const a = sim(c), b = sim(c, { strat: "reactief" }); delete a.dagImp; delete b.dagImp; delete a.dagSnel; delete b.dagSnel; return { cap: c, dal: a, reactief: b }; });
 const blokken = [[2, 200], [3, 150], [3, 200], [4, 150], [4, 200]].map(([nb, kb]) => { const s = sim((nb - 1) * kb, { pk: 150 * (nb - 1) / nb }); delete s.dagImp; delete s.dagSnel; return { nb, kb, cap: nb * kb, restCap: (nb - 1) * kb, restKW: 150 * (nb - 1) / nb, tekU: s.tekU, tekJaren: s.tekJaren, tekMax: s.tekMax, imp: s.imp }; });
 const gevoel = [["H = 36 h, perfecte voorspelling", {}], ["H = 24 h", { H: 24 }], ["H = 12 h", { H: 12 }], ["voorspelling 30 % te laag", { ff: 0.7 }], ["voorspelling 50 % te laag", { ff: 0.5 }], ["reserve 15 %", { reserve: 0.15 }]]
