@@ -9,7 +9,7 @@
 /* BASISDATA – gedeeld door alle projectkavels: woningen, bewoners, auto's, installaties, ontwerpkeuzes, landelijke regels en tarieven.
    Locatiespecifieke gegevens (klimaat, waterschap, netbeheerder, waterbedrijf, grondprijs, terrein) staan per project in hanzedorp-projecten.js. */
 window.HANZEDORP_DATA = {
-  versie: "0.22",
+  versie: "0.23",
   datum: "16-11-2026",
   auteur: "Melvin de Vries",
 
@@ -413,7 +413,7 @@ window.HANZEDORP_DATA = {
     quookerKWh: 300,                                      // G opgave [104]: kokendwaterkraan ± 300 kWh/jr per woning; tank (110 °C) verschuifbaar naar overschot
     thuiswerkKWh: 1.5,                                    // G opgave Melvin 27-10-2026 [68]: scherm, laptop en dock ± 1,5 kWh per thuiswerkdag
     werkplaats: { pers: 4, dagen: 220, kWhPersDag: 4, van: 8, tot: 17, pPiek: 20, verwarmKWh: 1700,   // opgave [68][80]: 3–4 mensen; lasapparatuur, draaibank, zaagtafel, afzuiging, verwarming, evt. autobrug
-                  machines: [["Lasapparaat (MIG/MAG, 3-fase)", 8], ["Draaibank", 3], ["Zaagtafel", 3], ["Afzuiging", 2.2], ["Autobrug (2-koloms, kort)", 3], ["Verwarming schuur (warmtepomp)", 2]] },   // S kW elektrisch per machine; piek gelijktijdig ± 20 kW (S); verwarming ± 100 m² geïsoleerd, ± 50 kWh/m² th / COP 3 (S)
+                  machines: [["Lasapparaat (MIG/MAG, 3-fase)", 8], ["Draaibank", 3], ["Zaagtafel", 3], ["Afzuiging", 2.2], ["Autobrug (4-koloms)", 3], ["Verwarming schuur (warmtepomp)", 2]] },   // S kW elektrisch per machine; piek gelijktijdig ± 20 kW (S); verwarming ± 100 m² geïsoleerd, ± 50 kWh/m² th / COP 3 (S)
     vat: { gezin: 300, senior: 175, junior: 150 },
     // Warmte-opwekker per woning (opgave 04-11-2026 [157]): ventilatieluchtwarmtepomp (VLWP) als compactunit met balansventilatie-WTW en tapwatervoorraadvat
     wpKeuze: {
@@ -606,15 +606,17 @@ window.HANZEDORP_DATA = {
     componenten: [
       ["pv", "Zonnepanelen en montage (buurthuis, schuren, carport, akker)", "Energie", "pvKWp", "kWp", 340, 400, 30, 0.010, 0, "A", "opgave ± € 0,45/Wp all-in, minus omvormers [opgave PV-kosten]"],
       ["pvdak", "Zonnepanelen op de woningdaken (gezamenlijk bezit, recht van opstal)", "Energie", "pvDakKWp", "kWp", 340, 400, 30, 0.010, 0, "S", "besluit [171]; prijs als overige PV"],
-      ["omv", "Omvormers zonnepanelen (incl. woningdaken)", "Energie", "pvOmvKWp", "kWp", 60, 100, 13, 0.0, 0, "S", ""],
+      ["omv", "Omvormers zonnepanelen (incl. woningdaken)", "Energie", "pvOmvKWp", "kWp", 60, 100, 15, 0.0, 0, "S", "levensduur 15 jr (B [189])"],
       ["accu", "Buurtaccu: cellen met BMS en bekabeling (zelfbouw, 200 kWh ± € 15.000)", "Energie", "accuKWh", "kWh", 65, 90, 15, 0.010, 0, "G/S", "opgave zelfbouw [173]; compleet product ter vergelijking ± € 110/kWh incl. PCS [175]"],
       ["accukast", "Brandwerende accukast/-container per accubank (ruimte voor 2 × 200 kWh, ventilatie, detectie, blussing)", "Energie", "accuKasten", "stuk", 8000, 15000, 30, 0.010, 0, "S", "geen openbare prijzen; offerte DENIOS, Storemasta e.a. [176][177]"],
       ["pcs", "Omvormer buurtaccu (PCS, 150 kW) en EMS-hardware", "Energie", "accuKW", "kW", 100, 180, 15, 0.010, 0, "S", "[130]"],
-      ["molen", "Erfmolens", "Energie", "molens", "stuk", 45000, 60000, 20, 0.020, 0, "S", "± € 50.000 per molen [166]"],
-      ["verdeel", "Groepenkast-/omvormerbehuizing en hoofdverdeling dorpsnet", "Energie", "vast", "post", 20000, 40000, 30, 0.010, 0, "S", ""],
-      ["kabel", "Kabels dorpsnet in de infrasleuf (sleuf zelf: Grond & kosten)", "Energie", "sleufM", "m", 40, 80, 40, 0.002, 0, "S", ""],
+      ["molen", "Erfmolen: mast, gondel, generator, fundering, kabels (EAZ 13.2)", "Energie", "molens", "stuk", 60000, 66000, 50, 0, 1000, "G/S", "€ 69.000 + ± € 5.000 ex btw (2022), onderhoud € 1.000/jr [187]; ± 85 % van de prijs (S); levensduur 50 jr (B [189])"],
+      ["rotor", "Erfmolen: rotor en houten wieken", "Energie", "molens", "stuk", 10000, 12000, 20, 0, 0, "S", "± 15 % van de molenprijs (S); korter dan de molen (B [189]); levensduur 20 jr (N) – te bevestigen door E.A.Z. Wind"],
+      ["verdeel", "Groepenkast-/omvormerbehuizing en hoofdverdeling dorpsnet", "Energie", "vast", "post", 20000, 40000, 50, 0.010, 0, "S", "levensduur 50 jr (B [189])"],
+      ["kabel", "Kabels dorpsnet in de infrasleuf (sleuf zelf: Grond & kosten)", "Energie", "sleufM", "m", 40, 80, 50, 0.002, 0, "S", "levensduur 50 jr of langer (B [189])"],
       ["laders", "Laadpalen laadplein (AC, OCPP, MID-meter, V2G-gereed), incl. bekabeling vanaf de verdeling", "Energie", "laadpalen", "stuk", 1500, 3000, 12, 0.020, 0, "S", "besluit [169]; meerprijs t.o.v. gedeelde laders ± € 1.000/paal [opgave 27-10-2026]"],
-      ["net", "Glasvezel, switches, wifi, servers, UPS en camera's", "Digitaal", "digitaal", "post", 1, 1, 7, 0.0, 0, "B/S", "stuklijst digitale infrastructuur [74]"],
+      ["net", "Netwerkapparatuur: switches, wifi, servers, UPS, camera's, sensoren, installatie", "Digitaal", "digitaal", "post", 1, 1, 10, 0.0, 0, "B/S", "stuklijst digitale infrastructuur [74], zonder glasvezelkabel; levensduur 10 jr (B [189])"],
+      ["glas", "Glasvezelkabel in de sleuf (passief)", "Digitaal", "digitaalGlas", "post", 1, 1, 50, 0.0, 0, "S", "stuklijst [74]; levensduur 50 jr (N, passieve kabel)"],
       ["buurthuis", "Buurthuis (gebouw)", "Gebouwen", "buurthuisM2", "m²", 2000, 2800, 50, 0.015, 0, "S", ""],
       ["schuren", "Schuren (werkplaats, opslag)", "Gebouwen", "schurenM2", "m²", 800, 1400, 40, 0.010, 0, "S", ""],
       ["carport", "Carportconstructie (zonder panelen)", "Gebouwen", "carportDakM2", "m²", 150, 300, 40, 0.005, 0, "S", ""],
@@ -831,7 +833,7 @@ window.HANZEDORP_DATA = {
       ["V3.6", "V3", "Externe veiligheid: buurtaccu (PGS 37-1), afstanden", 2, "deels", "veiligheid-technisch.html", "Claude + Veiligheidsregio", ""],
       ["V3.7", "V3", "Watertoets en waterparagraaf (berging, infiltratie, put)", 2, "deels", "hemelwater-technisch.html", "Claude + waterschap", "locatie"],
       ["V3.8", "V3", "Verkeer, ontsluiting en parkeren", 2, "deels", "mobiliteit.html", "Claude", "locatie"],
-      ["V3.9", "V3", "Erfmolens: geluid, slagschaduw, landschap", 2, "deels", "energie-technisch.html", "Claude", "locatie"],
+      ["V3.9", "V3", "Erfmolens: vergunbaarheid (meestal alleen op agrarisch bouwperceel), geluid, slagschaduw, landschap", 0, "deels", "energie-technisch.html", "Nick + Melvin", "locatie"],
       ["V4.1", "V4", "BENG en TOjuli per woning", 3, "open", "", "extern: adviseur", ""],
       ["V4.2", "V4", "MPG-score (biobased, CLT)", 3, "open", "", "extern", ""],
       ["V4.3", "V4", "Brandveiligheid CLT, constructie, thuislift", 3, "open", "", "constructeur", ""],
@@ -849,6 +851,102 @@ window.HANZEDORP_DATA = {
       ["V7.3", "V7", "Volledigheid aanvraag: indieningsvereisten Omgevingsloket", 2, "open", "", "Claude", ""]
     ]
   },
+  /* ---------- Energiebeheer (EMS) en verbruiksbericht – opgave 15-11-2026 [190]; keuzes 15-11-2026 [191] ----------
+     Verbruikersregister: [id, naam, plek, aantal (getal of sleutel woningen/gezin/senior/junior/plekken), vermogen kW, fasen, kWh/jr per stuk (getal of 'm:sleutel' uit HE.woning),
+       klasse (1–6), sturing, wat het EMS bewaakt, status kWh (G/A/N/S)] */
+  ems: {
+    keuzes: { schakelen: "hybride", software: "open source + eigen modules", meten: "Shelly Pro op zware groepen; woning Melvin volledig; laadpalen via OCPP (nooit uitschakelen)", bericht: ["app/push", "scherm in de woning", "scherm in het buurthuis", "e-mail/dagbericht"] },   // BESLUIT 15-11-2026 [191], meten herzien [197]
+    bericht: { fOver: 1.5, fRood: 0.5, flexDagen: 7, horizonDagen: 7, updateUren: [6, 12, 18] },   // N voorstel: dagcode uit opwek/vraag; laden mag tot 7 dagen schuiven (opgave [190])
+    sauna: { n: 4, kW: 9 },                                   // N 4 woningen met een 3-fase sauna (rekenvoorbeeld); S thuis-sauna 6–9 kW, 3 × 16 A
+    klassen: [
+      { k: 1, naam: "Altijd aan", kort: "essentieel", uitleg: "veiligheid, gezondheid en voedsel; wordt nooit uitgeschakeld", kleur: "var(--water)" },
+      { k: 2, naam: "Basis woning", kort: "begrensd", uitleg: "blijft aan, maar het EMS mag het vermogen of de temperatuur iets verlagen", kleur: "var(--sage)" },
+      { k: 3, naam: "Uitstelbaar (uren)", kort: "schuift uren", uitleg: "start op het beste moment van de dag, meestal rond het middaguur", kleur: "#6f9a52" },
+      { k: 4, naam: "Uitstelbaar (dagen)", kort: "schuift dagen", uitleg: "wacht op een zonnige of winderige dag; heeft een buffer of voorraad", kleur: "var(--gold)" },
+      { k: 5, naam: "Blokkeerbaar", kort: "uit bij tekort", uitleg: "luxe of zware verbruiker; mag niet aan bij een oranje of rood bericht", kleur: "#c2683a" },
+      { k: 6, naam: "Overschotverbruiker", kort: "aan bij overvloed", uitleg: "gaat juist extra aan als er stroom over is en slaat het op als warmte, kou, water of lading", kleur: "#8a6bb0" }
+    ],
+    codes: [
+      { id: "overvloed", naam: "Overvloed", kleur: "#8a6bb0", kort: "Stroom over: zet aan wat kan",
+        ems: "boilers naar 65–70 °C, Quooker vol, vriescel naar −24 °C, koelcel naar 0 °C, bassin akker vullen en filters spoelen, alle auto's tot 100 %, buurtaccu vol",
+        jij: "was, vaatwasser, droogoven, werkplaats met zware machines, sauna: nu is het moment" },
+      { id: "groen", naam: "Groen", kleur: "#4f8a3c", kort: "Genoeg voor iedereen",
+        ems: "normaal bedrijf; laden op zonne-uren; tapwater rond het middaguur", jij: "niets bijzonders; sauna en oven mogen" },
+      { id: "geel", naam: "Geel", kleur: "#d4a017", kort: "Genoeg voor huis, krap voor auto's",
+        ems: "auto's laden alleen op zonne-uren of als je hebt aangegeven dat je moet rijden; sauna alleen overdag bij zon", jij: "laad als het kan overdag; was en vaat midden op de dag" },
+      { id: "oranje", naam: "Oranje", kleur: "#d96c1e", kort: "Zuinig: niet-essentieel uit",
+        ems: "sauna, bubbelbad en pyrolyse geblokkeerd; laden alleen bij rijwens; warmtepomp 0,5 °C lager; tapwater niet boven 55 °C (geen boost); Quooker alleen na gebruik", jij: "geef aan of je moet rijden; het EMS adviseert thuis laden of een snellader" },
+      { id: "rood", naam: "Rood", kleur: "#b3261e", kort: "Alleen het nodige",
+        ems: "alleen klasse 1 en 2; koken begrensd; auto's alleen noodlading of snellader; cellen op hun koudebuffer", jij: "stel wassen en klussen uit; moet je rijden, volg dan het laadadvies" }
+    ],
+    verbruikers: [
+      ["koel", "Koelkast + vriezer (manshoog)", "woning", "woningen", 0.15, 1, "m:koel", 1, "meten; nooit schakelen", "compressor langer aan dan normaal (deur open, defect); 0 W langer dan 3 uur = alarm", "N"],
+      ["wtw", "Ventilatie (WTW in compactunit)", "woning", "woningen", 0.06, 1, "m:wtw", 1, "meten; bypass en stand via compactunit", "0 W = ventilatie uit (alarm); hoger dan normaal = filter vol", "N"],
+      ["licht", "Verlichting, ICT, wcd algemeen", "woning", "woningen", 1.0, 1, 900, 1, "meten", "sluipverbruik 's nachts hoger dan geleerd (warning)", "S"],
+      ["rwp", "Regenwaterpomp (toilet, wasmachine)", "woning", "woningen", 0.6, 1, 40, 1, "meten", "draait zonder tappen = lek of droogloop (alarm)", "S"],
+      ["wp", "Warmtepomp ruimteverwarming en koelen (compactunit)", "woning", "woningen", 1.0, 1, "m:verw", 2, "SG Ready / EEBus: setpoint ± 0,5–1 °C, zomer koelen op overschot", "COP lager dan bij deze buitentemperatuur gebruikelijk; draait boven de stookgrens", "A"],
+      ["element", "Elektrisch element compactunit (reserve)", "woning", "woningen", 3.0, 1, 0, 5, "relais; alleen vorstbeveiliging of overschot (boost)", "element aan terwijl de warmtepomp het aankan = instelfout (warning)", "N"],
+      ["ww", "Warm tapwater (vat 150–300 L)", "woning", "woningen", 1.0, 1, "m:ww", 3, "SG Ready: opwarmen 11–15 uur; boost 65–70 °C bij overvloed; legionellacyclus op zonnige dag", "vat koelt sneller af dan normaal (isolatie, lek)", "A"],
+      ["koken", "Inductiekookplaat", "woning", "woningen", 7.4, 2, 250, 2, "vermogensbegrenzing kookplaat (bv. 3,7 kW bij rood)", "aan langer dan 3 uur zonder pauze (vergeten pan, warning)", "S"],
+      ["oven", "Oven (met pyrolyse)", "woning", "woningen", 3.5, 1, 120, 5, "pyrolyse alleen bij groen of overvloed (relais/app)", "pyrolyse gestart bij oranje/rood → blokkeren", "S"],
+      ["quooker", "Kokendwaterkraan (Quooker)", "woning", "woningen", 2.2, 1, "m:quooker", 3, "relais: tank opwarmen op zon; bij oranje/rood alleen na gebruik", "continu verbruik = lek of defect thermostaat", "G"],
+      ["was", "Wasmachine", "woning", "woningen", 2.2, 1, 150, 3, "startuitstel of slimme stekker: start 11–15 uur; warm wassen bij overvloed", "element langer dan 2,5 uur aan = defect (warning)", "A"],
+      ["vaat", "Vaatwasser", "woning", "woningen", 2.0, 1, 230, 3, "startuitstel: start 11–15 uur", "geen verbruik in de droogfase = defect", "A"],
+      ["thuiswerk", "Thuiswerkplek", "woning", "woningen", 0.15, 1, "m:thuiswerk", 2, "meten", "–", "G"],
+      ["fiets", "E-fiets / scooter laden", "woning", "woningen", 0.5, 1, 100, 3, "slimme stekker: laden op zon", "–", "N"],
+      ["sauna", "Sauna of infraroodcabine (optioneel)", "woning", 4, 9.0, 3, 1000, 5, "magneetschakelaar met vrijgave door EMS; geblokkeerd bij oranje/rood", "aan bij oranje/rood → blokkeren; langer dan 3 uur aan = vergeten (warning)", "N"],
+      ["hottub", "Bubbelbad / hottub (optioneel)", "woning", 0, 3.0, 1, 2000, 5, "verwarmen alleen op overschot; filterpomp mag", "–", "N"],
+      ["toilet", "Toilet met spoelpomp (± 1,5 kW tijdens spoelen; woning Melvin, 1 toilet per groep)", "woning", 2, 1.5, 1, 11, 1, "meten; nooit schakelen", "gebruik per toilet herkenbaar; pomp langer dan normaal aan = verstopping of lek", "N"],
+      ["magnetron", "Magnetron (woning Melvin)", "woning", 1, 1.2, 1, 60, 2, "meten", "–", "S"],
+      ["cinema", "Cinema room: beamer, versterker, subwoofer (woning Melvin)", "woning", 1, 1.0, 1, 300, 2, "meten; advies bij rood", "sluipverbruik in stand-by hoger dan geleerd (warning)", "S"],
+      ["wpschuur", "Warmtepomp schuur", "schuur", 1, 2.0, 1, 0, 2, "meten; setpoint omlaag bij oranje/rood", "COP lager dan normaal; draait buiten werktijd boven vorstbeveiliging", "S"],
+      ["brug", "Vier-koloms autobrug (3-fase motor)", "schuur", 1, 3.0, 3, 0, 4, "meten; vrijgave magneetschakelaar per code (veilig: alleen vrijgeven, nooit midden in een beweging uit)", "motor langer dan normaal = overbelasting of defect", "S"],
+      ["laden", "Laadpaal laadplein (per plek)", "laadplein", "plekken", 11, 3, 0, 4, "OCPP 2.0.1: laden uitstellen of vermogen verlagen, paal nooit spanningsloos; laadwens in de app (vertrektijd, km); MID-meter in de paal; V2G-gereed (ISO 15118-20)", "auto aangesloten maar laadt niet; laadsessie afgebroken; ongewoon hoog verbruik per km", "A"],
+      ["dc", "DC-snellader 50 kW (gedeeld)", "laadplein", 1, 50, 3, 0, 5, "alleen nood of overvloed", "–", "N"],
+      ["cellen", "Koel- en vriescellen buurthuis", "buurthuis", 1, 3.0, 3, "m:cel", 1, "temperatuurgrenzen hard; voorkoelen op overschot (koudebuffer)", "temperatuur buiten band = alarm; compressor vaker aan dan bij deze buitentemperatuur", "A"],
+      ["keuken", "Gedeelde keuken, wecken en drogen", "buurthuis", 1, 11, 3, "m:keuken", 4, "planning: inmaakdagen en droogoven op overvloed", "–", "N"],
+      ["bhbasis", "Buurthuis: licht, ICT, ventilatie", "buurthuis", 1, 2.0, 3, "m:buurthuis", 1, "meten", "–", "N"],
+      ["server", "Servers, netwerk, UPS", "technische ruimte", 1, 0.5, 1, 3500, 1, "meten; UPS", "uitval = alarm", "S"],
+      ["werkplaats", "Werkplaats (las, draaibank, zaag, afzuiging)", "schuur", 1, 20, 3, "m:werkplaats", 4, "zware machines vrijgeven per code; plannen op overvloed", "machine aan buiten werktijd (warning)", "S"],
+      ["put", "Putpomp, beluchting en filters akker", "akker", 1, 3.0, 1, 820, 4, "vullen bassin en spoelen filters op overschot; bodemsensoren bepalen urgentie", "draait zonder debiet = droogloop (alarm)", "A"],
+      ["irrig", "Irrigatiepomp druppelzones", "akker", 1, 2.7, 1, 0, 4, "op bodemvocht en zon", "druk wijkt af = lek of verstopping", "N"],
+      ["vijver", "Circulatiepomp zwemvijver", "zwemvijver", 1, 0.1, 1, "m:vijver", 4, "vooral overdag", "0 W in het seizoen = alarm", "N"],
+      ["boost", "Tapwater-boost naar 65–70 °C (warmtepomp of element)", "woning", "woningen", 3.0, 1, 0, 6, "SG Ready 'verhoogd' of vrijgave element bij overvloed; vat als warmtebuffer", "vat haalt de temperatuur niet = element of sensor defect", "N"],
+      ["zomerkoel", "Zomerkoeling via de vloer", "woning", "woningen", 1.0, 1, 0, 6, "koelen op zonne-uren; dauwpuntbewaking in de compactunit", "koelt terwijl binnen < 23 °C = instelfout", "N"],
+      ["celdiep", "Vriescel naar −24 °C, koelcel naar 0 °C (koudebuffer)", "buurthuis", 1, 3.0, 3, 0, 6, "dieper koelen op overschot, daarna uren uit", "–", "N"],
+      ["bassin", "Bassin akker vullen en filters terugspoelen", "akker", 1, 3.0, 1, 0, 6, "putpomp op overschot tot het bassin vol is", "debiet lager dan normaal = filter vol of put verstopt", "N"],
+      ["droogoven", "Droogoven (fruit, kruiden, groente)", "buurthuis", 1, 2.0, 1, 0, 6, "drogen op overvloedsdagen", "–", "N"],
+      ["accu", "Buurtaccu (laden)", "technische ruimte", 1, 150, 3, 0, 6, "PCS via Modbus/CAN; laden op overschot, reserve 30 %", "celtemperatuur, isolatiewaarde, SOC-afwijking", "B"]
+    ],
+    /* groepenkast per woning (N): aantal groepen met een MID-meter en aantal schakelbare groepen */
+    /* Meten en schakelen met de Shelly Pro-lijn (opgave 15-11-2026 15:56 [197]): standaardwoning alleen zware groepen; woning Melvin volledig (elke
+       verbruiker, elk toilet op een eigen groep); laadpalen nooit schakelen (OCPP); MID-meters alleen op dorpsniveau per woningkabel (kostenverdeling).
+       Prijzen G: webshop Shelly NL/EU, consumentenprijs incl. btw, geraadpleegd 15-11-2026 [198]; magneetschakelaar en arbeid S. */
+    shelly: {
+      prijs: { pro4pm: 117.9, pro2pm: 99.9, pro1pm: 75.9, pro3em: 157.9, proEm50: 101.9, switchAddon: 30.9, pro2: 70.9, lan: 63.9, contactor3f: 60 },
+      naam: { pro4pm: "Shelly Pro 4PM (4 × 16 A, meten + schakelen)", pro2pm: "Shelly Pro 2PM (2 kanalen, meten + schakelen)", pro1pm: "Shelly Pro 1PM (1 kanaal, meten + schakelen)",
+              pro3em: "Shelly Pro 3EM 120A v2 (3-fase meter met stroomtangen)", proEm50: "Shelly Pro EM-50 (2 stroomtangen + droog contact 2 A)", switchAddon: "Pro 3EM Switch Add-on (stuurt magneetschakelaar)",
+              pro2: "Shelly Pro 2 (2 relais, SG Ready-contacten; te verifiëren of potentiaalvrij)", lan: "Shelly LAN Switch (5 poorten in de groepenkast)", contactor3f: "Magneetschakelaar 3-fase (S)" },
+      sets: {
+        standaard: { titel: "Standaardwoning (zware groepen)", items: [["pro3em", 1, "hoofdmeting woning (3 fasen)"], ["pro4pm", 1, "wasmachine, vaatwasser, oven, Quooker"], ["proEm50", 1, "inductiekookplaat (2 fasen, alleen meten)"],
+          ["pro2pm", 1, "compactunit: warmtepomp meten, element vrijgeven"], ["pro2", 1, "SG Ready (als de compactunit geen EEBus/Modbus heeft)"], ["lan", 1, "bekabelde verbinding"]], arbeid: [150, 250] },
+        sauna: { titel: "Extra per sauna (optioneel)", items: [["pro3em", 1, "meten 3 fasen"], ["switchAddon", 1, "vrijgave"], ["contactor3f", 1, "schakelen 9 kW"]], arbeid: [75, 125] },
+        melvin: { titel: "Woning Melvin (volledig)", items: [["pro3em", 1, "hoofdmeting woning"], ["pro4pm", 4, "2 toiletten, oven, magnetron, vaatwasser, wasmachine, Quooker, koelkast, vriezer, cinema room, regenwaterpomp, buiten, 4 groepen licht/wcd"],
+          ["proEm50", 1, "inductiekookplaat"], ["pro2pm", 1, "compactunit: warmtepomp en element"], ["pro2", 1, "SG Ready"], ["lan", 2, "bekabelde verbinding"]], arbeid: [300, 500] },
+        schuur: { titel: "Schuur / werkplaats", items: [["pro3em", 3, "4-koloms brug, lasapparaat, draaibank + zaagtafel"], ["switchAddon", 1, "vrijgave brug"], ["contactor3f", 1, "brug"], ["pro2pm", 1, "warmtepomp schuur, afzuiging"], ["lan", 1, ""]], arbeid: [200, 350] },
+        dorp: { titel: "Buurthuis, cellen, akker, vijver", items: [["pro3em", 4, "koel- en vriescellen, gedeelde keuken, buurthuis, putpomp en filters"], ["pro2pm", 2, "vijverpomp, droogoven, irrigatie"], ["lan", 2, ""]], arbeid: [250, 400] }
+      },
+      nSauna: 4,                                             // N rekenvoorbeeld (= ems.sauna.n)
+      midDorp: { n: 17, eur: [120, 200] }                    // N MID-meter 3-fase per woningkabel (12) + cellen, buurthuis, schuur, akker, laadplein-totaal (5); S € excl. btw
+    },
+    platform: [
+      ["Home Assistant", "integraties, dashboards, app, automatiseringen, Modbus, MQTT", "https://www.home-assistant.io"],
+      ["OpenEMS", "energiebeheer voor accu, PCS, opwek en netaansluiting (Java/OSGi, Modbus, SunSpec)", "https://openems.io"],
+      ["evcc", "laadsturing op zonne-overschot en dynamische prijzen (OCPP, veel laadpalen en auto's)", "https://evcc.io"],
+      ["EMHASS", "optimalisatie van het dagplan (lineair programmeren) op weer- en prijsverwachting", "https://emhass.readthedocs.io"]
+    ]
+  },
+
   bronnen: {
     1: { titel: "Meetdata waterverbruik referentiewoning Zwolle, 24-10-2025 t/m 23-10-2026, 15-minutendata (cumulatieve meterstand in dl)", auteur: "Melvin de Vries", soort: "eigen meetdata" },
     2: { titel: "Meetdata stroomverbruik vaatwasser, wasmachine en wasdroger referentiewoning, 24-10-2025 t/m 23-10-2026, 15-minutendata", auteur: "Melvin de Vries", soort: "eigen meetdata" },
@@ -1028,6 +1126,18 @@ window.HANZEDORP_DATA = {
     185: { titel: "Windturbinedatabase: Gaia 133-11kW (13,0 m, 133 m², as 15/18 m), Solid Wind SWP-25/14 (25 kW, 14 m, 154 m², as 18 m), Windmolens op Maat LWT25 (25 kW, 16 m, as 15 m), EAZ Wind EAZ-Twelve", auteur: "wind-turbine-models.com (geraadpleegd 16-11-2026)", soort: "productdatabase", url: "https://en.wind-turbine-models.com/turbines/245-gaia-133-11kw-lattice-tower" },
     186: { titel: "Opgave 16-11-2026 13:41: subsidies voor een rechtspersoon met erfmolen achter een netaansluiting (ook Rabobank), alternatieve molens binnen de eigenschappen van Ecoways (prijzen en opwekdata opvragen), tijdelijke beheercoöperatie om de molen met subsidie aan te schaffen en later aan de bewoners over te dragen; uitgangspunt: alleen de kale stroomprijs betalen, nooit energiebelasting, ODE of btw", auteur: "Melvin de Vries", soort: "eigen opgave" },
     172: { titel: "Besluiten 04-11-2026 16:10 thema Bouwen: bouwsysteem vrij mits passiefhuisnorm, ecologische materialen hebben de voorkeur (ecodorp); senioren- en jongerenwoning 1 bouwlaag, gezinswoning 2 bouwlagen met goothoogte max. 6 m, zo geplaatst dat er ook op 21 december geen schaduw op een andere woning valt; vrije kavelrand 2 m / 3 m en doorwaadbare zone 2 m als aanpasbaar voorstel; materialenlijst werkdocument als eis; dakindeling (sedum rand, PV binnenzijde) alleen voor de eigen woning van Melvin – andere ontwerpen mogen anders, mits voldoende panelen op het dak of elders op het terrein, bij voorkeur loodrecht op het zuiden (wintermaximalisatie); installatieruimte liefst groter dan 3 m²; PHPP door Clarence Rose (Azimut Bouwbureau), blowerdoortest waarschijnlijk door Olaf Heinen (Franck); typologie 6/3/3 en 130/70/45 m² als rekenbasis; dakvorm: aangezicht telt, passiefbouweisen altijd leidend", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    187: { titel: "E-mailcorrespondentie over de EAZ 13.2 erfmolen (14 en 17-02-2022): prijs € 69.000 ex btw; installatie, kabels, fundering en vergunningaanvraag ± € 5.000 (afhankelijk van de situatie); onderhoud € 1.000 per jaar (periodieke inspecties, monitoring, vervanging falende onderdelen); ISDE-subsidie destijds ± € 9.000; vergunning in de meeste gemeenten alleen op agrarische bouwpercelen, niet op woon- of bedrijfsbestemming; bij plaatsing bij de buren moet de molen op de aansluiting van de buren (buren mogen geen leverancier zijn)", auteur: "Marieke Jongma, E.A.Z. Wind – aan Melvin de Vries", soort: "correspondentie leverancier" },
+    188: { titel: "ISDE: kleinschalige windturbine, zakelijke gebruikers (open t/m 31-12-2027; max. € 140 per m² rotoroppervlak; rotor ≥ 50 m²; aanvragen vóór accepteren offerte; erkend installateur; aansluiting max. 3 × 80 A; omgevingsvergunning(saanvraag) vereist; niet te combineren met EIA)", auteur: "Rijksdienst voor Ondernemend Nederland (RVO), pagina gecontroleerd 25-03-2026", soort: "overheidsinformatie", url: "https://www.rvo.nl/subsidies-financiering/isde/zakelijke-gebruikers/kleinschalige-windturbine" },
+    190: { titel: "Opgave 15-11-2026 15:21: verbruiksbericht in plaats van een weerbericht – melding dat er een stroomtekort dreigt op basis van een meerdaagse weersverwachting, niet-essentiële verbruikers blijven dan uit (bv. geen sauna, auto alleen laden als het echt niet anders kan; de auto kan een week aan de lader staan voor hij geladen wordt); laadadvies thuis of snellader op basis van day-ahead tarieven; pagina over het zelf te ontwikkelen energiemanagementsysteem en de specificaties; MID-meters in iedere groepenkast om gelijktijdigheid te voorkomen, instelbaar per woning en op totaal met een voorrangsregeling per soort verbruiker; gedragsherkenning (afwijkend gedrag, ineens niets meer doen, niet aan mogen zoals een 3-fase sauna); alle verbruikers in het dorp identificeren om verbruik aan te leren en te sturen (Quooker en laadpaal op zon); bij overschot extra verbruikers aan (water oppompen en filteren, tapwatervaten extra heet stoken)", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    191: { titel: "Keuzes 15-11-2026 (vragen energiebeheer): hybride schakelen (hard voor sauna, laadpalen, boiler-boost en zware niet-essentiële groepen, de rest via advies, overrulen mag behalve bij echt tekort); open source als basis met eigen modules; MID-meter op elke groep; verbruiksbericht via app/push, scherm in de woning, scherm in het buurthuis en e-mail/dagbericht", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    192: { titel: "Open Charge Point Protocol (OCPP) 2.0.1 – smart charging met laadprofielen, ondersteuning ISO 15118", auteur: "Open Charge Alliance", soort: "protocolstandaard", url: "https://openchargealliance.org/protocols/open-charge-point-protocol/" },
+    193: { titel: "Richtlijn 2014/32/EU betreffende meetinstrumenten (MID), bijlage V: actieve elektrische-energiemeters (nauwkeurigheidsklassen A/B/C; geschikt voor verrekening)", auteur: "Europees Parlement en de Raad", soort: "regelgeving", url: "https://eur-lex.europa.eu/eli/dir/2014/32/oj" },
+    194: { titel: "SG Ready-label: gestandaardiseerde schakelingang voor warmtepompen (4 bedrijfstoestanden: blokkeren, normaal, verhoogd, aangestuurd aan) voor sturing op netsignalen of eigen zonnestroom", auteur: "Bundesverband Wärmepumpe (BWP)", soort: "branchelabel", url: "https://www.waermepumpe.de/normen-technik/sg-ready/" },
+    195: { titel: "Open-Meteo: open weer-API met uurverwachting tot 16 dagen (o.a. ECMWF, DWD ICON, KNMI HARMONIE), globale straling, wind op hoogte, ensembles", auteur: "Open-Meteo", soort: "open data", url: "https://open-meteo.com" },
+    196: { titel: "ENTSO-E Transparency Platform: day-ahead prijzen per biedzone (NL), dagelijks gepubliceerd na de veiling rond 13:00 CET voor de volgende dag", auteur: "ENTSO-E", soort: "open data", url: "https://transparency.entsoe.eu" },
+    197: { titel: "Opgave 15-11-2026 15:56: monitoren en schakelen met de Shelly Pro-lijn; niet alle groepen (te duur), alleen groepen met zware verbruikers; autoladen via OCPP, de laadpaal nooit uitschakelen maar het laden uitstellen naar een geschikt moment; eigen woning wel volledig monitoren, ook de toiletten (± 1.500 W tijdens spoelen; één toilet per groep geeft exact gebruik per toilet), iedere verbruiker (oven, magnetron, kookplaat, vriezer, koelkast, cinema room) achter een Shelly Pro, net als de vier-koloms brug in de schuur en de warmtepompen van woning en schuur", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    198: { titel: "Shelly Pro Series (DIN-rail): Pro 1PM € 75,90, Pro 2PM € 99,90, Pro 4PM € 117,90 (4 × 16 A, 40 A totaal), Pro 2 € 70,90, Pro 3EM 120A v2 € 157,90, Pro EM-50 € 101,90 (klasse B, ±1 % bij 5–50 A, droog contact 2 A), Pro 3EM Switch Add-on € 30,90, LAN Switch € 63,90; Ethernet, Wi-Fi, Bluetooth; lokaal web/MQTT/WebSocket; geen MID-certificaat vermeld; webshopprijzen geraadpleegd 15-11-2026", auteur: "Shelly Group (Allterco)", soort: "fabrikantinformatie", url: "https://www.shelly.com/en/products/professional-series" },
+    189: { titel: "Opgave 05-11-2026 11:32: de technisch manager stelt een plan op om te vervangen wat werkelijk vervangen moet worden: netwerkapparatuur ± 10 jaar, zonnepanelen 30 jaar, omvormers 15 jaar, bekabeling en groepenkasten 50 jaar of langer, erfmolen 50 jaar, rotor en wieken waarschijnlijk korter", auteur: "Melvin de Vries", soort: "eigen opgave" },
     116: { titel: "Politiekeurmerk Veilig Wonen (PKVW): keurmerk voor inbraakpreventie en sociale veiligheid van woning en woonomgeving (eisen aan hang- en sluitwerk, verlichting, zichtlijnen, overzichtelijke inrichting)", auteur: "Centrum voor Criminaliteitspreventie en Veiligheid (CCV)", soort: "keurmerk", url: "https://www.politiekeurmerk.nl/" },
     67: { titel: "Inmaken en fermenteren (Voedingscentrum raadt thuiswecken af vanwege botulisme; inmaken van zuur fruit wel veilig; fermenteren met 2 % zout)", auteur: "MAX Vandaag, met verwijzing naar Voedingscentrum (secundaire bron; primaire bron Voedingscentrum te raadplegen)", soort: "artikel", url: "https://www.maxvandaag.nl/?p=117360" },
     56: { titel: "Opgave voorraad en koeling (26-10-2026): voedsel van het veld halen wanneer het kan en nodig is, de rest laten staan waar mogelijk, de rest opslaan voor de winter; centrale voorraad in koel- en vriescellen (twee koelcellen: ±2 °C en ±8 °C) die zelf worden gebouwd en extreem geïsoleerd, koeling ingekocht; per woning een manshoge koelkast en vriezer voor 1 week grijpvoorraad; koelen vooral bij overschot of lage stroomprijs, rusten op piekmomenten; temperatuur vriescel −24 tot −18 °C, koelcel 1 tot 4 °C", auteur: "Melvin de Vries", soort: "eigen opgave" },

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energiebeheer en verbruiksbericht – Hanzedorp</title>
+<meta name="description" content="Het energiebeheersysteem van Hanzedorp: een verbruiksbericht in plaats van een weerbericht, welke apparaten wanneer aan mogen, je auto een week geduld, stroom over gebruiken en meten in elke groepenkast. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  .warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}
+  .okbox{border-left:3px solid var(--sage);padding:6px 12px;background:color-mix(in srgb, var(--sage) 10%, transparent);border-radius:4px}
+  input[type=date]{font:inherit;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Energiebeheer</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Energiebeheer en het verbruiksbericht</h1>
+  <p class="lead read">Andere mensen krijgen een weerbericht. In Hanzedorp krijg je een verbruiksbericht. Daarin staat of er de komende dagen genoeg zon en wind is, of dat we zuinig moeten zijn. Een slim systeem regelt de rest: het zet apparaten aan als er stroom over is, en houdt ze uit als het krap wordt.</p>
+  <ul class="kern read">
+    <li><span><b>Meestal is er stroom over:</b> op ± <span data-k="dOver"></span> dagen per jaar. Dan zet het systeem extra apparaten aan: boilers heter, vriescel kouder, water oppompen, auto's vol.</span></li>
+    <li><span><b>Soms is het krap:</b> op ± <span data-k="dKrap"></span> dagen per jaar (oranje of rood). Dan blijven de sauna en andere luxe uit, en wacht je auto even met laden.</span></li>
+    <li><span><b>Jij houdt de regie:</b> je kunt het systeem overrulen, behalve als er echt een tekort is. Je ziet je eigen verbruik; het dorp ziet alleen totalen.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-bericht">
+  <h2 id="h-bericht">Het verbruiksbericht</h2>
+  <p class="read">Elke ochtend, middag en avond kijkt het systeem naar de weersverwachting voor de komende week. Het rekent uit hoeveel stroom de panelen en molens gaan maken, en hoeveel we nodig hebben. Daaruit komt een kleur. Die zie je in de app, op een klein scherm in je hal, op een groot scherm in het buurthuis en in een kort dagbericht per mail.</p>
+  <div class="scroll"><table><caption>De vijf kleuren van het verbruiksbericht. Het aantal dagen is het gemiddelde over <span data-k="nJ"></span> jaar weer in Heino (berekend).</caption>
+    <thead><tr><th>Kleur</th><th>Betekenis</th><th>Wat het systeem doet</th><th>Wat jij kunt doen</th><th class="num">Dagen per jaar</th></tr></thead><tbody id="tblCodes"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-voorbeeld">
+  <h2 id="h-voorbeeld">Zo ziet het eruit</h2>
+  <p class="read">Hieronder staat een verbruiksbericht zoals het er in een echte week uit had gezien, berekend met het echte weer en de echte stroomprijzen van 2023 tot en met 2025. Standaard staat de krapste week van 2024. Kies een andere datum om te zien hoe het bericht verandert.</p>
+  <div class="controls"><div class="ctl"><label for="wDatum">Begindatum van de week</label><input type="date" id="wDatum"></div>
+    <div class="ctl"><label>Snel kiezen</label><div class="seg" id="wSnel"></div></div></div>
+  <div id="wUit" style="margin-top:10px" aria-live="polite"></div>
+  <p class="read sm" style="margin-top:6px">Het systeem kent het weer van tevoren niet precies. Hier is gerekend alsof de verwachting klopt. In het echt kan het bericht een dag later omslaan.</p>
+</section>
+
+<section aria-labelledby="h-jaar">
+  <h2 id="h-jaar">Hoe vaak is het krap?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Van april tot en met september is er bijna elke dag stroom over. Krappe dagen vallen vooral in november, december en januari, als het donker is en het niet waait.</p>
+      <p>De langste krappe periode in <span data-k="nJ"></span> jaar duurde <b><span data-k="langst"></span> dagen</b> (vanaf <span data-k="langstStart"></span>). Ook toen was er geen tekort: de buurtaccu en de netaansluiting vulden het aan. Het verbruiksbericht zorgt ervoor dat we in zo'n periode zo weinig mogelijk stroom hoeven te kopen.</p>
+    </div>
+    <div class="panel"><div id="gMaand"></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-auto">
+  <h2 id="h-auto">Je auto: een week geduld</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Je zet je auto altijd aan de lader als je thuiskomt. Het systeem bepaalt wanneer hij laadt. Op zonnige dagen gaat dat meteen. In een donkere week kan het tot <span data-k="flex"></span> dagen duren. De meeste mensen hebben hun auto niet elke dag nodig, dus dat merk je meestal niet.</p>
+      <p><b>Moet je weg?</b> Zet in de app wanneer je vertrekt en hoe ver je rijdt. Dan zorgt het systeem dat je genoeg lading hebt. Het kijkt naar de stroomprijs van morgen en adviseert: laad vannacht thuis, of laad onderweg bij een snellader.</p>
+      <p>In 2023 tot en met 2025 was thuis laden in de goedkoopste nachturen op krappe dagen altijd goedkoper dan een snellader: gemiddeld ± € <span data-k="thuisPrijs"></span> tegen ± € <span data-k="snelPrijs"></span> per kWh. Een snellader is dus vooral handig als je onderweg bent, of als het net en de accu even vol benut zijn.</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:8px">
+      <h3>Wat levert een week geduld op?</h3>
+      <div class="result" id="aKpi"></div>
+      <p class="sm">Berekend over <span data-k="nJ"></span> jaar weer, met de buurtaccu van <span data-k="accu"></span> kWh en een netaansluiting van 3 × 25 A. Niemand komt zonder stroom te staan.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-wat">
+  <h2 id="h-wat">Wat gebruikt stroom in ons dorp?</h2>
+  <p class="read">We hebben alle apparaten die veel stroom gebruiken op een rij gezet en in zes groepen verdeeld. De groep bepaalt wat het systeem mag doen.</p>
+  <div class="scroll"><table><thead><tr><th>Groep</th><th>Wat betekent het?</th><th>Voorbeelden</th></tr></thead><tbody id="tblKlassen"></tbody></table></div>
+  <details style="margin-top:10px"><summary>Alle verbruikers met vermogen en jaarverbruik</summary>
+  <div class="scroll" style="margin-top:8px"><table><caption>Verbruikers in Hanzedorp (12 woningen). Jaarverbruik voor het hele dorp in MWh, uit het rekenmodel of een schatting.</caption>
+    <thead><tr><th>Verbruiker</th><th>Waar</th><th class="num">Aantal</th><th class="num">kW per stuk</th><th class="num">MWh/jr dorp</th><th>Groep</th><th>Hoe het systeem stuurt</th></tr></thead><tbody id="tblReg"></tbody></table></div></details>
+</section>
+
+<section aria-labelledby="h-over">
+  <h2 id="h-over">Stroom over? Dan maken we er iets van</h2>
+  <p class="read">Op zonnige dagen hebben we veel meer stroom dan we nodig hebben. In plaats van panelen uit te zetten, slaan we die stroom op in iets nuttigs:</p>
+  <ul class="read">
+    <li><b>Warmte:</b> de warmwatervaten worden extra heet gestookt (65–70 °C). Dan hoeven ze de volgende dag niet bij. Ook de Quooker warmt dan op.</li>
+    <li><b>Kou:</b> de vriescel gaat naar −24 °C en de koelcel naar 0 °C. Daarna kunnen ze uren uit.</li>
+    <li><b>Water:</b> de putpomp vult het bassin bij de akker en spoelt de filters schoon.</li>
+    <li><b>Lading:</b> alle auto's en de buurtaccu worden helemaal vol geladen.</li>
+    <li><b>Werk:</b> het buurthuis plant inmaakdagen en de droogoven, de werkplaats zware klussen.</li>
+    <li><b>Koelen in de zomer:</b> de vloer koelt de woning als het warm is. Dat kost dan niets.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-meten">
+  <h2 id="h-meten">Meten en schakelen in de groepenkast</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We meten niet elke groep. Dat is te duur en levert weinig op. In elke woning komen kleine meet- en schakelmodules (Shelly Pro) op de <b>groepen met zware apparaten</b>: de warmtepomp, de kookplaat, de oven, de wasmachine, de vaatwasser en de Quooker. Plus één meter voor de hele woning. Heb je een sauna, dan krijgt die ook een module met een schakelaar. Daarmee kan het systeem:</p>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>pieken voorkomen:</b> niet alle sauna's, kookplaten en wasmachines tegelijk vol aan;</li>
+        <li><b>leren:</b> het weet hoe jouw warmtepomp of wasmachine normaal werkt;</li>
+        <li><b>waarschuwen:</b> als een apparaat anders doet dan normaal, of ineens niets meer doet;</li>
+        <li><b>schakelen:</b> de sauna gaat alleen aan als het systeem het goedvindt; het element in de boiler alleen als er stroom over is.</li>
+      </ul>
+      <p><b>De laadpaal gaat nooit uit.</b> Het systeem stelt het laden alleen uit naar een beter moment. Dat gaat via de laadpaal zelf (OCPP), die ook meet wat je laadt.</p>
+      <p><b>Wil je meer weten?</b> Dan kun je je hele woning laten uitrusten, zoals Melvin doet: elke verbruiker en elk toilet op een eigen groep met een module. Dan zie je precies wanneer welk apparaat aan staat.</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:8px">
+      <h3>Jouw gegevens zijn van jou</h3>
+      <p>Wat je per groep gebruikt, zie alleen jij. Het systeem gebruikt het om te sturen en te waarschuwen. De beheerder en de andere bewoners zien alleen totalen. Meer detail mag alleen met jouw toestemming, bijvoorbeeld als je hulp vraagt bij een storing.</p>
+      <p>Kosten: ± € <span data-k="mWon"></span> per woning voor de zware groepen, ± € <span data-k="mMel"></span> voor een volledig gemeten woning. Voor het hele dorp samen ± € <span data-k="mTot"></span> (inclusief btw, schatting).</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-regie">
+  <h2 id="h-regie">Wie beslist?</h2>
+  <p class="read">Het systeem stuurt, jij beslist. Bij groen en geel kun je alles zelf aanzetten. Bij oranje adviseert het systeem, en kun je het overrulen met een knop in de app. Alleen bij rood houdt het systeem zware luxe-apparaten echt uit, zoals een sauna. Koelkast, vriezer, ventilatie, verlichting en verwarming gaan nooit uit. Als het systeem zelf uitvalt, werkt alles gewoon zoals in een normaal huis.</p>
+  <p class="read">We bouwen het systeem zelf, op bestaande gratis software (open source) die veel mensen al gebruiken. Wat er nog niet is, zoals het verbruiksbericht, maken we erbij. Zo zitten we niet vast aan één leverancier en betalen we geen abonnement.</p>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Wat kan er misgaan?</h2>
+  <ul class="read">
+    <li><b>De weersverwachting klopt niet.</b> Daarom wordt het bericht drie keer per dag bijgewerkt, en houdt de buurtaccu altijd een reserve.</li>
+    <li><b>Het systeem valt uit.</b> Alle modules staan dan op ‘aan’, zoals in een normaal huis, behalve de sauna-vrijgave. De veiligheid zit in de groepenkast, niet in de software.</li>
+    <li><b>Iemand voelt zich gecontroleerd.</b> Daarom ziet niemand anders jouw gegevens per groep, en mag je overrulen behalve bij echt tekort.</li>
+    <li><b>Te heet of te koud water.</b> Het warme water blijft altijd minstens 55 °C, en komt regelmatig op 60 °C tegen legionella.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Verbruiksbericht met vijf kleuren; laden mag tot een week schuiven</td><td><span class="pill s-besloten">idee besloten</span> <span class="pill s-aanname">grenzen voorstel</span></td></tr>
+    <tr><td>Hybride schakelen: hard voor sauna, boiler-element en zware niet-essentiële groepen; rest advies; overrulen behalve bij tekort</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Shelly Pro op de groepen met zware apparaten; woning Melvin volledig gemeten</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Laadpaal nooit uitschakelen; laden uitstellen via OCPP</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Open source als basis, eigen modules erbij</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Bericht via app, scherm in de woning, scherm in het buurthuis en dagbericht per mail</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Apparaten kiezen die te sturen zijn (warmtepomp, laadpalen, wasmachine)</td><td><span class="pill s-idee">bij inkoop</span></td></tr>
+    <tr><td>Software bouwen en testen</td><td><span class="pill s-idee">na ontwerp installaties</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">De specificaties van het systeem, de rekenmethode van het bericht, alle verbruikers en de toetsing staan op de technische pagina.</p><a href="energiebeheer-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="energiebeheer-bericht.js"></script>
+<script src="energiebeheer-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, BR = HANZEDORP_BERICHT, S = BR.scen, $ = id => document.getElementById(id);
+  const mk = EBU.meetkosten(), rnd = v => Math.round(v / 100) * 100;
+  bindAll({ dOver: nl(BR.gemC[0]), dKrap: nl(BR.gemC[3] + BR.gemC[4]), nJ: BR.jaren, langst: BR.langst.n, langstStart: new Date(BR.langst.start).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }),
+    flex: BR.flexDagen, thuisPrijs: nl(BR.advies.thuisPrijs, 2), snelPrijs: nl(BR.snellader, 2), accu: BR.accu,
+    mWon: nl(rnd((mk.per.standaard.lo + mk.per.standaard.hi) / 2)), mMel: nl(rnd((mk.per.melvin.lo + mk.per.melvin.hi) / 2)), mTot: nl(rnd((mk.totaal[0] + mk.totaal[1]) / 2)) });
+  EBU.codes($("tblCodes"));
+  const w = EBU.weekUI({ $, inp: $("wDatum"), uit: $("wUit"), jaar: 2024 });
+  $("wSnel").innerHTML = [["Krapste week 2024", () => w.zet(w.slechtsteWeek(2024))], ["Krapste week 2023", () => w.zet(w.slechtsteWeek(2023))], ["Zomerweek", () => w.zet(Math.round((Date.UTC(2025, 5, 16) - Date.UTC(1994, 0, 1)) / 864e5))]]
+    .map(([t], i) => `<button type="button" data-i="${i}">${t}</button>`).join("");
+  const acties = [() => w.zet(w.slechtsteWeek(2024)), () => w.zet(w.slechtsteWeek(2023)), () => w.zet(Math.round((Date.UTC(2025, 5, 16) - Date.UTC(1994, 0, 1)) / 864e5))];
+  $("wSnel").addEventListener("click", e => { const b = e.target.closest("button"); if (b) acties[+b.dataset.i](); });
+  EBU.maandGrafiek($("gMaand"));
+  $("aKpi").innerHTML = `<div class="kpi"><b>${nl((S.flex2.imp - S.bericht7.imp) / 1000, 1)} MWh</b><span>minder stroom kopen per jaar</span></div>` +
+    `<div class="kpi"><b>${nl(S.bericht7.evGedw)} kWh</b><span>per jaar ‘moeten’ laden uit accu of net (was ${nl(S.flex2.evGedw)})</span></div>` +
+    `<div class="kpi"><b>${S.bericht7.wachtP90} dagen</b><span>wachten op laden in 9 van de 10 krappe periodes</span></div>`;
+  EBU.klassen($("tblKlassen"));
+  EBU.register($("tblReg"), false);
+  renderBronnen($("bronnen"), [190, 191, 197, 198, 195, 196, 192, 132]);
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>
