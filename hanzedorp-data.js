@@ -9,8 +9,8 @@
 /* BASISDATA – gedeeld door alle projectkavels: woningen, bewoners, auto's, installaties, ontwerpkeuzes, landelijke regels en tarieven.
    Locatiespecifieke gegevens (klimaat, waterschap, netbeheerder, waterbedrijf, grondprijs, terrein) staan per project in hanzedorp-projecten.js. */
 window.HANZEDORP_DATA = {
-  versie: "0.20",
-  datum: "04-11-2026",
+  versie: "0.21",
+  datum: "16-11-2026",
   auteur: "Melvin de Vries",
 
   /* ---------- Woningprogramma [9] ----------
