@@ -21,8 +21,8 @@
   <p class="lead read">Hanzedorp wil zijn eigen stroom maken: met zonnepanelen op de daken, panelen op de akker en kleine windmolens (erfmolens). We bouwen bewust méér dan we nodig hebben, want in de winter is er weinig zon. Het stroomnet is de reserve.</p>
   <ul class="kern read">
     <li><span><b>Auto's vragen de meeste stroom:</b> <span id="kMob"></span> % van alles wat het dorp gebruikt. Daarom laden ze vooral als de zon schijnt.</span></li>
-    <li><span>Het hele dorp gebruikt ongeveer <b><span data-k="dorpVraag"></span> MWh</b> stroom per jaar, inclusief alle auto's. Met <span data-k="nWind"></span> erfmolens maken we zelf ongeveer <span data-k="opwek"></span> MWh. Dat is <span data-k="dekking"></span> % van wat we nodig hebben.</span></li>
-    <li><span>Maar in de winter (november–februari) maken we maar <b><span data-k="winterDekking"></span> %</b> van wat we gebruiken. Om de winter rond te krijgen zijn ongeveer <b><span data-k="molensWinter"></span> erfmolens</b> nodig.</span></li>
+    <li><span>Het hele dorp gebruikt ongeveer <b><span data-k="dorpVraag"></span> MWh</b> stroom per jaar, inclusief alle auto's. Met <span data-k="windTxt"></span> maken we zelf ongeveer <span data-k="opwek"></span> MWh. Dat is <span data-k="dekking"></span> % van wat we nodig hebben.</span></li>
+    <li><span>Maar in de winter (november–februari) maken we maar <b><span data-k="winterDekking"></span> %</b> van wat we gebruiken. <span data-k="winterTxt"></span> Het verschil staat op de pagina <a href="erfmolen.html">Erfmolen</a>.</span></li>
     <li><span>Zon en wind waaien niet altijd als wij stroom nodig hebben. Met een buurtaccu van <span data-k="accu"></span> kWh komt <b><span data-k="zelf"></span> %</b> van onze stroom van eigen opwek. De rest, ± <span data-k="imp"></span> MWh per jaar, komt van het net.</span></li>
   </ul>
 </header>
@@ -111,17 +111,17 @@
 </section>
 
 <section aria-labelledby="h-hoeveel">
-  <h2 id="h-hoeveel">Hoeveel erfmolens?</h2>
-  <div class="scroll"><table id="tblMol"><caption>Gevolg van het aantal erfmolens (overige keuzes standaard)</caption><thead><tr><th>Erfmolens</th><th class="num">Opwek (MWh)</th><th class="num">Winter gedekt</th><th class="num">Eigen stroom gebruikt</th><th class="num">Van het net (MWh)</th><th class="num">Naar het net (MWh)</th></tr></thead><tbody></tbody></table></div>
-  <p class="read">Met <span data-k="molensWinter"></span> erfmolens maken we in de winter ongeveer evenveel als we gebruiken. Toch blijven we stroom van het net halen: op windstille, donkere dagen. De slechtste twee weken in 31 jaar (vanaf <span data-k="slechtstDatum"></span>) haalden we <span data-k="slechtst"></span> MWh van het net. Daarvoor is geen accu groot genoeg.</p>
+  <h2 id="h-hoeveel">Met of zonder erfmolen?</h2>
+  <div class="scroll"><table id="tblMol"><caption>Met of zonder erfmolen (overige keuzes standaard)</caption><thead><tr><th>Erfmolens</th><th class="num">Opwek (MWh)</th><th class="num">Winter gedekt</th><th class="num">Eigen stroom gebruikt</th><th class="num">Van het net (MWh)</th><th class="num">Naar het net (MWh)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read"><span data-k="winterTxt"></span> Meer dan één erfmolen komt er niet. Ook met genoeg opwek over de hele winter blijven we stroom van het net halen: op windstille, donkere dagen. De slechtste twee weken in 31 jaar (vanaf <span data-k="slechtstDatum"></span>) haalden we <span data-k="slechtst"></span> MWh van het net. Daarvoor is geen accu groot genoeg.</p>
 </section>
 
 <section aria-labelledby="h-model">
   <h2 id="h-model">Probeer het zelf</h2>
   <div class="panel" style="display:grid;gap:20px">
     <div class="controls">
-      <div class="ctl"><label for="mW">Erfmolens: <output id="mWO"></output></label><input type="range" id="mW" min="0" max="4" step="1"></div>
-      <div class="ctl"><label for="mA">Buurtaccu (blokken van 200 kWh): <output id="mAO"></output> kWh</label><input type="range" id="mA" min="0" max="8" step="1"></div>
+      <div class="ctl"><label for="mW">Erfmolen: <output id="mWO"></output></label><input type="range" id="mW" min="0" max="1" step="1"></div>
+      <div class="ctl"><label for="mA">Buurtaccu (blokken van 200 kWh): <output id="mAO"></output> kWh</label><input type="range" id="mA" min="0" max="6" step="1"></div>
       <div class="ctl"><label for="mP">Extra zonnepanelen bovenop het plan: <output id="mPO"></output> kWp</label><input type="range" id="mP" min="0" max="200" step="10"></div>
       <div class="ctl"><label for="mR">Rijen panelen op de akker: <output id="mRO"></output></label><input type="range" id="mR" min="0" max="14" step="1"></div>
       <div class="ctl"><fieldset><legend>Auto's laden</legend><div class="seg" id="sEv"></div></fieldset></div>
@@ -207,7 +207,7 @@
   function seg(el, naam, opties, std) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
   seg("sEv", "ev", [["slim", "Slim (op zon en wind)"], ["dom", "Als je thuiskomt"]], "slim");
   if (EG.inv) { $("ctlInv").hidden = false; seg("sInv", "iv", [["0", "Aannames"], ["1", "Inventarisatie"]], "0"); }
-  const ACCU = [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600];   // in segmenten van 200 kWh (besluit 27-10-2026)
+  const ACCU = [0, 200, 400, 600, 800, 1000, 1200];   // in sets van 200 kWh; max 3 kasten × 2 sets (besluit 16-11-2026 [173])
   $("mW").value = E.wind.n; $("mA").value = ACCU.indexOf(E.accu.kWh); $("mP").value = E.pvExtraKWp; $("mR").value = D.akker.pv.rijen;
   const val = n => (document.querySelector(`input[name=${n}]:checked`) || {}).value;
   let t = null;
@@ -215,7 +215,7 @@
     const o = { wind: +$("mW").value, accu: ACCU[+$("mA").value], accuKW: Math.max(E.accu.kW, ACCU[+$("mA").value] / 4), pvExtra: +$("mP").value, rijen: +$("mR").value, evDom: val("ev") === "dom" };
     if (+$("mR").value === 0) o.agri = false;
     if (EG.inv && val("iv") === "1") o.inv = EG.inv;
-    $("mWO").value = o.wind; $("mAO").value = nl(o.accu); $("mPO").value = o.pvExtra; $("mRO").value = o.rijen;
+    $("mWO").value = o.wind ? "ja (1)" : "nee"; $("mAO").value = nl(o.accu); $("mPO").value = o.pvExtra; $("mRO").value = o.rijen;
     clearTimeout(t); t = setTimeout(() => {
       const r = HE.simuleer(o);
       $("rVraag").textContent = MW(r.vraag) + " MWh"; $("rOpwek").textContent = MW(r.opwek) + " MWh"; $("rWinter").textContent = nl(r.winterDekking * 100) + " %";

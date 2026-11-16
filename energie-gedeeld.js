@@ -8,15 +8,12 @@
   const r10 = v => nl(Math.round(v / 10) * 10), r100 = v => nl(Math.round(v / 100) * 100);
   let _std = null; const std = () => _std || (_std = HE.simuleer({}));
   let _mol = null;
-  const molens = () => _mol || (_mol = [0, 1, 2, 3, 4].map(n => ({ n, s: HE.simuleer({ wind: n }) })));
+  const molens = () => _mol || (_mol = [0, 1].map(n => ({ n, s: HE.simuleer({ wind: n }) })));   // besluit 16-11-2026 [173]: 0 of 1 erfmolen
   /* aantal molens waarbij de winter (nov–feb) energetisch rond is: lineair geïnterpoleerd, afgerond (tolerantie 0,1 molen) */
   function molensVoorWinter() {
     const m = molens();
-    for (let i = 1; i < m.length; i++) if (m[i].s.winterDekking >= 1) {
-      const a = m[i - 1], b = m[i], x = a.n + (1 - a.s.winterDekking) / (b.s.winterDekking - a.s.winterDekking);
-      return Math.ceil(x - 0.1);
-    }
-    return "meer dan 4";
+    for (let i = 0; i < m.length; i++) if (m[i].s.winterDekking >= 1) return m[i].n;
+    return "meer dan 1";
   }
   function bind(extra = {}) {
     const s = std(), d = s.d, w20 = HE.warmte(20), wT = HE.warmte(E.tin), ws = HE.windStat(), c = HE.cellen();
@@ -33,7 +30,9 @@
       dorpHuis: MW(d.huis), dorpMob: MW(d.mob), dorpVraag: MW(s.vraag), opwek: MW(s.opwek), dekking: nl(s.dekking * 100), zelf: nl(s.zelf * 100),
       imp: MW(s.imp), exp: MW(s.exp), impMax: MW(s.impMax), pImp: nl(s.pImp), pExp: nl(s.pExp),
       zonMWh: MW(s.zon), agriMWh: MW(s.agri), windMWh: MW(s.wind), kWpDak: nl(s.kWpDak), kWpAgri: nl(s.kWpAgri, 1), pvExtra: nl(E.pvExtraKWp),
-      nWind: nl(s.nWind), accu: nl(E.accu.kWh), accuKW: nl(E.accu.kW),
+      nWind: nl(s.nWind), windTxt: s.nWind ? (s.nWind === 1 ? "één erfmolen" : nl(s.nWind) + " erfmolens") : "zonder erfmolen",
+      winterTxt: molens()[0].s.winterDekking >= 1 ? "Ook zonder erfmolen is de winter energetisch rond (" + nl(molens()[0].s.winterDekking * 100) + " %)." : "Zonder erfmolen dekken we de winter voor " + nl(molens()[0].s.winterDekking * 100) + " %, met één erfmolen voor " + nl(molens()[1].s.winterDekking * 100) + " %.",
+      accu: nl(E.accu.kWh), accuKW: nl(E.accu.kW),
       winterDekking: nl(s.winterDekking * 100), winterZelf: nl(s.winterZelf * 100), molensWinter: String(molensVoorWinter()),
       windGem: MW(ws.gem), windMin: MW(ws.min), windMinJ: ws.minJaar, windMax: MW(ws.max), windMaxJ: ws.maxJaar, windCf: nl(ws.cf * 100),
       windVoor: MW(ws.voor2010), windNa: MW(ws.vanaf2010), fabMin: MW(E.wind.fabrikantMin), fabMax: MW(E.wind.fabrikantMax),

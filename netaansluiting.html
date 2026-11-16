@@ -49,7 +49,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <h2 id="h-model">Reken het zelf uit</h2>
   <div class="panel" style="display:grid;gap:20px">
     <div class="controls">
-      <div class="ctl"><fieldset><legend>Buurtaccu</legend><div class="seg" id="sAccu"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Buurtaccu: aantal kasten van 200 kWh</legend><div class="seg" id="sAccu"></div><div class="checks" id="cDub" style="display:grid;gap:4px;margin-top:6px"></div><span class="note" id="accuTot"></span></fieldset></div>
       <div class="ctl"><fieldset><legend>Handelen met de accu</legend><div class="seg" id="sHandel"></div></fieldset></div>
       <div class="ctl"><label for="mDr">Verkopen uit de accu vanaf: <output id="mDrO"></output> per kWh (beursprijs)</label><input type="range" id="mDr" min="0.08" max="0.50" step="0.01"></div>
       <div class="ctl"><label for="mRes">Reserve in de accu voor stroomstoringen: <output id="mResO"></output></label><input type="range" id="mRes" min="0.1" max="0.6" step="0.05"></div>
@@ -80,7 +80,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <h2 id="h-winter">In de winter: wanneer kopen we stroom bij?</h2>
   <div class="cols">
     <div class="read" style="display:grid;gap:8px">
-      <p>Over de hele winter (november tot en met maart) maken zon en de twee erfmolens samen méér stroom dan het dorp gebruikt. Toch kopen we soms bij. Dat gebeurt in een paar <b>donkere, windstille periodes</b> in december en januari. In februari en maart hoeft het bijna nooit.</p>
+      <p>Over de hele winter (november tot en met maart) maken zon en wind samen méér stroom dan het dorp gebruikt. Toch kopen we soms bij. Dat gebeurt in een paar <b>donkere, windstille periodes</b> in december en januari. In februari en maart hoeft het bijna nooit.</p>
       <p>De energiecomputer kent de stroomprijzen en het weer een dag vooruit. Komt er een donkere periode aan, dan vult hij de accu op tijd bij, in de <b>goedkoopste uren</b>: vooral 's nachts. Zo kopen we in minder uren en tegen een lagere prijs.</p>
       <p>Staande panelen helpen in de winter weinig. Ze maken iets meer stroom als de zon laag staat, maar de tekorten vallen 's nachts en op grijze dagen zonder wind. Dan maakt ook een staand paneel bijna niets.</p>
     </div>
@@ -116,24 +116,38 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <h2 id="h-accu">Hoe groot moet de buurtaccu zijn?</h2>
   <div class="cols">
     <div class="read" style="display:grid;gap:8px">
-      <p>We rekenen nu met 600 kWh. Is dat de beste maat? We hebben 31 jaar weer doorgerekend voor accu's van 100 tot 1.000 kWh, steeds met een aansluiting van 3 × 25 A.</p>
+      <p>We bouwen de buurtaccu zelf, in één tot drie <b>brandwerende kasten</b>. In elke kast komt eerst één set cellen van 200 kWh. Zo'n set kost zelfgebouwd ± € 15.000 (cellen, BMS en bekabeling). Elke kast heeft ruimte voor een <b>tweede set van 200 kWh</b>. Die kunnen we er na een paar jaar bij zetten als dat nodig is: dan wordt de accu twee keer zo groot, maakt elke cel minder cycli en gaat de accu langer mee.</p>
+      <p>We rekenen nu met 3 kasten van 200 kWh: 600 kWh. Hieronder staat wat andere maten doen. We hebben 31 jaar weer doorgerekend voor accu's van 100 tot 1.200 kWh, steeds met een aansluiting van 3 × 25 A.</p>
       <p><b>Altijd stroom.</b> Vanaf ± <b><span data-k="accuMin"></span> kWh</b> is er in 31 jaar geen enkel uur tekort, ook niet als de energiecomputer het weer niet goed voorspelt. Een kleinere accu redt het niet in de donkerste dagen of bij de grootste pieken (± <span data-k="maxTek"></span> kW tekort in één uur).</p>
-      <p><b>Geld.</b> Een grotere accu scheelt wat inkoop, maar weinig: elke extra 100 kWh bespaart maar ± € 40 tot € 160 per jaar. Die 100 kWh kost ± € 15.000 tot € 25.000. Dat verdien je in de levensduur van de accu niet terug.</p>
-      <p><b>Reserve en storingen.</b> Een grotere accu geeft wel meer zekerheid: langer stroom bij een storing op het net, en een blok kan kapot gaan zonder dat het dorp het merkt.</p>
+      <p><b>Geld.</b> Een extra set van 200 kWh in een bestaande kast kost ± € 15.000. Dat is veel minder dan we eerst rekenden (± € 30.000–50.000 voor een complete accu met behuizing), maar de besparing op inkoop blijft klein. De tabel laat het saldo zien.</p>
+      <p><b>Reserve en storingen.</b> Een grotere accu geeft wel meer zekerheid: langer stroom bij een storing op het net, en een kast kan uitvallen zonder dat het dorp het merkt.</p>
     </div>
     <div class="result" aria-live="polite">
       <div><b id="aMin"></b><span>kleinste accu zonder tekort in 31 jaar (3 × 25 A)</span></div>
-      <div><b>3 × 150 kWh</b><span>advies: 450 kWh in drie blokken; als één blok kapot is, blijft er 300 kWh over en is er nog steeds geen tekort</span></div>
-      <div><b id="aBesparing"></b><span>wat 600 kWh in plaats van 450 kWh per jaar kost (meerkosten min besparing)</span></div>
+      <div><b id="aKost"></b><span>investering bij de gekozen opbouw (cellen, kasten, omvormer), zie de tabel hieronder</span></div>
+      <div><b id="aBesparing"></b><span>saldo per jaar van 600 kWh tegenover 400 kWh (besparing min meerkosten)</span></div>
     </div>
   </div>
   <div class="panel" style="display:grid;gap:12px">
-    <div class="controls"><div class="ctl"><label for="mPrijsAccu">Meerprijs per extra kWh accu: <output id="mPrijsAccuO"></output></label><input type="range" id="mPrijsAccu" min="100" max="400" step="10"></div></div>
-    <div class="scroll"><table id="tblAccu"><caption>Accugrootte bij 3 × 25 A. Tekort over 31 jaar (1994–2025); bijkoop gemiddeld per jaar; geld gemiddeld per jaar 2023–2025, vergeleken met de kleinste accu zonder tekort. Meerkosten = extra kWh × meerprijs, afgeschreven in <span data-k="accuJaren"></span> jaar tegen <span data-k="accuRente"></span> rente.</caption>
+    <h3>Wat kost de accu?</h3>
+    <div class="scroll"><table id="tblAccuKost"><caption>Investering buurtaccu per opbouw (excl. btw). Cellen zelfbouw ± € 75/kWh [173]; brandwerende kast ± € 8.000–15.000 per stuk (schatting, geen openbare prijzen [176][177]); omvormer (PCS) 150 kW ± € 15.000–27.000 [130]. Ter vergelijking: een complete buitenkast van 215 kWh met omvormer kost vanaf ± € 23.950 [175]; de batterij in de offerte van Ecoways (261 kWh) € 55.000 [174].</caption>
+      <thead><tr><th>Opbouw</th><th class="num">kWh</th><th class="num">Cellen</th><th class="num">Kasten</th><th class="num">Omvormer</th><th class="num">Totaal</th><th class="num">€ per kWh</th></tr></thead><tbody></tbody></table></div>
+    <div class="controls"><div class="ctl"><label for="mPrijsAccu">Prijs per extra kWh accu (cellen): <output id="mPrijsAccuO"></output></label><input type="range" id="mPrijsAccu" min="40" max="200" step="5"></div></div>
+    <div class="scroll"><table id="tblAccu"><caption>Accugrootte bij 3 × 25 A. Tekort over 31 jaar (1994–2025); bijkoop gemiddeld per jaar; geld gemiddeld per jaar 2023–2025, vergeleken met de kleinste accu zonder tekort. Meerkosten = extra kWh × prijs, afgeschreven in <span data-k="accuJaren"></span> jaar tegen <span data-k="accuRente"></span> rente.</caption>
       <thead><tr><th>Accu</th><th class="num">Tekort (gestuurd)</th><th class="num">Tekort (zonder voorspelling)</th><th class="num">Bijkoop MWh/jr</th><th class="num">Uren bijkoop/jr</th><th class="num">Stroom bij netstoring (vol / reserve)</th><th class="num">Besparing/jr</th><th class="num">Meerkosten/jr</th><th class="num">Saldo/jr</th></tr></thead><tbody></tbody></table></div>
     <p class="note" style="margin:0">'Stroom bij netstoring' = hoeveel uur de accu de belangrijkste verbruikers (± <span data-k="kritiek"></span> kW: woningen basis, koelcellen, netwerk) alleen kan voeden, zonder zon en wind: met een volle accu / als de accu net op de reserve staat.</p>
   </div>
-  <div class="read warnbox" style="margin-top:12px"><b>Advies (engineer):</b> de beste maat ligt rond <b>450 kWh in drie blokken van 150 kWh</b>, met plek en aansluitingen voor een vierde blok. Dat is ± € 20.000–40.000 goedkoper dan 600 kWh, zonder tekort, ook met één blok kapot. Wil Hanzedorp bij een langere netstoring bijna drie dagen zonder zon en wind kunnen draaien (600 kWh: ± 68 uur; de overheid adviseert 72 uur voorbereid te zijn), dan is 600 kWh de juiste keuze. Let op: dat geldt alleen als de accu vol is; staat hij op de reserve, dan is het ± 20 uur. Rond 2030 kunnen auto's met terugleveren (V2G) samen ± 100–200 kWh extra buffer geven. <b>Besluit Melvin nodig.</b> Het rekenmodel blijft voorlopig op 600 kWh staan.</div>
+  <div class="read panel" style="margin-top:12px;display:grid;gap:8px">
+    <h3>Wat verandert er als de accu groter wordt dan 600 kWh?</h3>
+    <p>Wij vonden <b>geen wettelijke grens van 600 kWh</b>. Dit zijn de grenzen die wél gelden of worden gebruikt:</p>
+    <ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+      <li><b>Vanaf 20 kWh</b> valt een buurtaccu onder de landelijke regels voor energieopslag. Vanaf 1 januari 2028 staat dat in het Besluit activiteiten leefomgeving: melden (1 week vooraf), PGS 37-1 volgen en vaste veiligheidsafstanden aanhouden, of die uitrekenen met de RIVM-methode. Tot 2028 kan de gemeente zelf eisen stellen. [178]</li>
+      <li><b>Pas vanaf 50 MWh</b> per systeem is een omgevingsvergunning voor de opslag zelf nodig. Daar blijven we ver onder. [178]</li>
+      <li><b>Per kast</b> kijkt de veiligheidsregio naar de grootte van één module en één rek. Bij een module van meer dan 100 kWh of een rek van meer dan 500 kWh vragen veiligheidsregio's vaak om een risicoberekening (QRA). Met hoogstens 400 kWh per kast blijven we onder de 500 kWh. [120]</li>
+      <li><b>Wat er groeit met de grootte</b>: de afstand tot woningen, carport en buurthuis (afstandstabel per kast), de eisen aan blussing en detectie, en de verzekering. Daarom houden we de kasten apart, met ruimte ertussen.</li>
+    </ul>
+    <p class="note">Komt de 600 kWh uit een eis van de gemeente of de veiligheidsregio? Dan nemen we die over zodra we de bron hebben. Te verifiëren bij Veiligheidsregio IJsselland en de gemeente van de gekozen locatie.</p>
+  </div>
 </section>
 
 <section aria-labelledby="h-eb">
@@ -231,18 +245,21 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
   bindAll({});
-  renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 130, 131, 132, 133]);
+  renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
   NA.bind({ kva: nl(N.ontwerpKVAperWoning, 1), nW: nl(D.energie.mix.gezin + D.energie.mix.senior + D.energie.mix.junior) });
   const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
   const S = NA.std();
-  seg("sAccu", "ac", [[400, "2 × 200 kWh"], [600, "3 × 200 kWh"], [800, "4 × 200 kWh"]], S.accu);
+  const AK = D.energie.accu;
+  seg("sAccu", "ac", [[1, "1 kast"], [2, "2 kasten"], [3, "3 kasten"]], AK.kasten);
+  $("cDub").innerHTML = [0, 1, 2].map(i => `<label><input type="checkbox" id="dub${i}"${AK.dubbel[i] ? " checked" : ""}> Kast ${i + 1}: tweede set cellen (400 kWh)</label>`).join("");
+  function accuKWh() { const n = val("ac"); let k = 0; for (let i = 0; i < 3; i++) { const c = $("dub" + i); c.disabled = i >= n; if (i < n) k += c.checked ? 400 : 200; } $("accuTot").textContent = "Samen " + nl(k) + " kWh"; return k; }
   seg("sHandel", "ha", [[1, "Aan"], [0, "Uit"]], 0);   // besluit 27-10-2026: focus op eilandbedrijf, niet op handel
   seg("sEb", "eb", [[0, "Nee (gezamenlijk eigendom)"], [1, "Ja (risico)"]], 0);
   $("mDr").value = S.verkoopDrempel; $("mRes").value = S.reserve; $("mOpIn").value = S.opslagIn; $("mOpUit").value = S.opslagUit;
   const val = n => +document.querySelector(`input[name=${n}]:checked`).value;
   let t = null;
   function run() {
-    const p = Object.assign(NA.std(), { accu: val("ac"), handel: !!val("ha"), ebIntern: !!val("eb"), verkoopDrempel: +$("mDr").value, reserve: +$("mRes").value,
+    const p = Object.assign(NA.std(), { accu: accuKWh(), handel: !!val("ha"), ebIntern: !!val("eb"), verkoopDrempel: +$("mDr").value, reserve: +$("mRes").value,
       opslagIn: Math.max(0, +$("mOpIn").value || 0), opslagUit: Math.max(0, +$("mOpUit").value || 0) });
     $("mDrO").value = "€ " + nl(p.verkoopDrempel, 2); $("mResO").value = nl(p.reserve * 100) + " %";
     clearTimeout(t); t = setTimeout(() => {
@@ -294,11 +311,20 @@ setTimeout(function () {
   NAC.winterTabel($("tblWin").querySelector("tbody"));
   const w = A.winters, f = (x, k) => nl(x[k] / 1000, 1);
   $("winNoot").textContent = `Met sturing kopen we in ${nl(w[0].dal.uren)} en ${nl(w[1].dal.uren)} uur bij in plaats van ${nl(w[0].reactief.uren)} en ${nl(w[1].reactief.uren)} uur, tegen een ${nl((1 - w[0].dal.gemPrijs / w[0].reactief.gemPrijs) * 100)}–${nl((1 - w[1].dal.gemPrijs / w[1].reactief.gemPrijs) * 100)} % lagere prijs per kWh. We kopen wel iets meer kWh (${f(w[0].dal, "imp")} tegen ${f(w[0].reactief, "imp")} MWh en ${f(w[1].dal, "imp")} tegen ${f(w[1].reactief, "imp")} MWh), omdat de accu vooruit wordt gevuld. In beide gevallen is er geen enkel uur tekort. Het grootste voordeel van sturing is dus de lagere prijs en minder uren, niet minder kWh.`;
+  (function () {
+    const C = HANZEDORP_DATA.beheer.componenten, pr = id => { const c = C.find(x => x[0] === id); return (c[5] + c[6]) / 2; };
+    const pKast = pr("accukast"), pPcs = pr("pcs") * HANZEDORP_DATA.energie.accu.kW, rows = [];
+    for (let n = 1; n <= 3; n++) for (let d = 0; d <= n; d++) rows.push({ n, d, kWh: n * 200 + d * 200 });
+    const tb = $("tblAccuKost").querySelector("tbody"), eu = v => "€ " + nl(Math.round(v / 100) * 100);
+    window._accuKost = () => { const pc = +$("mPrijsAccu").value; tb.innerHTML = rows.map(r => { const cel = r.kWh * pc, kast = r.n * pKast, tot = cel + kast + pPcs;
+      return `<tr${r.kWh === 600 && r.d === 0 ? ' style="font-weight:600"' : ""}><td>${r.n} ${r.n === 1 ? "kast" : "kasten"}${r.d ? ", " + r.d + " met tweede set" : ""}</td><td class="num">${nl(r.kWh)}</td><td class="num">${eu(cel)}</td><td class="num">${eu(kast)}</td><td class="num">${eu(pPcs)}</td><td class="num">${eu(tot)}</td><td class="num">€ ${nl(Math.round(tot / r.kWh))}</td></tr>`; }).join("");
+      const std = rows.find(r => r.n === 3 && r.d === 0); $("aKost").textContent = eu(std.kWh * pc + 3 * pKast + pPcs) + " (600 kWh)"; };
+  })();
   $("mPrijsAccu").value = K.eurKWhStd;
-  function accu() { const p = +$("mPrijsAccu").value; $("mPrijsAccuO").value = "€ " + nl(p);
+  function accu() { const p = +$("mPrijsAccu").value; $("mPrijsAccuO").value = "€ " + nl(p); if (window._accuKost) window._accuKost();
     const { rijen } = NAC.grootteTabel($("tblAccu").querySelector("tbody"), p, false);
-    const r6 = rijen.find(r => r.g.cap === 600), r45 = rijen.find(r => r.g.cap === 450);
-    $("aBesparing").textContent = NAC.eur(-(r6.saldo - r45.saldo)); }
+    const r6 = rijen.find(r => r.g.cap === 600), r4 = rijen.find(r => r.g.cap === 400);
+    if (r6 && r4) $("aBesparing").textContent = NAC.eur(r6.saldo - r4.saldo); }
   $("mPrijsAccu").addEventListener("input", accu); accu();
 })();
 </script>

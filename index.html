@@ -41,8 +41,17 @@
   </div>
 </section>
 
+<section aria-labelledby="h-soorten">
+  <h2 id="h-soorten">Twee soorten gegevens</h2>
+  <div class="twee">
+    <div class="panel"><span class="lbl">Vast · wat we bouwen</span><h3>De werkpagina's</h3><p>Woningen, bewoners, installaties, energie, water, voedsel, veiligheid, beheer en kosten. Dit is het plan van Hanzedorp en is op elke plek hetzelfde.</p><a href="#h-thema">Naar de werkpagina's ↓</a></div>
+    <div class="panel"><span class="lbl">Variabel · waar we bouwen</span><h3>Project <span data-k="projNr"></span>: de locatie</h3><p>Het perceel, de gemeente, het waterschap, de netbeheerder en het weer. Kies een project en teken het perceel; alle werkpagina's rekenen daarmee verder.</p>
+      <p class="note" id="locKort"></p><a class="btn" href="locatie.html">Locatie en perceel kiezen →</a></div>
+  </div>
+</section>
+
 <section aria-labelledby="h-project">
-  <h2 id="h-project">Dit project</h2>
+  <h2 id="h-project">Dit project (variabel)</h2>
   <div class="panel read" id="pInfo"></div>
 </section>
 
@@ -114,7 +123,7 @@
 <script src="hanzedorp-project.js"></script>
 <script src="hanzedorp-dagbalans.js"></script>
 <script src="hanzedorp-lib.js"></script>
-<script>HZ.bindAll({});</script>
+<script>HZ.bindAll({ projNr: String((HANZEDORP_DATA.project && HANZEDORP_DATA.project.nr) || 1) }); (function () { const p = HANZEDORP_DATA.project, e = document.getElementById("locKort"); if (p && e) e.textContent = "Nu: " + p.naam + (p.perceel ? " · perceel " + Math.round(p.perceel.m2).toLocaleString("nl-NL") + " m²" : " · nog geen perceel") + " · klimaat " + p.stationNaam + "."; })();</script>
 <script src="hanzedorp-nav.js"></script>
 <script>
 (function () {
@@ -126,7 +135,8 @@
     "akker.html": "De akker: eigen grondwaterbron (waterput), druppelirrigatie en panelen tussen de rijen. Op de akker teelt de tuinderij ons voedsel.",
     "voedsel.html": "Hoeveel groente en fruit kunnen we telen, en voor hoeveel mensen?",
     "opslag.html": "Koelcellen en een vriescel in het buurthuis, gekoeld op zonnestroom.",
-    "energie.html": "Zonnepanelen schuin op daken, loodrecht op de akker, tegen gevels en op de carport; erfmolens en een buurtaccu. Hoe vaak hebben we het net nog nodig?",
+    "energie.html": "Zonnepanelen schuin op daken, loodrecht op de akker, tegen gevels en op de carport; een erfmolen (of niet) en een buurtaccu. Hoe vaak hebben we het net nog nodig?",
+    "erfmolen.html": "Geen of één erfmolen: wat verandert er in de winter, hoeveel kopen we minder bij en wat kost en bespaart de molen?",
     "mobiliteit.html": "Een centraal laadplein met een eigen laadpaal per woning, gestuurd op zonnestroom.",
     "netaansluiting.html": "Welke aansluiting op het stroomnet levert het meeste op, met handel op uurprijzen?",
     "digitale-infrastructuur.html": "Eén beheerd netwerk: internet via twee lijnen, een eigen netwerk per woning, servers voor het energiesysteem en camera's.",
