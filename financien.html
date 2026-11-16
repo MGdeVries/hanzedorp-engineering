@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financiële planning – Hanzedorp</title>
+<meta name="description" content="Financiële planning van de gedeelde voorzieningen van Hanzedorp: wat het samen kost, hoe we het betalen, wat iedereen per maand bijdraagt en hoe we financieel gezond blijven. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Financiële planning</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Financiële planning</h1>
+  <p class="lead read">Een eigen dorp met eigen stroom, water en voedsel kost geld: eerst om het aan te leggen, daarna elk jaar om het draaiend te houden. Op deze pagina staat wat de gedeelde voorzieningen samen kosten, hoe we dat betalen en hoeveel iedereen per maand bijdraagt. En hoe we ervoor zorgen dat er altijd genoeg geld in kas is.</p>
+  <ul class="kern read">
+    <li><span><b>Eenmalig:</b> grond, voorbereiding en de gedeelde voorzieningen kosten samen ± € <span data-k="fiInv"></span>, dat is ± € <span data-k="fiPW"></span> per woning (incl. btw, schatting).</span></li>
+    <li><span><b>Elke maand:</b> ± € <span data-k="fiMnd"></span> per woning voor onderhoud, sparen voor vervanging, internet, verzekering en administratie.</span></li>
+    <li><span><b>Ons advies:</b> iedereen betaalt zijn deel van de aanleg mee in de eigen hypotheek. Dan heeft de vereniging geen schuld en blijft zij financieel gezond.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-inv">
+  <h2 id="h-inv">Wat kost het om aan te leggen?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>De kosten bestaan uit drie delen:</p>
+      <ol style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+        <li><b>Grond en voorbereiding:</b> de grond kopen, onderzoeken, vergunningen, bouwrijp maken, de sleuf voor kabels en leidingen, de wegen. Zie <a href="grond.html">Grond &amp; kosten</a>.</li>
+        <li><b>Gedeelde voorzieningen:</b> buurthuis, schuren, carport, zonnepanelen, buurtaccu, erfmolens, cellen, put, vijvers, netwerk. Zie <a href="onderhoud.html">Onderhoud en vervanging</a>.</li>
+        <li><b>Startkapitaal spaarpot:</b> een buffer voor onverwachte kosten vanaf dag één.</li>
+      </ol>
+      <p>Je eigen huis komt daar nog bij. Dat staat niet op deze pagina.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label>Prijzen</label><div class="seg" id="sScen"></div></div>
+        <div class="ctl"><label>Hoe betalen we de aanleg?</label><div class="seg" id="sFin"></div></div>
+        <div class="ctl"><label for="fEi">Eigen geld: <output id="fEiO"></output> %</label><input type="range" id="fEi" min="0" max="100" step="5"></div>
+        <div class="ctl"><label for="fR">Rente lening: <output id="fRO"></output> %</label><input type="range" id="fR" min="2" max="7" step="0.25"></div>
+        <div class="ctl"><label for="fN">Looptijd lening: <output id="fNO"></output> jaar</label><input type="range" id="fN" min="10" max="30" step="5"></div>
+        <div class="ctl"><label>Btw terugvragen (alleen als de beheerder btw-ondernemer is)</label><div class="seg" id="sBtw"></div></div>
+        <div class="ctl"><label>Tuinder inhuren</label><div class="seg" id="sTuin"></div></div>
+      </div>
+      <button type="button" id="fReset" class="seg" style="justify-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+  <div class="result" id="fKpi" aria-live="polite" style="margin-top:12px"></div>
+</section>
+
+<section aria-labelledby="h-mnd">
+  <h2 id="h-mnd">Wat betalen we elke maand samen?</h2>
+  <div class="scroll"><table id="tblLast"><caption>Jaarlijkse kosten van de vereniging in het eerste jaar (€). De stroom levert per saldo iets op: de opbrengst van teruglevering is hoger dan de kosten van de netaansluiting en de bijkoop.</caption>
+    <thead><tr><th>Post</th><th class="num">€ per jaar</th><th class="num">€ per woning per maand</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Daar staat tegenover dat je bijna geen stroom meer hoeft te kopen. Zonder eigen opwek zouden alle huishoudens samen ± € <span data-k="fiStroom"></span> per jaar aan stroom betalen (± € <span data-k="fiStroomPW"></span> per woning per maand). Ook de groente en het fruit van de akker scheelt in de boodschappen.</p>
+</section>
+
+<section aria-labelledby="h-30">
+  <h2 id="h-30">Hoe ziet het eruit over 30 jaar?</h2>
+  <p class="read">De groene staven zijn de maandbijdrage per woning. Die stijgt elk jaar mee met de prijzen. De blauwe lijn is de spaarpot voor vervangingen. Die groeit, wordt gebruikt als er iets vervangen moet worden, en raakt nooit leeg.</p>
+  <div id="fChart"></div>
+</section>
+
+<section aria-labelledby="h-gezond">
+  <h2 id="h-gezond">Hoe blijven we financieel gezond?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Liquide</b> betekent: er is altijd genoeg geld op de rekening om de rekeningen van deze maand te betalen. <b>Solvabel</b> betekent: we hebben meer bezit dan schulden, ook op de lange termijn.</p>
+      <p>De vereniging is niet de eigenaar van de spullen. De bewoners zijn samen eigenaar (zie Eigendom). Als de vereniging dan een grote lening afsluit, heeft zij wel een schuld maar geen bezit. Een bank leent dan niet graag, en als bewoners niet betalen, komt de vereniging in de problemen. Daarom adviseren we: iedereen betaalt zijn deel mee in de eigen hypotheek.</p>
+      <div class="warnbox" id="fWaarschuwing" hidden></div>
+    </div>
+    <div class="read panel">
+      <h3>Afspraken voor een gezonde kas</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Altijd minstens 3 maanden kosten op de lopende rekening.</li>
+        <li>De spaarpot voor vervangingen op een aparte rekening. Alleen gebruiken voor het onderhoudsplan.</li>
+        <li>Bijdragen elke maand automatisch, niet per kwartaal.</li>
+        <li>Elk jaar een begroting en een jaarrekening, met een kascommissie van twee bewoners.</li>
+        <li>Wie niet betaalt, krijgt na een maand een herinnering; de regels daarvoor staan in het reglement.</li>
+        <li>Bij verkoop van een woning gaat het aandeel in de spaarpot mee met de woning. Je krijgt het niet terug, de koper neemt het over.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-rol">
+  <h2 id="h-rol">De finance manager (controller)</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Naast de penningmeester, die betalingen doet en de boeken bijhoudt, is er een finance manager. Die kijkt vooruit: kunnen we over 5, 10 en 30 jaar nog alles betalen? En hoe houden we de kosten laag?</p>
+    </div>
+    <div class="read panel">
+      <h3>Taken</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Begroting en meerjarenplanning maken, samen met de onderhoudsmanager.</li>
+        <li>Elk kwartaal de kas en de spaarpot controleren.</li>
+        <li>Voorstellen doen om liquide en solvabel te blijven: bijdrage aanpassen, vervanging uitstellen of vervroegen, goedkoper inkopen.</li>
+        <li>Subsidies, fiscale regels en verzekeringen in de gaten houden.</li>
+        <li>Rapporteren aan de ledenvergadering.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Rollen onderhoudsmanager en finance manager</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Aanleg betalen via de eigen hypotheek (geen lening op naam van de vereniging)</td><td><span class="pill s-onderzocht">voorstel</span></td></tr>
+    <tr><td>Hypotheek op een woning met een aandeel in gedeeld bezit: wat zeggen bank en taxateur?</td><td><span class="pill s-idee">open – bank vragen</span></td></tr>
+    <tr><td>Btw: kan de beheerder btw-ondernemer worden?</td><td><span class="pill s-idee">open – fiscalist</span></td></tr>
+    <tr><td>Bedragen</td><td><span class="pill s-aanname">schatting, offertes nodig</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">De rekenmethode, de kasstroom per jaar, de gevoeligheid en de regels staan op de technische pagina.</p><a href="financien-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="beheer-gedeeld.js"></script>
+<script src="beheer-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, F = D.financien, $ = id => document.getElementById(id), F0 = BH.financien(), r1k = v => nl(Math.round(v / 1000) * 1000);
+  bindAll({ fiInv: r1k(F0.inv), fiPW: r1k(F0.perWoningInv), fiMnd: nl(Math.round(F0.perWoningMnd / 5) * 5), fiStroom: r1k(F0.zonderOns), fiStroomPW: nl(Math.round(F0.zonderOns / F0.nW / 12)) });
+  renderBronnen($("bronnen"), [165, 168, 82, 74, 166, 167, 130]);
+  BHU.seg($("sScen"), "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
+  BHU.seg($("sFin"), "fi", [["hypotheek", "Ieder in eigen hypotheek"], ["vereniging", "Lening van de vereniging"]], F.financiering);
+  BHU.seg($("sBtw"), "bt", [["0", "Nee"], ["1", "Ja"]], F.btwAftrek ? "1" : "0");
+  BHU.seg($("sTuin"), "tu", [["0", "Nee"], ["1", "Ja, ± 0,5 fte"]], F.tuinder.aan ? "1" : "0");
+  const std = { fEi: F.eigenInbreng * 100, fR: F.renteLening * 100, fN: F.looptijd };
+  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v), e = BHU.e;
+  function run() {
+    const o = { scen: BHU.val("sc"), financiering: BHU.val("fi"), eigenInbreng: +$("fEi").value / 100, renteLening: +$("fR").value / 100, looptijd: +$("fN").value, btwAftrek: BHU.val("bt") === "1", tuinder: BHU.val("tu") === "1" };
+    $("fEiO").value = $("fEi").value; $("fRO").value = nl(+$("fR").value, 2); $("fNO").value = $("fN").value;
+    const Fi = BH.financien(o);
+    $("fKpi").innerHTML = [[e(Fi.grond), "grond en voorbereiding"], [e(Fi.voorz), "gedeelde voorzieningen" + (Fi.btwF > 1 ? " (incl. btw)" : "")], [e(Fi.startFonds), "startkapitaal spaarpot"],
+      [e(Fi.perWoningInv), "aanleg per woning"], [e(Fi.eigenPerWoning), "eigen geld per woning"],
+      [e(Fi.finPerWoningMnd) + " /mnd", Fi.fin === "vereniging" ? "rente en aflossing per woning (via de vereniging)" : "rente en aflossing in je eigen hypotheek (indicatief)"],
+      [e(Fi.perWoningMnd) + " /mnd", "bijdrage aan de vereniging per woning"]].map(([b, t]) => `<div><b>${b}</b><span>${t}</span></div>`).join("");
+    BHU.tabelLasten($("tblLast").querySelector("tbody"), Fi); BHU.chartFin($("fChart"), Fi);
+    const w = $("fWaarschuwing");
+    w.hidden = Fi.fin !== "vereniging";
+    if (Fi.fin === "vereniging") w.innerHTML = `<b>Let op:</b> met een lening van de vereniging van ${e(Fi.lening)} heeft de vereniging ${e(Fi.kpi.schuldPerWoning)} schuld per woning en vrijwel geen eigen bezit (solvabiliteit ${nl(Fi.kpi.solvabiliteit * 100, 1)} %). Een bank vraagt meestal minstens 20–30 %.`;
+  }
+  zet(); $("fReset").addEventListener("click", () => { zet(); run(); });
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

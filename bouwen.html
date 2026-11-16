@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bouwen en kavelpaspoort – Hanzedorp</title>
+<meta name="description" content="Hoe de woningen in Hanzedorp gebouwd worden: passiefhuis, ecologische materialen, bouwlagen en hoogte, geen schaduw op elkaar, en per kavel een kavelpaspoort. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  .warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}
+  .okbox{border-left:3px solid var(--sage);padding:6px 12px;background:color-mix(in srgb, var(--sage) 10%, transparent);border-radius:4px}
+  .pas{border:2px solid var(--water);border-radius:10px;padding:14px 16px;display:grid;gap:8px}
+  .pas dl{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:4px 14px;margin:0}
+  .pas dt{color:var(--muted)} .pas dd{margin:0}
+  @media print{ body.print-pas .wrap > *:not(#sPas){display:none!important} nav.top,.sidx{display:none!important} body.print-pas #pasKnop{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Bouwen</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Bouwen en kavelpaspoort</h1>
+  <p class="lead read">Iedere bewoner laat zijn eigen huis ontwerpen en bouwen. Er zijn wel spelregels, zodat alle huizen samen een ecodorp vormen. De belangrijkste: elk huis is een passiefhuis. Die regel gaat altijd voor. De vorm volgt de functie.</p>
+  <ul class="kern read">
+    <li><span><b>Passiefhuis is de norm:</b> het bouwsysteem is vrij, zolang het huis aan de passiefhuiseisen voldoet. Ecologische materialen hebben de voorkeur.</span></li>
+    <li><span><b>Geen schaduw op elkaar:</b> ook op de kortste dag van het jaar valt er midden op de dag geen schaduw van een huis op een ander huis.</span></li>
+    <li><span><b>Kavelpaspoort:</b> per kavel staan alle spelregels op één blad. Dat krijgen de architect, de bouwer en de gemeente.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-systeem">
+  <h2 id="h-systeem">Waarmee bouwen we?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Je mag zelf kiezen hoe je bouwt: houtskeletbouw, elementen met stro (zoals Strobox), kruislaaghout (CLT) of leem. Voorwaarde is dat het huis een passiefhuis wordt. Dat rekent een bouwfysisch adviseur vooraf door (PHPP-berekening) en dat wordt bij de bouw gemeten (blowerdoortest).</p>
+      <p>Omdat Hanzedorp een ecodorp wil zijn, kiezen we zoveel mogelijk voor natuurlijke materialen die weer groeien: hout, stro, vlas, hennep, leem. Beton en kunststof gebruiken we alleen waar het echt niet anders kan.</p>
+    </div>
+    <div class="panel read">
+      <h3>De passiefhuiseisen</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Verwarming: hooguit 15 kWh per m² per jaar.</li>
+        <li>Alle energie samen: hooguit 120 kWh per m² per jaar (primair).</li>
+        <li>Kierdicht: bij een drukverschil van 50 Pa hooguit 0,6 keer de binnenlucht per uur.</li>
+        <li>Niet te warm in de zomer: minder dan 5 % van de uren boven 25 °C.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="scroll" style="margin-top:10px"><table id="tblMat"><caption>Materialen. <b>Voorkeur</b> = zo bouwen we. <b>Neutraal</b> = mag. <b>Liever niet</b> = alleen met een goede reden.</caption>
+    <thead><tr><th>Onderdeel</th><th>Voorkeur</th><th>Neutraal</th><th>Liever niet</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-maat">
+  <h2 id="h-maat">Hoe hoog en welke vorm?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Senioren- en jongerenwoningen</b> hebben één bouwlaag: alles op de begane grond. <b>Gezinswoningen</b> mogen twee bouwlagen hebben, met een goothoogte van hooguit 6 meter.</p>
+      <p><b>Het dak:</b> het gaat om wat je vanaf de straat ziet. Dat moet passen bij de boerderijen in de omgeving: een zadeldak, wolfsdak of schilddak. Een plat dak met rondom een schuine dakrand mag ook, als het er vanaf de grond uitziet als een zadeldak. Maar de passiefhuiseisen gaan altijd voor.</p>
+    </div>
+    <div class="panel read">
+      <h3>Zonnepanelen op je dak</h3>
+      <p>Hoe je dak eruitziet, mag je zelf ontwerpen. Er moeten wel genoeg zonnepanelen passen: voor een gezinswoning ± <span data-k="kWpG"></span> kWp, een seniorenwoning ± <span data-k="kWpS"></span> kWp en een jongerenwoning ± <span data-k="kWpJ"></span> kWp. Past het niet op je dak, dan komen ze ergens anders op het terrein, het liefst rechtop en naar het zuiden. Dan leveren ze in de winter het meest. De panelen zijn van ons samen (zie Eigendom).</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-zon">
+  <h2 id="h-zon">Geen schaduw op elkaar</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Een passiefhuis wordt in de winter voor een deel verwarmd door de zon die door de ramen op het zuiden schijnt. Daarom mag geen huis schaduw geven op een ander huis. Ook niet op 21 december, als de zon het laagst staat: dan komt hij midden op de dag maar <span data-k="hMid"></span>° boven de horizon.</p>
+      <p>Een hele dag zonder schaduw kan niet: vlak na zonsopgang en voor zonsondergang zijn alle schaduwen eindeloos lang. Daarom rekenen we met de uren rond het middaguur, wanneer de zon het meest warmte geeft. Standaard is dat van 10 tot 14 uur.</p>
+      <p><b>Wat betekent dat?</b> De hoge gezinswoningen komen in de noordelijke rij. Hun schaduw valt dan op de akker, het weiland of de houtsingel, niet op een huis. De lage woningen komen zuidelijker. Tussen de rijen liggen tuinen en de weg. Zo is de afstand ook meteen nuttig.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label>Geen schaduw tussen (zonnetijd)</label><div class="seg" id="sVenster"></div></div>
+        <div class="ctl"><label for="zGoot">Goothoogte gezinswoning: <output id="zGootO"></output> m</label><input type="range" id="zGoot" min="4" max="8" step="0.5"></div>
+        <div class="ctl"><label for="zHel">Dakhelling: <output id="zHelO"></output>°</label><input type="range" id="zHel" min="0" max="50" step="5"></div>
+      </div>
+      <button type="button" id="zReset" class="seg" style="justify-self:start;align-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+  <div class="result" id="zKpi" aria-live="polite" style="margin-top:12px"></div>
+  <div class="scroll" style="margin-top:10px"><table id="tblZon"><caption>Hoe ver de schaduw op 21 december naar het noorden reikt, gemeten vanaf de achtergevel (m). Kavelmaten en woningdiepte zijn aannames.</caption>
+    <thead><tr><th>Woning</th><th class="num">Bouwlagen</th><th class="num">Nokhoogte</th><th class="num">Schaduw achter het huis</th><th>Waar valt die?</th></tr></thead><tbody></tbody></table></div>
+  <div id="zToets" class="read" style="margin-top:10px"></div>
+</section>
+
+<section aria-labelledby="h-paspoort" id="sPas">
+  <h2 id="h-paspoort">Het kavelpaspoort</h2>
+  <p class="read">Het kavelpaspoort hoort bij het koopcontract van je kavel. Kies een woningtype om het paspoort te zien. Alle afspraken zijn een voorstel: we kunnen ze samen nog aanpassen.</p>
+  <div class="controls"><div class="ctl"><label>Woningtype</label><div class="seg" id="sType"></div></div></div>
+  <div class="pas" id="pas" style="margin-top:10px"></div>
+</section>
+
+<section aria-labelledby="h-binnen">
+  <h2 id="h-binnen">Binnen: de installatieruimte</h2>
+  <p class="read">Elke woning heeft een eigen installatieruimte van minstens <span data-k="instMin"></span> m², bij een gezinswoning <span data-k="instG"></span> m². Daar staan de compactunit (ventilatie, warmtepomp en warm water), de pomp voor het regenwater, de groepenkast en het droogrek voor de was. De ruimte ligt niet naast een slaapkamer, want de apparaten maken wat geluid.</p>
+</section>
+
+<section aria-labelledby="h-toets">
+  <h2 id="h-toets">Wie controleert het?</h2>
+  <div class="scroll"><table><thead><tr><th>Wat</th><th>Wie</th></tr></thead><tbody id="tblToets"></tbody></table></div>
+  <p class="read">Daarnaast toetst een onafhankelijke kwaliteitsborger de bouw (Wet kwaliteitsborging). De gemeente toetst of het ontwerp in het omgevingsplan past.</p>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Wat kan er misgaan?</h2>
+  <ul class="read">
+    <li><b>Schaduw door een te hoge woning of grote boom.</b> Daarom staan de hoogte en de plek van elke woning in het kavelpaspoort, en planten we bomen die in de winter hun blad verliezen.</li>
+    <li><b>Een huis haalt de passiefhuiseisen net niet.</b> Daarom vooraf rekenen (PHPP) en tijdens de bouw al meten, als je kieren nog kunt dichten.</li>
+    <li><b>Natuurlijke materialen worden nat tijdens de bouw.</b> Prefab elementen worden in een droge fabriek gemaakt en snel geplaatst.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Passiefhuis is de norm, bouwsysteem vrij, ecologische materialen de voorkeur</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Bouwlagen (1 voor senioren en jongeren, 2 voor gezinnen) en goothoogte max. 6 m</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Geen schaduw op een andere woning op 21 december</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Uren zonder schaduw (standaard 10–14 uur)</td><td><span class="pill s-aanname">aanname</span></td></tr>
+    <tr><td>Vrije kavelrand en doorwaadbare zone</td><td><span class="pill s-onderzocht">voorstel</span></td></tr>
+    <tr><td>PHPP-berekening en blowerdoortest</td><td><span class="pill s-onderzocht">partijen in beeld</span></td></tr>
+    <tr><td>Stedenbouwkundig plan met de echte plek van elke woning</td><td><span class="pill s-idee">bij locatiekeuze</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">De berekening van de zonnestand, alle maten, de regels en de toetsing staan op de technische pagina.</p><a href="bouwen-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="bouwen-gedeeld.js"></script>
+<script src="bouwen-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, B = D.bouwen, $ = id => document.getElementById(id);
+  bindAll({ kWpG: nl(D.energie.kWpDak.gezin, 1), kWpS: nl(D.energie.kWpDak.senior, 1), kWpJ: nl(D.energie.kWpDak.junior, 1), hMid: nl(BW.zon(12).h, 0),
+    instMin: B.installatieruimte.min, instG: B.installatieruimte.gezin });
+  renderBronnen($("bronnen"), [172, 170, 171, 8, 156, 128]);
+  BWU.materialen($("tblMat").querySelector("tbody"));
+  $("tblToets").innerHTML = B.toetsing.map(([w, p, u]) => `<tr><td>${w}</td><td><a href="${u}">${p}</a></td></tr>`).join("");
+  BWU.zonUI({ $, technisch: false });
+  BWU.paspoortUI({ $ });
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

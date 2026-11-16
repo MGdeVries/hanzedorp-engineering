@@ -1,0 +1,90 @@
+Hanzedorp – themapagina's Water, Zwemvijver & tuinwater, Kratten & wadi's, Akker, Voedsel,
+Voorraad & koelcellen, Bewoners & comfort, Energieopwek, Mobiliteit & laden en Inventarisatie (versie 0.11, 26-10-2026)
+Auteur: Melvin de Vries
+
+OPENEN
+1. Pak de zip uit in één map. Alle bestanden moeten bij elkaar blijven staan.
+2. Dubbelklik op een van de .html-bestanden, bijvoorbeeld energie.html. Het menu bovenaan
+   linkt naar alle andere pagina's. De pagina opent in je browser; een webserver is niet nodig.
+
+BESTANDEN
+water.html            Basispagina voor bewoners en gemeente (B1, luchtig)
+water-technisch.html  Technische verantwoording op publicatieniveau (methode, invoer,
+                      resultaten, gevoeligheid, validatie, regelgeving, bronnen)
+tuinwater.html        Basispagina zwemvijver en tuinvijver (B1)
+tuinwater-technisch.html Technische verantwoording zwemvijver en tuinvijver
+tuinwater-gedeeld.js  Gedeelde bindings en grafiek voor beide tuinwaterpagina's
+akker.html            Basispagina akker: grondwaterput, pomp, bassin, druppelirrigatie,
+                      agri-PV (B1)
+akker-technisch.html  Technische verantwoording akkerirrigatie en agri-PV
+akker-gedeeld.js      Gedeelde bindings en grafieken voor beide akkerpagina's
+akker-schema.js       Installatieschema put -> nutsgebouw -> druppelslangen
+voedsel.html          Basispagina zaaien, oogsten en bewaren (B1)
+voedsel-technisch.html Technische verantwoording voedselproductie
+voedsel-gedeeld.js    Behoefte, oppervlak, voorraad, zaaiplan en verwerkingskalender
+hanzedorp-zon.js      Dagreeks globale straling KNMI Heino 1994-2025 (met controlesom)
+opslag.html           Basispagina voorraad en koel-/vriescellen (B1)
+opslag-technisch.html Technische verantwoording voorraad, celmaat, isolatie, flexibel koelen
+opslag-gedeeld.js     Gedeelde bindings en grafieken voor beide opslagpagina's
+hanzedorp-voorraad.js Weekmodel oogst, veldbuffer, voorraad en cellen
+hemelwater.html       Basispagina infiltratiekratten en wadi's (B1)
+hemelwater-technisch.html Technische verantwoording kratten en wadi's
+hanzedorp-hemelwater.js Rekenmodel kratten en wadi's
+bewoners.html         Basispagina bewoners, comfort, huishoudelijk verbruik, koelen/vriezen (B1)
+bewoners-technisch.html Technische verantwoording bewoners en comfort
+energie.html          Basispagina energiebalans dorp en erfmolens (B1)
+energie-technisch.html Technische verantwoording energiebalans (uursimulatie 1994-2025)
+mobiliteit.html       Basispagina mobiliteit, laadplein, laadpaal op naam (B1)
+mobiliteit-technisch.html Technische verantwoording mobiliteit
+inventarisatie.html   Invulpagina per woning: bewoners (leeftijd, thuiswerkdagen) en voertuigen.
+                      Bewaart alleen in deze browser; Exporteren/Importeren als JSON-bestand.
+hanzedorp-wind.js     Dagopbrengst erfmolen en daggemiddelde temperatuur uit KNMI-uurdata Heino
+                      1994-2025 (met controlesom)
+hanzedorp-energie.js  Rekenmodel bewoners, comfort en uursimulatie energiebalans dorp
+hanzedorp-inventaris.js Opslag en berekening inventarisatie
+energie-gedeeld.js    Gedeelde bindings en grafieken voor bewoners-, energie- en mobiliteitspagina's
+hanzedorp-nav.js      Eén menu voor alle pagina's
+hanzedorp-weer.js     Dagreeks KNMI Heino 1994-2025 (neerslag en verdamping), met
+                      controlesom per jaar; alle dagbalansen rekenen hier live mee
+hanzedorp-model.js    Rekenmodel: bewoners (thuiswerk, levensfase, urinoir), regenwater-
+                      tanks, zwemvijver en tuinvijver
+hanzedorp-data.js     Centrale databron: alle cijfers, met status en bron.
+                      Pas hier een getal aan en alle pagina's rekenen opnieuw.
+hanzedorp-dagbalans.js Oud voorgerekend raster (v0.6); nog gebruikt voor neerslagtekort
+                      tuinderij
+hanzedorp-lib.js      Rekenregels (waterbalans), opmaak en grafieken
+hanzedorp.css         Gedeelde vormgeving (voorlopig palet, licht en donker)
+
+INTERNET
+Zonder internet werkt alles; alleen de lettertypen (Google Fonts) vallen dan terug op
+standaardletters. Er worden geen gegevens verstuurd.
+
+AANPASSEN
+- Dakoppervlak, aantal woningen, bewoners: hanzedorp-data.js -> woningen
+- Tankvolume (standaard): hanzedorp-data.js -> tankPerWoning
+- Spoelfrequentie toilet: hanzedorp-data.js -> meting.toilet.kleinDag / grootDag
+- Aanwezigheid, levensfase, urinoir: hanzedorp-data.js -> bewoners, levensfase, thuiswerk
+- Zwemvijver en tuinvijver: hanzedorp-data.js -> zwemvijver, tuinvijver
+- Akker, pomp, bassin, agri-PV: hanzedorp-data.js -> akker
+- Voedsel (opbrengst, verlies, gewassen, zaaiplan): hanzedorp-data.js -> voedsel
+- Woningmix, oppervlak, comfort, accu, erfmolens: hanzedorp-data.js -> energie
+- Voertuigenlijst, laders, laadverlies: hanzedorp-data.js -> mobiliteit
+- Kratten en wadi's: hanzedorp-data.js -> hemelwater
+- Voorraad en cellen (gewasverdeling, isolatie, temperaturen): hanzedorp-data.js -> voedsel.voorraad en voedsel.gewassen
+- Versie en datum: hanzedorp-data.js -> versie, datum
+
+
+PROJECTEN EN EDITIES (v0.17, 28-10-2026)
+- hanzedorp-data.js      BASISDATA: gelijk voor alle projectkavels (woningen, bewoners, auto's, installaties, ontwerp, landelijke regels).
+- hanzedorp-projecten.js PROJECTKAVELS: per project terrein, gemeente, provincie, partijen, klimaatstation en 'locatie' (wat per plek afwijkt:
+                         waterschap, neerslag, dagbalans, grondprijs, dagverloop wind, netbeheerder, waterbedrijf). Nieuw project: zie projecten.html.
+- hanzedorp-project.js   kiest het actieve project (?project=<id> of de keuze in de index), legt 'locatie' over de basis en rekent afgeleide waarden.
+- weer/<station>/        klimaatbestanden per KNMI-station (weer.js, zon.js, wind.js, dagbalans.js); hanzedorp-weer.js enz. laden het juiste station.
+- bouweditie.py <id>     maakt edities/<id>/ en edities/hanzedorp-<id>.zip voor een gemeente of partij: alleen dat project, zonder interne
+                         pagina's (projecten, eigendom, inventarisatie), zonder teamverdeling in het dossier. Nog zonder login (ontwikkelfase).
+- Instellingen op werkpagina's worden per project onthouden; de inventarisatie per woning is gedeeld (dezelfde bewoners en auto's).
+- Nieuwe weerdata: aanleveren in hetzelfde KNMI-formaat als Heino (daggegevens RH, EV24, Q; uurgegevens FH, T), 1994–2025.
+
+Winterbijkoop en accugrootte (v0.18, 29-10-2026)
+- netaansluiting-accu.js wordt gegenereerd met:  node bouwaccu.js  (31 jaar × accugroottes; te zwaar om in de browser te rekenen).
+- Opnieuw draaien na elke wijziging in vraag, opwek, accu of netinstellingen in hanzedorp-data.js, en per project (het bestand geldt voor het actieve standaardproject).

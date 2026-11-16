@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kratten en wadi's – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Dimensionering van infiltratiekratten per woning en wadi's in het gezamenlijk groen volgens de WDOD-bergingsnorm, met dagbalans 1994–2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Infiltratie van afstromend hemelwater: kratten bij de woningen en wadi's in het gezamenlijk groen</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Afstromend water van verharding rond de woningen (incl. autowaswater) wordt in ondergrondse infiltratiekratten geborgen; water uit het gezamenlijk groen, de weg en het parkeerplein in wadi's<sup class="ref"><a href="#bron-52">[52]</a></sup>. Bij <span data-k="kA"></span> m² verharding per woning vereist de WDOD-norm van <span data-k="wsBerging"></span> mm<sup class="ref"><a href="#bron-15">[15]</a></sup> <span data-k="kV"></span> m³ netto berging (<span data-k="kN"></span> kratten van 0,3 m³). Voor de wadi's is de toetsbui (<span data-k="wsBui"></span> mm in 24 h) over het equivalent verhard oppervlak maatgevend: <span data-k="wA"></span> m² bij <span data-k="wD"></span> cm waterdiepte. Bij een doorlatendheid van <span data-k="kDag"></span> m·d⁻¹ (N) zijn kratten en wadi's binnen <span data-k="kLeeg"></span> resp. <span data-k="wLeeg"></span> h leeg; in de dagbalans 1994–2025 treedt geen overloop op. De doorlatendheid en de grondwaterstand (GHG) zijn bepalend en nog onbekend.</p>
+</section>
+
+<section id="s1"><h2 class="num">Methode</h2>
+  <div class="formula">Krat:  V_net = A_v · 92 mm;  V_bruto = V_net / 0,95;  A_bodem = V_bruto / h_krat (0,5 m)
+       infiltratie I = k · A_bodem  [m³·d⁻¹] (alleen bodem, conservatief);  t_leeg = V_net / I
+Wadi:  A_eq = A_groen · C_groen + A_verhard · C_verhard
+       V_req = max(A_eq · 109 mm; A_verhard · 92 mm);  A_wadi = V_req / d
+       t_leeg = A_wadi · d / (k · A_wadi) = d / k
+Dagbalans: V += P_d · A_eq (+ P_d · A_wadi);  overloop bij V > V_max;  daarna V −= k·A + E·A_wadi
+           (dagsom valt conservatief in één keer)</div>
+</section>
+
+<section id="s2"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInv"><caption>Tabel 1 – Invoer.</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s3"><h2 class="num">Resultaten en gevoeligheid</h2>
+  <div class="scroll"><table id="tblK"><caption>Tabel 2 – Gevoeligheid voor de doorlatendheid k.</caption><thead><tr><th class="num">k (m·d⁻¹)</th><th class="num">Krat leeg (h)</th><th class="num">Wadi leeg (h)</th><th class="num">Overloop wadi (d·a⁻¹)</th><th class="num">Dagen water in wadi</th><th class="num">Max. vulling wadi</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Bij k &lt; d / 2 d = <span data-k="kGrens"></span> m·d⁻¹ is de wadi niet binnen <span data-k="leegUren"></span> h leeg; dan is een ondiepere, grotere wadi, extra infiltratievoorziening (drain, grindkoffer) of een vertraagde afvoer (max. <span data-k="wsAfvoer"></span> l·s⁻¹·ha⁻¹<sup class="ref"><a href="#bron-14">[14]</a></sup>) nodig.</p>
+</section>
+
+<section id="s4"><h2 class="num">Toetsing en discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>WDOD.</b> Berging 92 mm per m² toename verhard oppervlak bij ≥ 500 m²<sup class="ref"><a href="#bron-15">[15]</a></sup>. Infiltratie telt bij WDOD niet als berging en ondergrondse berging telt alleen boven GHG<sup class="ref"><a href="#bron-14">[14]</a></sup>; de kratten zijn daarom op volle berging gedimensioneerd en de wadi's op het maximum van norm en toetsbui.</li>
+    <li><b>Waterkwaliteit.</b> Autowaswater en wegwater bevatten detergenten, olie en zware metalen; infiltratie via een bodempassage (wadi) of een krat met slibvang verdient de voorkeur; woonwijkwegen gelden als laagste belastingcategorie<sup class="ref"><a href="#bron-25">[25]</a></sup>. Afspraken over milde middelen en geen chemicaliën.</li>
+    <li><b>Gewijzigd ontwerp.</b> Straatwater gaat niet langer via helofytenfilter naar de tuinvijver; de tuinvijver krijgt alleen groendakwater (zie tuinwater-technisch).</li>
+    <li><b>Beperking.</b> Dagstap; intensiteit binnen het uur (piekbuien) en zijinfiltratie zijn niet beschouwd. Grondwaterstand en k-waarde na locatiekeuze bepalen.</li>
+  </ul>
+</section>
+
+<section id="s5"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s6"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.10</td><td>26-10-2026</td><td>Eerste versie: kratten per woning en wadi's (besluit 26-10-2026).</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-hemelwater.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen, bindAll } = HZ, H = D.hemelwater, $ = id => document.getElementById(id);
+  const k0 = HH.krat(), w0 = HH.wadi();
+  bindAll({ kN: nl(k0.nKrat), kV: nl(k0.Vnet, 1), kA: nl(k0.A), wA: nl(Math.round(w0.Aw / 10) * 10), wD: nl(w0.d * 100), wLeeg: nl(w0.leegUren), kLeeg: nl(k0.leegUren),
+    kDag: nl(H.kDag, 1), kGrens: nl(H.wadiDiepte / (H.leegUren / 24), 2), leegUren: nl(H.leegUren) });
+  renderBronnen($("bronnen"), [14, 15, 19, 25, 52]);
+  const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
+  $("tblInv").querySelector("tbody").innerHTML = [
+    ["Verharding rond woning A_v", H.kratVerhardPW, "m²", "N", ref(52)], ["Afvoercoëfficiënt verharding", H.cVerhard, "–", "N", ""],
+    ["Krat holle ruimte / element / hoogte", `${H.kratPorositeit} / ${H.kratElementM3} m³ / ${H.kratHoogte} m`, "–", "N", ""],
+    ["Gezamenlijk groen", nl(H.groenM2), "m²", "N", ref(52)], ["C groen", H.cGroen, "–", "N", ""], ["Weg en parkeerplein", nl(H.gemVerhardM2), "m²", "N", ""],
+    ["Doorlatendheid k", H.kDag, "m·d⁻¹", "N", ""], ["Wadidiepte d", H.wadiDiepte, "m", "N", ""], ["Aantal wadi's", H.wadiAantal, "–", "N", ""],
+    ["Bergingsnorm", D.waterschap.bergingMm, "mm", "G", ref(15)], ["Toetsbui T=100", D.waterschap.toetsbuiMm, "mm·24 h⁻¹", "G", ref(15)], ["Leegtijd", H.leegUren, "h", "N", ""],
+    ["Neerslag en verdamping", "1994–2025", "d", "G", ref(19)]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join("");
+  $("tblK").querySelector("tbody").innerHTML = HH.kReeks([0.05, 0.1, 0.2, 0.5, 1, 2]).map(q => `<tr${q.k === H.kDag ? ' style="font-weight:600"' : ""}><td class="num">${nl(q.k, 2)}</td><td class="num">${nl(q.krat.leegUren)}</td><td class="num">${nl(q.wadi.leegUren)}</td><td class="num">${nl(q.wadi.overDagenJr, 2)}</td><td class="num">${nl(q.wadi.waterDagenJr)}</td><td class="num">${nl(q.wadi.maxVulling * 100)} %</td></tr>`).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

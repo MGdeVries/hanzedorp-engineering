@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energieopwek – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Uursimulatie 1994–2025 van vraag en lokale opwek (dak-PV, verticale agri-PV, erfmolens) met buurtaccu en slim laden; dimensionering aantal erfmolens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Energieopwek</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Energieopwek – elektriciteitsbalans van Hanzedorp: uursimulatie van vraag, zon- en windopwek, buurtaccu en gestuurd laden over 31 jaar (KNMI Heino)</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Voor <span data-k="nW"></span> passiefhuizen (<span data-k="pers0"></span> bewoners), een buurthuis, een akkerpomp en volledig elektrisch vervoer is de jaarlijkse elektriciteitsvraag gesimuleerd op uurbasis voor 1994–2025 (31 jaren, excl. 1998) met KNMI-uurwind, -temperatuur en -straling van station Heino<sup class="ref"><a href="#bron-42">[42]</a></sup>. De vraag bedraagt <span data-k="dorpVraag"></span> MWh·a⁻¹, waarvan <span data-k="dorpMob"></span> MWh vervoer. Dak-PV (<span data-k="kWpDak"></span> kWp, S), verticale bifaciale agri-PV (<span data-k="kWpAgri"></span> kWp) en <span data-k="nWind"></span> erfmolens van 15 kW leveren <span data-k="opwek"></span> MWh·a⁻¹ (<span data-k="dekking"></span> % van de vraag). Met een buurtaccu van <span data-k="accu"></span> kWh en gestuurd laden wordt <span data-k="zelf"></span> % van de vraag uit eigen opwek gedekt; netimport <span data-k="imp"></span> MWh·a⁻¹, export <span data-k="exp"></span> MWh·a⁻¹. In november–februari dekt de opwek <span data-k="winterDekking"></span> % van de vraag; energetische winterdekking vereist circa <span data-k="molensWinter"></span> erfmolens. De berekende molenopbrengst (<span data-k="windGem"></span> MWh·a⁻¹ per molen) ligt onder de fabrikantopgave (<span data-k="fabMin"></span>–<span data-k="fabMax"></span> MWh) en is de belangrijkste onzekerheid.</p>
+</section>
+
+<nav aria-label="Inhoud"><h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2><ol class="toc">
+  <li><a href="#s1">Inleiding en systeemgrens</a></li><li><a href="#s2">Methode</a></li><li><a href="#s3">Invoerparameters</a></li><li><a href="#s4">Meetdata</a></li><li><a href="#s5">Resultaten</a></li><li><a href="#s5b">Opstelling van de panelen en noodvoorziening</a></li>
+  <li><a href="#s6">Gevoeligheidsanalyse</a></li><li><a href="#s7">Validatie</a></li><li><a href="#s8">Toetsing aan regelgeving</a></li><li><a href="#s9">Discussie</a></li><li><a href="#s10">Conclusies</a></li>
+  <li><a href="#s11">Openstaande gegevens</a></li><li><a href="#s12">Literatuur en bronnen</a></li><li><a href="#s13">Versiebeheer</a></li></ol></nav>
+
+<section id="s1"><h2 class="num">Inleiding en systeemgrens</h2>
+  <p class="read">Uitgangspunt is overcapaciteit van lokale opwek, gedimensioneerd op de winter (winterzon en erfmolens), met de netaansluiting als terugvaloptie<sup class="ref"><a href="#bron-50">[50]</a></sup>. Binnen de systeemgrens vallen: alle woningen (gebouw- en gebruiksgebonden), het buurthuis (incl. gedeelde keuken, eventuele koel-/vriescellen), de akkerpomp, de circulatiepomp van de zwemvijver en het laden van auto's en motoren op het laadplein. Buiten de systeemgrens: bouw (embodied energie), verliezen in het dorpsnet en omvormers (impliciet in PR), netbeperkingen (geen limiet gemodelleerd) en financiële stromen.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <p class="read">Tijdstap 1 h, 1994-01-01 t/m 2025-12-31 (280.512 uren); statistiek over 31 kalenderjaren excl. 1998 (onvolledige brondata).</p>
+  <div class="formula">Ruimteverwarming (graaddagenmodel, per dag d):
+  Q_d = UA · A_vl · max(0; T_in − ΔT_int − T_g,d) · 24            [kWh]
+  UA  = q_PH / Σ_jaar max(0; 20 − ΔT_int − T_g)·24              (kalibratie: q_PH = 15 kWh·m⁻² bij 20 °C)
+  E_verw,d = Q_d / COP(T_g,d),  COP = min(4,5; max(2,0; 2,8 + 0,07·T_g))
+Zon dak:     P_dak,h = GHI_h · PR_dak · kWp_dak           (GHI_h uit dagsom Q, Erbs e.a. 1982)
+Agri-PV:     P_agri,h = p_h(oost–west verticaal, bifaciaal) · kWp_agri      (zie akker-technisch)
+Wind:        P_wind,h = n · E_dag/24 · f_m,h              (E_dag uit uurwind, f_m,h = dagverloop per maand)
+Molen:       v_15 = FH_10 · ln(15/z0)/ln(10/z0);  P(v) = min(15 kW; ½ρAC_p v³), 2,5 ≤ v ≤ 20 m/s
+Laden:       achterstand B += E_ev,dag;  laden op overschot ≤ min(P_lader; B);  gedwongen als B > 2·E_ev,dag
+Accu:        SOC_h+1 = SOC_h + η^½·P_laad − P_ontlaad/η^½,  0 ≤ SOC ≤ C,  |P| ≤ P_max</div>
+  <p class="read">Volgorde per uur: vaste vraag (huishoudprofiel, continue posten, verwarming gelijk over de dag, warm tapwater in 11–15 u, akkerpomp in 10–17 u) → gedwongen laden → laden op overschot → accu → net. Warm tapwater en akkerpomp zijn als stuurbare lasten midden op de dag gepland.</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInv"><caption>Tabel 1 – Invoer (standaardscenario).</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Meetdata</h2>
+  <p class="read">Uurwaarden FH (uurgemiddelde windsnelheid op 10 m, 0,1 m·s⁻¹; in de praktijk afgerond op 1 m·s⁻¹), T (0,1 °C) en Q (J·cm⁻²) van KNMI-station 278 Heino<sup class="ref"><a href="#bron-42">[42]</a></sup> zijn op 26-10-2026 opgehaald. Uit FH is per dag de opbrengst van één molen berekend en als dagwaarde met controlesom per jaar opgeslagen (<i>hanzedorp-wind.js</i>); TG is het gemiddelde van de 24 uurwaarden. Ontbrekend: 1998 deels, 2025 18 uur FH; aangevuld met het kalenderdaggemiddelde (160 waarden). Het gemiddelde dagverloop van de molenopbrengst per maand (verhouding uur/daggemiddelde) is uit dezelfde uurreeks afgeleid; overdag is de opbrengst in de zomer tot ruim 2× het daggemiddelde.</p>
+  <div class="panel" style="display:grid;gap:6px"><h3>Figuur 1 – Molenopbrengst per jaar</h3><p class="note">MWh·a⁻¹ per molen (S), 1994–2025.</p><div id="windJaar"></div></div>
+</section>
+
+<section id="s5"><h2 class="num">Resultaten</h2>
+  <div class="scroll"><table id="tblMnd"><caption>Tabel 2 – Gemiddelde maandbalans (MWh), standaardscenario.</caption><thead><tr><th>Maand</th><th class="num">Vraag</th><th class="num">waarvan verwarming</th><th class="num">Zon dak</th><th class="num">Agri-PV</th><th class="num">Wind</th><th class="num">Import</th><th class="num">Export</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblMol"><caption>Tabel 3 – Aantal erfmolens (overige invoer standaard).</caption><thead><tr><th>n</th><th class="num">Opwek (MWh)</th><th class="num">Winterdekking</th><th class="num">Zelfvoorziening</th><th class="num">Import (MWh)</th><th class="num">Export (MWh)</th><th class="num">Slechtste 14 d import (MWh)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Grootste uurimport <span data-k="pImp"></span> kW, grootste uurexport <span data-k="pExp"></span> kW. De slechtste periode van 14 aaneengesloten dagen (vanaf <span data-k="slechtstDatum"></span>) vraagt <span data-k="slechtst"></span> MWh import; geen realistische accu overbrugt dit.</p>
+</section>
+
+<section id="s5b"><h2 class="num">Opstelling van de panelen, vraagverdeling en noodvoorziening</h2>
+  <p class="read">Vraagverdeling (A, standaardscenario): vervoer is met <span id="kMob"></span> % de grootste post (figuur). Het uitgangspunt ‘nooit te veel panelen’ [109] volgt uit de kostenverhouding eigen opwek ± € 0,03/kWh tegen inkoop ± € 0,25/kWh: afschakelen in de zomer is goedkoper dan bijkopen in de winter. Opstelling (BESLUIT [115]): schuin op daken, loodrecht (verticaal, dubbelzijdig, oost-west) op de akker, verticaal tegen zuidgevels, op het carportdak (<span id="cpDak"></span> kWp, 10°) en tegen de carportzuidwand (<span id="cpWand"></span> kWp).</p>
+  <div class="panel" style="display:grid;gap:6px"><h3>Figuur – Elektriciteitsvraag per post (MWh·a⁻¹)</h3><div id="vraagChart"></div></div>
+  <div class="scroll"><table id="tblPV"><caption>Tabel 3a – Specifieke opbrengst per opstelling (kWh·kWp⁻¹; HM.pvVlak, KNMI Heino 1994–2025 excl. 1998; PR 0,85; dubbelzijdig met bifacialiteit 0,7) <span class="st st-A">A</span></caption><thead><tr><th>Opstelling</th><th class="num">Jaar</th><th class="num">Nov–feb</th><th class="num">Mei–aug</th><th class="num">Winter/zomer</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblVar"><caption>Tabel 3b – Effect van verticaal plaatsen bij netlimiet 17 kW import/export (3 × 25 A) <span class="st st-A">A</span></caption><thead><tr><th>Variant</th><th class="num">Opwek (MWh)</th><th class="num">Afgeschakeld (MWh)</th><th class="num">Winterdekking</th><th class="num">Import (MWh)</th></tr></thead><tbody><tr><td colspan="5">wordt berekend…</td></tr></tbody></table></div>
+  <p class="read">Interpretatie. Een verticaal zuidpaneel levert ± 30 % minder per jaar dan een paneel op 35°, maar in november–februari evenveel of meer; de verhouding winter/zomer stijgt van ± 25 % naar ± 43 %. Verticaal plaatsen verlaagt daardoor het afschakelen en verhoogt de winterdekking op energiebasis. De netimport verandert nauwelijks: die ontstaat vooral ’s nachts en op donkere, windstille dagen, waar de panelstand niets aan verandert; daarvoor zijn accu, erfmolens en vraagsturing bepalend. Verticaal oost-west op de akker verschuift opwek naar ochtend en avond, maar verlaagt de zomeropbrengst niet. Bijkomend: geen sneeuwbedekking, minder vervuiling, minder ruimtebeslag.</p>
+  <p class="read">Noodvoorziening. Bij een langdurig tekort waarin ook netimport (begrensd door de aansluitwaarde) onvoldoende is, schaalt het EMS eerst het laden van auto's af (laagste prioriteit, grootste flexibele post). Een bewoner die moet rijden laadt bij een openbare snellader; die is altijd beschikbaar tegen een hoger tarief. Daarmee is er geen situatie waarin mobiliteit onmogelijk wordt; huishoudens, koken en koelcellen houden voorrang (stresstest: 0 uur tekort in 31 jaar, behalve bij volledige accu-uitval, zie <a href="netaansluiting-technisch.html">Netaansluiting</a>).</p>
+</section>
+
+<section id="s6"><h2 class="num">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 4 – Eén parameter tegelijk gevarieerd.</caption><thead><tr><th>Variant</th><th class="num">Vraag (MWh)</th><th class="num">Zelfvoorziening</th><th class="num">Import (MWh)</th><th class="num">Winterdekking</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">De winterdekking wordt vooral bepaald door het aantal molens en de werkelijke windopbrengst op de locatie; de zelfvoorziening door de accugrootte (afnemend rendement boven ± 200 kWh) en het laadgedrag.</p>
+</section>
+
+<section id="s7"><h2 class="num">Validatie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Erfmolen.</b> Berekend gemiddeld <span data-k="windGem"></span> MWh·a⁻¹ (capaciteitsfactor <span data-k="windCf"></span> %), bandbreedte <span data-k="windMin"></span>–<span data-k="windMax"></span> MWh; de fabrikant noemt <span data-k="fabMin"></span>–<span data-k="fabMax"></span> MWh zonder windsnelheid<sup class="ref"><a href="#bron-43">[43]</a></sup>. De berekening is circa <span data-k="windPct"></span> % van het midden van de fabrikantrange. Verklaringen: het KNMI-station Heino ligt in een relatief ruwe omgeving (gemiddeld ± 3 m·s⁻¹ op 10 m); uurgemiddelden onderschatten de energie bij turbulentie (v³); de vermogenscurve (C_p 0,35) is een aanname, gebaseerd op nominaal 15 kW bij ± 8 m·s⁻¹ en inschakelsnelheid 2,5 m·s⁻¹ van het verwante type EAZ-Twelve<sup class="ref"><a href="#bron-44">[44]</a></sup>. De opbrengst daalt over de reeks (<span data-k="windVoor"></span> MWh vóór 2010, <span data-k="windNa"></span> MWh vanaf 2010). Een gecertificeerde vermogenscurve en een windmeting op de locatie zijn nodig; een peer-reviewed referentie voor dit type is in deze verkenning niet gevonden.</li>
+    <li><b>Huishoudelijk verbruik.</b> Apparaten + witgoed + koelen voor 4 personen ± 3.800 kWh·a⁻¹ (standaard) tegen 3.600 kWh·a⁻¹ gemiddeld volgens Nibud/CBS 2025<sup class="ref"><a href="#bron-45">[45]</a></sup>.</li>
+    <li><b>Verwarming.</b> De kalibratie reproduceert per definitie 15 kWh·m⁻² bij 20 °C<sup class="ref"><a href="#bron-8">[8]</a></sup>; de temperatuurgevoeligheid (+<span data-k="qhPct"></span> % bij <span data-k="tin"></span> °C) volgt uit het graaddagenmodel en moet met PHPP per woningontwerp worden bevestigd.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Toetsing aan regelgeving</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Bbl/BENG.</b> Passiefhuizen voldoen ruim aan BENG 1; BENG 2/3 per woning met NTA 8800 aan te tonen.</li>
+    <li><b>Erfmolens.</b> Kleine windturbines vallen onder het omgevingsplan van de gemeente; geluid, slagschaduw (vuistregel 12 × D ≈ 158 m<sup class="ref"><a href="#bron-43">[43]</a></sup>), externe veiligheid en landschap worden daar beoordeeld. Nog uit te werken.</li>
+    <li><b>Net en levering.</b> De omvang van import en vooral export (piek <span data-k="pExp"></span> kW) bepaalt de aansluiting; netcongestie in Overijssel en de regels voor gezamenlijke opwek en levering (Energiewet, energiegemeenschap) zijn open punten.</li>
+  </ul>
+</section>
+
+<section id="s9"><h2 class="num">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li>Dak-PV is gemodelleerd als GHI × PR (plat/oost–west op groendak); oriëntatie en verdeling over de daken liggen niet vast.</li>
+    <li>Verwarming is per dag gelijk over de uren verdeeld; in werkelijkheid buffert een passiefhuis enkele uren, wat de zelfvoorziening licht verbetert.</li>
+    <li>Wind wordt per dag met een maandgemiddeld dagverloop over de uren verdeeld; extreme uren (storm, windstilte binnen een dag) worden daardoor afgevlakt.</li>
+    <li>Er is geen netlimiet gemodelleerd; bij een begrensde teruglevering moet een deel van de zomeropwek worden afgeschakeld of opgeslagen.</li>
+  </ul>
+</section>
+
+<section id="s10"><h2 class="num">Conclusies</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Jaarlijks produceert het voorgestelde systeem ruim meer dan de vraag (<span data-k="dekking"></span> %), maar in de winter niet (<span data-k="winterDekking"></span> %).</li>
+    <li>Voor energetische winterdekking zijn circa <span data-k="molensWinter"></span> erfmolens nodig, mits de werkelijke windopbrengst gelijk is aan de berekening; bij de fabrikantopgave zijn er minder nodig.</li>
+    <li>Ook bij winterdekking blijft netimport nodig in windstille, donkere perioden; het net is een structurele terugvaloptie.</li>
+  </ol>
+</section>
+
+<section id="s11"><h2 class="num">Openstaande gegevens</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Gecertificeerde vermogenscurve erfmolen en windmeting op de locatie.</li>
+    <li>PV-ontwerp daken (kWp, oriëntatie) en daken buurthuis/schuren.</li>
+    <li>Netaansluiting: capaciteit, teruleverbeperking, tarieven.</li>
+    <li>Buurtaccu: capaciteit, vermogen, kosten; PHPP per woningtype.</li>
+  </ol>
+</section>
+
+<section id="s12"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s13"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.16</td><td>27-10-2026</td><td>Hernoemd naar Energieopwek; scenario C standaard in het model; vraagverdeling, opbrengst per opstelling, effect verticaal plaatsen, noodvoorziening snellader.</td><td>Melvin de Vries (opgave [115]); berekening met Claude</td></tr>
+  <tr><td>0.10</td><td>26-10-2026</td><td>Eerste versie: uursimulatie dorp, erfmolens (KNMI-uurwind), buurtaccu, gestuurd laden.</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-inventaris.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script src="energie-pv.js"></script>
+<script>
+(function () {
+  const { D, nl, MND, renderBronnen, bars } = HZ, E = D.energie, MOB = D.mobiliteit, $ = id => document.getElementById(id), MW = EG.MW;
+  EG.bind();
+  renderBronnen($("bronnen"), [1, 2, 8, 30, 41, 42, 43, 44, 45, 50, 51, 109, 115]);
+  EPV.render({ D, nl, $, s: EG.std(), hbars: EG.hbars });
+  setTimeout(() => { const VL = E.scenarioC.vlakken, o = { netKW: 17, expKW: 17 };
+    const VV = [["Scenario C (zoals gepland)", VL], ["Carportdak verticaal i.p.v. 10°", VL.map(v => /^Carport dak/.test(v.naam) ? Object.assign({}, v, { b: 90 }) : v)],
+      ["Carportdak en zuiddaken 35° verticaal", VL.map(v => /^Carport dak|dak zuid 35/.test(v.naam) ? Object.assign({}, v, { b: 90, a: 180 }) : v)]];
+    $("tblVar").querySelector("tbody").innerHTML = VV.map(([l, v]) => { const r = HE.simuleer(Object.assign({ pvVlakken: v }, o));
+      return `<tr><td>${l}</td><td class="num">${MW(r.opwek)}</td><td class="num">${MW(r.afgeschakeld)}</td><td class="num">${nl(r.winterDekking * 100)} %</td><td class="num">${MW(r.imp)}</td></tr>`; }).join(""); }, 50);
+  const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
+  const s = EG.std(), d = s.d;
+  $("tblInv").querySelector("tbody").innerHTML = [
+    ["Woningen gezin / senior / junior", `${E.mix.gezin} / ${E.mix.senior} / ${E.mix.junior}`, "–", "N", ref(50)],
+    ["Gebruiksoppervlak gezin / senior / junior", `${E.opp.gezin} / ${E.opp.senior} / ${E.opp.junior}`, "m²", "N", ""],
+    ["q_PH (20 °C)", nl(E.qh20), "kWh·m⁻²·a⁻¹", "G", ref(8)], ["T_in", nl(E.tin), "°C", "N", ref(50) + ref(51)], ["ΔT_int", nl(E.dTint), "K", "N", ""],
+    ["UA (gekalibreerd)", nl(HE.UA * 1000, 3), "W·m⁻²·K⁻¹", "A", ""], ["COP(T)", `${E.cop.a} + ${E.cop.b}·T`, "–", "N", ""],
+    ["Warm tapwater", nl(E.wwKWhPP), "kWh·p⁻¹·a⁻¹", "A", ref(1)], ["Apparaten a + b·p", `${E.app.a} + ${E.app.b}·p`, "kWh·a⁻¹", "A", ref(45)],
+    ["Dak-PV gezin / senior / junior", `${E.kWpDak.gezin} / ${E.kWpDak.senior} / ${E.kWpDak.junior}`, "kWp", "N", ""], ["PR dak", nl(E.pvDakPR, 2), "–", "N", ""],
+    ["PV overige vlakken (scenario C: buurthuis, schuren, carport)", nl(E.scenarioC.vlakken.reduce((a, v) => a + v.kWp, 0), 1) + (E.pvExtraKWp ? " + " + nl(E.pvExtraKWp) : ""), "kWp", "N", ref(109)], ["Agri-PV", nl(s.kWpAgri, 1), "kWp", "A", "akker-technisch"],
+    ["Erfmolens n", nl(E.wind.n), "–", "N", ref(50)], ["Molen: P, D, ashoogte", `${E.wind.P} kW, ${E.wind.D} m, ${E.wind.as} m`, "–", "G", ref(43)],
+    ["z0, C_p", `${E.wind.z0} m; ${E.wind.cp}`, "–", "N", ref(44)], ["Buurtaccu C / P / η", `${E.accu.kWh} kWh / ${E.accu.kW} kW / ${E.accu.eta}`, "–", "N", ""],
+    ["Laders", `${MOB.zappi.n} × ${MOB.zappi.kW} kW (auto ≤ ${MOB.zappi.autoAC} kW)`, "–", "G/N", ref(47)], ["Vervoer (standaard)", MW(d.mob), "MWh·a⁻¹", "A/N", ref(1)]
+  ].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${st(r[3].split("/")[0])}</td><td>${r[4]}</td></tr>`).join("");
+  const ws = HE.windStat();
+  bars($("windJaar"), { labels: HANZEDORP_WEER.jaren.map(y => String(y).slice(2)), series: [{ name: "MWh", values: ws.perJaar.map(v => v / 1000), color: "var(--water)", dec: 1, unit: "MWh" }], unit: "MWh", labelEvery: 3, height: 210 });
+  $("tblMnd").querySelector("tbody").innerHTML = s.maand.map((m, i) => `<tr><td>${MND[i]}</td>${[m.vraag, m.verw, m.zon, m.agri, m.wind, m.imp, m.exp].map(v => `<td class="num">${nl(v / 1000, 1)}</td>`).join("")}</tr>`).join("");
+  $("tblMol").querySelector("tbody").innerHTML = EG.molens().map(({ n, s }) => `<tr${n === E.wind.n ? ' style="font-weight:600"' : ""}><td>${n}</td><td class="num">${MW(s.opwek)}</td><td class="num">${nl(s.winterDekking * 100)} %</td><td class="num">${nl(s.zelf * 100)} %</td><td class="num">${MW(s.imp)}</td><td class="num">${MW(s.exp)}</td><td class="num">${nl(s.slechtst.kWh / 1000, 1)}</td></tr>`).join("");
+  const V = [["Standaard", {}], ["Accu 0 kWh", { accu: 0 }], ["Accu 2 × 200 kWh", { accu: 400, accuKW: 100 }], ["Laden zonder sturing", { evDom: true }], ["Deelauto's", { deelauto: true }],
+    ["T_in 20 °C", { tin: 20 }], ["Koel-/vriescellen", { koel: "centraal" }], ["Over 10 jaar", { levensfase: "p10" }], ["Apparaten zoals gemeten", { appScen: "gemeten" }], ["Geen agri-PV", { agri: false }]];
+  $("tblGev").querySelector("tbody").innerHTML = V.map(([l, o]) => { const r = HE.simuleer(o); return `<tr><td>${l}</td><td class="num">${MW(r.vraag)}</td><td class="num">${nl(r.zelf * 100)} %</td><td class="num">${MW(r.imp)}</td><td class="num">${nl(r.winterDekking * 100)} %</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

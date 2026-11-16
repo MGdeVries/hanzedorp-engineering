@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veiligheid – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Veiligheid in Hanzedorp: sociale veiligheid, inbraakwerendheid (Bbl art. 4.100), brandveiligheid buurtaccu en laadplein (PGS 37-1), zelfredzaamheid, bereikbaarheid hulpdiensten (bruidsschat art. 22.14), personenalarmering, risico's en compliance-register.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Veiligheid</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Veiligheid – technische verantwoording</h1>
+  <dl class="meta read"><dt>Auteur</dt><dd><span data-k="auteur"></span></dd><dt>Status</dt><dd>concept; niet getoetst door Veiligheidsregio, gemeente of politie</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Deze pagina bundelt de veiligheidsmaatregelen van Hanzedorp in vijf domeinen: sociale veiligheid, inbraakwerendheid, brandveiligheid, zelfredzaamheid bij verstoring van ketens, en bereikbaarheid voor hulpdiensten. Wettelijk dwingend zijn de inbraakwerendheid van bereikbare gevelelementen (Bbl art. 4.100, NEN 5096 klasse 2)<sup class="ref"><a href="#bron-111">[111]</a></sup> en de eisen aan de verbindingsweg voor hulpverleningsvoertuigen (bruidsschat omgevingsplan art. 22.14)<sup class="ref"><a href="#bron-110">[110]</a></sup>. Voor de buurtaccu geldt PGS 37-1 nu via zorgplicht en maatwerk, naar verwachting vanaf 2028 via het Bal<sup class="ref"><a href="#bron-118">[118]</a></sup>. Hanzedorp kiest een zelfredzaamheidsduur van <span id="aD"></span> dagen, ruimer dan de 72 uur van de rijkscampagne Denk Vooruit<sup class="ref"><a href="#bron-112">[112]</a></sup>. De vrije hoogte van de carport (± 3,2 m) is lager dan de vereiste 4,2 m; daarom loopt er geen weg onder de carport en rijden hulpdiensten via een rondweg om de carport heen<sup class="ref"><a href="#bron-121">[121]</a></sup>. Een open punt is drinkwater: het regenwatersysteem levert geen drinkwater bij uitval van de drinkwaterlevering.</p>
+</section>
+
+<section id="s1"><h2 class="num">Systeemgrens en uitgangspunten</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li>Binnen de systeemgrens: terrein, woningen, buurthuis, schuren, carport/laadplein, buurtaccu, akker en vijvers.</li>
+    <li>Personen (A, uit levensfasen in de databron): start <span id="pS"></span>, theoretisch maximum <span id="pM"></span>.</li>
+    <li>Zelfredzaamheidsduur (BESLUIT [115]): <span id="aD2"></span> dagen; referentie Denk Vooruit 72 uur, drinkwater <span id="aW"></span> L per persoon per dag (G [117]).</li>
+    <li>Kritieke elektrische last bij netuitval (S): <span id="aK"></span> kW gemiddeld (koelcellen, koelkasten/vriezers, verlichting, netwerk, pompen, koken beperkt).</li>
+  </ul>
+</section>
+
+<section id="s2"><h2 class="num">Zelfredzaamheid: rekenregels en resultaat</h2>
+  <p class="read">Drinkwater V<sub>w</sub> = N · q · d, met q = <span id="aW2"></span> L/(p·d). Accu-autonomie zonder opwek t = E<sub>accu</sub> · 0,9 / P<sub>krit</sub> (0,9 bruikbaar aandeel, N).</p>
+  <div class="scroll"><table id="tblW"><caption>Tabel 1 – Benodigde voorraad (AFGELEID).</caption><thead><tr><th>Scenario</th><th class="num">Personen</th><th class="num">Dagen</th><th class="num">Drinkwater (L)</th><th class="num">Energie voedsel (Mcal)</th><th class="num">Accu-autonomie zonder opwek (h)</th></tr></thead><tbody></tbody></table></div>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Voedsel.</b> Grijpvoorraad per woning (manshoge koelkast + vriezer, ≥ 1 week) plus de centrale koel- en vriescellen met de oogst van de tuinderij (zie <a href="opslag.html">Voorraad &amp; koelcellen</a>). In het voorjaar ('hongergat', juni) is de centrale voorraad het kleinst; de week-voorraad thuis moet dan houdbaar droog/blik bevatten. Koelcellen hebben bij netuitval prioriteit na koken (EMS-voorrang).</li>
+    <li><b>Stroom.</b> Bij netuitval gaat het dorpsnet in eilandbedrijf; de accu overbrugt donkere, windstille perioden. In 31 jaar weerdata was de opwek op 3 dagen &lt; 5 % van de vraag (zie <a href="energie-technisch.html">Energieopwek</a>); met beperkte last (geen laden) is één week zonder net haalbaar, maar niet gegarandeerd in de slechtste winterweek. Het eilandbedrijf vereist een netvormende omvormer en een anti-eilandbeveiliging richting het openbare net (EN 50549-1).</li>
+    <li><b>Drinkwater.</b> Regenwater (toilet, wasmachine) en putwater (akker) zijn géén drinkwater; zonder behandeling en toezicht (Drinkwaterwet) niet te gebruiken als noodvoorziening. Opslag van gebotteld water of een geboden noodvoorziening via het drinkwaterbedrijf. Een eigen drinkwaterreserve in het buurthuis vraagt verversing (legionella, stilstand) – liever flessen/jerrycans met vervaldatum.</li>
+  </ul>
+</section>
+
+<section id="s3"><h2 class="num">Bereikbaarheid voor hulpdiensten</h2>
+  <div class="scroll"><table><caption>Tabel 2 – Eisen verbindingsweg volgens bruidsschat art. 22.14 [110].</caption><thead><tr><th>Eis</th><th class="num">Waarde</th><th>Hanzedorp</th></tr></thead><tbody>
+    <tr><td>Breedte verbindingsweg</td><td class="num">≥ <span id="w1"></span> m</td><td>Ontsluitingsweg langs de woningen en het laadplein; te ontwerpen</td></tr>
+    <tr><td>Verharde breedte, draagvermogen</td><td class="num">≥ <span id="w2"></span> m, ≥ <span id="w3"></span> kg</td><td>Profiel (opgave [164]): 2,5 m gesloten verharding + 2 × 1,0 m grastegels op dragende fundering = 4,5 m dragend; telt als verharding mits de Veiligheidsregio grastegels accepteert (gangbaar voor secundaire wegen en opstelplaatsen [162]). Terugval: 3,25 m gesloten + 2 × 0,625 m grastegels</td></tr>
+    <tr><td>Vrije hoogte</td><td class="num">≥ <span id="w4"></span> m</td><td>Carport ± 3,2 m: geen weg onder de carport; rondweg om dorp en carport heen (BESLUIT [121])</td></tr>
+    <tr><td>Uitzondering</td><td class="num">toegang ≤ <span id="w5"></span> m van openbare weg</td><td>Niet van toepassing: woningen liggen verder van de openbare weg</td></tr>
+    <tr><td>Afsluitend hekwerk</td><td>snel en gemakkelijk te openen door hulpdiensten of systeem in overleg met bevoegd gezag (lid 5)</td><td>Hek/pollers met brandweersleutel of code; fail-open bij stroomuitval</td></tr>
+  </tbody></table></div>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Rondweg, keerruimte en draaicirkels.</b> BESLUIT [121]: rondweg om het dorp en de carport (± 290 m × 4,5 m, S); geen doodlopende wegen, dus geen keerlus nodig. Bochtstralen en opstelplaatsen volgen uit de regionale beleidsregels van de Veiligheidsregio (Handreiking Bluswatervoorziening en Bereikbaarheid); waarden niet in deze versie opgenomen – te verifiëren bij Veiligheidsregio IJsselland.</li>
+    <li><b>Bluswater – kader.</b> Voorbeeld regionaal modelbeleid<sup class="ref"><a href="#bron-162">[162]</a></sup>: primair 60 m³·h⁻¹ binnen 40 m van het object (brandkraan of geboorde put<sup class="ref"><a href="#bron-163">[163]</a></sup>); secundair 90 m³·h⁻¹ gedurende ≥ 4 h binnen 200 m (open water: opstelplaats ≤ 2 m van het water, zuighoogte ≤ 8 m, waterdiepte ≥ 0,5 m); droge blusleiding pas vereist bij een inzetdiepte &gt; 60 m. De drinkwateraansluiting (hoofdaansluiting 10 m³·h⁻¹, water-technisch) en de put (≤ 10 m³·h⁻¹) zijn te klein voor primair bluswater.</li>
+    <li><b>Bluswater – Hanzedorp.</b> Benodigd secundair volume <span data-k="secNodigT"></span> m³ (90 m³·h⁻¹ × 4 h) tegen zwemvijver ± <span data-k="zwVolT"></span> m³ (S; 150 m², deels 3 m diep; max. peildaling ± 0,23 m ≈ 35 m³) en tuinvijver ± <span data-k="tvVolT"></span> m³ (S; lager na droge zomers): samen toereikend, elk afzonderlijk niet zeker. Ontwerp: per vijver een vaste aanzuigvoorziening (zuigleiding tot ≥ 0,5 m onder het laagste peil, aanzuigkorf, A-koppeling, vorstvrij, aanrijdbeveiligd) met opstelplaats 4 × 10 m<sup class="ref"><a href="#bron-162">[162]</a></sup> aan de rondweg; inzetdiepte tot elke woningentree ≤ 40 m vanaf een opstelplaats. Een droge bluswaterleiding over het terrein met meerdere aftakpunten (opgave<sup class="ref"><a href="#bron-164">[164]</a></sup>) is technisch mogelijk (lege, op afschot gelegde leiding met aftappunten, jaarlijkse beproeving), maar is bij een compact terrein met rondweg niet nodig en voegt beheer, keuring en vorstrisico toe; zinvol alleen als de Veiligheidsregio dat vraagt, bijvoorbeeld voor langdurig koelen bij de buurtaccu. Geboorde brandput (SIKB 2200<sup class="ref"><a href="#bron-163">[163]</a></sup>) als alternatief bij ongeschikte vijvers; geohydrologie te onderzoeken.</li>
+    <li><b>Oriëntatie.</b> Plattegrond bij de hoofdingang met huisnummers, accu, noodstop PV/laadplein, bluswaterpunt; adresseerbare padnamen; verlichte huisnummers.</li>
+    <li><b>Toegangscontrole.</b> Automatische herkenning van hulpvoertuigen (ANPR of beeldherkenning van zwaailicht) is niet betrouwbaar genoeg als enige middel en verwerkt kentekens (AVG). Daarom: mechanische override (sleutelschakelaar of brandweersleutel), code via meldkamer, en fail-open bij stroom- of systeemuitval; beeldherkenning hooguit als gemak.</li>
+  </ul>
+</section>
+
+<section id="s4"><h2 class="num">Brandveiligheid</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Woningen.</b> Rookmelders volgens NEN 2555 (Bbl) [111], onderling gekoppeld; inductie (geen gas); geen accu's of omvormers in de woning (besluit technische ruimte). Brandveiligheid CLT (brandwerendheid, rookproductie, brandoverslag tussen woningen) uitwerken bij het thema Bouwen.</li>
+    <li><b>Buurtaccu.</b> LFP, 3 blokken van 200 kWh in een stalen brandveilige behuizing (± 10 m², G [121]) naast de carport, met de groepenkast-/omvormerbehuizing ernaast. Afstand tot carport en gebouwen: indicatief ± 13 m (RIVM, brandscenario per module; gifwolk ≤ 24 m en explosie 57 m conservatief) [120] – de Veiligheidsregio stelt de afstand vast. Afweging: verder weg vraagt zwaardere kabel; bij ± 15–25 m tussen accu, groepenkast en carport blijft de AC-verbinding (± 150 kVA, ± 220 A) met gangbare doorsneden beheersbaar (S, dimensioneren volgens NEN 1010). Verder: gas- en rookdetectie, drukontlasting, noodstop; leverancier met UL 9540A-testrapport; ontwerp volgens PGS 37-1 [118]. Voorlopige aandachtsgebieden en QRA-drempels volgens de projectprompt (§ 5.9) – te bevestigen met Veiligheidsregio.</li>
+    <li><b>Laadplein.</b> Open overkapping, brandonderbreking per 4–5 plekken, mode 3-laders, aanrijdbeveiliging, één noodstop voor alle laadpunten, quarantaineplek voor een beschadigde EV, PV afschakelbaar (DC-spanning op het dak bij blussen).</li>
+  </ul>
+</section>
+
+<section id="s5"><h2 class="num">Afstemming met overheid en hulpdiensten</h2>
+  <p class="read">De 'veiligheidsdriehoek' (burgemeester, politie, Openbaar Ministerie) gaat over openbare orde; voor brandveiligheid van de accu en bereikbaarheid is de <b>Veiligheidsregio IJsselland (brandweer)</b> adviseur van het bevoegd gezag (gemeente). Voorgestelde stappen: (1) vooroverleg met gemeente en Veiligheidsregio over ontsluiting, bluswater, accu en laadplein; (2) accu melden en ontwerp toetsen aan PGS 37-1; (3) objectinformatie (bereikbaarheidskaart, accu, noodstoppen) aan de brandweer leveren; (4) wijkagent informeren over het dorp, de camera's en de contactpersonen.</p>
+</section>
+
+<section id="s6"><h2 class="num">Concept personenalarmering (idee)</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li><b>Architectuur.</b> Draagbare zender (knop + valdetectie) → plaatsbepaling binnen het terrein met vaste ontvangers (BLE, UWB of LoRaWAN; triangulatie/trilateratie op signaalsterkte of looptijd) → lokale server (geen verplichte cloud) → push naar buren-app; parallel een gecertificeerde alarmcentrale met meldkamer als achtervang (zie <a href="digitale-infrastructuur.html">Digitale infrastructuur</a>, personenalarmering).</li>
+    <li><b>Betrouwbaarheid.</b> Een zelfbouwsysteem moet beschikbaarheid aantonen (redundante ontvangers, batterijbewaking, periodieke testoproep, UPS). Valdetectie geeft vals-positieven en -negatieven; nooit de enige voorziening.</li>
+    <li><b>Regelgeving.</b> Software met een medisch doel (bv. valdetectie ter voorkoming van letsel, bewaking van vitale functies) kan onder de MDR vallen (CE, conformiteitsbeoordeling) [114]; een eenvoudige alarmknop zonder medische claim waarschijnlijk niet – te verifiëren. Locatie- en gezondheidsgegevens zijn persoonsgegevens; gezondheidsgegevens bijzondere persoonsgegevens (AVG art. 9): uitdrukkelijke toestemming, DPIA, minimale opslag, locatie alleen bij alarm. Geen automatische 112-oproep; een mens beoordeelt.</li>
+  </ul>
+</section>
+
+<section id="s7"><h2 class="num">Risico's per deelonderwerp</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Bewijs / wie</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Hulpdienst kan niet bij woning <b>[volksgezondheid]</b></td><td>Weg te smal/laag, hek dicht, onduidelijke nummering</td><td>Weg volgens art. 22.14, rondweg, fail-open hek, plattegrond</td><td>Ontwerptekening; advies Veiligheidsregio</td><td>laag</td><td>open</td></tr>
+    <tr><td>Brand buurtaccu <b>[brand]</b></td><td>Thermal runaway</td><td>PGS 37-1, 3 blokken op afstand, detectie, UL 9540A</td><td>Leverancier, Veiligheidsregio</td><td>laag–middel</td><td>deels</td></tr>
+    <tr><td>Brand laadplein <b>[brand]</b></td><td>EV-brand, overslag onder overkapping</td><td>Compartimentering 4–5 plekken, noodstop, quarantaineplek</td><td>Ontwerp carport; Veiligheidsregio</td><td>middel</td><td>deels</td></tr>
+    <tr><td>Geen drinkwater bij storing <b>[volksgezondheid]</b></td><td>Regen-/putwater niet drinkbaar</td><td>Gebottelde voorraad per woning + buurthuis</td><td>Bewoners, jaarlijkse controle houdbaarheid</td><td>laag</td><td>open</td></tr>
+    <tr><td>Bederf voorraad bij langdurige netuitval</td><td>Accu leeg in donkere week</td><td>EMS-voorrang koelcellen, isolatie, PCM; deur dicht houden</td><td>EMS-configuratie</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Inbraak in technische ruimten</td><td>Waardevolle apparatuur</td><td>Klasse-2-hang- en sluitwerk, camera, toegangsbeheer</td><td>Bestuur</td><td>laag</td><td>open</td></tr>
+    <tr><td>Alarm ouderen faalt</td><td>Zelfbouw, batterij leeg, geen ontvangst</td><td>Gecertificeerde alarmcentrale als achtervang, testoproep</td><td>Zzp-beheerder, bewoners</td><td>middel</td><td>idee</td></tr>
+    <tr><td>Privacy camera/locatie</td><td>Toezicht op bewoners en bezoekers</td><td>Alleen eigen terrein, DPIA, bewaartermijn ≤ 4 weken, inzage door twee personen</td><td>Bestuur, AP-richtlijn [79]</td><td>laag</td><td>deels</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s8"><h2 class="num">Toetsing – compliance-register</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Wat geëist wordt</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Inbraakwerendheid</td><td>Bbl art. 4.100; NEN 5096, NEN 5087 [111]</td><td>Bereikbare deuren/ramen weerstandsklasse 2</td><td>Gecertificeerd hang- en sluitwerk (SKG**) in alle woningen en technische ruimten</td><td>Certificaat leverancier; gemeente</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Rookmelders</td><td>Bbl; NEN 2555 [111]</td><td>Rookmelders op elke bouwlaag/vluchtroute</td><td>Gekoppelde rookmelders</td><td>Opleverkeuring</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Bereikbaarheid hulpdiensten</td><td>Bruidsschat art. 22.14 [110]</td><td>Weg ≥ 4,5 m, verhard ≥ 3,25 m, 14.600 kg, 4,2 m vrij</td><td>Ontsluitingsweg buiten de carport</td><td>Tekening; Veiligheidsregio</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Afsluitbaar hek</td><td>Bruidsschat art. 22.14 lid 5 [110]</td><td>Snel te openen door hulpdiensten</td><td>Brandweersleutel/code, fail-open</td><td>Afspraak Veiligheidsregio</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Buurtaccu</td><td>PGS 37-1; zorgplicht/maatwerk, Bal (± 2028) [118]</td><td>Brandveilige opstelling EOS</td><td>Buiten, 3 blokken, detectie, UL 9540A</td><td>Leverancier, Veiligheidsregio</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Bluswater</td><td>Bruidsschat / regionale beleidsregel</td><td>Voldoende bluswater binnen bereik</td><td>Zwemvijver en tuinvijver als secundaire bron met vaste aanzuigpunten en opstelplaatsen; geen primaire brandkraan (drinkwater te klein)</td><td>Veiligheidsregio IJsselland (bluswateradvies)</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Cameratoezicht</td><td>AVG; AP-richtlijn [79]</td><td>Belangenafweging, informatieplicht, bewaartermijn</td><td>Beperkte camera's, DPIA</td><td>Bestuur</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Personenalarmering</td><td>MDR 2017/745 [114]; AVG art. 9</td><td>CE bij medisch doel; uitdrukkelijke toestemming</td><td>Gecertificeerde dienst + eventueel eigen app zonder medische claim</td><td>Leverancier; DPIA</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s9"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s10"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.16</td><td>27-10-2026</td><td>Eerste versie.</td><td>Melvin de Vries (opgave [115]); uitwerking met Claude</td></tr>  <tr><td>0.19</td><td>04-11-2026</td><td>Wegprofiel 2,5 m gesloten + 2 × 1 m grastegels; bluswaterkader (voorbeeld regionaal modelbeleid), volumetoets vijvers, aanzuigpunten en afweging droge bluswaterleiding.</td><td>Melvin de Vries (opgave [164]); uitwerking met Claude</td></tr>
+</tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="veiligheid-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, V = D.veiligheid, $ = id => document.getElementById(id);
+  bindAll({}); renderBronnen($("bronnen"), [110, 111, 112, 117, 116, 118, 120, 114, 79, 115, 121, 162, 163, 164]);
+  { const B = V.bluswater, st = (k, v) => document.querySelectorAll(`[data-k=${k}]`).forEach(e => e.textContent = v); st("zwVolT", nl(B.zwemVolM3)); st("tvVolT", nl(B.tuinVolM3)); st("secNodigT", nl(B.secM3h * B.secUur)); }
+  const P = VG.personen();
+  ["aD", "aD2"].forEach(i => $(i).textContent = V.dagenHanzedorp); ["aW", "aW2"].forEach(i => $(i).textContent = V.waterLpppd);
+  $("aK").textContent = V.kritiekKW; $("pS").textContent = P.start; $("pM").textContent = P.max;
+  $("w1").textContent = nl(V.weg.breedte, 1); $("w2").textContent = nl(V.weg.verharding, 2); $("w3").textContent = nl(V.weg.massa); $("w4").textContent = nl(V.weg.hoogte, 1); $("w5").textContent = V.weg.toegangZonderWeg;
+  const rij = (n, p, d) => { const r = VG.week(p, d); return `<tr><td>${n}</td><td class="num">${p}</td><td class="num">${d}</td><td class="num">${nl(r.water)}</td><td class="num">${nl(r.kcal / 1000)}</td><td class="num">${nl(r.accuUur)}</td></tr>`; };
+  $("tblW").querySelector("tbody").innerHTML = rij("Denk Vooruit, start", P.start, V.dagenOverheid) + rij("Hanzedorp, start", P.start, V.dagenHanzedorp) + rij("Hanzedorp, maximum", P.max, V.dagenHanzedorp);
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

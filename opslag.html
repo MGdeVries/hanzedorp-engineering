@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voorraad en koelcellen – Hanzedorp</title>
+<meta name="description" content="Wanneer komt er hoeveel van de tuinderij, wat blijft op het veld staan en hoeveel moet er in de koel- en vriescellen? Daaruit volgt hoe groot de cellen moeten zijn. Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Water en voedsel</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Voorraad en koelcellen</h1>
+  <p class="lead read">We halen groente en fruit van het veld als het nodig is. Wat kan blijven staan, laten we staan. De rest bewaren we voor de winter: in het buurthuis, in twee koelcellen (± 2 en ± 10 °C) en een vriescel die we zelf bouwen en heel dik isoleren.</p>
+  <ul class="kern read">
+    <li><span>Voor <span data-k="monden"></span> mensen oogsten we ± <b><span data-k="oogstKg"></span> kg</b> per jaar. Ongeveer <span data-k="versPct"></span> % eten we vers van het veld. De rest komt uit de voorraad.</span></li>
+    <li><span>De meeste voorraad ligt er in de herfst: ± <span data-k="k2Kg"></span> kg in de koelcel van 2 °C, <span data-k="k8Kg"></span> kg in die van 10 °C en <span data-k="vKg"></span> kg in de vriescel. Daarbij ± <span data-k="potten"></span> weckpotten in de kast.</span></li>
+    <li><span>De drie cellen samen gebruiken ± <b><span data-k="celKWh"></span> kWh</b> per jaar: zo'n <span data-k="celKWhDag"></span> kWh per dag. Ze koelen vooral als er stroom over is en kunnen daarna uren rusten.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-jaar">
+  <h2 id="h-jaar">Het jaar rond</h2>
+  <div class="panel" style="display:grid;gap:6px">
+    <h3>Waar ligt het eten?</h3><p class="note">kg per week, voor <span data-k="monden"></span> mensen en <span data-k="akkerM2"></span> m² akker.</p>
+    <div class="legend"><span><i style="background:var(--green)"></i>nog op het veld</span><span><i style="background:var(--rain)"></i>koelcel 2 °C</span><span><i style="background:var(--clay)"></i>koelcel 10 °C</span><span><i style="background:var(--water)"></i>vriescel</span><span><i style="background:var(--warn)"></i>kast (weck, blik, droog)</span></div>
+    <div id="vrChart"></div>
+  </div>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Zomer.</b> Van juni tot september eten we vooral vers. Wat we niet opeten, gaat meteen de vriezer of de weckpot in.</p>
+      <p><b>Herfst.</b> Prei, kool, pastinaak en peen blijven zo lang mogelijk op het veld staan. Half november staat er nog ± <span data-k="veldKg"></span> kg. Aardappels, pompoen, uien, appels en peren gaan de koelcellen in.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Winter en voorjaar.</b> We eten de voorraad op. In april en mei is bijna alles op.</p>
+      <p class="warnbox"><b>Hongergat.</b> Van <span data-k="tekortVan"></span> tot <span data-k="tekortTot"></span> is de voorraad op en de nieuwe oogst nog niet klaar. We komen dan ± <span data-k="tekortKg"></span> kg tekort. Oplossing: meer invriezen in de zomer, of vroege gewassen zoals spinazie, radijs en tuinbonen.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-verw">
+  <h2 id="h-verw">Wanneer is het druk?</h2>
+  <div class="panel" style="display:grid;gap:6px"><h3>Wat gaat er per week de opslag in?</h3><p class="note">kg per week.</p><div id="inChart"></div></div>
+  <p class="read">Van juli tot en met oktober gaat er elke week veel de vriezer, de weckpot en de koelcel in. Eind november halen we in één keer de laatste peen, kool en knolselderij van het veld, voordat het gaat vriezen. Prei, boerenkool en spruitkool blijven langer staan en gaan in de winter de vriezer in. Dan is het werk in de gedeelde keuken. De vriescel krijgt dan ook het meeste werk: vers eten moet snel bevriezen.</p>
+</section>
+
+<section aria-labelledby="h-cel">
+  <h2 id="h-cel">Hoe groot worden de cellen?</h2>
+  <div class="scroll"><table><thead><tr><th>Cel</th><th>Voor</th><th class="num">Meeste voorraad</th><th>Binnenmaat (b × d × h)</th><th class="num">Isolatie</th><th class="num">Stroom per jaar</th></tr></thead><tbody>
+    <tr><td>Koelcel 2 °C</td><td>peen, kool, biet, knolselderij, appel, peer</td><td class="num"><span data-k="k2Kg"></span> kg (<span data-k="k2Week"></span>)</td><td><span data-k="k2Maat"></span></td><td class="num"><span data-k="dk2"></span> cm</td><td class="num"><span data-k="k2KWh"></span> kWh</td></tr>
+    <tr><td>Koelcel 10 °C</td><td>aardappel, pompoen, ui</td><td class="num"><span data-k="k8Kg"></span> kg (<span data-k="k8Week"></span>)</td><td><span data-k="k8Maat"></span></td><td class="num"><span data-k="dk8"></span> cm</td><td class="num"><span data-k="k8KWh"></span> kWh</td></tr>
+    <tr><td>Vriescel −20 °C</td><td>bonen, erwten, kool, spinazie, bessen, aardbeien</td><td class="num"><span data-k="vKg"></span> kg (<span data-k="vWeek"></span>)</td><td><span data-k="vMaat"></span></td><td class="num"><span data-k="dv"></span> cm</td><td class="num"><span data-k="vKWh"></span> kWh</td></tr>
+  </tbody></table></div>
+  <p class="read">De cellen zijn kleiner dan je misschien denkt. Er moeten wel stellingen in en een looppad, en de lucht moet kunnen stromen. Daarom is maar ± 40 % van de ruimte echt voor kratten en zakken. De kleinste cel maken we niet smaller dan 1,2 meter, anders kun je er niet in.</p>
+  <p class="read">We zetten de koelcel van de tweede soort op ± 10 °C in plaats van 8 °C: pompoen wordt onder 10 °C slecht, en aardappels blijven tot 10 °C goed. Appels en peren geven een gas af (ethyleen) waardoor peen bitter wordt en kool geel. In de koelcel van 2 °C komt daarom een scheidingswand of een luchtfilter.</p>
+  <p class="read">In de zomer zijn de koelcellen leeg. Dan zetten we ze uit en laten de deur open, zodat ze droog blijven.</p>
+</section>
+
+<section aria-labelledby="h-slim">
+  <h2 id="h-slim">Koelen als de zon schijnt</h2>
+  <div class="cols">
+    <p class="read">De cellen hoeven niet de hele dag te koelen. De vriescel mag tussen <span data-k="bandV"></span> °C schommelen, de koelcel tussen <span data-k="bandK2"></span> °C. Als er stroom over is, koelt de machine flink door. Daarna rust hij. De bevroren voorraad houdt de kou vast: in de winter kan de vriescel ± <span data-k="rustV"></span> uur zonder stroom.</p>
+    <p class="read">Zo draait ± <b><span data-k="celPct"></span> %</b> van de koelstroom op overschot van zon en wind. Met extra koudeplaten in de cellen (zoals koelelementen, maar groter) wordt dat <span data-k="celPctPcm"></span> %. De koelcel van 10 °C koelt in de winter gewoon met koude buitenlucht.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-thuis">
+  <h2 id="h-thuis">Thuis: de grijpvoorraad</h2>
+  <p class="read">Eén keer per week haal je je groente en fruit uit het buurthuis. Voor een gemiddeld huishouden is dat ± <span data-k="thuisKg"></span> kg: ± <span data-k="thuisKoelL"></span> liter in de koelkast en <span data-k="thuisVriesL"></span> liter in de vriezer. Een manshoge koelkast (± <span data-k="manKoelL"></span> liter) en vriezer (± <span data-k="manVriesL"></span> liter) hebben daar ruim plek voor, naast je andere boodschappen. Een kleinere vriezer kan ook, en die gebruikt minder stroom.</p>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mM">Monden: <output id="mMO"></output></label><input type="range" id="mM" min="10" max="100" step="5"></div>
+      <div class="ctl"><label for="mA">Akker: <output id="mAO"></output> m²</label><input type="range" id="mA" min="1000" max="10000" step="500"></div>
+      <div class="ctl"><fieldset><legend>Isolatie (vries / koel 2° / koel 10°)</legend><div class="seg" id="sD"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Extra koudeplaten</legend><div class="seg" id="sP"></div></fieldset></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rK2"></b><span>koelcel 2 °C</span></div>
+      <div><b id="rK8"></b><span>koelcel 10 °C</span></div>
+      <div><b id="rV"></b><span>vriescel</span></div>
+      <div><b id="rKWh"></b><span>stroom cellen per jaar</span></div>
+      <div><b id="rRust"></b><span>vriescel kan rusten (winter)</span></div>
+      <div><b id="rTek"></b><span>tekort in het hongergat</span></div>
+    </div>
+    <p class="note">Maat = binnenmaat breedte × diepte × hoogte; tussen haakjes de meeste voorraad in kg.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Centrale koelcellen (2 °C en 10 °C) en vriescel in het buurthuis</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Manshoge koelkast en vriezer per woning, 1 week grijpvoorraad</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Cellen zelf bouwen, extreem isoleren, koelmachine kopen</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Verdeling van de oogst over gewassen</td><td><span class="pill s-aanname">aanname</span></td></tr>
+    <tr><td>Koelmachine (type, koudemiddel), offerte</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p><a href="opslag-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="opslag-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen } = HZ, VR = D.voedsel.voorraad, $ = id => document.getElementById(id), K = OG.KLEUR;
+  OG.bind(); renderBronnen($("bronnen"), [31, 34, 35, 56, 57, 58]);
+  const o = OG.std(), R = o.s.R;
+  OG.stapel($("vrChart"), [["veld", "Op het veld"], ["k2", "Koelcel 2 °C"], ["k8", "Koelcel 10 °C"], ["v", "Vriescel"], ["b", "Kast"]].map(([c, n]) => ({ naam: n, waarden: R.voorraad[c], kleur: K[c] })));
+  OG.stapel($("inChart"), [["k2", "Koelcel 2 °C"], ["k8", "Koelcel 10 °C"], ["v", "Vriescel"], ["b", "Kast"]].map(([c, n]) => ({ naam: n, waarden: R.verwerk[c], kleur: K[c] })), { height: 200, unit: "kg/week" });
+  const DIK = { std: VR.dikte, pas: { k2: 0.15, k8: 0.15, v: 0.20 }, dik: { k2: 0.45, k8: 0.30, v: 0.60 } };
+  const segr = (el, naam, opties, std) => $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join("");
+  segr("sD", "d", [["pas", "20 / 15 / 15 cm"], ["std", `${VR.dikte.v * 100} / ${VR.dikte.k2 * 100} / ${VR.dikte.k8 * 100} cm`], ["dik", "60 / 45 / 30 cm"]], "std");
+  segr("sP", "p", [["0", "Nee"], ["1", "Ja"]], "0");
+  $("mM").value = D.voedsel.monden; $("mA").value = D.akker.maxM2;
+  const val = n => (document.querySelector(`input[name=${n}]:checked`) || {}).value;
+  function run() {
+    const opt = { monden: +$("mM").value, akkerM2: +$("mA").value, dikte: DIK[val("d")], pcm: val("p") === "1" ? VR.pcmOptie : VR.pcmKWh };
+    $("mMO").value = opt.monden; $("mAO").value = nl(opt.akkerM2);
+    const r = HV.ontwerp(opt), f = c => `${nl(r.cel[c].maat.b, 1)} × ${nl(r.cel[c].maat.d, 1)} × ${nl(r.cel[c].maat.h, 1)} m (${nl(Math.round(r.s.piek[c].kg / 10) * 10)})`;
+    $("rK2").textContent = f("k2"); $("rK8").textContent = f("k8"); $("rV").textContent = f("v");
+    $("rKWh").textContent = nl(Math.round(r.kWh / 10) * 10) + " kWh";
+    const w = r.cel.v.weken.slice(0, 9).filter(x => x.rustUur != null).map(x => x.rustUur);
+    $("rRust").textContent = w.length ? nl(w.reduce((a, b) => a + b, 0) / w.length) + " uur" : "–";
+    $("rTek").textContent = nl(Math.round(r.s.tekortJr / 10) * 10) + " kg";
+  }
+  document.querySelectorAll("input").forEach(i => i.addEventListener(i.type === "range" ? "input" : "change", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

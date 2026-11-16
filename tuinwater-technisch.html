@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zwemvijver en tuinwater – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Dagbalans van een natuurlijke zwemvijver (regen en dakwater) en een tuinvijver (groendak- en straatwater) voor tuin- en akkerberegening in Hanzedorp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.heat td.num{min-width:4.2em}
+.lv0{background:color-mix(in srgb, var(--warn) 28%, transparent)}
+.lv1{background:color-mix(in srgb, var(--warn) 12%, transparent)}
+.lv2{background:color-mix(in srgb, var(--rain) 18%, transparent)}
+.lv3{background:color-mix(in srgb, var(--water) 22%, transparent)}
+.lv4{background:color-mix(in srgb, var(--water) 38%, transparent)}
+.base{outline:2px solid var(--fg);outline-offset:-2px}
+</style>
+</head>
+<body>
+<div class="wrap paper">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Water</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Natuurlijke zwemvijver en tuinvijver in Hanzedorp: peilverloop en beregeningsdekking volgens een dagbalans over 31 jaar (KNMI Heino)</h1>
+  <dl class="meta">
+    <dt>Auteur</dt><dd data-k="auteur"></dd>
+    <dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+    <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd>
+  </dl>
+</header>
+
+<section class="abstract" aria-labelledby="h-abs">
+  <h2 id="h-abs" style="font-size:1.2rem">Samenvatting</h2>
+  <p>Conform de ontwerpmethode van Pagan Butler wordt de zwemvijver van Hanzedorp uitsluitend gevoed met directe neerslag en hemelwater van harde daken; afstromend water van verharding, bodem en groendaken wordt uitgesloten vanwege de fosfaatvracht<sup class="ref"><a href="#bron-22">[22]</a></sup>. Groendakwater (<span data-k="groenM2"></span> m²) wordt naar een afzonderlijke tuinvijver geleid voor beregening van privétuinen en eventueel een akker<sup class="ref"><a href="#bron-18">[18]</a></sup><sup class="ref"><a href="#bron-29">[29]</a></sup>. Sinds 26-10-2026 infiltreert straatwater via kratten en wadi's (zie <a href="hemelwater-technisch.html">hemelwater – technisch</a>)<sup class="ref"><a href="#bron-52">[52]</a></sup>; de variant met straatwater is alleen ter vergelijking behouden.</p>
+  <p>Een dagbalans over 31 jaren (1994–2025, excl. 1998) met neerslag en Makkink-referentieverdamping van KNMI-station Heino<sup class="ref"><a href="#bron-19">[19]</a></sup> geeft voor een zwemvijver zonder aanvullend dakwater een gemiddelde maximale jaarlijkse peildaling van <span data-k="zGem"></span> m (P90 <span data-k="zP90"></span> m; maximum <span data-k="zMax"></span> m in <span data-k="zMaxJ"></span>); in <span data-k="zB3"></span> van 31 jaren wordt de reserve van <span data-k="zRes"></span> m uit [22] overschreden. Met 200 m² aanvullend hard dak (C = 0,8) daalt het maximum bij <span data-k="zA"></span> m² tot <span data-k="z2Max"></span> m. De uitkomst is zeer gevoelig voor de openwaterverdampingsfactor (aanname <span data-k="zFow"></span>). De tuinvijver (referentie <span data-k="tA"></span> m², <span data-k="tH"></span> m peildaling) dekt zonder straatwater gemiddeld <span data-k="tZGem"></span> % van de tuinvraag (minimum <span data-k="tZMin"></span> % in <span data-k="tZMinJ"></span>); de vervallen variant met straatwater gaf <span data-k="tMGem"></span> %.</p>
+</section>
+
+<nav aria-label="Inhoud">
+  <h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2>
+  <ol class="toc">
+    <li><a href="#s1">Inleiding en vraagstelling</a></li>
+    <li><a href="#s2">Systeemgrens</a></li>
+    <li><a href="#s3">Methode</a></li>
+    <li><a href="#s4">Invoerparameters</a></li>
+    <li><a href="#s5">Meetgegevens</a></li>
+    <li><a href="#s6">Resultaten</a></li>
+    <li><a href="#s7">Gevoeligheidsanalyse</a></li>
+    <li><a href="#s8">Validatie</a></li>
+    <li><a href="#s9">Toetsingskader</a></li>
+    <li><a href="#s10">Discussie</a></li>
+    <li><a href="#s11">Conclusies</a></li>
+    <li><a href="#s12">Openstaande gegevens</a></li>
+    <li><a href="#s13">Literatuur en bronnen</a></li>
+    <li><a href="#s14">Versiebeheer</a></li>
+  </ol>
+</nav>
+
+<section id="s1" aria-labelledby="h1">
+  <h2 class="num" id="h1">Inleiding en vraagstelling</h2>
+  <div class="read" style="display:grid;gap:12px">
+    <p>Hanzedorp scheidt hemelwater naar kwaliteit. Hemelwater van de harde dakdelen van de woningen gaat naar regenwatertanks voor toiletspoeling (zie <a href="water-technisch.html">water – technisch</a>). Versie 0.7 leidde groendak- en straatwater na voorzuivering naar één zwemvijver; in versie 0.8 is, op advies van [22] en na de literatuurverkenning in <a href="water-technisch.html#s6">water – technisch §6.10</a>, gekozen voor scheiding: een zwemvijver met uitsluitend neerslag en dakwater, en een tuinvijver voor groendak- en straatwater<sup class="ref"><a href="#bron-29">[29]</a></sup>.</p>
+    <ol style="margin:0;padding-left:1.3em;display:grid;gap:4px">
+      <li>Hoe ver daalt het peil van een zwemvijver die uitsluitend door neerslag (en eventueel dakwater) wordt gevoed, gemiddeld en in droge jaren?</li>
+      <li>Welk aanvullend dakoppervlak houdt de peildaling binnen de reserve van [22]?</li>
+      <li>Welk deel van de beregeningsvraag van privétuinen en een akker dekt de tuinvijver, met en zonder straatwater?</li>
+      <li>Welke kwaliteits- en regelgevingsrandvoorwaarden gelden?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="s2" aria-labelledby="h2">
+  <h2 class="num" id="h2">Systeemgrens</h2>
+  <div class="cols">
+    <div class="read"><h3>Binnen</h3><ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+      <li>Zwemvijver: neerslag, openwaterverdamping, aanvullend hard dakoppervlak (0–400 m²), overloop.</li>
+      <li>Tuinvijver: groendakafvoer, straatwater (optioneel), neerslag en verdamping op de vijver, beregening van <span data-k="nWoningen"></span> privétuinen (<span data-k="tuinPW"></span> m²) en een akker (0–1 ha), IBC-containers, overloop.</li>
+    </ul></div>
+    <div class="read"><h3>Buiten</h3><ul style="margin:0;padding-left:1.2em;display:grid;gap:4px">
+      <li>Lekverlies, kwel en infiltratie (vijvers als waterdicht verondersteld).</li>
+      <li>Verdamping en berging in helofytenfilter en ondergrondse berging.</li>
+      <li>Waterkwaliteit (alleen kwalitatief, §10); hygiëne zwemwater.</li>
+      <li>Overloop van de regenwatertanks naar de zwemvijver (bij de referentievraag circa 0 m³·a⁻¹; met urinoir en alleen toilet circa 26 m³·a⁻¹, zie water – technisch).</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="s3" aria-labelledby="h3">
+  <h2 class="num" id="h3">Methode</h2>
+  <div class="read" style="display:grid;gap:12px">
+    <h3>3.1 Zwemvijver</h3>
+    <p>Het peil h (m ten opzichte van het overloopniveau, h ≤ 0) wordt per dag bijgewerkt; de zwem- en plantenzone hebben hetzelfde peil. Aanvullend dakwater komt zonder buffering in de vijver.</p>
+    <div class="formula">h_t = min( 0 , h_t−1 + (P_t − f_ow·E_t)/1000 + A_d·C_d·P_t / (1000·A_p) )            [m]
+daling_jaar = − min_(t ∈ jaar) h_t</div>
+    <h3>3.2 Groendak en beregeningsvraag</h3>
+    <div class="formula">S_g,t = min( S_max , S_g,t−1 + P_t − min(S_g , E_t·S_g/S_max) ) ;  Q_g,t = overschot         [mm]
+B_t   = min( RAW , B_t−1 + P_t − k_c·E_t ) ;  I_t = max(0, −B_t) ;  B_t := max(0, B_t)   [mm]
+V_tuin,t = N·A_tuin·f·I_t/1000 ;  V_akker,t = A_akker·I_t/1000                           [m³]</div>
+    <h3>3.3 Tuinvijver</h3>
+    <div class="formula">W_t = W_t−1 + [A_g·Q_g,t + A_v·C_v·P_t·s + A_p·(P_t − f_ow·E_t)]/1000 ;  W := max(0, W)
+L_tuin = min(V_tuin, W) ; W −= L_tuin ; L_akker = min(V_akker, W) ; W −= L_akker
+O_t = max(0, W − W_max) ;  W_max = A_p·h + N·n_IBC·1,0 ;  s ∈ {0, 1} (straatwater)       [m³]</div>
+    <p>Tijdstap 1 d; 1994-01-01 t/m 2025-12-31; statistiek over 31 jaren (1998 uitgesloten). De berekening wordt live in de browser uitgevoerd op de dagreeks in <code>hanzedorp-weer.js</code> (controlesommen per jaar) met de functies in <code>hanzedorp-model.js</code>.</p>
+  </div>
+</section>
+
+<section id="s4" aria-labelledby="h4">
+  <h2 class="num" id="h4">Invoerparameters</h2>
+  <div class="scroll"><table id="tblInvoer">
+    <caption>Tabel 1 – Invoerparameters met waarde, eenheid, status en bron.</caption>
+    <thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Eenheid</th><th>Status</th><th>Bron / toelichting</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section id="s5" aria-labelledby="h5">
+  <h2 class="num" id="h5">Meetgegevens</h2>
+  <p class="read">Etmaalwaarden neerslag (RH) en Makkink-referentieverdamping (EV24) van KNMI-station 278 Heino, opgehaald 23-10-2026<sup class="ref"><a href="#bron-19">[19]</a></sup>. RH = −1 en ontbrekende RH = 0 mm; ontbrekende EV24 (1998) = gemiddelde van dezelfde kalenderdag. De reeks is niet gehomogeniseerd<sup class="ref"><a href="#bron-11">[11]</a></sup>. De jaarsom EV24 ligt vanaf 2018 merkbaar hoger (gemiddeld circa 640 mm in 2018–2025 tegenover circa 575 mm in 1994–2017), wat de peildaling in recente jaren vergroot (Figuur 1).</p>
+</section>
+
+<section id="s6" aria-labelledby="h6">
+  <h2 class="num" id="h6">Resultaten</h2>
+  <h3>6.1 Zwemvijver: maximale jaarlijkse peildaling</h3>
+  <div class="scroll"><table class="heat" id="tblZ">
+    <caption>Tabel 2 – Gemiddelde maximale jaarlijkse peildaling (m) met tussen haakjes het maximum over 31 jaar, naar vijveroppervlak (rijen) en aanvullend hard dakoppervlak (kolommen); f_ow = 1,25. Omkaderd: referentie.</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+  <p class="read">Zonder aanvullend dakwater is de peildaling onafhankelijk van het vijveroppervlak, omdat aan- en afvoer beide evenredig zijn met A<sub>p</sub>. Aanvullend dakwater werkt naar verhouding A<sub>d</sub>/A<sub>p</sub>; een dakoppervlak van circa twee derde van het vijveroppervlak houdt de maximale daling bij 300 m² onder 0,4 m.</p>
+  <div class="panel" style="display:grid;gap:6px"><div id="zJaar"></div><p class="note">Figuur 1 – Maximale peildaling per jaar (m), zwemvijver zonder aanvullend dakwater, f_ow = 1,25; lijn: jaarsom EV24 (mm) [19].</p></div>
+
+  <h3>6.2 Tuinvijver: dekking van de tuinvraag</h3>
+  <div class="scroll"><table class="heat" id="tblT">
+    <caption>Tabel 3 – Gemiddelde jaardekking van de tuinvraag (%) met tussen haakjes het minimum, f = 0,5, 2 IBC per woning, zonder akker; links zonder, rechts met straatwater.</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+
+  <h3>6.3 Akker</h3>
+  <div class="scroll"><table id="tblAk">
+    <caption>Tabel 4 – Gemiddelde dekking tuinen / akker (%) en minimum akker, tuinvijver 1.000 m² zonder straatwater, f = 0,5, 2 IBC per woning.</caption>
+    <thead></thead><tbody></tbody>
+  </table></div>
+
+  <h3>6.4 Jaarbalans tuinvijver (referentie)</h3>
+  <div class="scroll"><table id="tblBal">
+    <caption>Tabel 5 – Gemiddelde jaarbalans tuinvijver, referentie (<span data-k="tA"></span> m², <span data-k="tH"></span> m, f = 0,5, zonder straatwater), m³·a⁻¹.</caption>
+    <thead><tr><th>Post</th><th class="num">m³·a⁻¹</th></tr></thead><tbody></tbody>
+  </table></div>
+</section>
+
+<section id="s7" aria-labelledby="h7">
+  <h2 class="num" id="h7">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblGev">
+    <caption>Tabel 6 – Zwemvijver 300 m² zonder aanvullend dakwater: peildaling (m) bij variatie van de openwaterfactor f_ow.</caption>
+    <thead><tr><th>f_ow</th><th class="num">Gem.</th><th class="num">P90</th><th class="num">Max.</th><th class="num">Jaren &gt; 0,3 m</th></tr></thead><tbody></tbody>
+  </table></div>
+  <p class="read">De zwemvijverbalans is uiterst gevoelig voor f<sub>ow</sub>: de jaarlijkse neerslag (779 mm) en de openwaterverdamping (f<sub>ow</sub> · 593 mm) zijn van dezelfde orde. Bij f<sub>ow</sub> groter dan circa 1,31 (779 / 593) is de jaarbalans negatief en loopt de vijver zonder aanvulling structureel leeg. Een onderbouwde waarde voor een kleine, gedeeltelijk begroeide vijver is daarom de belangrijkste openstaande gegevensbehoefte. De tuinvijver is met straatwater weinig gevoelig voor f<sub>ow</sub>, omdat de aanvoer de vraag ruim overtreft.</p>
+</section>
+
+<section id="s8" aria-labelledby="h8">
+  <h2 class="num" id="h8">Validatie</h2>
+  <div class="read" style="display:grid;gap:10px">
+    <p><b>Openwaterverdamping.</b> De hoogste EV24 in de reeks is 5,7 mm·d⁻¹; met f<sub>ow</sub> = 1,25 geeft dat circa 7,1 mm·d⁻¹, consistent met de door het KNMI genoemde peildaling van vijvers tot circa 7 mm·d⁻¹ op warme dagen<sup class="ref"><a href="#bron-21">[21]</a></sup>. Het jaargemiddelde is hiermee niet gevalideerd. Metingen aan het IJsselmeer laten zien dat de Makkink-formule de dynamiek van openwaterverdamping niet goed beschrijft (Jansen e.a., 2022, HESS 26: 2875–2898); voor kleine vijvers is geen bruikbare Nederlandse referentie gevonden. Dit is in de controleursfase uit te zoeken.</p>
+    <p><b>Ontwerpmethode.</b> Pagan Butler handhaaft met 0,3 m reserve een zwemdiepte van 2 m door uitsluitend dakwater toe te voeren, in het Britse klimaat<sup class="ref"><a href="#bron-22">[22]</a></sup>. De berekende daling zonder dakwater (gem. <span data-k="zGem"></span> m) is in lijn met de noodzaak van dakwater die uit [22] volgt.</p>
+    <p><b>Groendak.</b> De substraatberging S<sub>max</sub> = <span data-k="smax"></span> mm is gekalibreerd op circa 50 % jaarretentie<sup class="ref"><a href="#bron-13">[13]</a></sup>; dit is geen onafhankelijke validatie.</p>
+    <p><b>Zuivering straatwater.</b> De mediane fosforverwijdering van stormwater-wetlands (49 % totaal, 35 % opgelost<sup class="ref"><a href="#bron-26">[26]</a></sup>) bevestigt dat een helofytenfilter afstromend water niet op het fosfaatniveau van regenwater brengt; scheiding van zwem- en tuinvijver is daarmee onderbouwd.</p>
+  </div>
+</section>
+
+<section id="s9" aria-labelledby="h9">
+  <h2 class="num" id="h9">Toetsingskader</h2>
+  <div class="scroll"><table>
+    <caption>Tabel 7 – Relevante kaders en voorlopige beoordeling.</caption>
+    <thead><tr><th>Kader</th><th>Inhoud</th><th>Beoordeling</th></tr></thead>
+    <tbody>
+      <tr><td>Bal § 15.2.2 Zwemvijvers <sup class="ref"><a href="#bron-23">[23]</a></sup><sup class="ref"><a href="#bron-24">[24]</a></sup></td><td>Helofytenfilter, regelmatige waterkwaliteitscontrole; uitzondering voor zwemmen bij een huishouden.</td><td>Waarschijnlijk van toepassing bij gedeeld gebruik door 12 huishoudens; juridisch na te gaan.</td></tr>
+      <tr><td>Ontwerpmethode organic pool <sup class="ref"><a href="#bron-22">[22]</a></sup></td><td>Plantenzone ≥ 50 %; ≥ 120 m²; alleen regen- en dakwater.</td><td>Gevolgd (v0.8).</td></tr>
+      <tr><td>WDOD bergingsrichtlijn <sup class="ref"><a href="#bron-15">[15]</a></sup></td><td><span data-k="wsBerging"></span> mm per m² toename verharding.</td><td>Tuinvijver kan bijdragen met vrije waking (<span data-k="bergCmMin"></span>–<span data-k="bergCm"></span> cm bij <span data-k="tA"></span> m²); afstemmen.</td></tr>
+      <tr><td>Infiltratie afstromend wegwater <sup class="ref"><a href="#bron-25">[25]</a></sup></td><td>Woonwijkwegen laagste categorie; bodem ≥ 1 % humus en lutum; ophoping metalen.</td><td>Monitoring van bodem rond inlaten en akker aanbevolen.</td></tr>
+      <tr><td>APV gemeente (autowassen) <sup class="ref"><a href="#bron-28">[28]</a></sup></td><td>Gemeentelijk verbod mogelijk.</td><td>Eigen afspraak Hanzedorp aanbevolen.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s10" aria-labelledby="h10">
+  <h2 class="num" id="h10">Discussie</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Herkomst dakwater zwemvijver.</b> Kandidaten zijn het buurthuisdak, overkappingen of een deel van de harde woningdaken. Dat laatste concurreert met toiletspoeling, waarvan de dekking al begrensd is; met een urinoir in elke woning ontstaat ruimte (zie water – technisch §6.9).</li>
+    <li><b>Peildaling en zones.</b> Een daling van 0,5 m of meer treft de ondiepe plantenzone en stranden; het ontwerp van de regeneratiezone moet daarop worden afgestemd.</li>
+    <li><b>Voedselteelt met straatwater.</b> Lood in bladgewassen en peulvruchten kan de voedselnorm overschrijden<sup class="ref"><a href="#bron-27">[27]</a></sup>; gewaskeuze, bodembeheer en monitoring zijn voorwaarden.</li>
+    <li><b>Klimaat.</b> De hogere EV24 sinds 2018 wijst op een toenemende verdampingsvraag; een ontwerp op het gemiddelde van 1994–2025 kan voor de komende decennia optimistisch zijn.</li>
+  </ul>
+</section>
+
+<section id="s11" aria-labelledby="h11">
+  <h2 class="num" id="h11">Conclusies</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Een zwemvijver die uitsluitend door neerslag wordt gevoed, daalt bij f<sub>ow</sub> = 1,25 in ongeveer de helft van de jaren meer dan de reserve van 0,3 m; aanvullend dakwater is nodig, conform [22].</li>
+    <li>Circa 200 m² hard dak bij een vijver van 300 m² beperkt de maximale daling tot circa <span data-k="z2Max"></span> m.</li>
+    <li><b>Besluit 27-10-2026<sup class="ref"><a href="#bron-82">[82]</a></sup>:</b> dakwater van carport (± <span data-k="zDakC"></span> m²) en buurthuis (± <span data-k="zDakB"></span> m², N), vijver <span data-k="zA"></span> m², zwemzone ± <span data-k="zDiep"></span> m diep. Resultaat: gemiddelde maximale daling <span data-k="zSGem"></span> m, P90 <span data-k="zSP90"></span> m, maximum <span data-k="zSMax"></span> m (<span data-k="zSMaxJ"></span>); in <span data-k="zSB3"></span> van 31 jaar meer dan 0,3 m. Alleen carportdak: maximum <span data-k="zCMax"></span> m. De peildaling (m) is onafhankelijk van de diepte; een kleiner oppervlak verlaagt de verdamping in m³ en vergroot de dakinvoer per m² vijver. Aandachtspunten 3 m: verdronkenrisico (zichtbare zonering, ondiepe instap), ontgraving t.o.v. GHG (opdrijven folie, bemaling), thermische stratificatie en zuurstofloosheid onderin (circulatie), steile wanden (gabions/houten damwand), Bal § 15.2.2.</li>
+    <li>De tuinvijver, gevoed met groendakwater, dekt gemiddeld <span data-k="tZGem"></span> % van de tuinvraag; straatwater (vervallen) zou dit verhogen tot <span data-k="tMGem"></span> %.</li>
+    <li>Een akker vraagt circa <span data-k="aVraag"></span> m³·a⁻¹ per 0,25 ha en vergt een grotere tuinvijver.</li>
+    <li>De openwaterverdampingsfactor bepaalt de uitkomst voor de zwemvijver; onderbouwing is noodzakelijk.</li>
+  </ol>
+</section>
+
+<section id="s12" aria-labelledby="h12">
+  <h2 class="num" id="h12">Openstaande gegevens</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Herkomst en oppervlak van aanvullend dakwater voor de zwemvijver.</li>
+    <li>Openwaterverdampingsfactor voor een kleine, begroeide vijver (literatuur; controleursfase).</li>
+    <li>Oppervlak en diepte van zwem- en tuinvijver; diepte plantenzone.</li>
+    <li>Dimensionering helofytenfilter; monitoringsplan water en bodem; gewaskeuze akker.</li>
+    <li>Grootte akker; vraag volgens de tuinder.</li>
+    <li>Juridische toets Bal § 15.2.2; afstemming WDOD over berging.</li>
+  </ol>
+</section>
+
+<section id="s13" aria-labelledby="h13">
+  <h2 class="num" id="h13">Literatuur en bronnen</h2>
+  <ol class="src" id="bronnen"></ol>
+  <p class="note read">Aanvullend geraadpleegd: Jansen, F.A., e.a. (2022). Evaporation from a large lowland reservoir – observed dynamics and drivers during a warm summer. Hydrology and Earth System Sciences 26: 2875–2898. https://hess.copernicus.org/articles/26/2875/2022/</p>
+</section>
+
+<section id="s14" aria-labelledby="h14">
+  <h2 class="num" id="h14">Versiebeheer</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead>
+    <tbody>
+      <tr><td>0.10</td><td>26-10-2026</td><td>Besluit: straatwater niet meer naar de tuinvijver maar via kratten en wadi's de bodem in [52]; standaardvariant zonder straatwater; tabellen en conclusies aangepast.</td><td>Melvin de Vries (besluit); berekening met Claude</td></tr>
+      <tr><td>0.8</td><td>24-10-2026</td><td>Scheiding zwemvijver (alleen neerslag en dakwater, conform [22]) en tuinvijver (groendak- en straatwater na helofytenfilter); akker; live dagbalans op hanzedorp-weer.js; literatuurverkenning straatwater; gevoeligheid openwaterfactor.</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr>
+      <tr><td>0.7</td><td>23-10-2026</td><td>Eerste versie: één zwemvijver gevoed met groendak- en straatwater na voorzuivering; raster 189 varianten.</td><td>Melvin de Vries; berekening met Claude</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span>
+  <span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span>
+</footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="tuinwater-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen, bars } = HZ, { OPT, STD } = TW, W = HM.W, Z = D.zwemvijver, T = D.tuinvijver;
+  TW.bind();
+  renderBronnen(document.getElementById("bronnen"), [9, 11, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 52, 82]);
+  const st = s => s.split("/").map(x => `<span class="st st-${x.trim()}">${x.trim()}</span>`).join(" ");
+  const ref = (...ids) => ids.map(i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`).join("");
+  const row = c => "<tr>" + c.map((x, i) => `<td${i === 1 ? ' class="num"' : ""}>${x}</td>`).join("") + "</tr>";
+
+  document.querySelector("#tblInvoer tbody").innerHTML = [
+    ["Openwaterfactor f_ow (zwem- en tuinvijver)", nl(Z.fOpenWater, 2), "–", "N", "niet onderbouwd; §7, §8 " + ref(21)],
+    ["Reserve peildaling zwemvijver (boek / keuze)", nl(Z.reserveBoek, 1) + " / " + nl(Z.reserveKeuze, 1), "m", "G", ref(22) + "; " + ref(18)],
+    ["Minimaal vijveroppervlak; plantenzone", nl(Z.minM2) + "; ≥ 50 %", "m²; –", "G", ref(22)],
+    ["Aanvullend hard dak A_d; C_d", "0–400; " + nl(D.dak.cHard, 1), "m²; –", "N", "keuzevariabele"],
+    ["Groendakoppervlak A_g", nl(T.groendakM2, 1), "m²", "N", "50 % van 975 m² " + ref(9)],
+    ["Substraatberging S_max", nl(T.smax), "mm", "A", "kalibratie 50 % retentie " + ref(13)],
+    ["Verhard oppervlak A_v; C_v", nl(D.verhard.perWoningM2 * HM.nW) + "; " + nl(D.verhard.cStraat, 1), "m²; –", "S; N", ref(9)],
+    ["Tuin per woning; beregend aandeel f", nl(T.tuinPerWoning) + "; 0,25–1,0", "m²; –", "S; N", ref(18)],
+    ["RAW; k_c", nl(T.raw) + "; " + nl(T.kc, 1), "mm; –", "N", ref(20)],
+    ["IBC-containers", nl(T.ibcM3, 1) + " m³ per stuk; 0–4 per woning", "–", "N", ref(18)],
+    ["Akker", "0–1", "ha", "N", ref(29)],
+    ["Neerslag P, verdamping E", "dagreeks", "mm·d⁻¹", "G", ref(19)]
+  ].map(r => row([r[0], r[1], r[2], st(r[3]), r[4]])).join("");
+
+  /* Tabel 2 */
+  const daken = [0, 100, 200, 300, 400];
+  const lvZ = v => v <= 0.2 ? "lv4" : v <= 0.3 ? "lv3" : v <= 0.4 ? "lv2" : v <= 0.6 ? "lv1" : "lv0";
+  document.querySelector("#tblZ thead").innerHTML = "<tr><th>A_p (m²)</th>" + daken.map(d => `<th class="num">A_d = ${d} m²</th>`).join("") + "</tr>";
+  document.querySelector("#tblZ tbody").innerHTML = [120, 200, 300, 500, 750].map(a => "<tr><td>" + nl(a) + "</td>" + daken.map(d => {
+    const z = TW.zwem({ zwemA: a, dak: d }); return `<td class="num ${lvZ(z.gem)}${a === STD.zwemA && d === 0 ? " base" : ""}">${nl(z.gem, 2)} (${nl(z.max, 2)})</td>`; }).join("") + "</tr>").join("");
+  const z0 = TW.zwem(STD);
+  const evJ = W.jaren.map(y => { let s = 0; for (let i = 0; i < W.n; i++) if (W.Y[i] === y) s += W.E[i]; return s; });
+  bars(document.getElementById("zJaar"), { labels: W.jaren.map(String), labelEvery: 3, unit: "m", height: 240,
+    series: [{ name: "peildaling", unit: "m", dec: 2, values: z0.daling, colorFn: v => v <= 0.3 ? "var(--water)" : v <= 0.5 ? "var(--rain)" : "var(--warn)" }],
+    line: { values: evJ, color: "var(--clay)", max: 800 }, lineUnit: "mm EV24" });
+
+  /* Tabel 3 */
+  const lvT = v => v >= 99 ? "lv4" : v >= 95 ? "lv3" : v >= 85 ? "lv2" : v >= 70 ? "lv1" : "lv0";
+  document.querySelector("#tblT thead").innerHTML = "<tr><th>A_p (m²)</th>" + [false, true].flatMap(s => OPT.tuinH.map(h => `<th class="num">${s ? "met" : "zonder"} straat, h = ${nl(h, 1)} m</th>`)).join("") + "</tr>";
+  document.querySelector("#tblT tbody").innerHTML = [200, 300, 500, 750, 1000].map(a => "<tr><td>" + nl(a) + "</td>" + [false, true].flatMap(s => OPT.tuinH.map(h => {
+    const t = TW.tuin(Object.assign({}, STD, { tuinA: a, tuinH: h, straat: s })); return `<td class="num ${lvT(t.tuin.gem)}${a === STD.tuinA && h === STD.tuinH && s === STD.straat ? " base" : ""}">${nl(t.tuin.gem, 1)} (${nl(t.tuin.min)})</td>`; })).join("") + "</tr>").join("");
+
+  /* Tabel 4 */
+  document.querySelector("#tblAk thead").innerHTML = "<tr><th>Akker (ha)</th>" + OPT.tuinH.map(h => `<th class="num">h = ${nl(h, 1)} m</th>`).join("") + "<th class=\"num\">Vraag akker (m³·a⁻¹)</th></tr>";
+  document.querySelector("#tblAk tbody").innerHTML = OPT.akker.filter(a => a > 0).map(a => { let vr = 0;
+    const cells = OPT.tuinH.map(h => { const t = TW.tuin(Object.assign({}, STD, { tuinA: 1000, tuinH: h, akker: a })); vr = t.vraagAkker; return `<td class="num">${nl(t.tuin.gem)} / ${nl(t.akker.gem)} (min ${nl(t.akker.min)})</td>`; }).join("");
+    return `<tr><td>${nl(a, 2)}</td>${cells}<td class="num">${nl(vr)}</td></tr>`; }).join("");
+
+  /* Tabel 5 */
+  const t0 = TW.t0;
+  document.querySelector("#tblBal tbody").innerHTML = [["Groendakafvoer", t0.groendak], ["Neerslag op vijver", t0.regen], ["Verdamping vijver", -t0.verdamping],
+    ["Beregening tuinen (vraag)", -t0.vraagTuin], ["Overloop", -t0.overloop]].map(r => `<tr><td>${r[0]}</td><td class="num">${nl(r[1])}</td></tr>`).join("");
+
+  /* Tabel 6 */
+  const fo0 = Z.fOpenWater;
+  document.querySelector("#tblGev tbody").innerHTML = [1.0, 1.1, 1.2, 1.25, 1.3].map(f => { Z.fOpenWater = f; const z = TW.zwem({ zwemA: 300, dak: 0 }); Z.fOpenWater = fo0;
+    return `<tr${f === fo0 ? ' style="font-weight:600"' : ""}><td>${nl(f, 2)}</td><td class="num">${nl(z.gem, 2)}</td><td class="num">${nl(z.p90, 2)}</td><td class="num">${nl(z.max, 2)}</td><td class="num">${z.jarenBoven3}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

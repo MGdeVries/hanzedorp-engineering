@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start – Hanzedorp Engineering</title>
+<meta name="description" content="Inleiding op de engineering van Hanzedorp: hoe dit document is opgebouwd, hoe de werkpagina's werken en hoe zij leiden tot de conclusie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:st}
+.flow>div{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start;counter-increment:st}
+.flow>div::before{content:counter(st);font-family:var(--mono);color:var(--water);font-size:.85rem}
+.thema{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.thema a.k{display:grid;gap:4px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--fg)}
+.thema a.k:hover{border-color:var(--water)}
+.thema a.k b{font-family:var(--display);font-size:1.05rem}
+.thema a.k span{color:var(--muted);font-size:.92rem}
+.marks{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hanzedorp Engineering</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Hoe wij Hanzedorp ontwerpen</h1>
+  <p class="lead read">Hanzedorp wordt een klein dorp van 12 passiefhuizen met gedeelde voorzieningen: een buurthuis, een buurtaccu, een laadplein, koelcellen, een zwemvijver en een akker met een professioneel geleide tuinderij. De engineering van het dorp gebeurt in dit document. Hier rekenen we uit wat werkt, wat het kost en wat het betekent voor de bewoners en de natuur.</p>
+</header>
+
+<section aria-labelledby="h-project">
+  <h2 id="h-project">Dit project</h2>
+  <div class="panel read" id="pInfo"></div>
+</section>
+
+<section aria-labelledby="h-doel">
+  <h2 id="h-doel">Waarom dit document?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:10px">
+      <p>Elke keuze in Hanzedorp moet uit te leggen zijn: aan toekomstige bewoners, aan de gemeente, het waterschap en de netbeheerder, en aan deskundigen die ons werk controleren. Daarom schrijven we niet alleen op <i>wat</i> we kiezen, maar ook <i>waarom</i>, met cijfers en bronnen.</p>
+      <p>Zo'n onderbouwing verandert steeds. Een nieuwe offerte, een meting of een besluit van de groep kan een uitkomst omgooien. Daarom is dit geen vast rapport, maar een rekenend document: de cijfers komen uit één gezamenlijke databron en rekenmodellen, en iedereen kan zelf aan de knoppen draaien.</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:8px">
+      <h3>Voor wie?</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>Toekomstige bewoners</b>: lees de basispagina's. Wat betekent het voor mij?</li>
+        <li><b>Gemeente, waterschap, netbeheerder</b>: basispagina voor het begrip, technische pagina voor de toetsing.</li>
+        <li><b>Deskundigen</b>: de technische pagina's met methode, invoer, risico's en het compliance-register.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-opbouw">
+  <h2 id="h-opbouw">Hoe het document werkt</h2>
+  <div class="flow">
+    <div><h3>Start</h3><p>Deze pagina: het doel, de opbouw en de afspraken over cijfers en bronnen.</p></div>
+    <div><h3>Werkpagina's</h3><p>Per thema een basispagina en een technische pagina. Op de werkpagina's stel je zelf waarden in, zoals het aantal woningen, de grootte van de accu of de regentank. De uitkomsten rekenen direct mee.</p></div>
+    <div><h3>Inventarisatie</h3><p>Per woning vullen de bewoners in wie er wonen, wanneer ze thuis zijn en welke auto ze rijden. Werkpagina's kunnen daarmee rekenen in plaats van met aannames.</p></div>
+    <div><h3>Conclusie &amp; rapport</h3><p>De laatste pagina verzamelt de besluiten, de instellingen en de uitkomsten van alle werkpagina's tot één samenvatting, die je kunt afdrukken of als pdf bewaren.</p></div>
+  </div>
+  <p class="read note">Instellingen die je op een werkpagina verandert, onthoudt je browser. Ze gaan mee naar het rapport. Met <b>Standaard herstellen</b> in de index zet je een pagina terug. Er gaat niets naar een server.</p>
+</section>
+
+<section aria-labelledby="h-thema">
+  <h2 id="h-thema">De werkpagina's</h2>
+  <div class="thema" id="themaGrid"></div>
+  <p class="read note">Nog niet gestart: Bouwen en woningontwerp, Afvalwater, EMS (energiemanagement) en Organisatie.</p>
+</section>
+
+<section aria-labelledby="h-afspraak">
+  <h2 id="h-afspraak">Afspraken over cijfers en bronnen</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:10px">
+      <p>Elk getal krijgt een label, zodat je ziet hoe hard het is:</p>
+      <div class="marks">
+        <span class="st st-G">G</span><span><b>gemeten</b>: uit een meting, zoals de meetdata van de referentiewoning of het KNMI.</span>
+        <span class="st st-A">A</span><span><b>afgeleid</b>: berekend uit gemeten cijfers.</span>
+        <span class="st st-N">N</span><span><b>aanname</b>: een keuze die we nog moeten bevestigen.</span>
+        <span class="st st-S">S</span><span><b>schatting</b>: een orde van grootte, bijvoorbeeld uit literatuur of een offerte.</span>
+      </div>
+      <p>De status van een onderdeel staat in een label: <span class="pill s-idee">idee</span> <span class="pill s-onderzocht">onderzocht</span> <span class="pill s-besloten">besloten</span>.</p>
+    </div>
+    <div class="read" style="display:grid;gap:10px">
+      <p>Bij elk cijfer, elke norm en elke bewering staat de bron, met de auteur of uitgever. Eigen metingen en documenten staan op naam van de auteur.</p>
+      <p>Het gebruiksgedrag (water, apparaten, auto) komt uit een jaar meetdata van een referentiewoning in Zwolle. De gebouwkant rekenen we volgens de passiefhuisnorm. Het klimaat komt van KNMI-station Heino, 1994–2025.</p>
+      <p>Elke technische pagina eindigt met risico's per onderwerp en een compliance-register: aan welke wet of norm moet het voldoen, en hoe laten we dat zien?</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-zoek">
+  <h2 id="h-zoek">Zoeken en navigeren</h2>
+  <p class="read">De index links blijft altijd in beeld. Bij de pagina waar je bent, zie je de hoofdstukken. Bovenin de index kun je zoeken in alle pagina's; druk op <kbd>/</kbd> om direct te zoeken. Op een telefoon open je de index met de knop <b>☰ Index</b>.</p>
+</section>
+
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>© Hanzedorp. Zie <a href="juridisch.html">Juridisch &amp; colofon</a>.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script>HZ.bindAll({});</script>
+<script src="hanzedorp-nav.js"></script>
+<script>
+(function () {
+  const OMS = {
+    "bewoners.html": "Wie wonen er, hoe verandert dat in de loop van het leven, hoe warm moet het zijn en hoeveel stroom gebruikt een huishouden? De basis voor alle andere thema's.",
+    "water.html": "Regenwater van de daken voor het toilet en de wasmachine. Hoe groot moet de tank zijn?",
+    "tuinwater.html": "Een zwemvijver zonder chloor en een tuinvijver met water van de groendaken.",
+    "hemelwater.html": "Regen vasthouden in kratten en wadi's, volgens de regels van het waterschap.",
+    "akker.html": "De akker: eigen grondwaterbron (waterput), druppelirrigatie en panelen tussen de rijen. Op de akker teelt de tuinderij ons voedsel.",
+    "voedsel.html": "Hoeveel groente en fruit kunnen we telen, en voor hoeveel mensen?",
+    "opslag.html": "Koelcellen en een vriescel in het buurthuis, gekoeld op zonnestroom.",
+    "energie.html": "Zonnepanelen schuin op daken, loodrecht op de akker, tegen gevels en op de carport; erfmolens en een buurtaccu. Hoe vaak hebben we het net nog nodig?",
+    "mobiliteit.html": "Een centraal laadplein met een eigen laadpaal per woning, gestuurd op zonnestroom.",
+    "netaansluiting.html": "Welke aansluiting op het stroomnet levert het meeste op, met handel op uurprijzen?",
+    "digitale-infrastructuur.html": "Eén beheerd netwerk: internet via twee lijnen, een eigen netwerk per woning, servers voor het energiesysteem en camera's.",
+    "gezondheid.html": "Drinkwater, stoffen op het land, voedsel bewaren en straling.",
+    "grond.html": "Hoeveel grond is nodig, en wat kosten grond, onderzoeken, vergunningen en bouwrijp maken?",
+    "biofilisch.html": "De natuur in huis: daglicht, uitzicht, hout en leem, planten. Wat het oplevert en wat niet.",
+    "natuur.html": "Ruimte voor vogels, vleermuizen, insecten en egels, en een koel buitenklimaat.",
+    "erfdieren.html": "Kippen voor eieren en andere nuttige dieren op het erf: hoeveel, wat is nodig, wat mag.",
+    "veiligheid.html": "Op elkaar letten, inbraak en brand voorkomen, een week zelfredzaam en altijd bereikbaar voor de hulpdiensten.",
+    "eigendom.html": "De bewoners zijn samen eigenaar van installaties en buurtgebouwen. Waarom dat ertoe doet voor de energiebelasting.",
+    "bouwen.html": "Passiefhuis als norm, ecologische materialen, geen schaduw op elkaar en per kavel een kavelpaspoort.",
+    "onderhoud.html": "Wat we samen bezitten, onderhouden we samen: wat het kost, wanneer iets vervangen moet worden en hoeveel we per maand opzij zetten.",
+    "financien.html": "Wat de gedeelde voorzieningen kosten, hoe we ze betalen en hoe we liquide en solvabel blijven."
+  };
+  { const pr = HANZEDORP_DATA.project, nl = v => Math.round(v).toLocaleString("nl-NL");
+    document.getElementById("pInfo").innerHTML = `<h3>${pr.naam}</h3><p>${pr.omschrijving || ""}</p><p>Gemeente: <b>${pr.gemeente}</b> · provincie ${pr.provincie} · klimaat KNMI ${pr.stationNaam}${pr.klimaatVoorlopig ? " (voorlopig, nog geen eigen weerdata)" : ""}.</p>` +
+      `<p>Het plan vraagt ± <b>${nl(pr.benodigdM2)} m²</b>${pr.terreinM2 ? `; het terrein is ${nl(pr.terreinM2)} m² (${pr.toets}).` : "; het terrein is nog niet bekend."} Alle pagina's rekenen met de gegevens van deze plek.</p>`; }
+  document.getElementById("themaGrid").innerHTML = HZNAV.WERK.map(([b, n, t]) =>
+    `<a class="k" href="${b}"><b>${n}</b><span>${OMS[b] || ""}</span></a>`).join("") +
+    (window.HZPROJECT && HZPROJECT.editie ? "" : `<b>Inventarisatie per woning</b><span>Invulpagina: bewoners, aanwezigheid en voertuigen per woning.</span>` + `<b>Projecten &amp; kavels</b><span>Alle projectkavels, de toets op terreingrootte en nieuwe projecten aanmaken.</span>`) +
+    `<a class="k" href="dossier.html"><b>Dossier: haalbaarheid &amp; vergunning</b><span>Alle vragen van projectontwikkelaar en gemeente, met status per fase.</span></a>` +
+    `<a class="k" href="rapport.html"><b>Conclusie &amp; rapport</b><span>Alle besluiten en uitkomsten bij elkaar, om af te drukken.</span></a>`;
+})();
+</script>
+</body>
+</html>

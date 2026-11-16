@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netaansluiting en stroomhandel – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Uursimulatie 2023–2025 van eigen opwek, buurtaccu, netaansluiting (3×25 t/m 3×80 A) en handel op EPEX day-ahead-prijzen; netwerkkosten, energiebelasting, gevoeligheid, risico's en toetsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-weight:600}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Netaansluiting</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Dimensionering van de netaansluiting van Hanzedorp: uursimulatie van eigen opwek, buurtaccu en handel op EPEX day-ahead-prijzen (2023–2025)</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>Voor PV-scenario C (± <span data-k="kWpTot"></span> kWp dak/gevel/carport + agri-PV) met twee erfmolens en een LFP-buurtaccu van <span data-k="accu"></span> kWh / <span data-k="accuKW"></span> kW is per uur gesimuleerd hoe vraag (<span data-k="vraag"></span> MWh·a⁻¹) en aanbod (<span data-k="aanbod"></span> MWh·a⁻¹) via accu en netaansluiting worden vereffend, met de werkelijke EPEX day-ahead-prijzen voor Nederland van 2023, 2024 en 2025<sup class="ref"><a href="#bron-59">[59]</a></sup> en KNMI-weer van dezelfde jaren<sup class="ref"><a href="#bron-42">[42]</a></sup>. Voor zes aansluitwaarden (3×25 t/m 3×80 A) zijn de jaarlijkse inkoop, verkoop, netwerkkosten<sup class="ref"><a href="#bron-60">[60]</a></sup>, energiebelasting en belastingvermindering<sup class="ref"><a href="#bron-61">[61]</a></sup> berekend. In geen van de varianten treedt een tekort op. Met de standaardinvoer heeft <span data-k="bestNaam"></span> het hoogste saldo (<span data-k="bestSaldo"></span>·a⁻¹); 3×80 A verkoopt <span data-k="exp80"></span> MWh·a⁻¹ meer dan 3×25 A, maar de hogere netwerkkosten wegen daar niet tegen op. Een opzet met 12 woningaansluitingen plus één collectieve aansluiting scoort <span data-k="wVerschil"></span>·a⁻¹ slechter, omdat gedeelde stroom dan over het openbare net gaat. De uitkomst is het gevoeligst voor de fiscale behandeling van levering binnen het privénet.</p>
+</section>
+
+<nav aria-label="Inhoud"><h2 style="font-size:1.1rem;margin-bottom:8px">Inhoud</h2><ol class="toc">
+  <li><a href="#s1">Inleiding en systeemgrens</a></li><li><a href="#s2">Methode</a></li><li><a href="#s3">Invoerparameters</a></li><li><a href="#s4">Prijsdata</a></li><li><a href="#s5">Resultaten</a></li><li><a href="#s5b">Winterbijkoop en accugrootte</a></li>
+  <li><a href="#s6">Gevoeligheidsanalyse</a></li><li><a href="#s7">Validatie</a></li><li><a href="#s8">Risico's</a></li><li><a href="#s9">Toetsing (compliance-register)</a></li><li><a href="#s10">Discussie</a></li><li><a href="#s11">Conclusies</a></li>
+  <li><a href="#s12">Literatuur en bronnen</a></li><li><a href="#s13">Versiebeheer</a></li></ol></nav>
+
+<section aria-labelledby="h-eb2"><h2 id="h-eb2" style="font-size:1.2rem">Energiebelasting op stroom binnen het privénet (onderzoek 27-10-2026, herzien)</h2>
+  <p class="read">Art. 50 lid 3 onderdeel a Wbm belast de levering van elektriciteit anders dan via een aansluiting<sup class="ref"><a href="#bron-84">[84]</a></sup>. Bepalend is wie de beschikkingsmacht over de elektriciteit heeft. In ECLI:NL:GHAMS:2025:1419 (13-05-2025) exploiteerde een VvE een recreatiepark met eigen opwekking, distributienet en warmtepompen; de VvE stelde stroom ter beschikking aan woningen met afzonderlijke WOZ-beschikkingen en werd als leverancier aangemerkt<sup class="ref"><a href="#bron-83">[83]</a></sup>. In ECLI:NL:GHSHE:2025:2327 (27-08-2025) waren zonne-installatie en experimentnet in mandelig eigendom van de appartementseigenaren en trad de VvE uitsluitend als beheerder op; de VvE had geen beschikkingsmacht, er was geen levering en geen EB/ODE over de zonnestroom verschuldigd, ook niet over het verbruik in gemeenschappelijke ruimten (eveneens eigendom van de eigenaren)<sup class="ref"><a href="#bron-105">[105]</a></sup>. Netstroom die de VvE doorleverde, werd wel belast.</p>
+  <p class="read">Hanzedorp volgt de structuur van de Bossche zaak: opwekking, accu en privénet in mandelig eigendom van de woningeigenaren (aandelen naar rato van inbreng), beheer door de vereniging zonder eigen beschikkingsmacht en zonder verkoop van stroom aan bewoners<sup class="ref"><a href="#bron-104">[104]</a></sup>. Modelinstelling v0.15: ‘EB intern’ standaard uit; de schakelaar toont het risico als de Belastingdienst toch levering aanneemt (± <span data-k="ebInt"></span> per jaar). Onzekerheden: cassatie in de Bossche zaak, de verhouding tot de Energiewet (energiegemeenschap, gesloten distributiesysteem) en de verdeling van ingekochte netstroom (wel belast). Fiscale en notariële toets vereist.</p>
+</section>
+<section aria-labelledby="h-focus"><h2 id="h-focus" style="font-size:1.2rem">Uitgangspunt (besluit 27-10-2026)</h2>
+  <p class="read">Het primaire ontwerpdoel is leveringszekerheid in eilandbedrijf; arbitrage met de buurtaccu is secundair. Verwacht wordt dat de spreiding van day-ahead-prijzen afneemt naarmate meer opslag en flexibel vermogen op de markt komt<sup class="ref"><a href="#bron-81">[81]</a></sup>; in de simulatie (2023–2025) levert handelen bij 3 × 25 A slechts circa € 40·a⁻¹ op. De standaardinstelling is daarom ‘handelen uit’; de besparing komt uit lage opwekkosten en eigen verbruik.</p>
+</section>
+<section id="s1"><h2 class="num">Inleiding en systeemgrens</h2>
+  <p class="read">Vraag: welke aansluitwaarde op het openbare net maximaliseert het jaarlijkse financiële saldo van Hanzedorp, gegeven dat het dorp een eigen privénet met buurtaccu heeft dat altijd in eilandbedrijf moet kunnen draaien (besluit Melvin de Vries, 26-10-2026) en dat overschotten verkocht en tekorten tegen de laagste prijs ingekocht worden (opgave 27-10-2026)? Systeemgrens: alle woningen, buurthuis, koel-/vriescellen, akkerpomp en laadplein achter één aansluiting; vraag en opwek volgens het dorpsmodel (energie-technisch). Buiten de grens: investeringen in PV, molens en accu (zie energiepagina), aansluitkosten eenmalig (vermeld, niet geannualiseerd).</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <div class="formula">Reeks: HE.simuleer zonder accu (uurwaarden vraag V_t en aanbod A_t; flexibel laden en koelcellen al op overschot gestuurd), jaren 2023–2025.
+Prijs: p_t = EPEX day-ahead [€/kWh]; modeluur = zonnetijd → lokale klok +1 h (winter) / +2 h (zomer).
+p_in,t  = p_t + o_in          p_uit,t = p_t − o_uit          P_net = 3 · 230 V · I_aansl
+Overschot (A_t ≥ V_t): accu laden (≤ P_accu, ≤ ruimte/η½) → export als p_uit > 0 (≤ P_net) → rest afschakelen.
+Tekort: accu tot reserve r·C → import (≤ P_net) → accu onder reserve → tekort.
+Doelniveau S* = r·C + Σ_{k=t}^{t+H} max(0, V_k − A_k) / η½      (H = 24 h; perfecte 24-uursvoorspelling)
+Verkopen: als p_t ≥ p_drempel en S > S*: ontladen tot S* (≤ P_accu, ≤ P_net − export).
+Bijladen: als S < S* en p_t ≤ het n-de goedkoopste uur in [t, t+H]: laden uit het net.
+Negatieve totaalprijs: (p_in,t + EB_marg)·(1+btw) < 0 → laden uit het net i.p.v. eigen opwek.
+Saldo_j = Σ E_uit·p_uit − (Σ E_in·p_in + EB(Σ E_in))·(1+btw) − 12·c_vast·(1+btw) − c_net(I) + BV − c_slijt·Σ|E_accu|
+η (rondgang) = 0,9;  EB(E) = staffel 2026;  BV = belastingvermindering (1 aansluiting met verblijfsfunctie)</div>
+  <p class="read">Scenario woningaansluitingen: het woningverbruik dat niet direct uit het eigen dak komt (aandeel 1 − f_PV, N) gaat via het openbare net: kosten = E_gedeeld·[(p̄ + o_in)(1+btw) − (p̄ − o_uit)] + Σ_woning EB(E_gedeeld/15)(1+btw); daarnaast 15 × (c_net(25 A) + vaste leveringskosten) en 15 × BV, en geen BV voor de collectieve aansluiting. De capaciteit van 15 × 3×25 A is niet additief: het laagspanningsnet is ontworpen op ± <span data-k="kva"></span> kVA per woning<sup class="ref"><a href="#bron-62">[62]</a></sup>; deze capaciteit wordt daarom niet voor handel meegeteld.</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoerparameters</h2>
+  <div class="scroll"><table id="tblIn"><caption>Tabel 1 – Invoer (standaard).</caption><thead><tr><th>Parameter</th><th>Waarde</th><th>Status</th><th>Bron</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblAansl"><caption>Tabel 2 – Netwerkkosten per aansluitwaarde (Liander 2026, incl. btw; Enexis ter vergelijking).</caption><thead><tr><th>Aansluiting</th><th class="num">kW</th><th class="num">Liander €/jaar</th><th class="num">Enexis €/jaar</th><th class="num">Eenmalig aansluiten</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Prijsdata</h2>
+  <p class="read">Uurprijzen EPEX day-ahead NL, 1-1-2023 t/m 26-10-2026 (kale beursprijs, €/kWh), via EnergyZero, verzameld door Salderingswijzer<sup class="ref"><a href="#bron-59">[59]</a></sup>, aangeleverd door Melvin de Vries (27-10-2026). Vier zomertijd-overgangsdagen (23 uur) zijn aangevuld met het gemiddelde van de buururen; bij de overgang naar wintertijd is het dubbele uur in de bron niet apart vastgelegd. 2026 valt buiten de simulatie omdat de KNMI-reeks in het model eindigt op 31-12-2025. Het contract wordt per kwartier afgerekend; de bron geeft uurwaarden, waardoor prijspieken binnen het uur ontbreken (zie Discussie).</p>
+  <div class="scroll"><table id="tblPrijs"><caption>Tabel 3 – Controle prijsdata per jaar.</caption><thead><tr><th>Jaar</th><th class="num">Uren</th><th class="num">Gemiddeld €/kWh</th><th class="num">Uren &lt; 0</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Resultaten</h2>
+  <div class="scroll"><table id="tblRes"><caption>Tabel 4 – Gemiddeld per jaar 2023–2025 per aansluitwaarde (standaardinvoer).</caption><thead><tr><th>Aansluiting</th><th class="num">Import MWh</th><th class="num">Export MWh</th><th class="num">Afgeschakeld MWh</th><th class="num">Uit accu verkocht MWh</th><th class="num">Verkoop €</th><th class="num">Inkoop € (incl. EB, btw)</th><th class="num">Netwerk €</th><th class="num">Saldo €</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblJaar"><caption>Tabel 5 – Uitkomst per jaar voor de beste variant.</caption><thead><tr><th>Jaar</th><th class="num">Import MWh</th><th class="num">Export MWh</th><th class="num">Afgeschakeld MWh</th><th class="num">Piek import kW</th><th class="num">Piek export kW</th><th class="num">Saldo €</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5b"><h2 class="num">Winterbijkoop en dimensionering van de buurtaccu</h2>
+  <p class="read">Vraag (opgave Melvin de Vries, 29-10-2026<sup class="ref"><a href="#bron-131">[131]</a></sup>): (a) hoeveel uur en hoeveel energie moet het dorp in de winter bij een aansluiting van 3 × 25 A (P_net = 17,25 kW) bijkopen, en wat levert sturing op dalprijzen op; (b) is een accucapaciteit van <span data-k="accuB"></span> kWh optimaal?</p>
+  <div class="formula">Reeks: HE.simuleer zonder accu, 31 jaar (1994–2025 excl. 1998), uurwaarden V_t en A_t (scenario C, 2 erfmolens, agri-PV); EV-laden en cellen al op overschot gestuurd.
+Accu: capaciteit C, vermogen P_acc = min(150 kW, C·1 h⁻¹), η_rondgang = 0,9, reserve r = <span data-k="resPct"></span> · C, start S_0 = 0,5·C.
+Strategie R (zonder voorspelling): tekort → accu tot r·C → net (≤ P_net) → accu onder r·C; als S &lt; r·C: direct terugladen uit het net tot r·C.
+Strategie G (gestuurd): als R, plus bijladen tot S* = r·C + f·Σ_{k=t}^{t+H} max(0, V_k − A_k) / η½ in de goedkoopste uren van [t, t+H]; H = 36 h, f = 1.
+Prijs p_t: EPEX day-ahead 2023–2025; andere jaren vlakke prijs (G laadt dan direct).
+Geld (2023–2025): Netto = Σ E_uit·max(0, p_t − o_uit) − Σ E_in·(p_t + o_in + EB_1)·(1 + btw)   (netwerkkosten constant, weggelaten)
+Meerkosten accu: (C − C_min)·c_kWh·a(i, n),   a = i / (1 − (1 + i)^−n);   i = <span data-k="accuRente2"></span>, n = <span data-k="accuJaren2"></span> a, c_kWh = <span data-k="accuPrijs"></span> €·kWh⁻¹ (S)
+Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r (accu op reserve), P_krit = <span data-k="kritiek2"></span> kW (N, veiligheid).</div>
+
+  <h3>a. Winter (november t/m maart) bij 3 × 25 A en <span data-k="accuB"></span> kWh</h3>
+  <div id="winChartT"></div>
+  <p class="note" id="winLegT"></p>
+  <p class="note">Figuur – dagbalans winter 2023/24, strategie G: boven de as bronnen (zon, wind, netimport), onder de as verbruik per groep. Verschil boven − onder = accumutatie, verliezen en afschakeling.</p>
+  <div class="scroll"><table id="tblMixT"><caption>Tabel 5a′ – Verbruik per groep, november t/m maart (A). Warmtepomp = ruimteverwarming (graaddagenmodel, T_in 22 °C, COP(T)) + warm tapwater (± <span data-k="wwPP"></span> kWh·p⁻¹·a⁻¹, N); rest woning = apparaten, koken, kokendwaterkraan, wassen, koelen, ventilatie (WTW), thuiswerken; gemeenschappelijk = residu (buurthuis, gedeelde keuken, cellen, werkplaats, akkerpomp, vijverpomp).</caption>
+    <thead><tr><th></th><th class="num" colspan="3">2023/24</th><th class="num" colspan="3">2024/25</th></tr><tr><th>Groep</th><th class="num">MWh</th><th class="num">%</th><th class="num">kWh/woning</th><th class="num">MWh</th><th class="num">%</th><th class="num">kWh/woning</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Prioriteit (opgave 29-10-2026<sup class="ref"><a href="#bron-133">[133]</a></sup>): woningen hebben voorrang, omdat zij geen alternatieve bron hebben; laadvraag van auto's kan buiten het dorp worden gedekt. Variant G+S: is na ontlading tot r·C nog import nodig, dan wordt eerst min(tekort, E_ev,t) als ‘extern geladen’ geboekt (snellader); het doelniveau S* wordt dan berekend zonder laadvraag. Kosten snelladen ± € <span data-k="snelPrijsT"></span>·kWh⁻¹ (S<sup class="ref"><a href="#bron-132">[132]</a></sup>).</p>
+  <div class="scroll"><table id="tblSnelT"><caption>Tabel 5a″ – Effect variant G+S (uren import, import, extern geladen, laadbeurten à ± 40 kWh, extra kosten = snelladen − vermeden inkoop incl. EB en btw).</caption>
+    <thead><tr><th>C</th><th>Winter</th><th class="num">Uren import</th><th class="num">Import MWh</th><th class="num">Extern</th><th class="num">Beurten</th><th class="num">Extra kosten</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblWinT"><caption>Tabel 5a – Bijkoop per winter (A). Prijs = kale beursprijs.</caption>
+    <thead><tr><th>Winter</th><th>Strategie</th><th class="num">Uren</th><th class="num">Dagen</th><th class="num">MWh</th><th class="num">€·kWh⁻¹</th><th class="num">Beurskosten</th><th class="num">Aandeel 22–6 u</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">Over de winter is de opwek circa 1,6–1,7 × het verbruik; de bijkoop concentreert zich in enkele donkere, windstille reeksen in december en januari. Strategie G vermindert het aantal uren met netimport met circa 30 % en de gemiddelde beursprijs met 13–25 %, maar importeert 7–12 % meer energie, omdat de accu vooruit wordt gevuld; het verschil in beurskosten per winter is € 13–82. Geen van beide strategieën geeft in 2023/24 of 2024/25 een tekort. Een eerdere tussenuitkomst (29-10-2026) gaf voor strategie R wél tekort; die variant laadde de accu niet terug tot de reserve en is gecorrigeerd. Staande panelen op het carportdak en de zuiddaken verhogen de winteropwek in de grijze winter 2023/24 niet en in 2024/25 met ± 2,3 MWh; de netimport verandert nauwelijks, omdat tekorten 's nachts en op dagen zonder zon en wind vallen.</p>
+
+  <h3>b. Accugrootte</h3>
+  <div class="ctl" style="max-width:420px"><label for="mPrijsAccuT">Meerprijs per kWh opslag c_kWh: <output id="mPrijsAccuTO"></output></label><input type="range" id="mPrijsAccuT" min="100" max="400" step="10"></div>
+  <div class="scroll"><table id="tblAccuT"><caption>Tabel 5b – Accugrootte bij P_net = 17,25 kW. Tekort over 31 jaar (uren per jaar, aantal jaren met tekort); import gemiddeld 31 jaar; geld gemiddeld 2023–2025 t.o.v. de kleinste capaciteit zonder tekort (C_min).</caption>
+    <thead><tr><th>C</th><th class="num">Tekort G</th><th class="num">Tekort R</th><th class="num">Import MWh·a⁻¹</th><th class="num">Uren import·a⁻¹</th><th class="num">C-rate (150 kW)</th><th class="num">Equiv. cycli·a⁻¹</th><th class="num">Eiland vol / reserve</th><th class="num">Besparing·a⁻¹</th><th class="num">Meerkosten·a⁻¹</th><th class="num">Saldo·a⁻¹</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblBlok"><caption>Tabel 5c – Redundantie (n − 1): één blok uitgevallen, vermogen naar rato (31 jaar, strategie G).</caption><thead><tr><th>Opbouw</th><th class="num">Rest capaciteit / vermogen</th><th class="num">Tekort</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tblGevA"><caption>Tabel 5d – Gevoeligheid strategie G voor horizon en voorspelfout (f &lt; 1 = tekort onderschat) en reserve; per capaciteit: uren tekort·a⁻¹ · uren import·a⁻¹ · netto € (2023–2025).</caption>
+    <thead><tr><th>Variant</th><th colspan="3" class="num">300 kWh</th><th colspan="3" class="num">400 kWh</th><th colspan="3" class="num">600 kWh</th></tr></thead><tbody></tbody></table></div>
+
+  <h3>Eisen en uitkomst</h3>
+  <div class="scroll"><table><caption>Tabel 5e – Ontwerpeisen voor de accucapaciteit.</caption><thead><tr><th>Eis</th><th>Onderbouwing</th><th>Minimaal</th></tr></thead><tbody>
+    <tr><td>E1 Geen tekort bij 3 × 25 A (31 jaar)</td><td>Tabel 5b; geldt voor G én R</td><td class="num"><span data-k="accuMin2"></span> kWh</td></tr>
+    <tr><td>E2 Vermogen</td><td>Grootste uurtekort <span data-k="maxTek2"></span> kW (A) − 17 kW net; ontwerppiek binnen het uur ± 145 kW (laden, koken, basis; N); bij ≤ 0,5C continu</td><td class="num">± 300 kWh</td></tr>
+    <tr><td>E3 Redundantie (n − 1)</td><td>Tabel 5c: 3 × 150 kWh houdt 300 kWh over → geen tekort; 2 × 200 kWh houdt 200 kWh over → ± 2 h·a⁻¹ tekort</td><td class="num">3 × 150 kWh</td></tr>
+    <tr><td>E4 Eilandduur bij netstoring</td><td>Geen norm; Denk Vooruit: 72 h zelfredzaam<sup class="ref"><a href="#bron-112">[112]</a></sup>. 600 kWh vol: 68 h zonder opwek; op reserve: 20 h</td><td class="num">keuze</td></tr>
+    <tr><td>E5 Levensduur</td><td>Equivalente cycli 30–45·a⁻¹ bij 450–600 kWh: ver onder LFP-cycluslevensduur (≥ 6.000); kalenderveroudering bepaalt de levensduur (offerte)</td><td class="num">–</td></tr>
+    <tr><td>E6 Kosten-baten</td><td>Marginale besparing € 40–160 per extra 100 kWh·a⁻¹ tegen € 1.300–2.100·a⁻¹ annuïteit (c_kWh € 150–250)</td><td class="num">zo klein als E1–E3 toestaan</td></tr>
+  </tbody></table></div>
+  <p class="read"><b>Conclusie.</b> De leveringseis (E1) wordt vanaf <span data-k="accuMin3"></span> kWh gehaald; een grotere accu is economisch niet rendabel (E6) en wordt alleen door de gewenste eilandduur (E4) gerechtvaardigd. Technisch-economisch optimum: <b>450 kWh in drie blokken van 150 kWh</b>, met PCS ≥ 150 kW en een voorbereide plek voor een vierde blok; dat voldoet aan E1–E3 met marge voor voorspelfouten (Tabel 5d). Kiest Hanzedorp voor ± 3 dagen eilandduur zonder opwek, dan is 600 kWh (3 × 200 kWh) passend. Het model blijft op <span data-k="accuB2"></span> kWh tot een besluit is genomen. Kosten-aanname: hardware ± € 130–200·kWh⁻¹ bij grootschalige inkoop, totaal geïnstalleerd € 400–720·kWh⁻¹ voor 240–420 kWh (PVB, 2026<sup class="ref"><a href="#bron-130">[130]</a></sup>); de meerprijs per extra kWh binnen één systeem ligt dicht bij de hardwareprijs (S). De Chinese offerte (RFQ 26-10-2026) vervangt deze aanname.</p>
+  <p class="read note">Beperkingen: perfecte voorspelling in G (Tabel 5d toont dat 30–50 % onderschatting bij ≥ 300 kWh geen tekort geeft); prijzen alleen 2023–2025; vermogen per uur (pieken binnen het uur niet gesimuleerd); geen V2G. Reproduceerbaar: <code>node bouwaccu.js</code> → netaansluiting-accu.js (gegenereerd <span data-k="accuGen"></span>).</p>
+</section>
+
+<section id="s6"><h2 class="num">Gevoeligheidsanalyse</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel 6 – Beste aansluitwaarde en saldo bij gewijzigde invoer (overige invoer standaard).</caption><thead><tr><th>Variant</th><th>Beste aansluiting</th><th class="num">Saldo €/jaar</th><th class="num">Saldo 3×80 A</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s7"><h2 class="num">Validatie</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.2em">
+    <li>Prijsgemiddelden per jaar (Tabel 3) worden bij het laden opnieuw berekend en vergeleken met de controlesommen in het databestand: <b data-k="prijsCheck"></b>.</li>
+    <li>De netimport van het dorp in deze simulatie (<span data-k="impBest"></span> MWh·a⁻¹) is van dezelfde orde als in het 31-jarige energiemodel met netlimiet (± 6,4 MWh·a⁻¹, energie-technisch); verschil door andere jaren en de prijsgestuurde laadstrategie.</li>
+    <li>Wetenschappelijke toetsing van de handelsstrategie ontbreekt nog; de strategie is regelgebaseerd en dus een ondergrens van wat een optimaliserend EMS (bv. EMHASS, lineaire programmering) haalt.</li>
+  </ul>
+</section>
+
+<section id="s8"><h2 class="num">Risico's per deelonderwerp</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Wie / bewijs</th><th>Status</th></tr></thead><tbody>
+    <tr><td>EB verschuldigd op levering binnen privénet</td><td>Fiscus ziet levering aan woningen als levering via een aansluiting; ± <span data-k="ebInt"></span>·a⁻¹ extra</td><td>Fiscaal advies vóór besluit; structuur (coöperatie, GDS) daarop kiezen</td><td>Fiscalist</td><td>open</td></tr>
+    <tr><td>Juridische status één aansluiting voor 12 woningen</td><td>Levering aan huishoudens vereist mogelijk ACM-erkenning (GDS)</td><td>Toets Energiewet art. 3.6/3.7; alternatief energiegemeenschap</td><td>Energierechtjurist, ACM</td><td>open</td></tr>
+    <tr><td>Geen capaciteit bij netbeheerder</td><td>Congestie, wachtrij grootverbruik</td><td>Kleinverbruik (≤ 3×80 A) aanvragen; vroeg contact</td><td>Netbeheerder</td><td>open</td></tr>
+    <tr><td>Accu-uitval</td><td>Storing PCS of accu; dorp alleen op net</td><td>Modulaire opbouw (3 blokken van 200 kWh); laders automatisch terugregelen tot aansluitwaarde</td><td>Leverancier, EMS</td><td>deels</td></tr>
+    <tr><td>Prijsontwikkeling na 2030</td><td>Andere spreiding, meer negatieve uren</td><td>Jaarlijks herrekenen; aansluiting is verzwaarbaar (€ 304 eenmalig, Liander)</td><td>Beheer</td><td>afgedekt</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s9"><h2 class="num">Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Levering aan derden achter één aansluiting</td><td>Energiewet (BWBR0050714) art. 3.6/3.7 (gesloten distributiesysteem)</td><td>Nog te bepalen</td><td>ACM-erkenning of alternatieve structuur; jurist</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Energiebelasting en belastingvermindering</td><td>Wet belastingen op milieugrondslag; tarieven 2026 [61]</td><td>Model: EB alleen op netimport; schakelaar voor EB op interne levering</td><td>Fiscalist</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Netaansluiting en teruglevering</td><td>Netcode elektriciteit; EN 50549-1 (omvormers)</td><td>PCS met certificaat (offerteaanvraag)</td><td>Leverancier, netbeheerder</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Eilandbedrijf: veilige scheiding van het openbare net</td><td>NEN 1010; EN 50549-1</td><td>Automatische scheiding + aarding in eilandbedrijf (eis in offerte)</td><td>Erkend installateur, keuring</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s10"><h2 class="num">Discussie</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Uurprijzen in plaats van kwartierprijzen onderschatten de handelswinst licht (kortdurende pieken en dalen ontbreken).</li>
+    <li>De perfecte 24-uursvoorspelling van eigen tekort overschat de prestatie van een echt EMS licht; de eenvoudige regelstrategie onderschat die van een optimaliserend EMS. Netto-effect onbekend.</li>
+    <li>Verkoopopbrengst is de beursprijs minus inhouding (o_uit, N), zonder btw; voor een btw-ondernemer (coöperatie) kan dit anders zijn.</li>
+    <li>Slijtagekosten (N) volgen pas uit de offerte (cycli bij 0,2C); zij bepalen of verkopen uit de accu loont.</li>
+    <li>Vraag en opwek volgen scenario C; een andere woningmix of inventarisatie verandert de uitkomst.</li>
+  </ol>
+</section>
+
+<section id="s11"><h2 class="num">Conclusies</h2>
+  <p class="read">Voor bedrijfszekerheid volstaat een kleine aansluiting: in 2023–2025 trad bij geen enkele aansluitwaarde een tekort op. Financieel bepaalt de afweging tussen extra exportopbrengst en het hogere capaciteitstarief de keuze; met de standaardinvoer is <span data-k="bestNaam"></span> optimaal. Een grotere aansluiting is alleen zinvol als de exportwaarde per kWh structureel hoger wordt of als de netbeheerder een vergoeding voor flexibiliteit biedt. Eén privénet scoort duidelijk beter dan 12 woningaansluitingen, mits de levering binnen het privénet fiscaal en juridisch houdbaar is.</p>
+</section>
+
+<section id="s12"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s13"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.12</td><td>27-10-2026</td><td>Eerste versie: uursimulatie netaansluiting en handel met EPEX-prijzen 2023–2025; scenario woningaansluitingen; risico's en compliance-register.</td><td>Melvin de Vries (besluiten, prijsdata); berekening met Claude</td></tr>
+  <tr><td>0.18</td><td>29-10-2026</td><td>Winterbijkoop bij 3 × 25 A (strategie R en G, 2023/24 en 2024/25) en dimensionering buurtaccu (100–1.000 kWh, 31 jaar, n − 1, gevoeligheid, kosten-baten); advies 3 × 150 kWh; correctie tussenuitkomst strategie R. Aanvulling 23:30: verbruik per groep (warmtepomp, rest woning, auto, gemeenschappelijk), gespiegelde dagbalans, variant G+S (auto's naar snellader).</td><td>Melvin de Vries (vraag); berekening met Claude</td></tr>
+</tbody></table></div></section>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="hanzedorp-prijs.js"></script>
+<script src="hanzedorp-net.js"></script>
+<script src="netaansluiting-gedeeld.js"></script>
+<script src="netaansluiting-accu.js"></script>
+<script src="netaansluiting-accu-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, E = D.energie, P = window.HANZEDORP_PRIJS, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
+  bindAll({}); renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 43, 81, 83, 84, 85, 86, 104, 105, 112, 130, 131, 132, 133]);
+  const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
+  const S = NA.std(), { rs, best } = NA.rekenen(S), R = HN.reeks({});
+  const kWpTot = E.scenarioC.vlakken.reduce((a, v) => a + v.kWp, 0) + R.basis.kWpDak + R.basis.kWpAgri;
+  const w = HN.scenarioWoningen(S, rs.find(r => r.A === 50)), r25 = rs.find(r => r.A === 25), r80 = rs.find(r => r.A === 80);
+  // prijscontrole
+  const d0 = P.d0, jr = {}; for (let i = 0; i < P.p.length; i++) { const y = new Date(Date.UTC(+d0.slice(0, 4), +d0.slice(5, 7) - 1, +d0.slice(8, 10)) + Math.floor(i / 24) * 864e5).getUTCFullYear(); (jr[y] = jr[y] || []).push(P.p[i] / 1e5); }
+  let ok = true; const rows = Object.keys(jr).map(y => { const v = jr[y], g = v.reduce((a, b) => a + b, 0) / v.length, c = P.controle[y]; if (Math.abs(g - c.gem) > 1e-4 || v.length !== c.n) ok = false; return `<tr><td>${y}</td><td class="num">${nl(v.length)}</td><td class="num">${nl(g, 4)}</td><td class="num">${nl(v.filter(x => x < 0).length)}</td></tr>`; });
+  $("tblPrijs").querySelector("tbody").innerHTML = rows.join("");
+  NA.bind({ kWpTot: nl(kWpTot), accu: nl(S.accu), accuKW: nl(S.accuKW), vraag: MWh(best.vraag), aanbod: MWh(best.aanbod), bestNaam: naam(best.A), bestSaldo: eur(best.netto),
+    exp80: MWh(r80.exp - r25.exp), wVerschil: eur(Math.abs(w.saldo - best.netto)), kva: nl(N.ontwerpKVAperWoning, 1), prijsCheck: ok ? "klopt" : "AFWIJKING", impBest: MWh(best.imp), ebInt: eur(HN.ebIntern(best)) });
+  const inRows = [
+    ["Aansluitwaarden", "3×25, 3×35, 3×40, 3×50, 3×63, 3×80 A (17,3–55,2 kW)", "G", ref(60)],
+    ["Buurtaccu", `${nl(S.accu)} kWh / ${nl(S.accuKW)} kW, rondgangsrendement 90 %`, "N", "offerteaanvraag"],
+    ["Eilandreserve r", nl(S.reserve * 100) + " % van de accu", "N", "opgave Melvin de Vries"],
+    ["Opslag inkoop o_in / inhouding verkoop o_uit", `€ ${nl(S.opslagIn, 3)} / € ${nl(S.opslagUit, 3)} per kWh excl. btw`, "N", "–"],
+    ["Vaste leveringskosten", `€ ${nl(N.vastLevering)} per maand excl. btw`, "N", "–"],
+    ["Energiebelasting 2026", "€ 0,09161 (0–10 MWh), € 0,06671 (10–50 MWh) per kWh excl. btw", "G", ref(61)],
+    ["Belastingvermindering", "€ 628,96 per aansluiting met verblijfsfunctie (incl. btw)", "G", ref(61)],
+    ["Verkoopdrempel accu", `€ ${nl(S.verkoopDrempel, 2)} per kWh beursprijs`, "N", "–"],
+    ["Slijtage accu", `€ ${nl(S.slijtage, 3)} per kWh doorzet`, "N", "tot offerte"],
+    ["Horizon voorspelling", nl(N.horizon) + " uur", "N", "–"],
+    ["Ontwerpcapaciteit LS-net", nl(N.ontwerpKVAperWoning, 1) + " kVA per woning", "G", ref(62)],
+    ["Directe dak-PV-dekking woningen (scenario woningaansluitingen)", nl(N.huisPVdirect * 100) + " %", "N", "–"],
+    ["Prijsdata", "EPEX day-ahead NL, uurwaarden 2023–2025", "G", ref(59)]];
+  $("tblIn").querySelector("tbody").innerHTML = inRows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${st(r[2])}</td><td>${r[3]}</td></tr>`).join("");
+  $("tblAansl").querySelector("tbody").innerHTML = N.aansl.map(a => `<tr><td>${naam(a.A)}</td><td class="num">${nl(HN.kW(a.A), 1)}</td><td class="num">${eur(a.kostJr)}</td><td class="num">${N.enexis[a.A] ? eur(N.enexis[a.A]) : "–"}</td><td class="num">${eur(a.eenmalig)}</td></tr>`).join("");
+  $("tblRes").querySelector("tbody").innerHTML = rs.map(r => `<tr${r === best ? ' class="best"' : ""}><td>${naam(r.A)}</td><td class="num">${MWh(r.imp)}</td><td class="num">${MWh(r.exp)}</td><td class="num">${MWh(r.afg)}</td><td class="num">${MWh(r.verkocht)}</td><td class="num">${eur(r.expW)}</td><td class="num">${eur(r.inkoop)}</td><td class="num">${eur(r.kostJr)}</td><td class="num">${eur(r.netto)}</td></tr>`).join("");
+  $("tblJaar").querySelector("tbody").innerHTML = best.per.map(j => `<tr><td>${j.jaar}</td><td class="num">${MWh(j.imp)}</td><td class="num">${MWh(j.exp)}</td><td class="num">${MWh(j.afg)}</td><td class="num">${nl(j.pImp, 1)}</td><td class="num">${nl(j.pExp, 1)}</td><td class="num">${eur(j.saldo)}</td></tr>`).join("");
+  const V = [["Standaard", {}], ["Geen handel", { handel: false }], ["Opslag 0 / 0", { opslagIn: 0, opslagUit: 0 }], ["Opslag 0,04 / 0,04", { opslagIn: 0.04, opslagUit: 0.04 }],
+    ["Verkoopdrempel € 0,15", { verkoopDrempel: 0.15 }], ["Verkoopdrempel € 0,30", { verkoopDrempel: 0.30 }], ["Accu 2 × 200 kWh", { accu: 400 }], ["Accu 4 × 200 kWh", { accu: 800 }],
+    ["Reserve 50 %", { reserve: 0.5 }], ["Slijtage € 0,06/kWh", { slijtage: 0.06 }], ["EB op interne levering", { ebIntern: true }]];
+  $("tblGev").querySelector("tbody").innerHTML = V.map(([l, o]) => { const x = NA.rekenen(Object.assign(NA.std(), o)); const e80 = x.rs.find(r => r.A === 80);
+    return `<tr><td>${l}</td><td>${naam(x.best.A)}</td><td class="num">${eur(x.best.netto)}</td><td class="num">${eur(e80.netto)}</td></tr>`; }).join("");
+})();
+</script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id), nl = HZ.nl, A = NAC.A, K = NAC.K, D = HANZEDORP_DATA;
+  const min = A.groottes.find(g => g.cap > 0 && g.dal.tekU === 0 && g.reactief.tekU === 0);
+  const set = (k, v) => document.querySelectorAll(`[data-k=${k}]`).forEach(e => e.textContent = v);
+  set("accuB", nl(A.besluitKWh)); set("accuB2", nl(A.besluitKWh)); set("resPct", nl(D.net.reserve, 2)); set("accuRente2", nl(K.rente, 2)); set("accuJaren2", nl(K.jaren));
+  set("kritiek2", nl(K.kritiekKW)); set("accuMin2", nl(min.cap)); set("accuMin3", nl(min.cap)); set("maxTek2", nl(A.maxUurTekort)); set("accuGen", A.gegenereerd);
+  NAC.balansChart($("winChartT"), 0, "dal"); $("winLegT").innerHTML = NAC.legenda(); NAC.mixTabel($("tblMixT").querySelector("tbody"), true); NAC.snelTabel($("tblSnelT").querySelector("tbody"), D.mobiliteit.snellader.eurKWh); set("snelPrijsT", nl(D.mobiliteit.snellader.eurKWh, 2)); set("wwPP", nl(D.energie.wwKWhPP)); NAC.winterTabel($("tblWinT").querySelector("tbody"));
+  NAC.blokTabel($("tblBlok").querySelector("tbody")); NAC.gevoelTabel($("tblGevA").querySelector("tbody"));
+  $("mPrijsAccuT").value = K.eurKWhStd;
+  function run() { const p = +$("mPrijsAccuT").value; $("mPrijsAccuTO").value = "€ " + nl(p) + "·kWh⁻¹"; set("accuPrijs", nl(p)); NAC.grootteTabel($("tblAccuT").querySelector("tbody"), p, true); }
+  $("mPrijsAccuT").addEventListener("input", run); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

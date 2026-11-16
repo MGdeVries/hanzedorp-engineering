@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobiliteit en laden – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Laadvraag elektrisch vervoer, voertuigkeuzelijst met praktijkverbruik, laadplein met load balancing, gestuurd laden en kWh-registratie per woning (eigen lader met MID-meter).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap paper">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Mobiliteit</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Elektrisch vervoer in Hanzedorp: laadvraag, laadinfrastructuur en gestuurd laden</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd>
+  <dt>Statuscodes</dt><dd><span class="st st-G">G</span> gemeten · <span class="st st-A">A</span> afgeleid · <span class="st st-N">N</span> aanname · <span class="st st-S">S</span> schatting</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>De laadvraag wordt per woning geïnventariseerd (voertuig, jaarkilometrage) met praktijkverbruik volgens EV Database<sup class="ref"><a href="#bron-55">[55]</a></sup> voor de vijf meest geregistreerde modellen per segment in 2025<sup class="ref"><a href="#bron-54">[54]</a></sup>, verhoogd met 15–20 % laadverlies<sup class="ref"><a href="#bron-53">[53]</a></sup>. In het standaardscenario bedraagt de laadvraag <span data-k="evMWh"></span> MWh·a⁻¹. Op een centraal laadplein met <span data-k="nZappi"></span> laadpunten (één per parkeerplaats, ≥ 1 per woning; 22 kW; auto's veelal ≤ 11 kW AC) en gestuurd laden met maximaal twee dagen uitstel wordt <span data-k="evZon"></span> % van de laadenergie geladen op momenten met lokaal overschot. Laden bij thuiskomst (18–22 u) verhoogt de jaarlijkse netimport van het dorp met <span data-k="extraImp"></span> MWh.</p>
+</section>
+
+<section id="s1"><h2 class="num">Methode</h2>
+  <div class="formula">E_voertuig = km · e_100 / 100 · (1 + λ)          λ = laadverlies 0,15–0,20 (standaard 0,175)
+E_woning   = Σ E_voertuig ;  e-fietsen niet meegenomen (verwaarloosbaar voor dimensionering)
+Uursimulatie: zie energie-technisch §2 (achterstand B; laden op overschot; gedwongen bij B > 2 · E_dag)
+P_laadplein = n_laadpunten · min(22 kW; P_AC,auto)            (begrensd door EMS: net + PCS)
+ΔU = √3 · I · ρ · L / A          (driefasig, cos φ ≈ 1; ρ_Cu,70°C = 0,0225 Ω·mm²·m⁻¹)</div>
+  <p class="read">Zolang de inventarisatie niet is ingevuld, geldt: gezin 21.000 km·a⁻¹ (G, referentie<sup class="ref"><a href="#bron-1">[1]</a></sup>), senior 9.000, jongere 8.000 km·a⁻¹ (N), 18 kWh/100 km incl. laadverlies (A), plus e-fiets en een e-motor bij 20 % van de woningen (N).</p>
+</section>
+
+<section id="s2"><h2 class="num">Voertuigkeuzelijst</h2>
+  <div class="scroll"><table id="tblLijst"><caption>Tabel 1 – Top 5 per segment (registraties NL 2025 [54]) met praktijkverbruik [55].</caption><thead><tr><th>Segment</th><th>Model</th><th class="num">kWh/100 km</th><th class="num">incl. λ</th></tr></thead><tbody></tbody></table></div>
+  <p class="read note">Hyundai Inster en Kia Niro EV staan niet in het EV Database-overzicht en zijn vervangen door Renault 4 E-Tech en MG4. Segmentindeling door de auteur. Motoren/scooters: S, afgeleid uit fabrikantopgaven, nog te verifiëren.</p>
+</section>
+
+<section id="s3"><h2 class="num">Resultaten</h2>
+  <div class="scroll"><table id="tblRes"><caption>Tabel 2 – Laadvarianten (dorp, overige invoer standaard).</caption><thead><tr><th>Variant</th><th class="num">Laden (MWh)</th><th class="num">Op overschot</th><th class="num">Piek laden (kW)</th><th class="num">Import dorp (MWh)</th><th class="num">Zelfvoorziening</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s4"><h2 class="num">Laadinfrastructuur en verrekening</h2>
+  <ul class="read" style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+    <li><b>Opzet (besluit 27-10-2026).</b> Centraal laadplein naast buurthuis en buurtaccu; iedere parkeerplaats (20) een eigen laadpunt, iedere woning ten minste één vaste plaats (Melvin de Vries, opgave 27-10-2026). Voertuigen blijven permanent aangesloten; het EMS verdeelt het vermogen via OCPP-laadprofielen over de voertuigen naar behoefte en vertrektijd, zonder handmatig wisselen. Meerprijs ± € 1.000 per laadpunt ten opzichte van gedeelde laders (opgave Melvin de Vries, N). Merkkeuze open; eisen (besluit 27-10-2026 [81]): MID-meter, OCPP 1.6J/2.0.1, load balancing, bidirectioneel laden (V2G) volgens ISO 15118-20. myenergi zappi ondersteunt OCPP-laadprofielen vanaf firmware 5.5<sup class="ref"><a href="#bron-47">[47]</a></sup>.</li>
+    <li><b>Bekabeling laadplein (A).</b> Korte afstand omvormer → laadpunt (L ≈ <span data-k="lpL"></span> m, N): <span data-k="lpMM2"></span> mm² Cu (opgave Melvin de Vries) geeft bij 16 A (11 kW) ΔU = <span data-k="du16"></span> % en bij 32 A (22 kW) <span data-k="du32"></span> % van 400 V. Uitvoering (opgave Melvin de Vries, 27-10-2026): gemantelde installatiekabel (grijs) in slagvaste pvc-buis, via de overkapping van boven naar de laadpunten; geen graafwerk, eenvoudige aanleg en onderhoud in eigen beheer. Geschiktheid van kabeltype en buis voor buitengebruik (UV, vocht, mechanische bescherming) en de beveiliging per laadpunt toetsen aan NEN 1010 door de installateur.</li>
+    <li><b>Centraal versus decentraal (A).</b> Woningen vragen kortstondig enkele kW (driefasige inductiekookplaat; ventilatieluchtwarmtepomp in compactunit ± 1–2 kW). Bij L = <span data-k="lpAfst"></span> m en ΔU ≤ 3 % vraagt een woningvoeding van 16 A <span data-k="a16"></span> mm², met laden aan huis op 11 kW (32 A) <span data-k="a32"></span> mm² en op 22 kW (± 48 A) <span data-k="a48"></span> mm² per woning. Koperdoorsnede en dus kabelkosten (N: evenredig) nemen met factor <span data-k="f32"></span>–<span data-k="f48"></span> toe; centraal laden concentreert het hoge vermogen op korte kabels bij accu en omvormers.</li>
+    <li><b>Infrasleuf (besluit 27-10-2026).</b> Voedingskabels van de omvormers naar de woningen in een aparte, toegankelijke geul naast de wegen, samen met de overige utiliteiten (data, drinkwater); het riool ernaast, dieper, met voldoende inspectieputten, zodat storingen zonder graafwerk te verhelpen zijn (lagere onderhoudskosten op termijn). Onderlinge afstanden (drinkwater koel houden, ≤ 25 °C; scheiding van riool) volgens de eisen van netbeheerder en drinkwaterbedrijf, te verifiëren.</li>
+    <li><b>Verrekening.</b> Besluit 26-10-2026: iedere woning krijgt een eigen lader met MID-meter op het laadplein (Melvin de Vries, opgave 26-10-2026). Daarmee is de kWh per woning en per auto geregistreerd; een aparte voorziening voor zakelijke rijders vervalt. De fiscale vergoeding door een werkgever vereist registratie van de kWh per auto en een onderbouwde integrale kWh-prijs; voor eigen opgewekte stroom alleen de direct toerekenbare kosten<sup class="ref"><a href="#bron-49">[49]</a></sup>. Dat is een keuze van de individuele bewoner.</li>
+  </ul>
+</section>
+
+<section id="s5"><h2 class="num">Discussie en open punten</h2>
+  <ol class="read" style="display:grid;gap:6px;padding-left:1.3em">
+    <li>Minimum aantal laadpunten = aantal te bouwen woningen (nu <span data-k="nWon"></span>, volgt de woningmix); plus 1–2 deelauto's; het totaal volgt de wensen van de bewoners (opgave 27-10-2026 [104]). Een tweede auto die niet hoeft te laden staat bij de woning. Vrije hoogte overal ± 3,2 m.</li>
+    <li>Inventarisatie per woning invullen; de standaardaanname voor gezinnen (21.000 km) is hoog.</li>
+    <li>Keuze laadpunt (MID, OCPP, ISO 15118-20); afstand en tracé laadplein–omvormers; kabelkeuze door erkend installateur.</li>
+    <li>Fiscale behandeling van eigen opgewekte stroom en levering binnen het dorp (Energiewet) uitzoeken.</li>
+    <li>Groepenkasten en aansluitwaarde laadplein: begrenzing via load balancing op het beschikbare vermogen.</li>
+  </ol>
+</section>
+
+<section id="s6"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s7"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.11.1</td><td>27-10-2026</td><td>Centraal laadplein met eigen laadpunt per parkeerplaats (20); bekabeling en spanningsval centraal vs. decentraal; 5 gedeelde laders vervallen.</td><td>Melvin de Vries (besluit); berekening met Claude</td></tr>
+  <tr><td>0.10</td><td>26-10-2026</td><td>Eerste versie: keuzelijst voertuigen, laadvarianten, verrekening.</td><td>Melvin de Vries (gegevens, besluiten); berekening met Claude</td></tr></tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de basispagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-inventaris.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen } = HZ, MOB = D.mobiliteit, $ = id => document.getElementById(id), MW = EG.MW;
+  const dom = HE.simuleer({ evDom: true });
+  EG.bind({ extraImp: MW(dom.imp - EG.std().imp) });
+  renderBronnen($("bronnen"), [1, 47, 48, 49, 50, 53, 54, 55]);
+  $("tblLijst").querySelector("tbody").innerHTML = [...MOB.voertuigen, ...MOB.motoren].map(g => g.modellen.map((m, i) => `<tr><td>${i === 0 ? g.seg : ""}</td><td>${m[0]}</td><td class="num">${nl(m[1], 1)}</td><td class="num">${nl(m[1] * (1 + MOB.laadverlies), 1)}</td></tr>`).join("")).join("");
+  const LP = MOB.laadplein, du = (I, L, A) => Math.sqrt(3) * I * LP.rhoCu * L / A / 400 * 100, need = I => Math.sqrt(3) * I * LP.rhoCu * LP.afstandWoning / (LP.duMax * 400), maat = a => [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70].find(x => x >= a);
+  const a16 = maat(need(16)), a32 = maat(need(32)), a48 = maat(need(48));
+  EG.bind({ nWon: nl(Object.values(D.energie.mix).reduce((a, b) => a + b, 0)), lpL: nl(LP.kabelL), lpMM2: nl(LP.kabelMM2), du16: nl(du(16, LP.kabelL, LP.kabelMM2), 2), du32: nl(du(32, LP.kabelL, LP.kabelMM2), 2), lpAfst: nl(LP.afstandWoning),
+    a16: nl(a16), a32: nl(a32), a48: nl(a48), f32: nl(a32 / a16, 1), f48: nl(a48 / a16, 1) });
+  const V = [["Gestuurd, " + HANZEDORP_DATA.mobiliteit.zappi.n + " laadpunten (standaard: 1 per woning + deelauto's)", {}], ["Bij thuiskomst (18–22 u)", { evDom: true }], ["Gestuurd, 5 laders (vervallen variant)", { zappi: 5 }], ["Gestuurd, 12 laadpunten (één per woning)", { zappi: 12 }], ["Deelauto's", { deelauto: true }]];
+  if (EG.inv) V.push(["Inventarisatie", { inv: EG.inv }]);
+  $("tblRes").querySelector("tbody").innerHTML = V.map(([l, o]) => { const r = HE.simuleer(o); const piek = o.evDom ? MOB.zappi.n * MOB.zappi.autoAC : r.pEv;
+    return `<tr><td>${l}</td><td class="num">${MW(r.ev)}</td><td class="num">${nl(Math.max(0, 1 - r.evGedwongen / r.ev) * 100)} %</td><td class="num">${nl(piek)}</td><td class="num">${MW(r.imp)}</td><td class="num">${nl(r.zelf * 100)} %</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

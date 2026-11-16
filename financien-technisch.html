@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financiële planning – technische verantwoording – Hanzedorp</title>
+<meta name="description" content="Financieel model gedeelde voorzieningen Hanzedorp: investering, financieringsvarianten, exploitatie, reservefonds, kasstroom over 30 jaar, liquiditeit en solvabiliteit, gevoeligheid, risico's en compliance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Technische verantwoording</span><span>Financiële planning</span><span class="pill s-aanname">Concept v<span data-k="versie"></span></span></div>
+  <h1>Financiële planning van de gedeelde voorzieningen: investering, financieringsstructuur, exploitatie en kasstroom over 30 jaar, met toetsing op liquiditeit en solvabiliteit</h1>
+  <dl class="meta"><dt>Auteur</dt><dd data-k="auteur"></dd><dt>Versie</dt><dd>v<span data-k="versie"></span>, <span data-k="datum"></span> (concept; niet extern getoetst)</dd></dl>
+</header>
+
+<section class="abstract"><h2 style="font-size:1.2rem">Samenvatting</h2>
+  <p>De totale investering buiten de woningen bedraagt (midden, incl. btw op de voorzieningen) ± € <span data-k="fiInv"></span>: grond en voorbereiding € <span data-k="fiGrond"></span>, gedeelde voorzieningen € <span data-k="fiVoorz"></span> en een startbuffer voor het reservefonds € <span data-k="fiBuf"></span>; dat is ± € <span data-k="fiPW"></span> per woning. De jaarlijkse lasten van de beheervereniging (onderhoud, reservering, netwerk, verzekering, administratie, minus het stroomsaldo) zijn ± € <span data-k="fiJaar"></span> in het eerste jaar, ± € <span data-k="fiMnd"></span> per woning per maand, geïndexeerd met <span data-k="fiInf"></span> %/jr. Twee financieringsvarianten zijn vergeleken. Een lening op naam van de vereniging (70 %, <span data-k="fiRente"></span> %, <span data-k="fiLoop"></span> jaar) geeft een annuïteit van ± € <span data-k="fiAnn"></span>/jr en een solvabiliteit van de vereniging van enkele procenten, omdat de activa mandelig eigendom van de bewoners zijn en niet van de vereniging. Advies controller: financiering door de bewoners zelf (eigen middelen of eigen hypotheek), vereniging schuldvrij, met een liquiditeitsbuffer van 3 maanden en een afgescheiden reservefonds volgens het MJOP.</p>
+</section>
+
+<section id="s1"><h2 class="num">Inleiding, vraagstelling en systeemgrens</h2>
+  <p class="read">Vraag (opgave Melvin de Vries, 04-11-2026<sup class="ref"><a href="#bron-165">[165]</a></sup>): hoe blijft Hanzedorp financieel gezond – liquide en solvabel – en wat zijn de lasten per woning? Systeemgrens: de beheervereniging en de gedeelde voorzieningen; grond en voorbereiding (<a href="grond-technisch.html">grond-technisch</a>) en de voorzieningen uit het MJOP (<a href="onderhoud-technisch.html">onderhoud-technisch</a>). Buiten de grens: bouwkosten en hypotheek van de woningen zelf, energiekosten per huishouden (intern niet per kWh verrekend; zie eigendom-technisch), inkomsten uit de tuinderij buiten de groep.</p>
+</section>
+
+<section id="s2"><h2 class="num">Methode</h2>
+  <ul class="read">
+    <li>Investering: I = I<sub>grond</sub> + I<sub>voorz</sub> · (1 + btw · 𝟙[geen aftrek]) + F<sub>0</sub>; I<sub>voorz</sub> excl. de componenten waarvan de aanleg al in Grond &amp; kosten zit (wegen, paden, hek).</li>
+    <li>Financiering ‘vereniging’: lening L = I · (1 − e), annuïteit A = L · r<sub>L</sub> / (1 − (1 + r<sub>L</sub>)<sup>−n</sup>); ‘hypotheek’: L = 0 voor de vereniging, indicatieve last per woning A<sub>w</sub> = (I/n<sub>w</sub>) · (1 − e) · r<sub>L</sub> / (1 − (1 + r<sub>L</sub>)<sup>−n</sup>) (bruto, vóór hypotheekrenteaftrek).</li>
+    <li>Exploitatie jaar t: E<sub>t</sub> = (O + netwerk + verzekering + administratie + vastrecht − stroomsaldo + tuinder) · (1 + i)<sup>t−1</sup>; storting S<sub>t</sub> = C · (1 + i)<sup>t</sup> (uit het MJOP).</li>
+    <li>Bijdrage: B<sub>t</sub> = E<sub>t</sub> + S<sub>t</sub> + A<sub>t</sub>; per woning per maand B<sub>t</sub> / (12 · n<sub>w</sub>) (gelijke verdeling; verdeling naar kavel of vloeroppervlak is een keuze voor het reglement).</li>
+    <li>KPI's: liquiditeit = startkas / maandlasten (doel ≥ 3); solvabiliteit vereniging = eigen vermogen / totaal vermogen (fonds / (fonds + L)); DSCR = (B − E − S) / A (≥ 1,2 gangbaar bankcriterium); dekkingsgraad = (F<sub>0</sub> + 10 · C) / Σ V<sub>1…10</sub>.</li>
+  </ul>
+  <p class="read">Rekenmodel: <code>beheer-gedeeld.js</code> (BH.financien), gekoppeld aan GK.rekenen (grond) en BH.mjop (onderhoud).</p>
+</section>
+
+<section id="s3"><h2 class="num">Invoergegevens</h2>
+  <div class="cols">
+    <div class="scroll"><table><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Status</th></tr></thead><tbody id="tblPar"></tbody></table></div>
+    <div class="panel" style="display:grid;gap:10px">
+      <div class="controls">
+        <div class="ctl"><label>Prijsscenario</label><div class="seg" id="sScen"></div></div>
+        <div class="ctl"><label>Financiering</label><div class="seg" id="sFin"></div></div>
+        <div class="ctl"><label for="fEi">Eigen inbreng e: <output id="fEiO"></output> %</label><input type="range" id="fEi" min="0" max="100" step="5"></div>
+        <div class="ctl"><label for="fR">Rente r<sub>L</sub>: <output id="fRO"></output> %</label><input type="range" id="fR" min="2" max="7" step="0.25"></div>
+        <div class="ctl"><label for="fN">Looptijd n: <output id="fNO"></output> jaar</label><input type="range" id="fN" min="10" max="30" step="5"></div>
+        <div class="ctl"><label>Btw-aftrek</label><div class="seg" id="sBtw"></div></div>
+        <div class="ctl"><label>Tuinder</label><div class="seg" id="sTuin"></div></div>
+      </div>
+      <button type="button" id="fReset" class="seg" style="justify-self:start;padding:4px 10px">Standaard herstellen</button>
+    </div>
+  </div>
+</section>
+
+<section id="s4"><h2 class="num">Resultaten</h2>
+  <div class="result" id="fKpi" aria-live="polite"></div>
+  <div class="scroll" style="margin-top:10px"><table id="tblLast"><caption>Tabel F1 – Jaarlasten beheervereniging, jaar 1 (€).</caption>
+    <thead><tr><th>Post</th><th class="num">€/jr</th><th class="num">€/woning/mnd</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <div id="fChart" style="margin-top:10px"></div>
+  <p class="note">Figuur F1 – Bijdrage per woning per maand (staven, nominaal) en reservefonds (lijn, k€).</p>
+  <div class="scroll"><table id="tblKas"><caption>Tabel F2 – Kasstroom (k€, nominaal): jaar 1, elke 5 jaar en jaren met vervangingen > € 100.000.</caption>
+    <thead><tr><th>Jaar</th><th class="num">Exploitatie</th><th class="num">Storting fonds</th><th class="num">Annuïteit</th><th class="num">Bijdragen</th><th class="num">€/woning/mnd</th><th class="num">Vervangingen</th><th class="num">Fonds</th><th class="num">Restschuld</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="s5"><h2 class="num">Gevoeligheid</h2>
+  <div class="scroll"><table id="tblGev"><caption>Tabel F3 – Investering per woning en maandbijdrage aan de vereniging per woning (incl. annuïteit bij financiering via de vereniging).</caption>
+    <thead><tr><th>Variant</th><th class="num">Investering per woning (€)</th><th class="num">Bijdrage vereniging (€/mnd)</th><th class="num">Financieringslast (€/mnd)</th></tr></thead><tbody></tbody></table></div>
+  <p class="read">De grootste hefbomen zijn de financieringsvorm, de btw-positie (± 21 % op € 1,4 mln voorzieningen) en de omvang van gebouwen en accu. Kostenvoorstellen (controller, ter besluitvorming): (1) beheervereniging of energiecoöperatie als btw-ondernemer laten toetsen voor PV en accu (fiscalist, vraag 69); (2) accu 3 × 150 kWh (vraag 79); (3) gebouwen faseren – schuren en tweede schuur pas na ingebruikname; (4) bestaande stallen hergebruiken bij een erflocatie; (5) collectieve inkoop en eigen inzet (dossier H3.7); (6) erfmolens pas na windmeting en met subsidie.</p>
+</section>
+
+<section id="s6"><h2 class="num">Validatie</h2>
+  <p class="read">Rekenwerk gecontroleerd: annuïteit, indexering en fondsverloop in node nagerekend (fondssaldo ≥ buffer in alle jaren; afwijking afronding &lt; € 1). De VvE-ondergrens (0,5 % van de herbouwwaarde<sup class="ref"><a href="#bron-168">[168]</a></sup>) wordt ruim overschreden. Er zijn geen gepubliceerde exploitatiecijfers van vergelijkbare energie-autonome CPO-buurten gevonden; vergelijk na offertes met de begroting van bestaande wooncoöperaties en energiecoöperaties (open). Verzekeringspremie (0,15 % van de waarde) en administratiekosten zijn schattingen.</p>
+</section>
+
+<section id="s7"><h2 class="num">Risico's per deelonderwerp</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Wie / bewijs</th><th>Restrisico</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Insolventie vereniging</td><td>Lening zonder eigen activa; bewoner betaalt niet</td><td>Vereniging schuldvrij; bijdrageplicht in akte mandeligheid en reglement (kwalitatieve verplichting BW 6:252 te toetsen); incassoregeling</td><td>Notaris; controller</td><td>laag bij variant hypotheek</td><td>open</td></tr>
+    <tr><td>Hypotheek op aandeel in mandelig bezit</td><td>Bank/taxateur waardeert het aandeel niet of stelt eisen (NHG)</td><td>Vroegtijdig gesprek met 2–3 banken en taxateur (dossier H5)</td><td>Melvin (penningmeester)</td><td>middel</td><td>open</td></tr>
+    <tr><td>Liquiditeitstekort</td><td>Onverwachte reparatie, late betalingen</td><td>Startkas 3 maanden; maandelijkse incasso; aparte reserverekening</td><td>Penningmeester, controller</td><td>laag</td><td>afgedekt</td></tr>
+    <tr><td>Fiscale naheffing (EB, btw)</td><td>Interne levering als ‘levering’ gekwalificeerd (Hof Amsterdam 2025)</td><td>Mandelig eigendom, geen verkoop per kWh; vooroverleg Belastingdienst</td><td>Fiscalist</td><td>middel</td><td>open (vraag 69)</td></tr>
+    <tr><td>Kostenoverschrijding aanleg</td><td>Schattingen (S), prijsstijging</td><td>Onvoorzien in grondbegroting; offertes; fasering</td><td>Douwe (calculatie)</td><td>middel</td><td>open</td></tr>
+    <tr><td>Uittreding/verkoop</td><td>Discussie over aandeel in fonds bij verkoop</td><td>Aandeel en fonds blijven bij het erf (BW 5:63); koper treedt in</td><td>Notaris</td><td>laag</td><td>deels</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s8"><h2 class="num">Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Kosten gemeenschappelijke zaak</td><td>BW 5:65 (naar evenredigheid aandeel, tenzij anders bepaald)</td><td>Verdeelsleutel in akte/reglement</td><td>Notaris</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Boekhouding en jaarstukken vereniging</td><td>BW 2:48–2:49 (bestuur legt rekening en verantwoording af; kascommissie)</td><td>Jaarlijkse begroting, jaarrekening, kascommissie</td><td>Bestuur, ledenvergadering</td><td>voldoet onder voorwaarde (statuten)</td></tr>
+    <tr><td>Reservering groot onderhoud</td><td>Analogie BW 5:126 (VvE)<sup class="ref"><a href="#bron-168">[168]</a></sup></td><td>MJOP-gebaseerde reservering op aparte rekening</td><td>Onderhoudsmanager, controller</td><td>voldoet onder voorwaarde</td></tr>
+    <tr><td>Btw op gedeelde voorzieningen</td><td>Wet OB 1968</td><td>Standaard 21 % niet aftrekbaar; aftrek alleen als ondernemer</td><td>Fiscalist</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Energiebelasting interne levering</td><td>Wbm art. 50; Hof Den Bosch 2025 vs Hof Amsterdam 2025</td><td>Zie eigendom-technisch</td><td>Fiscalist</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Kredietverlening aan leden</td><td>Wft (vergunningplicht kredietaanbieder)</td><td>Vereniging verstrekt geen krediet aan leden; geen bijdragen in termijnen met rente</td><td>Bestuur</td><td>voldoet onder voorwaarde</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="s9"><h2 class="num">Discussie en conclusie</h2>
+  <p class="read">Omdat de voorzieningen mandelig eigendom van de bewoners zijn, heeft de beheervereniging geen activa als onderpand; een lening op haar naam maakt haar per definitie zwak solvabel en afhankelijk van de betaaldiscipline van alle leden. Financiering via de bewoners zelf legt het onderpand (het erf met aandeel) en de schuld bij dezelfde partij, wat bancair logischer is en de vereniging schuldvrij houdt. Restpunt: banken moeten het aandeel in de gemeenschappelijke zaken meewegen in de taxatie. De maandbijdrage is substantieel; daar staat tegenover dat huishoudens vrijwel geen stroom inkopen (± € <span data-k="fiStroom"></span>/jr voor het dorp bij € 0,25/kWh) en een deel van hun groente en fruit zelf telen. Een integrale maandlastenvergelijking (woning + bijdrage − vermeden energie- en voedselkosten) volgt in dossier H4.</p>
+</section>
+
+<section id="s10"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section id="s11"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.19</td><td>04-11-2026</td><td>Nieuwe pagina: investering, financieringsvarianten, exploitatie, kasstroom 30 jaar, KPI's liquiditeit en solvabiliteit; rol finance manager/controller</td><td>Melvin de Vries / Claude</td></tr>
+</tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span><a href="financien.html">← Basispagina</a></span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="grond-gedeeld.js"></script>
+<script src="beheer-gedeeld.js"></script>
+<script src="beheer-ui.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, F = D.financien, B = D.beheer, $ = id => document.getElementById(id), r1k = v => nl(Math.round(v / 1000) * 1000), e = BHU.e;
+  const F0 = BH.financien(), FV = BH.financien({ financiering: "vereniging" });
+  bindAll({ fiInv: r1k(F0.inv), fiGrond: r1k(F0.grond), fiVoorz: r1k(F0.voorz), fiBuf: nl(F0.startFonds), fiPW: r1k(F0.perWoningInv), fiJaar: r1k(F0.jaarlast), fiMnd: nl(Math.round(F0.perWoningMnd)),
+    fiInf: nl(B.inflatie * 100, 1), fiRente: nl(F.renteLening * 100, 1), fiLoop: F.looptijd, fiAnn: r1k(FV.ann), fiStroom: r1k(F0.zonderOns) });
+  renderBronnen($("bronnen"), [165, 168, 82, 74, 124, 130, 166, 167]);
+  $("tblPar").innerHTML = [["Eigen inbreng e (variant vereniging)", nl(F.eigenInbreng * 100) + " %", "N"], ["Rente lening r<sub>L</sub>", nl(F.renteLening * 100, 1) + " %", "N"], ["Looptijd n", F.looptijd + " jaar", "N"],
+    ["Btw", nl(F.btw * 100) + " %, aftrek " + (F.btwAftrek ? "ja" : "nee"), "G / N"], ["Verzekering", nl(F.verzekeringPct * 100, 2) + " % van de waarde", "S"], ["Administratie", "€ " + nl(F.administratie) + "/jr", "S"],
+    ["Vastrecht drinkwater", "€ " + nl(F.drinkwaterVast) + "/jr", "S"], ["Stroomsaldo 3 × 25 A", "+ € " + nl(F.netSaldo) + "/jr", "A"], ["Tuinder (optie)", "€ " + nl(F.tuinder.eur) + "/jr", "S"],
+    ["Stroomvraag dorp / import", nl(F.vraagMWh) + " / " + nl(F.importMWh, 1) + " MWh/jr", "A"], ["Prijs netstroom (vermeden)", "€ " + nl(F.stroomprijs, 2) + "/kWh", "G"]]
+    .map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+  BHU.seg($("sScen"), "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
+  BHU.seg($("sFin"), "fi", [["hypotheek", "Eigen hypotheek"], ["vereniging", "Lening vereniging"]], F.financiering);
+  BHU.seg($("sBtw"), "bt", [["0", "Nee"], ["1", "Ja"]], F.btwAftrek ? "1" : "0");
+  BHU.seg($("sTuin"), "tu", [["0", "Nee"], ["1", "Ja"]], F.tuinder.aan ? "1" : "0");
+  const std = { fEi: F.eigenInbreng * 100, fR: F.renteLening * 100, fN: F.looptijd };
+  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v);
+  function run() {
+    const o = { scen: BHU.val("sc"), financiering: BHU.val("fi"), eigenInbreng: +$("fEi").value / 100, renteLening: +$("fR").value / 100, looptijd: +$("fN").value, btwAftrek: BHU.val("bt") === "1", tuinder: BHU.val("tu") === "1" };
+    $("fEiO").value = $("fEi").value; $("fRO").value = nl(+$("fR").value, 2); $("fNO").value = $("fN").value;
+    const Fi = BH.financien(o), K = Fi.kpi, dscr = Fi.rows.filter(r => r.dscr != null).map(r => r.dscr);
+    $("fKpi").innerHTML = [[e(Fi.inv), "investering totaal"], [e(Fi.perWoningInv), "per woning"], [e(Fi.lening), "lening vereniging"], [e(Fi.ann) + " /jr", "annuïteit"],
+      [e(Fi.perWoningMnd) + " /mnd", "bijdrage per woning, jaar 1"], [e(Fi.finPerWoningMnd) + " /mnd", "financieringslast per woning"],
+      [nl(K.liquiditeitMnd, 1) + " mnd", "liquiditeit (startkas / maandlasten)"], [nl(K.solvabiliteit * 100, 1) + " %", "solvabiliteit vereniging"],
+      [dscr.length ? nl(Math.min(...dscr), 2) : "n.v.t.", "DSCR (min.)"], [nl(K.dekking10, 1), "dekkingsgraad fonds 10 jaar"], [e(Fi.fondsMin), "laagste fondssaldo"]]
+      .map(([b, t]) => `<div><b>${b}</b><span>${t}</span></div>`).join("");
+    BHU.tabelLasten($("tblLast").querySelector("tbody"), Fi); BHU.chartFin($("fChart"), Fi); BHU.tabelKas($("tblKas").querySelector("tbody"), Fi);
+  }
+  zet(); $("fReset").addEventListener("click", () => { zet(); run(); });
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run)); run();
+  const v = [["Standaard (eigen hypotheek, 30 % eigen geld)", {}], ["Lening vereniging, 30 % eigen inbreng", { financiering: "vereniging" }], ["Prijzen laag", { scen: "min" }], ["Prijzen hoog", { scen: "max" }],
+    ["Btw aftrekbaar", { btwAftrek: true }], ["Rente 3,5 %", { renteLening: 0.035 }], ["Rente 5,5 %", { renteLening: 0.055 }], ["Accu 450 kWh", { accuKWh: 450 }], ["Zonder erfmolens", { molens: 0 }], ["Met tuinder", { tuinder: true }]];
+  $("tblGev").querySelector("tbody").innerHTML = v.map(([n, o]) => { const x = BH.financien(o); return `<tr><td>${n}</td><td class="num">${nl(Math.round(x.perWoningInv / 100) * 100)}</td><td class="num">${nl(Math.round(x.perWoningMnd))}</td><td class="num">${nl(Math.round(x.finPerWoningMnd))}</td></tr>`; }).join("");
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

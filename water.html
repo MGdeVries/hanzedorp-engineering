@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water – Hanzedorp</title>
+<meta name="description" content="Hoe Hanzedorp regenwater gebruikt, water vasthoudt en drinkwater spaart. Basispagina voor bewoners en gemeente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.ctl input[type=number]{font:inherit;font-family:var(--mono);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:12em}
+.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}
+</style>
+<style>.ok{color:var(--green)} .nok{color:var(--warn)}</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Water</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Water: regen gebruiken, water vasthouden</h1>
+  <p class="lead read">Hanzedorp vangt schoon regenwater op van de harde delen van de daken. Daarmee spoelen we het toilet en draait de wasmachine. Regenwater is zacht: er zit geen kalk in. Dat is beter voor je wasmachine en je kleding. Voor drinken, koken en douchen gebruiken we gewoon drinkwater.</p>
+  <ul class="kern read">
+    <li><span>Een gezin van vier gebruikt ongeveer <b data-k="lpd"></b> liter water per dag. Ongeveer <b data-k="regenPct"></b> % daarvan is voor toilet en wasmachine.</span></li>
+    <li><span>De helft van de daken wordt groen. Dat water vangen we niet op, want het kan bruin zijn. Van de harde delen komt genoeg regen voor ongeveer <b><span data-k="tw5"></span> %</b> van toilet en wasmachine samen.</span></li>
+    <li><span>Met een urinoir in elk huis spoel je met een halve liter in plaats van 4,5 liter. Dan is er vaker genoeg regenwater: voor toilet en wasmachine samen gemiddeld <b><span data-k="twU5"></span> %</b> in plaats van <span data-k="tw5"></span> %. Water van groene daken gaat naar de tuinvijver. Regen die op straten en tuinen valt, zakt via kratten de grond in.</span></li>
+  </ul>
+</header>
+<p class="read note">De dakoppervlakken van de woningen zijn een schatting; de huizen zijn nog niet ontworpen. Zie <a href="bewoners.html#h-daken">De woningen en hun daken</a>.</p>
+
+
+<section aria-labelledby="h-schema">
+  <h2 id="h-schema">Hoe het water door Hanzedorp stroomt</h2>
+  <div class="panel scroll">
+    <svg viewBox="0 0 900 400" width="100%" style="min-width:680px" role="img" aria-labelledby="schemaT">
+      <title id="schemaT">Regen op het harde dakdeel gaat naar de regenwatertank voor toilet en wasmachine. Het groendak houdt water vast en stuurt de rest naar de tuinvijver. Regen op straten, paden en tuinen en de overloop van de tank zakken via infiltratiekratten de bodem in. Drinkwater gaat naar keuken, douche en wastafel en vult de tank bij als die leeg is. Al het afvalwater gaat naar het riool van de gemeente.</title>
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker>
+        <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--water)"/></marker>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--rain)"/></marker>
+        <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--green)"/></marker>
+        <marker id="arc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--clay)"/></marker>
+      </defs>
+      <g style="stroke:var(--rain);stroke-width:2;stroke-linecap:round"><line x1="40" y1="20" x2="34" y2="40"/><line x1="70" y1="14" x2="64" y2="34"/><line x1="100" y1="22" x2="94" y2="42"/><line x1="130" y1="14" x2="124" y2="34"/><line x1="160" y1="20" x2="154" y2="40"/></g>
+      <text x="190" y="34" class="sm">Regen ± <tspan data-k="dbMm"></tspan> mm per jaar</text>
+      <rect x="20" y="60" width="85" height="60" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/>
+      <text x="62" y="86" text-anchor="middle" font-weight="600">Groendak</text>
+      <text x="62" y="106" text-anchor="middle" class="sm">houdt water vast</text>
+      <rect x="105" y="60" width="85" height="60" rx="8" style="fill:var(--surface);stroke:var(--rain);stroke-width:2"/>
+      <text x="147" y="86" text-anchor="middle" font-weight="600">Hard dak</text>
+      <text x="147" y="106" text-anchor="middle" class="sm">schoon water</text>
+      <rect x="260" y="60" width="180" height="60" rx="8" style="fill:var(--surface);stroke:var(--rain);stroke-width:2"/>
+      <text x="350" y="86" text-anchor="middle" font-weight="600">Regenwatertank</text>
+      <text x="350" y="106" text-anchor="middle" class="sm">per woning of centraal</text>
+      <line x1="190" y1="90" x2="256" y2="90" style="stroke:var(--rain);stroke-width:3" marker-end="url(#arr)"/>
+      <rect x="520" y="40" width="180" height="46" rx="8" style="fill:var(--surface);stroke:var(--line)"/><text x="610" y="68" text-anchor="middle">Toilet</text>
+      <rect x="520" y="96" width="180" height="46" rx="8" style="fill:var(--surface);stroke:var(--line)"/><text x="610" y="118" text-anchor="middle">Wasmachine</text><text x="610" y="135" text-anchor="middle" class="sm">zacht water, geen kalk</text>
+      <path d="M440 80 C480 80 480 63 516 63" style="fill:none;stroke:var(--rain);stroke-width:3" marker-end="url(#arr)"/>
+      <path d="M440 100 C480 100 480 119 516 119" style="fill:none;stroke:var(--rain);stroke-width:3" marker-end="url(#arr)"/>
+      <rect x="20" y="170" width="170" height="56" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/>
+      <text x="105" y="194" text-anchor="middle" font-weight="600">Tuinvijver</text>
+      <text x="105" y="213" text-anchor="middle" class="sm">water voor de tuinen</text>
+      <line x1="62" y1="120" x2="62" y2="166" style="stroke:var(--green);stroke-width:2" marker-end="url(#arg)"/>
+      <rect x="260" y="200" width="180" height="56" rx="8" style="fill:var(--surface);stroke:var(--clay);stroke-width:2"/>
+      <text x="350" y="224" text-anchor="middle" font-weight="600">Infiltratiekratten</text>
+      <text x="350" y="243" text-anchor="middle" class="sm">water zakt de grond in</text>
+      <line x1="350" y1="120" x2="350" y2="196" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:6 4" marker-end="url(#ar)"/>
+      <text x="358" y="162" class="sm">overloop</text>
+      <text x="120" y="268" class="sm">straten, paden, tuinen</text>
+      <path d="M200 262 C230 256 240 248 256 244" style="fill:none;stroke:var(--muted);stroke-width:2" marker-end="url(#ar)"/>
+      <path d="M350 256 L350 300" style="stroke:var(--clay);stroke-width:2;stroke-dasharray:6 4" marker-end="url(#arc)"/>
+      <line x1="10" y1="312" x2="440" y2="312" style="stroke:var(--clay);stroke-width:3"/>
+      <text x="20" y="335" font-weight="600">Bodem en grondwater</text>
+      <text x="20" y="355" class="sm">het water zakt terug de grond in; daarmee doen we verder niets</text>
+      <rect x="520" y="200" width="180" height="60" rx="8" style="fill:var(--surface);stroke:var(--water);stroke-width:2"/>
+      <text x="610" y="226" text-anchor="middle" font-weight="600">Drinkwater</text>
+      <text x="610" y="246" text-anchor="middle" class="sm">waterbedrijf</text>
+      <rect x="740" y="200" width="145" height="60" rx="8" style="fill:var(--surface);stroke:var(--line)"/>
+      <text x="812" y="224" text-anchor="middle">Keuken, douche,</text><text x="812" y="244" text-anchor="middle">wastafel</text>
+      <line x1="700" y1="230" x2="736" y2="230" style="stroke:var(--water);stroke-width:3" marker-end="url(#arw)"/>
+      <path d="M610 200 C610 175 560 160 560 146" style="fill:none;stroke:var(--water);stroke-width:2;stroke-dasharray:3 4" marker-end="url(#arw)"/>
+      <text x="618" y="182" class="sm">bijvullen als de tank leeg is</text>
+      <rect x="600" y="310" width="285" height="56" rx="8" style="fill:var(--surface);stroke:var(--clay);stroke-width:2"/>
+      <text x="742" y="334" text-anchor="middle" font-weight="600">Riool van de gemeente</text>
+      <text x="742" y="354" text-anchor="middle" class="sm">al het afvalwater, altijd</text>
+      <path d="M812 260 L812 306" style="stroke:var(--clay);stroke-width:2" marker-end="url(#arc)"/>
+      <path d="M700 142 C760 160 790 250 800 306" style="fill:none;stroke:var(--clay);stroke-width:1.5;stroke-dasharray:4 4" marker-end="url(#arc)"/>
+      <text x="20" y="390" class="sm">Een helofytenfilter gebruiken we alleen eventueel om opgepompt grondwater te zuiveren, niet voor afvalwater.</text>
+    </svg>
+  </div>
+  <p class="note read">Hanzedorp krijgt maximaal <span data-k="nWoningen"></span> woningen. Het drinkwater komt via één aansluiting het buurthuis binnen. In de technische ruimte daar krijgt elke woning een eigen watermeter; vandaar loopt een leiding naar elk huis. Stroom en internet gaan door dezelfde sleuf, het riool ligt ernaast en dieper. Elk huis heeft een eigen regenwatertank; het regenwater van de daken van de carport en het buurthuis gaat naar de zwemvijver.</p>
+  <p class="note read">Een gezamenlijke drinkwaterleiding achter één aansluiting vraagt extra zorg: terugstroombeveiliging bij elk huis en het buurthuis, geen stilstaand water (legionella) en de leiding niet naast warme stroomkabels. Zie <a href="gezondheid.html">Gezondheid</a>.</p>
+</section>
+
+<section aria-labelledby="h-drink">
+  <h2 id="h-drink">Drinkwater: waar komt het vandaan en hoeveel kopen we?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Al het water om te drinken, te koken, te douchen en af te wassen is gewoon drinkwater van het waterbedrijf (Vitens). Het komt via <b>één aansluiting</b> het buurthuis binnen. In de technische ruimte krijgt elke woning een eigen watermeter. Vandaar loopt één leiding langs de rondweg naar alle huizen.</p>
+      <p>Toilet en wasmachine draaien op regenwater. Is de regentank leeg, dan vult drinkwater bij. Dat is de <b>bijkoop</b>. Die gebeurt vooral in droge voorjaren en zomers.</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:6px">
+      <h3>Wat Vitens levert</h3>
+      <p>Een gewone woningaansluiting heeft een watermeter die <b><span id="dStd"></span> m³ per uur</b> aankan. Dat is genoeg voor één huis, niet voor twaalf huizen die tegelijk douchen. Voor een groep woningen achter één meter biedt Vitens grotere aansluitingen: 4, 6, 10 of 16 m³ per uur.</p>
+      <p>Een kuub kost € <span id="dPrijs"></span> inclusief belasting.</p>
+    </div>
+  </div>
+  <div class="panel" style="display:grid;gap:14px;margin-top:12px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Bewoners</legend><div class="seg" id="dLf"></div></fieldset></div>
+      <div class="ctl"><label for="dJ">Jaar in de grafiek: <output id="dJO"></output></label><input type="range" id="dJ" min="0" max="30" step="1"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rdBasis"></b><span>per dag voor douchen, koken, wastafel en vaatwasser</span></div>
+      <div><b id="rdGem"></b><span>per dag gemiddeld, alles samen</span></div>
+      <div><b id="rdMax"></b><span>op de drukste dag (lege regentanks)</span></div>
+      <div><b id="rdJaar"></b><span>per jaar ingekocht</span></div>
+      <div><b id="rdKost"></b><span>per jaar, alle woningen samen</span></div>
+      <div><b id="rdPiek"></b><span>tegelijk nodig op het drukste moment</span></div>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h3>Drinkwater per dag in <span id="dJT"></span></h3>
+      <p class="note">m³ per dag voor alle woningen en het buurthuis. Grijs: douchen, koken, wastafel en vaatwasser. Oranje: bijkoop voor toilet en wasmachine als de regentanks leeg zijn. Berekend met de echte regen van KNMI Heino.</p>
+      <div class="legend"><span><i style="background:var(--muted)"></i>douchen en koken</span><span><i style="background:var(--clay)"></i>bijkoop regenwater-tekort</span><span><i style="background:var(--water)"></i>totaal</span></div>
+      <div id="dChart"></div>
+    </div>
+  </div>
+  <div class="cols" style="margin-top:12px">
+    <div class="panel" style="display:grid;gap:6px"><h3>Wanneer op de dag?</h3><p class="note">m³ per uur voor het hele dorp op de drukste dag, gemiddeld over elk uur. De vorm komt uit een jaar meten in de referentiewoning: een piek in de ochtend en een kleinere in de avond. Binnen zo'n uur zijn er korte momenten die veel hoger liggen, als een paar douches tegelijk lopen. Daarop rekenen we de aansluiting.</p><div id="dUur"></div></div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Per maand</h3><p class="note">m³ per dag, gemiddeld over 31 jaar.</p><div id="dMnd"></div></div>
+  </div>
+  <div class="cols" style="margin-top:12px">
+    <div class="read" style="display:grid;gap:8px">
+      <h3>Is één aansluiting genoeg?</h3>
+      <p>Per dag kopen we maar een paar kuub. Dat is nooit het probleem. Het gaat om het <b>drukste moment</b>: 's ochtends staan in een paar huizen tegelijk de douches aan, draait een vaatwasser en vult een toilet. Volgens de rekenregels voor waterleidingen vraagt een groep van <span data-k="nWoningen"></span> woningen dan <b><span id="dPiekL"></span> tot <span id="dPiekH"></span> m³ per uur</b>.</p>
+      <div class="scroll"><table id="dTbl"><thead><tr><th>Aansluiting</th><th class="num">Capaciteit</th><th>Genoeg?</th></tr></thead><tbody></tbody></table></div>
+      <p><b>Advies:</b> één hoofdaansluiting van <b>10 m³ per uur</b> in het buurthuis. Die kan de piek van alle woningen aan, met ruimte voor de gedeelde keuken in het buurthuis. 6 m³ per uur kan alleen als iedereen zuinige kranen en douches heeft; dan zit de piek aan de onderkant.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:6px">
+      <h3>Wat er technisch nodig is</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li><b>Een dikke hoofdleiding</b> door het dorp (± 63 mm). Dan stroomt het water rustig en blijft de druk bij elk huis goed.</li>
+        <li><b>Per woning een watermeter</b> in het buurthuis en een terugslagklep bij het huis.</li>
+        <li><b>Regenwater en drinkwater nooit aan elkaar.</b> Drinkwater vult de regentank alleen bij via een open vulpunt met een luchtspleet, zodat regenwater nooit terug kan stromen.</li>
+        <li><b>Koel en in beweging:</b> de leiding ligt diep genoeg en niet naast warme stroomkabels. Geen doodlopende stukken waar water stilstaat (legionella).</li>
+        <li><b>Geen buffertank of pomp</b> als de druk van Vitens goed genoeg is. Dat vragen we bij Vitens na. Een pomp met een klein vat is de reserve-oplossing.</li>
+        <li><b>Slim plannen:</b> de energiecomputer zet vaatwassers en wasmachines liefst midden op de dag aan. Dat is goed voor de stroom én haalt ze weg uit de ochtendpiek.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px"><h3>In huis</h3><p>Je huis krijgt twee waterleidingen: drinkwater en regenwater. De regenwaterleiding gaat naar het toilet en de wasmachine. Regenwater is zacht, dus je hebt minder wasmiddel nodig en er komt geen kalk in je machine. Uit de kranen in keuken en badkamer komt altijd drinkwater. Is de tank leeg? Dan vult het systeem vanzelf bij met drinkwater. Daar merk je niets van.</p></div>
+    <div class="read" style="display:grid;gap:8px"><h3>Kosten</h3><p>Je bespaart ongeveer <b>€ <span data-k="besTW"></span> per jaar</b> op drinkwater. Een regenwatersysteem kost duizenden euro's. Dat verdien je dus niet terug. We doen het voor de natuur, voor droge zomers en om water in het gebied te houden. Hieronder kun je zelf rekenen.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-meting">
+  <h2 id="h-meting">Wat een gezin echt gebruikt</h2>
+  <p class="read">Een gezin van vier (twee ouders, twee tieners) heeft een jaar lang elk kwartier de watermeter uitgelezen. Dat is ons voorbeeld voor de gezinswoningen in Hanzedorp. Hoeveel water je gebruikt, hangt vooral af van mensen en apparaten. Niet van het huis. Daarom kunnen we deze cijfers goed gebruiken.</p>
+  <div class="stats">
+    <div class="stat"><b data-k="lpd"></b><span>liter per dag voor het hele gezin</span></div>
+    <div class="stat"><b data-k="lpp"></b><span>liter per persoon per dag</span></div>
+    <div class="stat" style="border-color:var(--muted)"><b data-k="cbs4"></b><span>liter per persoon per dag, gemiddeld gezin van vier in Nederland</span></div>
+    <div class="stat"><b data-k="m3jaar"></b><span>m³ per jaar</span></div>
+  </div>
+  <div class="cols">
+    <div class="panel" style="display:grid;gap:6px"><h3>Op een gemiddelde dag</h3><p class="note">Liter per uur. Het meeste water gaat 's ochtends door de kraan.</p><div id="hourChart"></div></div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Per dag van de week</h3><p class="note">Liter per dag, alleen dagen dat het gezin thuis was. In het weekend is iedereen thuis en gaat er meer water door.</p><div id="weekChart"></div></div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Door het jaar</h3><p class="note">Liter per dag, per maand. In juli was het gezin op vakantie.</p><div id="monthChart"></div></div>
+  </div>
+  <div class="panel" style="display:grid;gap:12px">
+    <h3>Waar gaat het water heen?</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Waarvoor</th><th class="num">Hoe vaak</th><th class="num">Liter per keer</th><th class="num">Deel van al het water</th><th class="num">Gemiddeld in NL</th></tr></thead>
+      <tbody>
+        <tr><td>Toilet doorspoelen</td><td class="num"><span data-k="tlKleinDag"></span>× klein, <span data-k="tlGrootDag"></span>× groot per dag</td><td class="num"><span data-k="tlLKlein"></span> of <span data-k="tlLGroot"></span></td><td class="num">± <span data-k="tlPct"></span> %</td><td class="num">24 %</td></tr>
+        <tr><td>Wasmachine</td><td class="num"><span data-k="wmCycli"></span>× per jaar</td><td class="num">± <span data-k="wmL"></span></td><td class="num">± <span data-k="wmPct"></span> %</td><td class="num">14 %</td></tr>
+        <tr><td>Vaatwasser</td><td class="num"><span data-k="vwCycli"></span>× per jaar</td><td class="num">± <span data-k="vwL"></span></td><td class="num">± <span data-k="vwPct"></span> %</td><td class="num">3 %</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-regen">
+  <h2 id="h-regen">Hoeveel regen valt er?</h2>
+  <p class="read">Hanzedorp komt in de buurt van Zwolle, Dalfsen en Wijhe. Midden in dat gebied staat het weerstation van Heino. Daar meet het KNMI elke dag hoeveel regen er valt. Gemiddeld is dat <b data-k="dbMm"></b> mm per jaar. Maar het verschilt veel per jaar.</p>
+  <div class="cols">
+    <div class="panel" style="display:grid;gap:6px"><h3>Per maand</h3><p class="note">mm, gemiddeld over 1991–2020. April is de droogste maand.</p><div id="rainChart"></div></div>
+    <div class="panel" style="display:grid;gap:6px"><h3>Per jaar</h3><p class="note">mm per jaar in Heino, <span data-k="dbVan"></span>–<span data-k="dbTot"></span>. De streep is het gemiddelde.</p><div id="rainYearChart"></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-groen">
+  <h2 id="h-groen">Waarom alleen het harde deel van het dak?</h2>
+  <div class="cols">
+    <p class="read">Ongeveer de helft van de daken wordt een groendak. Een groendak houdt ongeveer de helft van de regen vast. Dat is goed: het koelt in de zomer, helpt insecten en vogels, en er stroomt minder water tegelijk weg bij een flinke bui.</p>
+    <p class="read">Water dat van een groendak afloopt, kan bruin zijn. Dat willen we niet in het toilet of de wasmachine. Daarom vangen we alleen water van de harde delen op. Daar komt per jaar ongeveer <b><span data-k="opbrHard"></span> m³</b> vanaf. Toilet en wasmachine samen hebben ongeveer <span data-k="vraagTW"></span> m³ nodig, alleen het toilet <span data-k="vraagT"></span> m³. Een grotere tank lost dat tekort niet op.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-wie">
+  <h2 id="h-wie">Thuis zijn kost water: werk, school en pensioen</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Ben je de hele dag op je werk of op school? Dan gebruik je thuis minder water. Je gaat dan bijvoorbeeld op je werk naar de wc. Dat zien we in de meting: op een werkdag gebruikte het gezin ongeveer <b><span data-k="bWerk"></span> liter</b>, op een weekenddag <b><span data-k="bWeekend"></span> liter</b>.</p>
+      <p>In het meetjaar werkte de vader 4 dagen thuis, de moeder 2 dagen, en gingen de kinderen 5 dagen naar school. Daaruit rekenen we: iemand die overdag thuis is, gebruikt ongeveer <b><span data-k="bDag"></span> liter</b> per dag extra.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>Hanzedorp verandert in de tijd. Nu verwachten we gezinnen van 40–50 jaar met kinderen, jongeren van 20–30 en senioren van 60–70. Over 10 jaar zijn de kinderen misschien uit huis. Over 20 jaar zijn de ouders met pensioen en de hele dag thuis.</p>
+      <p>Daarom kun je in het rekenmodel hieronder kiezen: hoe ver in de tijd, en wie er thuiswerkt.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-urinoir">
+  <h2 id="h-urinoir">Een urinoir in elk huis</h2>
+  <div class="cols">
+    <p class="read">Plassen op een gewoon toilet kost 4 à 5 liter water per keer. Een urinoir gebruikt ongeveer een halve liter. In een gezin wordt zo'n tien keer per dag geplast. Als de mannen en jongens het urinoir gebruiken, scheelt dat voor een gezin ongeveer <b><span data-k="uGezinL"></span> liter per dag</b>, of <span data-k="uGezinM3"></span> m³ per jaar.</p>
+    <p class="read">Voor heel Hanzedorp daalt het water voor het toilet met ongeveer <b><span data-k="uPct"></span> %</b>. Er is dan minder regenwater nodig. Daardoor kan het regenwater van de harde daken bijna het hele toilet aan. In het rekenmodel kun je het urinoir aan- en uitzetten.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf: rekenen met 31 jaar echte regen</h2>
+  <p class="read">Het regenwater is voor het toilet en de wasmachine. Kies wie er wonen, hoe zuinig de bewoners zijn en hoe groot de tank is. We rekenen dan dag voor dag uit hoeveel regen er in de tanks komt. Dat doen we voor elk jaar van <span data-k="dbVan"></span> tot en met <span data-k="dbTot"></span>, voor alle <span data-k="nWoningen"></span> woningen samen.</p>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><fieldset><legend>Wanneer?</legend><div class="seg" id="lfSeg"></div></fieldset><span class="note" id="lfNote"></span></div>
+      <div class="ctl"><fieldset><legend>Thuiswerken</legend><div class="seg" id="twSeg"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Urinoir in elk huis</legend><div class="seg"><input type="radio" name="ur" id="ur0" value="0"><label for="ur0">Nee</label><input type="radio" name="ur" id="ur1" value="1" checked><label for="ur1">Ja (0,5 L)</label></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Hoe zuinig zijn de bewoners?</legend>
+        <div class="seg"><input type="radio" name="vraag" id="vraagM" value="meting" checked><label for="vraagM">Zoals ons gezin</label><input type="radio" name="vraag" id="vraagC" value="cbs"><label for="vraagC">Gemiddeld in NL</label></div></fieldset></div>
+      <div class="ctl"><label for="tank">Tank per woning: <output id="tankO" for="tank"></output> m³</label><input type="range" id="tank" min="0" max="14" step="1" value="4"><span class="note">Eén centrale tank: <output id="tankC"></output> m³</span></div>
+    </div>
+    <div class="scroll"><table id="tblWie"><caption>Wie woont er, en hoeveel water gebruiken ze?</caption><thead><tr><th>Woning</th><th class="num">Aantal</th><th class="num">Bewoners per huis</th><th class="num">Liter per dag per huis</th><th class="num">Waarvan toilet</th></tr></thead><tbody></tbody></table></div>
+    <div class="result" aria-live="polite">
+      <div><b id="rM3"></b><span>water per jaar, heel Hanzedorp</span></div>
+      <div><b id="rGem"></b><span>draait gemiddeld op regen</span></div>
+      <div><b id="rP10"></b><span>haal je in 9 van de 10 jaar</span></div>
+      <div><b id="rMin"></b><span id="rMinL">in het droogste jaar</span></div>
+      <div><b id="rAanv"></b><span>drinkwater bijvullen per jaar, alle huizen samen</span></div>
+      <div><b id="rOver"></b><span>overloop naar de infiltratiekratten per jaar</span></div>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h3>Elk jaar apart</h3>
+      <div class="legend"><span><i style="background:var(--water)"></i>99 % of meer</span><span><i style="background:var(--rain)"></i>70–99 %</span><span><i style="background:var(--warn)"></i>minder dan 70 %</span></div>
+      <div id="jaarChart"></div>
+      
+    </div>
+
+    <div style="display:grid;gap:12px;border-top:1px solid var(--line);padding-top:16px">
+      <h3>Wat kost het, en wat levert het op?</h3>
+      <div class="controls">
+        <div class="ctl" style="grid-column:1/-1"><fieldset><legend>Welke opslag?</legend><div class="seg" id="kostSeg"></div></fieldset></div>
+        <div class="ctl" id="centraalCtl" hidden><label for="kCentraal">Totale kosten centrale tank en leidingen (€)</label><input type="number" id="kCentraal" min="0" step="1000" placeholder="totaalbedrag in euro"></div>
+      </div>
+      <div class="result">
+        <div><b id="kInv"></b><span>kosten per woning</span></div>
+        <div><b id="kBes"></b><span>minder drinkwater per woning per jaar</span></div>
+        <div><b id="kTv"></b><span>jaar om terug te verdienen</span></div>
+      </div>
+      <p class="note read" id="kNoot"></p>
+      <p class="read note">Deze prijzen gelden voor een systeem van 5.000 liter. Een kleinere tank is waarschijnlijk goedkoper, maar die prijzen hebben we nog niet. Drinkwater rekenen we voor € <span data-k="prijs"></span> per m³. Zelfs bij lage kosten verdien je een regenwatersysteem niet terug. Het gaat om water vasthouden en droge zomers opvangen.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-berging">
+  <h2 id="h-berging">Water vasthouden: wat vraagt het waterschap?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het waterschap Drents Overijsselse Delta wil dat nieuwe wijken regenwater zelf vasthouden. Komt er <span data-k="wsDrempel"></span> m² of meer dak en bestrating bij? Dan moet je per m² <b><span data-k="wsBerging"></span> liter</b> water kunnen opvangen. Dat kan in een wadi, een vijver of een sloot. Die regel geldt sinds oktober 2025.</p>
+      <p>In Hanzedorp komt er ongeveer <span data-k="dakTot"></span> m² dak en <span data-k="verhardStraat"></span> m² straat en paden bij. Dan is er <b><span data-k="bergMin"></span> tot <span data-k="bergMax"></span> m³</b> berging nodig. Het hangt ervan af of het waterschap de groene daken meetelt. Dat vragen we na.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het waterschap rekent met een zware bui: <span data-k="wsBui"></span> mm in <span data-k="wsBuiUur"></span> uur. Zo'n bui komt ongeveer eens in de honderd jaar voor. De regenwatertanks tellen niet mee, want die zijn meestal vol.</p>
+      <p>Ook moet de vloer van elk huis minstens <span data-k="wsVloer"></span> cm boven het hoogste grondwater liggen. Hoe hoog het grondwater staat, weten we pas als de plek bekend is.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-straat">
+  <h2 id="h-straat">Is water van de straat bruikbaar?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We hebben uitgezocht wat er bekend is over regenwater dat van straten afstroomt.</p>
+      <ul style="margin:0;padding-left:1.2em;display:grid;gap:6px">
+        <li>In een woonwijk is dat water meestal niet erg vies. Je mag het vaak zonder zuivering in de grond laten zakken. Wel hopen zware metalen zoals zink en koper zich op in de bodem waar het water binnenkomt.</li>
+        <li>Een helofytenfilter (een filter met planten) haalt ongeveer drie kwart van het vuil eruit, maar maar ongeveer de helft van het fosfaat en van zink en koper.</li>
+        <li>Groenten die met straatwater worden begoten, kunnen te veel lood opnemen. Onderzoekers zeggen: het kan wel, als je het water eerst zuivert, de juiste gewassen kiest en de grond goed beheert.</li>
+        <li>Auto's wassen op straat: daar gaat zeep en vuil met het regenwater mee. Veel gemeenten verbieden dat. In Hanzedorp kunnen we afspreken om dat niet op straat te doen.</li>
+      </ul>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p><b>Wat hebben we besloten?</b> We gebruiken straatwater niet. Het zakt via infiltratiekratten en wadi's de grond in, en daarmee doen we verder niets. Het gaat niet naar toilet, wasmachine, vijver of akker.</p>
+      <p>Een helofytenfilter is alleen nog een optie om opgepompt grondwater voor de akker te zuiveren. Zie <a href="hemelwater.html">Kratten &amp; wadi's</a> en <a href="akker.html">Akker &amp; irrigatie</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-tuin">
+  <h2 id="h-tuin">Water voor de tuinderij</h2>
+  <div class="cols">
+    <p class="read">De tuinderij van ongeveer <span data-k="tuinHa"></span> hectare heeft in de zomer extra water nodig. In een gewone zomer valt er ongeveer <span data-k="tekMed"></span> mm te weinig regen. Voor 1 hectare is dat ongeveer <b><span data-k="tuinMed"></span> m³</b>. In een droge zomer zoals 2018 of 2022 is het veel meer.</p>
+    <p class="read">De daken zijn daar niet genoeg voor. De akker krijgt daarom water uit een eigen put. Zie <a href="akker.html">Akker &amp; irrigatie</a>. Dit is een eerste schatting. De tuinder weet het straks precies.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-warm">
+  <h2 id="h-warm">Warm water kost energie</h2>
+  <div class="cols">
+    <p class="read">Warm water maken kost stroom. In het gezin dat we hebben gemeten is dat ongeveer <b data-k="wwKwhJaar"></b> kWh per jaar. Dat getal is alleen om te vergelijken. Het hangt ook af van de installatie in dat huis.</p>
+    <p class="read">Een passiefhuis heeft bijna geen verwarming nodig. Daardoor is warm water daar de grootste warmtevraag. Korte leidingen en zuinig douchen tellen dus extra mee.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-quooker">
+  <h2 id="h-quooker">Kokend water uit de kraan</h2>
+  <div class="cols">
+    <p class="read">In de keuken kan een kokendwaterkraan komen (bijvoorbeeld een Quooker). Die geeft meteen kokend water voor thee, koffie en de pan. Onder het aanrecht staat een klein vat dat het water heet houdt. Dat kost ongeveer <b><span data-k="quooker"></span> kWh per jaar</b> per woning.</p>
+    <p class="read">Het vat kan zijn water opwarmen als er stroom over is van de zon of de wind, of als stroom goedkoop is. De energiecomputer zet hem dan aan. Het vat is klein: het kan een paar uur wachten, niet een hele dag. In het rekenmodel van <a href="bewoners.html">Bewoners &amp; comfort</a> zit de kraan bij elk huis.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Onderdeel</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Waterverbruik van een gezin meten</td><td><span class="pill s-onderzocht">onderzocht</span></td></tr>
+      <tr><td>Regen op de locatie, 31 jaar</td><td><span class="pill s-onderzocht">onderzocht</span></td></tr>
+      <tr><td>12 woningen, half groendak</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Alleen water van harde dakdelen opvangen</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Toilet en wasmachine op regenwater</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Zwemvijver alleen met regen- en dakwater (Pagan Butler)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Straatwater niet gebruiken: via kratten en wadi's de grond in</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Afvalwater altijd naar het gemeentelijk riool</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Urinoir in elk huis</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Rekenen met thuiswerk en vergrijzing</td><td><span class="pill s-onderzocht">onderzocht</span></td></tr>
+      <tr><td>Tank per woning (± 2 m³)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Eén drinkwateraansluiting in het buurthuis, watermeter per woning</td><td><span class="pill s-besloten">wens</span></td></tr>
+      <tr><td>Grootte hoofdaansluiting (advies 10 m³/h) en leveringsdruk</td><td><span class="pill s-idee">vooroverleg Vitens</span></td></tr>
+      <tr><td>Waterberging volgens het waterschap</td><td><span class="pill s-onderzocht">onderzocht</span></td></tr>
+      <tr><td>Grondwater op de locatie</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+      <tr><td>Water voor de tuinderij</td><td><span class="pill s-idee">idee</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="cta">
+  <p class="read">Wilt u de berekening controleren? Alle formules, meetgegevens, aannames en bronnen staan op de technische pagina.</p>
+  <a href="water-technisch.html">Naar de technische verantwoording →</a>
+</div>
+
+<section aria-labelledby="h-bron">
+  <h2 id="h-bron">Bronnen</h2>
+  <ol class="src" id="bronnen"></ol>
+</section>
+
+<footer>
+  <span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span>
+  <span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span>
+</footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="water-drink.js"></script>
+<script src="water-drink-ui.js"></script>
+<script>
+(function () {
+  const { D, G, MND, nl, fmtTank, bindAll, renderBronnen, bars } = HZ;
+  const nW = HM.nW, B = D.bewoners;
+  /* standaard: start, thuiswerk zoals nu, geen urinoir, zoals ons gezin */
+  const v0 = HM.vraag({}), vU = HM.vraag({ urinoir: true });
+  const tk = (v, toep, t, AC) => HM.tank({ vraag: v.regenvraag(toep), tankPW: t, AC });
+  const t5 = tk(v0, "toilet", 2), tw5 = tk(v0, "toiletWas", 2), tU5 = tk(vU, "toilet", 2), twU5 = tk(vU, "toiletWas", 2);   // besluit: 2 m³ per woning
+  const g0 = v0.types.find(t => t.key === "gezin"), gU = vU.types.find(t => t.key === "gezin");
+  const besp = r => r.vraagJ * r.gem / 100 * D.drinkwaterPrijs / nW;
+  bindAll({
+    t5: nl(t5.gem), tw5: nl(tw5.gem), tU5: nl(tU5.gem), twU5: nl(twU5.gem),
+    tw2: nl(tk(v0, "toiletWas", 2).gem), t3: nl(tk(v0, "toilet", 3).gem),
+    ts5: nl(tk(v0, "toiletWas", 5, G.toep.toiletWasStraat.AC).gem),
+    vraagTW: nl(v0.regenvraag("toiletWas") * 365), vraagT: nl(v0.regenvraag("toilet") * 365),
+    besTW: nl(besp(tw5)),
+    bWerk: nl(B.werkdagThuisRef), bWeekend: nl(B.weekendRef), bDag: nl(B.lDag),
+    uGezinL: nl(g0.toilet - gU.toilet), uGezinM3: nl((g0.toilet - gU.toilet) * 365 / 1000, 1),
+    uPct: nl((1 - vU.toiletTot / v0.toiletTot) * 100), quooker: nl(D.energie.quookerKWh)
+  });
+  renderBronnen(document.getElementById("bronnen"), [1, 4, 7, 11, 13, 15, 17, 25, 26, 27, 28, 29, 104, 124, 125, 127]);
+  bars(document.getElementById("hourChart"), { labels: [...Array(24).keys()].map(h => String(h).padStart(2, "0")), labelEvery: 3, unit: "L per uur",
+    series: [{ name: "water", values: D.meting.uurL, color: "var(--water)", dec: 1 }] });
+  bars(document.getElementById("weekChart"), { labels: ["ma", "di", "wo", "do", "vr", "za", "zo"], unit: "L per dag",
+    series: [{ name: "water", values: B.weekdagThuis, colorFn: v => v > 330 ? "var(--rain)" : "var(--water)" }] });
+  bars(document.getElementById("monthChart"), { labels: MND, unit: "L per dag", series: [{ name: "water", values: D.meting.maandLpd, color: "var(--water)" }] });
+  bars(document.getElementById("rainChart"), { labels: MND, unit: "mm", series: [{ name: "regen", values: D.neerslag.mm, color: "var(--rain)", dec: 1 }] });
+  bars(document.getElementById("rainYearChart"), { labels: HM.W.jaren.map(String), labelEvery: 6, unit: "mm", ref: D.dagbalans.mmGemiddeld,
+    series: [{ name: "regen", values: HM.jaarMm(), color: "var(--rain)" }] });
+
+  const $ = id => document.getElementById(id);
+  function radios(container, name, items) {
+    items.forEach(it => {
+      const i = document.createElement("input"); i.type = "radio"; i.name = name; i.id = name + "-" + it.id; i.value = it.id; if (it.standaard) i.checked = true;
+      const l = document.createElement("label"); l.htmlFor = i.id; l.textContent = it.naam;
+      container.appendChild(i); container.appendChild(l);
+    });
+  }
+  radios($("lfSeg"), "lf", D.levensfase.map(x => Object.assign({}, x, { standaard: x.id === "max" })));
+  radios($("twSeg"), "tw", D.thuiswerk);
+  radios($("kostSeg"), "kost", D.kosten.map((k, i) => Object.assign({ standaard: i === 0 }, k)));
+  const kleur = v => v >= 99 ? "var(--water)" : v >= 70 ? "var(--rain)" : "var(--warn)";
+  const val = name => document.querySelector(`input[name=${name}]:checked`).value;
+  const typeNaam = { gezin: "Gezinswoning", senior: "Seniorenwoning", junior: "Jongerenwoning" };
+
+  function run() {
+    const tank = G.tanks[+$("tank").value], toep = "toiletWas";
+    const v = HM.vraag({ levensfase: val("lf"), thuiswerk: val("tw"), urinoir: val("ur") === "1", cbs: val("vraag") === "cbs" });
+    const r = HM.tank({ vraag: v.regenvraag(toep), tankPW: tank });
+    $("lfNote").textContent = v.levensfase.toelichting.charAt(0).toUpperCase() + v.levensfase.toelichting.slice(1) + ".";
+    $("tblWie").querySelector("tbody").innerHTML = v.types.map(t => `<tr><td>${typeNaam[t.key]}</td><td class="num">${t.n}</td><td class="num">${t.personen}</td><td class="num">${nl(t.lpd)}</td><td class="num">${nl(t.toilet)}</td></tr>`).join("");
+    $("tankO").value = fmtTank(tank); $("tankC").value = nl(tank * nW, tank * nW % 1 ? 1 : 0);
+    $("rM3").textContent = nl(v.m3Jaar) + " m³";
+    $("rGem").textContent = nl(r.gem) + " %";
+    $("rP10").textContent = nl(r.p10) + " %";
+    $("rMin").textContent = nl(r.min) + " %";
+    $("rMinL").textContent = "in het droogste jaar (" + r.minJaar + ")";
+    $("rAanv").textContent = nl(r.aanvulling) + " m³";
+    $("rOver").textContent = nl(r.overloop) + " m³";
+    bars($("jaarChart"), { labels: HM.W.jaren.map(String), labelEvery: 6, unit: "% op regen", yMax: 100,
+      series: [{ name: "op regen", unit: "%", values: r.perJaar, colorFn: kleur, dec: 0 }] });
+
+    /* kosten */
+    const k = D.kosten.find(x => x.id === val("kost"));
+    const besparing = besp(r);
+    $("centraalCtl").hidden = k.id !== "centraal";
+    $("kBes").textContent = "€ " + nl(besparing);
+    let inv = null, invTxt = "–";
+    if (k.id === "centraal") {
+      const tot = +$("kCentraal").value;
+      if (tot > 0) { inv = tot / nW; invTxt = "€ " + nl(inv); }
+      else invTxt = "vul in";
+    } else { inv = (k.min + k.max) / 2; invTxt = "€ " + nl(k.min) + "–" + nl(k.max); }
+    $("kInv").textContent = invTxt;
+    if (k.id === "centraal") $("kTv").textContent = inv && besparing > 0 ? nl(inv / besparing) : "–";
+    else $("kTv").textContent = besparing > 0 ? nl(k.min / besparing) + "–" + nl(k.max / besparing) : "–";
+    $("kNoot").textContent = k.noot.charAt(0).toUpperCase() + k.noot.slice(1) + ".";
+  }
+  document.querySelectorAll(".controls input").forEach(i => i.addEventListener("input", run));
+  run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zwemvijver en tuinwater – Hanzedorp</title>
+<meta name="description" content="Een natuurlijke zwemvijver met alleen regen- en dakwater, en een aparte tuinvijver voor tuinen en akker. Basispagina voor bewoners en gemeente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}
+input[type=range]{width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Water</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Twee vijvers: één om in te zwemmen, één voor de tuinen</h1>
+  <p class="lead read">Hanzedorp krijgt een natuurlijke zwemvijver zonder chloor. Daar komt alleen schoon water in: regen en water van daken. Water van groene daken en straten gaat naar een aparte tuinvijver. Daarmee geven we de tuinen en de akker water.</p>
+  <ul class="kern read">
+    <li><span>We volgen het advies van David Pagan Butler: geen water van straten of grond in de zwemvijver. Dat water bevat voeding voor algen.</span></li>
+    <li><span>Een zwemvijver die alleen regen krijgt, zakt in droge zomers flink: in de helft van de jaren meer dan <span data-k="zRes"></span> meter. Met extra water van het dak van de parkeerplaats en het buurthuis zakt het peil in het droogste jaar nog maar ± <span data-k="zSMax"></span> meter.</span></li>
+    <li><span>De tuinvijver krijgt het water van de groene daken. Daarmee komt gemiddeld <span data-k="tGem"></span> % van het tuinwater uit de vijver. Water van de straten gaat sinds 26 oktober 2026 niet meer naar de vijver, maar de grond in via <a href="hemelwater.html">kratten en wadi's</a>.</span></li>
+  </ul>
+</header>
+<p class="read note">De dakoppervlakken van de woningen zijn een schatting; de huizen zijn nog niet ontworpen. Zie <a href="bewoners.html#h-daken">De woningen en hun daken</a>.</p>
+
+
+<section aria-labelledby="h-schema">
+  <h2 id="h-schema">Hoe het water stroomt</h2>
+  <div class="panel scroll">
+    <svg viewBox="0 0 900 380" width="100%" style="min-width:680px" role="img" aria-labelledby="schemaT">
+      <title id="schemaT">Links de zwemvijver: die krijgt regen en eventueel water van een hard dak, zoals het buurthuis. Rechts de tuinvijver: die krijgt water van de groendaken. Straatwater gaat sinds 26 oktober 2026 niet meer naar de tuinvijver maar via kratten en wadi's de grond in; die route is in het schema als vervallen aangegeven. Uit de tuinvijver gaat water via een pomp naar IBC-containers bij de huizen en naar de tuinen en de akker. Bij beide vijvers verdampt water en stroomt teveel aan water over naar de waterberging en de bodem. Water van de harde daken van de woningen gaat naar de regenwatertank voor het toilet.</title>
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--rain)"/></marker>
+        <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--green)"/></marker>
+        <marker id="arc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--clay)"/></marker>
+      </defs>
+      <!-- zwemvijver -->
+      <text x="20" y="30" font-weight="600">Zwemvijver</text>
+      <g style="stroke:var(--rain);stroke-width:2;stroke-linecap:round"><line x1="140" y1="60" x2="134" y2="80"/><line x1="170" y1="54" x2="164" y2="74"/><line x1="200" y1="60" x2="194" y2="80"/></g>
+      <text x="215" y="74" class="sm">regen</text>
+      <rect x="20" y="90" width="120" height="50" rx="8" style="fill:var(--surface);stroke:var(--rain);stroke-width:2;stroke-dasharray:5 4"/>
+      <text x="80" y="111" text-anchor="middle" font-weight="600">Hard dak</text>
+      <text x="80" y="128" text-anchor="middle" class="sm">bv. buurthuis (keuze)</text>
+      <ellipse cx="200" cy="200" rx="120" ry="58" style="fill:color-mix(in srgb, var(--water) 18%, var(--surface));stroke:var(--water);stroke-width:2"/>
+      <ellipse cx="200" cy="200" rx="58" ry="26" style="fill:color-mix(in srgb, var(--water) 32%, var(--surface));stroke:var(--water);stroke-dasharray:4 3"/>
+      <text x="200" y="196" text-anchor="middle" font-weight="600">Zwemzone</text>
+      <text x="200" y="214" text-anchor="middle" class="sm">≥ 2 m diep</text>
+      <text x="200" y="246" text-anchor="middle" class="sm">plantenzone (helft)</text>
+      <path d="M100 140 C110 160 120 165 132 168" style="fill:none;stroke:var(--rain);stroke-width:3;stroke-dasharray:6 4" marker-end="url(#arr)"/>
+      <path d="M290 150 L302 112" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:4 4" marker-end="url(#ar)"/>
+      <text x="306" y="122" class="sm">verdamping</text>
+      <path d="M200 258 L200 318" style="stroke:var(--green);stroke-width:2;stroke-dasharray:6 4" marker-end="url(#ar)"/>
+      <text x="208" y="292" class="sm">overloop</text>
+      <text x="20" y="300" class="sm" style="fill:var(--warn)">geen straat- of</text>
+      <text x="20" y="316" class="sm" style="fill:var(--warn)">groendakwater</text>
+      <line x1="390" y1="40" x2="390" y2="330" style="stroke:var(--line);stroke-width:2"/>
+      <!-- tuinvijver -->
+      <text x="420" y="30" font-weight="600">Tuinvijver</text>
+      <rect x="420" y="50" width="120" height="50" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/>
+      <text x="480" y="72" text-anchor="middle" font-weight="600">Groendak</text>
+      <text x="480" y="89" text-anchor="middle" class="sm">houdt de helft vast</text>
+      <rect x="420" y="130" width="120" height="50" rx="8" style="fill:var(--surface);stroke:var(--clay);stroke-width:2"/>
+      <text x="480" y="152" text-anchor="middle" font-weight="600" style="fill:var(--muted)">Straten (vervallen)</text>
+      <text x="480" y="169" text-anchor="middle" class="sm">nu: kratten en wadi's</text>
+      <rect x="420" y="210" width="120" height="50" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/>
+      <text x="480" y="232" text-anchor="middle" font-weight="600" style="fill:var(--muted)">Helofytenfilter</text>
+      <text x="480" y="249" text-anchor="middle" class="sm">vervallen</text>
+      <line x1="480" y1="180" x2="480" y2="206" style="stroke:var(--clay);stroke-width:3" marker-end="url(#arc)"/>
+      <ellipse cx="650" cy="170" rx="75" ry="45" style="fill:color-mix(in srgb, var(--water) 14%, var(--surface));stroke:var(--water);stroke-width:2"/>
+      <text x="650" y="166" text-anchor="middle" font-weight="600">Tuinvijver</text>
+      <text x="650" y="184" text-anchor="middle" class="sm">voorraad zomer</text>
+      <path d="M540 75 C590 80 600 120 610 132" style="fill:none;stroke:var(--green);stroke-width:3" marker-end="url(#arg)"/>
+      <path d="M540 235 C590 230 600 210 612 204" style="fill:none;stroke:var(--green);stroke-width:3" marker-end="url(#arg)"/>
+      <rect x="760" y="60" width="125" height="50" rx="8" style="fill:var(--surface);stroke:var(--water);stroke-width:2"/>
+      <text x="822" y="82" text-anchor="middle" font-weight="600">IBC's + tuinen</text>
+      <text x="822" y="99" text-anchor="middle" class="sm">± <tspan data-k="tuinPW"></tspan> m² per woning</text>
+      <rect x="760" y="230" width="125" height="50" rx="8" style="fill:var(--surface);stroke:var(--green);stroke-width:2"/>
+      <text x="822" y="252" text-anchor="middle" font-weight="600">Akker</text>
+      <text x="822" y="269" text-anchor="middle" class="sm">na controle</text>
+      <path d="M716 150 C740 120 745 100 756 92" style="fill:none;stroke:var(--water);stroke-width:3" marker-end="url(#arr)"/>
+      <path d="M716 192 C740 220 745 240 756 248" style="fill:none;stroke:var(--water);stroke-width:3;stroke-dasharray:6 4" marker-end="url(#arr)"/>
+      <path d="M650 215 L650 318" style="stroke:var(--green);stroke-width:2;stroke-dasharray:6 4" marker-end="url(#ar)"/>
+      <text x="658" y="300" class="sm">overloop</text>
+      <line x1="10" y1="335" x2="890" y2="335" style="stroke:var(--clay);stroke-width:3"/>
+      <text x="20" y="360" font-weight="600">Waterberging en bodem</text>
+      <text x="240" y="360" class="sm">water zakt terug de grond in</text>
+    </svg>
+  </div>
+  <p class="note read">Het water van de harde daken van de woningen gaat naar de regenwatertank voor het toilet. Zie de pagina <a href="water.html">Water</a>.</p>
+</section>
+
+<section aria-labelledby="h-zwem">
+  <h2 id="h-zwem">Wat is een natuurlijke zwemvijver?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>We volgen het boek <i>Organic Pools DIY Manual</i> van David Pagan Butler. Een natuurlijke zwemvijver heeft twee delen: een zwemzone en een plantenzone. De plantenzone is minstens de helft van het oppervlak. Daar maken planten het water schoon, zonder chloor. Het boek raadt minstens <span data-k="zMin"></span> m² aan. Hoe groter, hoe stabieler.</p>
+      <p>Fosfaat is voeding voor algen. Daarom komt er alleen water met weinig fosfaat in: regen die op de vijver valt, en water van harde daken. Water van straten, van de grond en van groene daken niet. Kraanwater ook niet.</p>
+    </div>
+    <div class="read" style="display:grid;gap:8px">
+      <p>Pagan Butler maakt de zwemzone minstens 2 meter diep. Wij maken hem ± <b><span data-k="zDiep"></span> meter</b> diep. Dan past er meer water in een kleinere vijver. Een kleiner wateroppervlak verdampt minder water, en met het dakwater van de parkeerplaats en het buurthuis erbij zakt het peil nauwelijks.</p>
+      <p>Aandachtspunten bij 3 meter diep: veiligheid (een duidelijke ondiepe instap en een rand die je ziet), het grondwater (hoe dieper je graaft, hoe eerder je bij het grondwater komt), en koud water onderin dat moet blijven bewegen. Wanden van 3 meter maak je steil, met een gestapelde of houten wand in plaats van een flauw talud.</p>
+      <p>Omdat 12 huishoudens samen zwemmen, gelden waarschijnlijk de landelijke regels voor zwemvijvers. Die vragen onder meer een helofytenfilter en regelmatige controle van het water. Dat zoeken we nog precies uit.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-zakt">
+  <h2 id="h-zakt">Hoeveel zakt de zwemvijver in de zomer?</h2>
+  <p class="read">Op een vijver valt per jaar ongeveer evenveel regen als er verdampt. Maar in de zomer verdampt er veel meer dan er valt. Dan zakt het water. Kies hieronder hoe groot de vijver is, en of er extra water van een hard dak bij komt. We rekenen dag voor dag, voor elk jaar van <span data-k="dbVan"></span> tot en met <span data-k="dbTot"></span>.</p>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="zA">Oppervlak zwemvijver: <output id="zAO" for="zA"></output> m²</label><input type="range" id="zA" min="0" max="6" step="1"></div>
+      <div class="ctl"><label for="zD">Extra hard dak naar de vijver: <output id="zDO" for="zD"></output> m²</label><input type="range" id="zD" min="0" max="6" step="1"><span class="note">Besloten: dak overdekte parkeerplaats (± <span data-k="zDakC"></span> m²) + buurthuis (± <span data-k="zDakB"></span> m²).</span></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="zrGem"></b><span>zakt het water gemiddeld, op het laagste punt van het jaar</span></div>
+      <div><b id="zrP90"></b><span>niet verder dan dit, in 9 van de 10 jaar</span></div>
+      <div><b id="zrMax"></b><span id="zrMaxL">in het droogste jaar</span></div>
+      <div><b id="zrB3"></b><span>jaren (van 31) dieper dan <span data-k="zRes"></span> m</span></div>
+      <div><b id="zrB5"></b><span>jaren dieper dan <span data-k="zResK"></span> m</span></div>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h3>Elk jaar apart</h3>
+      <div class="legend"><span><i style="background:var(--water)"></i>minder dan <span data-k="zRes"></span> m</span><span><i style="background:var(--rain)"></i><span data-k="zRes"></span>–<span data-k="zResK"></span> m</span><span><i style="background:var(--warn)"></i>meer dan <span data-k="zResK"></span> m</span></div>
+      <div id="zJaar"></div>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h3>Het peil in 2018</h3>
+      <p class="note">Meter onder het hoogste peil, per dag. De stippellijn is <span data-k="zRes"></span> meter.</p>
+      <div id="zPeil"></div>
+    </div>
+    <p class="warnbox read">Hoeveel water een vijver verdampt, weten we nog niet precies. We rekenen met 1,25 keer de verdamping van gras. Dat is een aanname met veel invloed. Zie de technische pagina.</p>
+  </div>
+  <p class="read">Zonder extra dakwater zakt een zwemvijver in de helft van de jaren meer dan <span data-k="zRes"></span> meter. In het droogste jaar (<span data-k="zMaxJ"></span>) is dat ongeveer <span data-k="zMax"></span> meter. Besloten: de vijver krijgt het water van het dak van de overdekte parkeerplaats (± <span data-k="zDakC"></span> m²) én van het buurthuis (± <span data-k="zDakB"></span> m²). Bij een vijver van <span data-k="zA"></span> m² zakt het water dan gemiddeld ± <span data-k="zSGem"></span> meter per jaar en in het droogste jaar (<span data-k="zSMaxJ"></span>) ± <b><span data-k="zSMax"></span> meter</b>. Alleen met het carportdak was dat <span data-k="zCMax"></span> meter. Er is dan in geen enkel jaar een tekort.</p>
+</section>
+
+<section aria-labelledby="h-tuin">
+  <h2 id="h-tuin">De tuinvijver: water voor tuinen en akker</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>De tuinvijver krijgt het water van de groene daken. Voor de tuin is bruin water geen probleem.</p>
+      <p>Eerder wilden we ook water van de straten via een helofytenfilter (een bak met riet) naar de tuinvijver leiden. Dat doen we niet meer (26-10-2026). Straatwater bevat zware metalen en zeep van autowassen. Het zakt nu via <a href="hemelwater.html">kratten en wadi's</a> de grond in. Met straatwater zou de vijver gemiddeld <span data-k="tMGem"></span> % van het tuinwater leveren.</p>
+    </div>
+    <div class="stats">
+      <div class="stat" style="border-color:var(--green)"><b><span data-k="tGroen"></span> m³</b><span>per jaar van de groene daken</span></div>
+      <div class="stat"><b><span data-k="tVraag"></span> m³</b><span>per jaar nodig voor de tuinen (de helft van elke tuin)</span></div>
+    </div>
+  </div>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="tA">Oppervlak tuinvijver: <output id="tAO" for="tA"></output> m²</label><input type="range" id="tA" min="0" max="7" step="1"></div>
+      <div class="ctl"><fieldset><legend>Hoe ver mag het water zakken?</legend><div class="seg" id="tHSeg"></div></fieldset></div>
+      <div class="ctl"><label for="tPW">Tuin per woning: <output id="tPWO" for="tPW"></output> m²</label><input type="range" id="tPW" min="0" max="300" step="1"></div>
+      <div class="ctl"><fieldset><legend>Welk deel van de tuin krijgt water?</legend><div class="seg" id="tFSeg"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>IBC-containers per woning</legend><div class="seg" id="tISeg"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Straatwater (vervallen, alleen vergelijking)</legend><div class="seg"><input type="radio" name="st" id="st1" value="1"><label for="st1">Ja</label><input type="radio" name="st" id="st0" value="0" checked><label for="st0">Nee</label></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Akker</legend><div class="seg" id="tAkSeg"></div></fieldset></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="trGem"></b><span>van het tuinwater komt gemiddeld uit de vijver</span></div>
+      <div><b id="trMin"></b><span id="trMinL">in het droogste jaar</span></div>
+      <div><b id="trAk"></b><span>van het akkerwater komt uit de vijver</span></div>
+      <div><b id="trVoor"></b><span>voorraad: vijver plus IBC's</span></div>
+      <div><b id="trOv"></b><span>stroomt per jaar over naar de berging</span></div>
+    </div>
+    <div style="display:grid;gap:6px">
+      <h3>Tuinen, elk jaar apart</h3>
+      <div class="legend"><span><i style="background:var(--water)"></i>99 % of meer</span><span><i style="background:var(--rain)"></i>80–99 %</span><span><i style="background:var(--warn)"></i>minder dan 80 %</span></div>
+      <div id="tJaar"></div>
+    </div>
+    <p class="note read">De tuinen krijgen eerst water, daarna de akker. Straatwater staat standaard uit; je kunt het alleen ter vergelijking aanzetten.</p>
+  </div>
+  <p class="read">Alleen met groendakwater komt gemiddeld <span data-k="tZGem"></span> % van het tuinwater uit de vijver, en in het droogste jaar (<span data-k="tZMinJ"></span>) <span data-k="tZMin"></span> %. In droge jaren geven bewoners dus deels water uit de kraan of uit hun IBC-containers. Voor een akker van een kwart hectare is een grotere vijver nodig: bij 1.000 m² en 1,5 meter zakken krijgt de akker gemiddeld <span data-k="aGem"></span> % van zijn water uit de vijver.</p>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px"><h3>Zwemmen</h3><p>Je zwemt in schoon water zonder chloor. In de zomer zakt het water wat. Het boek raadt een goed hek aan, zodat kleine kinderen er niet alleen in kunnen. In de herfst knippen we samen de planten terug.</p></div>
+    <div class="read" style="display:grid;gap:8px"><h3>Je tuin</h3><p>Achter een hek bij je huis staan IBC-containers van 1.000 liter, gevuld uit de tuinvijver. Daarmee geef je je tuin water. Je gebruikt er geen drinkwater voor.</p></div>
+    <div class="read" style="display:grid;gap:8px"><h3>Samen afspreken</h3><p>Geen gif of kunstmest op paden en straten. Milde middelen bij autowassen. Zo blijven bodem en grondwater schoon.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-berging">
+  <h2 id="h-berging">De tuinvijver als waterberging</h2>
+  <p class="read">Het waterschap wil dat Hanzedorp bij een zware bui <b><span data-k="bergMin"></span> tot <span data-k="bergMax"></span> m³</b> water kan opvangen. De tuinvijver kan daar een deel van doen, als er boven het gewone peil ruimte vrij blijft. Bij een tuinvijver van <span data-k="tA"></span> m² is dat <span data-k="bergCmMin"></span> tot <span data-k="bergCm"></span> cm extra. Dat overleggen we met het waterschap.</p>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Onderdeel</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Natuurlijke zwemvijver, alleen regen- en dakwater (Pagan Butler)</td><td><span class="pill s-besloten">besloten</span></td></tr>
+      <tr><td>Extra dakwater voor de zwemvijver (welk dak, hoeveel m²)</td><td><span class="pill s-idee">keuze</span></td></tr>
+      <tr><td>Aparte tuinvijver voor groendakwater</td><td><span class="pill s-onderzocht">onderzocht</span></td></tr>
+      <tr><td>Straatwater via helofytenfilter naar de tuinvijver</td><td><span class="pill s-idee">vervallen 26-10-2026 (nu kratten en wadi's)</span></td></tr>
+      <tr><td>Akker uit de tuinvijver; grootte en gewassen</td><td><span class="pill s-idee">keuze</span></td></tr>
+      <tr><td>Hoeveel water een vijver verdampt</td><td><span class="pill s-aanname">aanname</span></td></tr>
+      <tr><td>Regels voor zwemvijvers bij 12 huishoudens</td><td><span class="pill s-idee">uitzoeken</span></td></tr>
+      <tr><td>Bodem en grondwater op de locatie</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="cta">
+  <p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p>
+  <a href="tuinwater-technisch.html">Naar de technische verantwoording →</a>
+</div>
+
+<section aria-labelledby="h-bron">
+  <h2 id="h-bron">Bronnen</h2>
+  <ol class="src" id="bronnen"></ol>
+</section>
+
+<footer>
+  <span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span>
+  <span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span>
+</footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="tuinwater-gedeeld.js"></script>
+<script>
+(function () {
+  const { nl, renderBronnen, bars } = HZ, { OPT, STD } = TW, W = HM.W;
+  TW.bind();
+  renderBronnen(document.getElementById("bronnen"), [9, 11, 13, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 52, 82]);
+  const $ = id => document.getElementById(id);
+  function radios(el, name, items, std) {
+    items.forEach(([v, t]) => {
+      const i = document.createElement("input"); i.type = "radio"; i.name = name; i.id = name + v; i.value = v; if (v === std) i.checked = true;
+      const l = document.createElement("label"); l.htmlFor = i.id; l.textContent = t; el.appendChild(i); el.appendChild(l);
+    });
+  }
+  radios($("tHSeg"), "th", OPT.tuinH.map(h => [h, nl(h, 1) + " m"]), STD.tuinH);
+  radios($("tFSeg"), "tf", OPT.tuinF.map(f => [f, f === 1 ? "hele tuin" : nl(f * 100) + " %"]), STD.tuinF);
+  radios($("tISeg"), "ti", OPT.ibc.map(i => [i, String(i)]), STD.ibc);
+  radios($("tAkSeg"), "ta", OPT.akker.map(a => [a, a === 0 ? "geen" : nl(a, 2).replace(/0$/, "") + " ha"]), STD.akker);
+  $("zA").value = OPT.zwemA.indexOf(STD.zwemA); $("zD").value = OPT.dak.indexOf(STD.dak); $("tA").value = OPT.tuinA.indexOf(STD.tuinA); $("tPW").value = HANZEDORP_DATA.tuinvijver.tuinPerWoning;
+  const val = n => +document.querySelector(`input[name=${n}]:checked`).value;
+  const m = v => nl(v, 2) + " m";
+
+  function runZ() {
+    const o = { zwemA: OPT.zwemA[+$("zA").value], dak: OPT.dak[+$("zD").value] };
+    const z = TW.zwem(o);
+    $("zAO").value = nl(o.zwemA); $("zDO").value = nl(o.dak);
+    $("zrGem").textContent = m(z.gem); $("zrP90").textContent = m(z.p90); $("zrMax").textContent = m(z.max);
+    $("zrMaxL").textContent = "in het droogste jaar (" + z.maxJaar + ")";
+    $("zrB3").textContent = nl(z.jarenBoven3); $("zrB5").textContent = nl(z.jarenBoven5);
+    bars($("zJaar"), { labels: W.jaren.map(String), labelEvery: 6, unit: "m zakken", series: [{ name: "grootste daling", unit: "m", dec: 2, values: z.daling,
+      colorFn: v => v <= 0.3 ? "var(--water)" : v <= 0.5 ? "var(--rain)" : "var(--warn)" }] });
+    TW.lijn($("zPeil"), z.peil2018.map(v => -v), { unit: "m onder hoogste peil", min: 0, max: Math.max(1, Math.ceil(Math.max(...z.peil2018.map(v => -v)) * 4) / 4), ref: 0.3 });
+  }
+  function runT() {
+    const o = { tuinA: OPT.tuinA[+$("tA").value], tuinH: val("th"), tuinF: val("tf"), ibc: val("ti"), straat: val("st") === 1, akker: val("ta"), tuinPW: +$("tPW").value };
+    const t = TW.tuin(o);
+    $("tAO").value = nl(o.tuinA); $("tPWO").value = nl(o.tuinPW);
+    $("trGem").textContent = nl(t.tuin.gem) + " %";
+    $("trMin").textContent = nl(t.tuin.min) + " %";
+    $("trMinL").textContent = t.tuin.min < 99.5 ? "in het droogste jaar (" + t.tuin.minJaar + ")" : "in het droogste jaar";
+    $("trAk").textContent = o.akker ? nl(t.akker.gem) + " %" : "–";
+    $("trVoor").textContent = nl(t.voorraad) + " m³";
+    $("trOv").textContent = nl(t.overloop) + " m³";
+    bars($("tJaar"), { labels: W.jaren.map(String), labelEvery: 6, unit: "% uit de vijver", yMax: 100,
+      series: [{ name: "tuinen", unit: "%", values: t.tuin.perJaar, colorFn: v => v >= 99 ? "var(--water)" : v >= 80 ? "var(--rain)" : "var(--warn)" }] });
+  }
+  document.querySelectorAll("#zA,#zD").forEach(i => i.addEventListener("input", runZ));
+  document.querySelectorAll("#tA,#tPW,input[name=th],input[name=tf],input[name=ti],input[name=st],input[name=ta]").forEach(i => i.addEventListener("input", runT));
+  runZ(); runT();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

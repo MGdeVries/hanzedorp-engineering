@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Natuurinclusief wonen – Hanzedorp</title>
+<meta name="description" content="Hoe Hanzedorp ruimte maakt voor planten en dieren en zorgt voor een koel, gezond buitenklimaat: nestplekken, inheemse hagen, bloemrijk grasland, water en donkerte. Basispagina met puntentelling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.chk{display:grid;gap:6px}.chk label{display:flex;gap:8px;align-items:flex-start;font-weight:400}.chk input{margin-top:5px}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Natuurinclusief wonen</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Natuurinclusief wonen</h1>
+  <p class="lead read">Hanzedorp komt waarschijnlijk op landbouwgrond. Daar leven nu weinig soorten. Wij willen dat er na de bouw méér natuur is dan ervoor. De huizen, de tuinen, het water en het groen zijn samen een thuis voor vogels, vleermuizen, insecten, egels en planten. En een goed buitenklimaat voor de bewoners.</p>
+  <ul class="kern read">
+    <li><span><b>Huizen met plek voor dieren:</b> nestkasten voor huismussen, een kast voor vleermuizen, een insectenwand en een groen dak.</span></li>
+    <li><span><b>Een erf zonder schuttingen:</b> hagen van inheemse struiken, bloemrijk gras, een boomgaard, vijvers en wadi's. Met gaten in elke afscheiding voor egels.</span></li>
+    <li><span><b>Koel en donker:</b> bomen en water houden het in de zomer koel. 's Nachts is het donker, voor vleermuizen en voor de sterren.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-klimaat">
+  <h2 id="h-klimaat">Het buitenklimaat</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>In de zomer wordt het warmer. Stenen en asfalt houden de warmte vast, ook 's nachts. Groen en water werken als een natuurlijke airco: bladeren geven schaduw en verdampen water, en dat koelt.</p>
+      <p>Daarom houden we de verharding klein. De helft van de daken wordt een groendak. Regen zakt de grond in via kratten en wadi's, en de vijvers houden water vast. Bomen zetten we zo dat ze de huizen in de zomer schaduw geven, maar in de winter de zon doorlaten: loofbomen aan de zuidkant, op afstand van de zonnepanelen.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Wat we doen</h3>
+      <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+        <li>Weinig verharding; paden half verhard of van grind.</li>
+        <li>Groendaken op de helft van de daken.</li>
+        <li>Bomen voor schaduw op plekken die de panelen niet raken.</li>
+        <li>Water vasthouden: vijvers, wadi's en kratten (zie <a href="hemelwater.html">Kratten &amp; wadi's</a>).</li>
+        <li>Een windsingel van struiken en bomen langs de randen.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-gebouw">
+  <h2 id="h-gebouw">Dieren in en aan de gebouwen</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Steeds meer gemeenten vragen bij nieuwbouw om plek voor dieren in en aan het huis. Een goed voorbeeld is het puntensysteem van de gemeente Meppel: elke woning moet minstens 10 punten halen. Een nestplek voor huismussen geeft 5 punten, een vleermuiskast 7, een groen dak 7.</p>
+      <p>Wij nemen dat systeem als richtlijn, ook als onze gemeente het niet vraagt. Kies hieronder wat er op een woning komt.</p>
+      <p class="note">Let op: gierzwaluwen willen een nest hoger dan 6 meter. Op lage, gelijkvloerse huizen kan dat niet. Hun nestkasten komen daarom op het buurthuis of de schuren.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:12px">
+      <div class="ctl"><fieldset><legend>Maatregelen per woning</legend><div class="chk" id="chkM"></div></fieldset></div>
+      <div class="result" aria-live="polite">
+        <div><b id="rPunt"></b><span>punten per woning (minimaal <span data-k="minP"></span>)</span></div>
+        <div><b id="rOk"></b><span>voldoet aan de richtlijn</span></div>
+        <div><b id="rKast"></b><span>nest- en schuilkasten in het hele dorp</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-erf">
+  <h2 id="h-erf">Het erf en het gezamenlijk groen</h2>
+  <ul class="read" id="lstErf" style="margin:0;padding-left:1.2em;display:grid;gap:6px"></ul>
+  <p class="read note">Het gezamenlijk groen (± <span data-k="groenM2"></span> m²) en de akker (± <span data-k="akkerM2"></span> m²) zijn samen veel groter dan de tuinen. Daar maken we het verschil voor de natuur.</p>
+</section>
+
+<section aria-labelledby="h-donker">
+  <h2 id="h-donker">Donker 's nachts</h2>
+  <p class="read">Vleermuizen, nachtvlinders en veel andere dieren hebben het donker nodig. Licht 's nachts verstoort ze. Daarom komt er alleen licht waar het nodig is: laag bij de grond, warm-wit of amber, en alleen aan als er iemand loopt. Zo zie je ook de sterren.</p>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Wonen</h3><p>Vogels in de dakrand, egels in de tuin, bloemen langs het pad. En een koelere zomer.</p></div>
+    <div class="read"><h3>Kosten</h3><p>Nestkasten om in te metselen kosten tientallen euro's per stuk. Een haag is niet duurder dan een schutting en gaat langer mee.</p></div>
+    <div class="read"><h3>Eigen inzet</h3><p>Geen gif in de tuin, hagen in plaats van schuttingen, en samen het groen onderhouden.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Natuurinclusief bouwen als uitgangspunt</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Puntensysteem (minimaal 10 per woning) als richtlijn</td><td><span class="pill s-aanname">voorstel</span></td></tr>
+    <tr><td>Ecologisch onderzoek op de locatie (quickscan)</td><td><span class="pill s-idee">na locatiekeuze</span></td></tr>
+    <tr><td>Beplantingsplan en beheerplan groen</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Regels, risico's en de toetsing staan op de technische pagina.</p><a href="natuur-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, N = D.natuur, $ = id => document.getElementById(id);
+  const nW = D.woningen.reduce((a, w) => a + w.n, 0);
+  bindAll({ minP: nl(N.minPunten), groenM2: nl(D.hemelwater ? D.hemelwater.gemGroenM2 || 3000 : 3000), akkerM2: nl(D.akker.maxM2) });
+  renderBronnen($("bronnen"), [92, 93, 103, 91]);
+  $("chkM").innerHTML = N.maatregelen.map(([id, t, p, std]) => `<label><input type="checkbox" id="m_${id}"${std ? " checked" : ""}> <span>${t} <span class="note">(${p} punten)</span></span></label>`).join("");
+  $("lstErf").innerHTML = N.erf.map(e => `<li>${e}</li>`).join("");
+  function run() {
+    let p = 0, kast = 0;
+    N.maatregelen.forEach(([id, , pt]) => { if ($("m_" + id).checked) { p += pt; if (["huismus", "gierzwaluw"].includes(id)) kast += 2; if (["vleermuis", "insect"].includes(id)) kast += 1; } });
+    $("rPunt").textContent = nl(p); $("rOk").textContent = p >= N.minPunten ? "ja" : "nee";
+    $("rKast").textContent = nl(kast * nW + (!$("m_gierzwaluw").checked ? 6 : 0));
+  }
+  document.querySelectorAll("#chkM input").forEach(i => i.addEventListener("change", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

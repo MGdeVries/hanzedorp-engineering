@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conclusie &amp; rapport – Hanzedorp Engineering</title>
+<meta name="description" content="Samenvatting van de engineering van Hanzedorp: besluiten, instellingen en uitkomsten van alle werkpagina's, met conclusie, risico's en volgende stappen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.knoppen{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.knoppen button{font:inherit;font-weight:600;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.knoppen button.hoofd{background:var(--water);border-color:var(--water);color:var(--surface)}
+.knoppen button:disabled{opacity:.6;cursor:progress}
+.voortgang{font-size:.9rem;color:var(--muted)}
+.thema{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:18px;break-inside:avoid-page}
+.thema h3 a{text-decoration:none;color:inherit}
+.tkop{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}
+.tkop .note{margin-left:auto}
+.bes{margin:0;padding-left:1.1em;display:grid;gap:3px}
+.ins{display:flex;flex-wrap:wrap;gap:6px}
+.ins span{font-size:.82rem;border:1px solid var(--line);border-radius:99px;padding:2px 10px;background:var(--surface)}
+.ins span.afw{border-color:var(--warn);color:var(--warn);font-weight:600}
+.uk{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.uk div{border-left:3px solid var(--water);padding:2px 10px;display:grid}
+.uk b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.uk span{font-size:.85rem;color:var(--muted)}
+.ukh{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.leeg{font-size:.9rem;color:var(--muted);font-style:italic}
+#rekenen{position:absolute;left:-10000px;top:0;width:1200px;height:900px;overflow:hidden}
+#rekenen iframe{width:1200px;height:900px;border:0}
+@media print{.knoppen,.voortgang{display:none}.thema{padding-top:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hanzedorp Engineering</span><span>Uitkomst</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Conclusie &amp; rapport</h1>
+  <p class="lead read">Deze pagina vat de engineering van Hanzedorp samen. Per werkpagina zie je de besluiten, de instellingen waarmee gerekend is en de belangrijkste uitkomsten. Daaronder staan de conclusie, de grootste risico's en de volgende stappen.</p>
+  <div class="knoppen">
+    <button type="button" class="hoofd" id="bReken">Alle werkpagina's doorrekenen</button>
+    <button type="button" id="bPrint">Afdrukken of opslaan als pdf</button>
+    <button type="button" id="bReset">Alle instellingen naar standaard</button>
+    <span class="voortgang" id="voortgang" aria-live="polite"></span>
+  </div>
+  <p class="note read" id="stempel"></p>
+</header>
+
+<section aria-labelledby="h-conc">
+  <h2 id="h-conc">Conclusie</h2>
+  <div class="read" style="display:grid;gap:10px">
+    <p>Op basis van de huidige berekeningen met de <b>standaardinstellingen</b> concluderen we het volgende. Waar je op een werkpagina andere waarden hebt ingesteld, staan de gevolgen verderop bij dat thema.</p>
+    <ol style="margin:0;padding-left:1.2em;display:grid;gap:8px">
+      <li><b>Energie.</b> Met zonnepanelen op daken, schuren, buurthuis, carport en akker (± 300 kWp), twee erfmolens en een buurtaccu van 600 kWh of meer is het dorp van 12 woningen in de berekening over 31 weerjaren (KNMI Heino) nooit zonder stroom. Het net is nog nodig voor ± 2–3 MWh per jaar, vooral in donkere, windstille winternachten. Het dorp kan altijd in eilandbedrijf door. <span class="note">(Uursimulatie scenario C, accu 3 × 200 kWh, aansluiting 3 × 25 A.)</span></li>
+      <li><b>Netaansluiting.</b> Een kleine aansluiting (3 × 25 A) is genoeg en het voordeligst; met de buurtaccu (3 blokken van 200 kWh) is er in 31 weerjaren geen uur tekort. Handelen met de accu levert weinig op en wordt minder interessant; we richten ons op eilandbedrijf en goedkoop zelf opwekken en verbruiken. Installatie en net worden gezamenlijk eigendom van de bewoners (zoals in de uitspraak van het hof Den Bosch, 2025); dan is er geen energiebelasting op de eigen stroom. Wordt het toch als levering gezien, dan kost dat ± € 8.000 per jaar (fiscaal en notarieel te toetsen).</li>
+      <li><b>Laden.</b> Een centraal laadplein met een eigen laadpaal per woning, gestuurd door het energiemanagementsysteem, laadt het grootste deel van de kilometers op eigen opwek. De laadpalen kunnen bidirectioneel laden (V2G), load balancing en OCPP. Meer laadpalen verhogen het aandeel eigen stroom niet; het overschot is de grens.</li>
+      <li><b>Water.</b> Regenwater van de harde daken dekt het grootste deel van het toiletgebruik. Een tank verdient zich niet terug; de keuze is ecologisch en klimaatadaptief. Drinkwater blijft nodig voor alles waar je mee in aanraking komt.</li>
+      <li><b>Hemelwater.</b> Kratten bij de woningen en drie wadi's in het groen houden de regen vast volgens de eisen van het waterschap; in 31 jaar liep geen wadi over (aannames voor doorlatendheid en grondwaterstand nog te bevestigen).</li>
+      <li><b>Zwemvijver.</b> Een vijver die alleen met regenwater wordt gevuld, zakt in een gemiddeld jaar ± 0,4 m en in een extreem droog jaar tot ± 0,95 m. Dat vraagt een ontwerp dat een peildaling van 0,5 m of meer verdraagt.</li>
+      <li><b>Voedsel.</b> Een akker van 5.000 m² kan ± 45 mensen van groente en fruit voorzien, met water uit een eigen put dat bijna volledig op zonnestroom wordt opgepompt. Groente bewaren we door invriezen, drogen en fermenteren, niet door thuiswecken.</li>
+      <li><b>Bewoners.</b> Het aantal bewoners verandert met de levensloop; installaties ontwerpen we op een theoretisch maximum, zodat er in geen jaar een tekort is. Zonder droger en met een ventilatieluchtwarmtepomp in een compactunit (geen buitenunit, geen airco) blijft het huishoudelijk verbruik laag.</li>
+      <li><b>Digitale infrastructuur.</b> Eén beheerd netwerk met twee internetlijnen is goedkoper dan twaalf losse abonnementen en maakt de energie-installatie veilig bestuurbaar, ook zonder internet.</li>
+      <li><b>Bouwen.</b> Iedere woning is een passiefhuis; het bouwsysteem is vrij en ecologische materialen hebben de voorkeur. Op 21 december valt tussen 10 en 14 uur geen schaduw van een woning op een andere woning. Dat lukt door de gezinswoningen (2 lagen) in de noordelijke rij te zetten en de lage woningen zuidelijk, met tuinen en de weg ertussen. <span class="note">(Zonnestand Heino, rekenmaten N.)</span></li>
+      <li><b>Onderhoud en financiën.</b> De gedeelde voorzieningen (buiten de woningen) vragen samen met grond en voorbereiding een investering van grofweg € 2,5–3 mln (± € 240.000 per woning, schatting) en daarna ± € 670 per woning per maand voor onderhoud, sparen voor vervanging, internet, verzekering en administratie. Daar staat tegenover dat de huishoudens vrijwel geen stroom meer inkopen. Advies: ieder financiert zijn deel zelf, zodat de beheervereniging schuldvrij en financieel gezond blijft. <span class="note">(MJOP en financieel model, prijzen S.)</span></li>
+      <li><b>Gezondheid en veiligheid.</b> Omdat het dorp eigen netten beheert, is Hanzedorp zelf verantwoordelijk voor drinkwaterkwaliteit (legionella), brandveiligheid van accu en laadplein en voedselveiligheid. Daarvoor zijn beheerplannen en keuringen nodig.</li>
+    </ol>
+    <p class="note">De conclusie is een concept. Ze is nog niet getoetst door de gemeente, het waterschap, de netbeheerder of externe deskundigen.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-thema">
+  <h2 id="h-thema">Per werkpagina</h2>
+  <div id="themas" style="display:grid;gap:22px"></div>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">Grootste open risico's</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Risico</th><th>Gevolg</th><th>Wat nodig is</th><th>Thema</th></tr></thead>
+    <tbody>
+      <tr><td>Energiebelasting op eigen stroom als het eigendom niet goed geregeld is</td><td>± € 8.000/jr extra</td><td>Mandelig eigendom bewoners vastleggen; fiscale en juridische toets (Energiewet, energiegemeenschap)</td><td><a href="netaansluiting-technisch.html">Netaansluiting</a></td></tr>
+      <tr><td>Collectieve drinkwaterlevering</td><td>Zorgplicht, legionella, terugstroming</td><td>Beheerplan, NEN 1006, afstemming drinkwaterbedrijf</td><td><a href="gezondheid-technisch.html">Gezondheid</a></td></tr>
+      <tr><td>Brandveiligheid buurtaccu en laadplein</td><td>Afstanden, bluswater, verzekerbaarheid</td><td>PGS 37-1, overleg Veiligheidsregio IJsselland en verzekeraar</td><td><a href="energie-technisch.html">Energie</a></td></tr>
+      <tr><td>Zwemvijver bij gedeeld gebruik</td><td>Valt mogelijk onder Bal § 15.2.2 (zwemwaterregels)</td><td>Juridische toets</td><td><a href="tuinwater-technisch.html">Tuinwater</a></td></tr>
+      <tr><td>Locatie onbekend</td><td>Grondwaterstand, bodem en netcapaciteit bepalen wadi's, put, akker en aansluiting</td><td>Bodemonderzoek, GHG, vraag aan netbeheerder</td><td>alle</td></tr>
+      <tr><td>Offertes ontbreken</td><td>Kosten accu, koelcellen en tank zijn schattingen</td><td>Offertes beoordelen (accu en omvormer aangevraagd)</td><td>energie, opslag</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="h-stap">
+  <h2 id="h-stap">Volgende stappen</h2>
+  <ol class="read" style="margin:0;padding-left:1.2em;display:grid;gap:6px">
+    <li>Energiepagina's bijwerken naar scenario C en een pagina over het energiemanagementsysteem (EMS) maken.</li>
+    <li>Risicotabellen en compliance-registers op alle oudere werkpagina's.</li>
+    <li>Nieuwe thema's: bouwen en woningontwerp (met dakvorm en kavelindeling), afvalwater, organisatie.</li>
+    <li>Per thema, zodra alle invoer binnen is: toetsing door een controleur (regelgeving, rekenwerk, literatuur).</li>
+    <li>Eindfase: één integraal technisch uitvoeringsadvies voor de infrastructuur.</li>
+  </ol>
+</section>
+
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>© Hanzedorp. Zie <a href="juridisch.html">Juridisch &amp; colofon</a>.</span></footer>
+</div>
+<div id="rekenen" aria-hidden="true"></div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script>HZ.bindAll({});</script>
+<script src="hanzedorp-nav.js"></script>
+<script>
+(function () {
+  const S = window.HZOPSLAG, W = HZNAV.WERK;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const BES = {
+    "bewoners.html": ["12 woningen (CPO); rekenmodel 6 gezins-, 3 senioren- en 3 jongerenwoningen (verdeling aanname).", "Rekenen met levensloop; installaties ontwerpen op een theoretisch maximum aan bewoners.", "Passiefhuis, levensloopbestendig (gelijkvloers, thuislift zonder keuringsplicht of alles beneden); ventilatieluchtwarmtepomp in een compactunit (WTW, warmtepomp en vat in één toestel), die ook de toevoerlucht verwarmt; geen water-water-, hybride, lucht-water- of lucht-luchtwarmtepomp; 22 °C.", "Eigen wasmachine, geen droger; manshoge koelkast en vriezer per woning.", "Gedeeld: buurthuis met keuken en wasruimte, werkplaats, buurtaccu, laadplein."],
+    "water.html": ["Alleen regenwater van harde daken naar een tank, voor toilet en wasmachine (zacht water).", "Geen straatwater of groendakwater in huis; afvalwater altijd naar het riool.", "Tank is niet terug te verdienen; keuze is ecologisch en klimaatadaptief."],
+    "tuinwater.html": ["Zwemvijver volgens Organic Pools (± 120 m² of meer), alleen gevuld met regen en water van harde daken.", "Tuinvijver gevoed met water van de groendaken."],
+    "hemelwater.html": ["Berging volgens waterschap WDOD: 92 mm per m² extra verharding.", "Kratten bij de woningen, drie wadi's in het gezamenlijk groen."],
+    "akker.html": ["Akker tot 5.000 m², water alleen uit een eigen put, druppelirrigatie.", "Pomp draait op zonne-overschot.", "Agri-PV: verticale bifaciale panelen tussen de rijen."],
+    "voedsel.html": ["Hanzedorp heeft een akker; daarop een professioneel geleide tuinderij voor een rijke oogst; niet geteelde grond blijft eerst weiland.", "Groente, kleinfruit en fruitbomen; 40 oogstweken.", "Productie ≥ 130 % van de behoefte om verlies op te vangen."],
+    "opslag.html": ["Koelcel 2 °C, koelcel 10 °C en vriescel −20 °C in het buurthuis, zelf gebouwd en extreem geïsoleerd.", "Koelmachines met natuurlijk koudemiddel.", "Groente niet thuis wecken (botulisme)."],
+    "energie.html": ["Scenario C: panelen op de binnenzijde van de dakrand en het platte dak, sedum aan de buitenrand.", "Waar mogelijk verticale panelen: minder afschakelen in de zomer, meer winteropwek; netimport verandert nauwelijks.", "Auto's zijn de grootste verbruiker; noodoplossing: laden bij een openbare snellader.", "Buurtaccu LFP in drie blokken van 200 kWh (redundantie); omvormer ± 150 kW; eilandbedrijf altijd mogelijk."],
+    "mobiliteit.html": ["Iedereen elektrisch.", "Centraal laadplein aan de zuidkant: één laadpaal per woning plus 1–2 deelauto's, overal ± 3,2 m vrije hoogte; aantal naar wens bewoners.", "Laden centraal gestuurd via OCPP; één DC-snellader 50 kW."],
+    "netaansluiting.html": ["Voorkeur: één centrale aansluiting met een privénet in het dorp.", "Dynamisch energiecontract per kwartier; export alleen bij een goede prijs.", "EMS koopt in de winter vooruit in de dalmomenten (± 270–380 uur per winter bij 3 × 25 A, geen tekort).", "Accugrootte: model 600 kWh; advies engineer 3 × 150 kWh (geen tekort in 31 jaar, ook n − 1) – besluit open."],
+    "digitale-infrastructuur.html": ["Eén beheerd netwerk; glasvezel in ster en een eigen VLAN per woning; geen eigen abonnementen.", "Internet via glas + satelliet, 5G als reserve.", "Twee servers (buurthuis en schuur) voor EMS en Home Assistant; OT werkt zonder internet.", "Camera's zonder geluid op gedeelde objecten; kijken alleen bij incident met twee personen."],
+    "grond.html": ["Ruimteprogramma per doel ± 1,9 ha voor 12 woningen, voorzieningen, rondweg met bermen, wadi's, houtsingel en akker (deels nog weiland); keuzedelen bepalen de gevolgdelen.", "Grond kopen onder ontbindende voorwaarden (bestemming, bodem, financiering).", "Kosten grond en voorbereiding zijn een schatting; offertes en grondprijsbrief gemeente nodig."],
+    "grond.html": ["Ruimteprogramma per doel ± 1,9 ha voor 12 woningen, gedeelde voorzieningen, rondweg met bermen, wadi's, houtsingel en akker.", "Kosten grond en voorbereiding met bandbreedte; grootste onzekerheid: landbouwgrond die bestemd moet worden of bouwkavels."],
+    "biofilisch.html": ["Biofilisch inrichten als uitgangspunt: daglicht, uitzicht, natuurlijke materialen, beschutte plekken.", "Luchtkwaliteit via ventilatie, niet via planten."],
+    "natuur.html": ["Minimaal 10 natuurpunten per woning (richtlijn naar voorbeeld Meppel).", "Hagen in plaats van schuttingen, egeldoorgangen, bloemrijk grasland, donker terrein."],
+    "erfdieren.html": ["Kippen voor eieren; aantal afgestemd op de bewoners.", "Geen keukenresten voeren tot de NVWA anders bevestigt; afschermbare ren tegen vogelgriep."],
+    "gezondheid.html": ["Afvalwater naar het gemeentelijk riool, geen helofytenfilter.", "Omvormers, accu, servers en netwerk in een aparte technische ruimte.", "Over straling alleen verwijzen naar literatuur."],
+    "veiligheid.html": ["Een week zelfredzaam (eten, drinkwater, stroom) in plaats van 72 uur.", "Buurtaccu buiten in 3 blokken volgens PGS 37-1; brandweer en gemeente vooraf geïnformeerd.", "Brandweerweg ≥ 4,5 m breed, 4,2 m vrij: niet onder de carport (± 3,2 m).", "Hek of pollers met toegang voor hulpdiensten, fail-open; seniorenbewaking is nog een idee."],
+    "eigendom.html": ["Bewoners zijn samen (mandelig) eigenaar van opwek, accu, dorpsnet en buurtgebouwen; vereniging alleen beheerder.", "Geen energiebelasting over eigen stroom (Hof Den Bosch 2025); ingekochte netstroom wel belast.", "Notariële akte, beheerreglement en vooroverleg Belastingdienst nog te regelen."],
+    "bouwen.html": ["Bouwsysteem vrij, mits passiefhuisnorm (PHPP vooraf, blowerdoortest); ecologische materialen hebben de voorkeur.", "Senioren- en jongerenwoningen 1 bouwlaag, gezinswoningen 2 met goothoogte ≤ 6 m; dakaanzicht zadel/wolfs/schild, passiefeisen leidend.", "Geen schaduw op een andere woning op 21 december (10–14 uur): hoge woningen in de noordelijke rij.", "Kavelpaspoort per kavel bij het koopcontract; vrije rand en doorwaadbare zone als voorstel."],
+    "onderhoud.html": ["Meerjarenonderhoudsplan alleen voor gedeelde voorzieningen; woningen zijn privé; alle zonnepanelen (ook op de woningdaken) en de laadpalen zijn gezamenlijk bezit.", "Jaarlijkse geïndexeerde storting in een apart reservefonds met buffer, zodat vervangingen (accu ± 15 jr, erfmolens ± 20 jr) nooit tot een ad-hocbijdrage leiden.", "Rol onderhoudsmanager; herziening MJOP elke 5 jaar; prijzen zijn schattingen tot er offertes zijn."],
+    "financien.html": ["Advies controller: aanleg financieren via de bewoners zelf (eigen geld of eigen hypotheek); de beheervereniging blijft schuldvrij.", "Liquiditeit: startkas ≥ 3 maanden lasten, maandelijkse incasso, aparte reserverekening.", "Rol finance manager/controller; open: hypotheek op aandeel in mandelig bezit (bank/taxateur) en btw-positie (fiscalist)."]
+  };
+  function tijd(t) { try { return new Date(t).toLocaleString("nl-NL", { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return t; } }
+  function render() {
+    let n = 0, laatst = null;
+    document.getElementById("themas").innerHTML = W.map(([b, naam, t]) => {
+      const st = S.get(HZPROJECT.key(b));
+      const ok = st && st.uitkomsten;
+      if (ok) { n++; if (!laatst || st.tijd > laatst) laatst = st.tijd; }
+      const afw = ok ? st.afwijkend.length : 0;
+      const ins = ok && st.instellingen.length
+        ? `<div class="ukh">Instellingen</div><div class="ins">${st.instellingen.map(([k, v]) => `<span>${esc(k)}: <b>${esc(v)}</b></span>`).join("")}</div>` : "";
+      const uk = ok && st.uitkomsten.length
+        ? st.uitkomsten.map(g => `<div class="ukh">${esc(g.kop || "Uitkomsten")}</div><div class="uk">${g.rij.map(([w, s]) => `<div><b>${esc(w)}</b><span>${esc(s)}</span></div>`).join("")}</div>`).join("")
+        : (ok ? "" : `<p class="leeg">Nog niet doorgerekend. Open de <a href="${b}">werkpagina</a> of klik hierboven op ‘Alle werkpagina's doorrekenen’.</p>`);
+      return `<article class="thema" id="t-${b.replace(".html", "")}">
+        <div class="tkop"><h3><a href="${b}">${esc(naam)}</a></h3>${ok ? `<span class="pill ${afw ? "s-aanname" : "s-besloten"}">${afw ? afw + " afwijkend van standaard" : "standaard"}</span><span class="note">berekend ${tijd(st.tijd)}</span>` : ""}</div>
+        <div class="ukh">Besluiten en uitgangspunten</div><ul class="bes">${(BES[b] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+        ${ins}${uk}
+        <p class="note"><a href="${b}">Basispagina</a> · <a href="${t}">Technische verantwoording</a></p>
+      </article>`;
+    }).join("");
+    document.getElementById("stempel").textContent = `${n} van ${W.length} werkpagina's doorgerekend` + (laatst ? `, laatst op ${tijd(laatst)}.` : ".") + ` Rapport opgesteld op ${tijd(new Date().toISOString())}.`;
+  }
+  render();
+
+  /* alle werkpagina's in een verborgen frame doorrekenen; elke pagina bewaart zelf haar uitkomsten */
+  const bR = document.getElementById("bReken"), vg = document.getElementById("voortgang"), box = document.getElementById("rekenen");
+  const ontvangen = {}, mislukt = [];
+  /* werkpagina's in het frame sturen hun uitkomsten met postMessage; het rapport bewaart ze zelf */
+  addEventListener("message", e => { const r = e.data && e.data.hzStand; if (r && r.pagina) { S.set(HZPROJECT.key(r.pagina), r); ontvangen[r.pagina] = true; } });
+  bR.onclick = async () => {
+    bR.disabled = true; mislukt.length = 0;
+    for (let i = 0; i < W.length; i++) {
+      const b = W[i][0], voor = (S.get(HZPROJECT.key(b)) || {}).tijd || "";
+      vg.textContent = `Bezig met ${W[i][1]} (${i + 1}/${W.length})…`;
+      box.innerHTML = ""; const f = document.createElement("iframe"); f.src = b; f.title = W[i][1]; box.appendChild(f);
+      const t0 = Date.now(); ontvangen[b] = false;
+      await new Promise(res => { (function wacht() { const st = S.get(HZPROJECT.key(b)); if (ontvangen[b] || (st && st.tijd && st.tijd !== voor) || Date.now() - t0 > 45000) res(); else setTimeout(wacht, 250); })(); });
+      if (!ontvangen[b] && !((S.get(HZPROJECT.key(b)) || {}).tijd !== voor)) mislukt.push(W[i][1]);
+    }
+    box.innerHTML = ""; bR.disabled = false; render();
+    vg.textContent = mislukt.length ? "Klaar, maar niet gelukt voor: " + mislukt.join(", ") + ". Open die pagina's één keer zelf; daarna staan ze in het rapport. (Sommige browsers blokkeren dit als je de bestanden lokaal opent; online werkt het wel.)" : "Klaar.";
+  };
+  document.getElementById("bPrint").onclick = () => print();
+  document.getElementById("bReset").onclick = () => {
+    W.forEach(([b]) => S.set(HZPROJECT.key(b), { reset: true }));
+    vg.textContent = "Instellingen teruggezet. Klik op ‘Alle werkpagina's doorrekenen’ voor nieuwe uitkomsten."; render();
+  };
+  addEventListener("storage", e => { if (e.key && e.key.startsWith("hz-stand:")) render(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobiliteit en laden – Hanzedorp</title>
+<meta name="description" content="Iedereen in Hanzedorp rijdt elektrisch en laadt thuis op het laadplein. Hoeveel stroom is daarvoor nodig, hoeveel laders, en hoe verrekenen we de laadkosten? Basispagina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>.warnbox{border-left:3px solid var(--warn);padding:6px 12px;background:color-mix(in srgb, var(--warn) 8%, transparent);border-radius:4px}</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Mobiliteit</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Mobiliteit en laden</h1>
+  <p class="lead read">In Hanzedorp rijdt iedereen elektrisch: auto, motor of fiets. Alle auto's staan op één centraal laadplein bij het buurthuis en de buurtaccu. Iedere woning heeft daar minstens één eigen parkeerplaats met een eigen laadpaal. Je auto hangt altijd aan de lader, en het dorp verdeelt de stroom vanzelf.</p>
+  <ul class="kern read">
+    <li><span>Alle auto's en motoren samen hebben ongeveer <b><span data-k="evMWh"></span> MWh</b> per jaar nodig. Dat is meer dan een derde van alle stroom in het dorp.</span></li>
+    <li><span>De laders laden vooral als de zon schijnt of het waait. Zo wordt ongeveer <b><span data-k="evZon"></span> %</b> geladen op momenten dat er zon- of windstroom over is. De rest komt uit de buurtaccu of van het net.</span></li>
+    <li><span>Een auto hoeft niet elke dag vol. Gemiddeld is één tot twee uur laden per dag genoeg.</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-wat">
+  <h2 id="h-wat">Wat rijden we?</h2>
+  <p class="read">Iedereen rijdt anders. Daarom vragen we per woning welke auto of motor er komt en hoeveel kilometer die per jaar rijdt. Dat doe je op de inventarisatiepagina. Je kiest uit de vijf populairste elektrische auto's per soort, van klein tot bus. Daar tellen we 15 tot 20 % laadverlies bij op. Status: <b data-k="invStatus"></b>.</p>
+  <p class="read">Zolang de inventarisatie niet klaar is, rekenen we met een aanname: een gezin rijdt 21.000 km per jaar (zoals ons eigen gezin), senioren 9.000 km en jongeren 8.000 km.</p>
+  <div class="panel" style="display:grid;gap:6px"><h3>Verbruik per soort auto</h3><p class="note">kWh per 100 km, inclusief <span data-k="lvPct"></span> % laadverlies. Gemiddelde van de vijf populairste modellen per soort.</p><div id="segChart"></div></div>
+</section>
+
+<section aria-labelledby="h-plein">
+  <h2 id="h-plein">Het centrale laadplein</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px">
+      <p>Het laadplein ligt aan de zuidkant van het terrein, naast het buurthuis en de buurtaccu. Je rijdt er vanaf de noordkant in. Er komen <span data-k="nZappi"></span> plaatsen onder een dak met zonnepanelen: één per woning en <span data-k="nDeel"></span> voor deelauto's. Hoeveel plaatsen het precies worden, hangt af van de wensen van de bewoners. Iedere plaats heeft een eigen laadpaal.</p>
+      <p>Elke plaats is <span data-k="cpB"></span> m breed, <span data-k="cpD"></span> m diep en overal ± <span data-k="cpH"></span> m hoog. Daar past alles in: een bestelbus, een camper of een auto met een fietsendrager. De zuidkant is een wand van zonnepanelen op staanders, met een lage stenen rand eronder.</p>
+      <p>Heb je twee auto's? Dan staat de auto die niet hoeft te laden gewoon bij je huis. Je zet zelf de auto die stroom nodig heeft op je plek op het laadplein.</p>
+      <p>Je auto blijft dus altijd aangesloten. De energiecomputer van het dorp kijkt welke auto stroom nodig heeft en wanneer je weg moet. Hij verdeelt de stroom over alle auto's, zonder dat iemand iets hoeft te doen. Niemand hoeft 's avonds zijn auto te verplaatsen omdat een andere auto aan de beurt is.</p>
+      <p>Een eigen paal per plaats kost ongeveer € <span data-k="meerprijs"></span> per paal extra. Daarvoor hoeft niemand meer te schuiven met auto's.</p>
+    </div>
+    <div class="read panel" style="display:grid;gap:8px">
+      <h3>Waarom laden bij het buurthuis en niet bij je huis?</h3>
+      <p>De accu en de omvormers staan vlak bij het laadplein. Van omvormer naar laadpaal is het maar een paar meter. Daar is een dunne kabel genoeg: een gewone grijze installatiekabel van <span data-k="mm2"></span> mm² in een stevige pvc-buis. De kabels komen via het dak van de overkapping naar beneden. Er hoeft dus niets gegraven te worden, en we kunnen het zelf makkelijk aanleggen en onderhouden.</p>
+      <p>De kabels naar de woningen liggen in één aparte sleuf naast de weg, samen met water en internet. Het riool ligt ernaast, dieper, met genoeg putten om in te kijken. Bij een storing hoeft er dan niet gegraven te worden.</p>
+      <p>Je huis zelf vraagt weinig stroom. Het meeste vermogen gebruikt de inductiekookplaat, en die vraagt maar even een paar kW. Daarvoor is een dunne kabel naar je huis genoeg.</p>
+      <p>Wil je bij je huis laden, dan moet er een veel dikkere kabel naar elk huis. Over <span data-k="afstand"></span> meter is dat ongeveer <span data-k="koperFactor"></span> keer zoveel koper. Dat maakt laden aan huis veel duurder.</p>
+    </div>
+  </div>
+  <div class="panel read" style="display:grid;gap:6px">
+    <h3>Zonder slim laden</h3>
+    <p>Als iedereen om zes uur thuiskomt en meteen laadt, vragen alle laders samen tot <b><span data-k="piekDom"></span> kW</b> tegelijk. Dat is precies het moment waarop de zon ondergaat. Met slim laden laden de auto's <span data-k="evZon"></span> % van hun stroom op momenten dat er zon- of windstroom over is. Zonder sturing haalt het dorp ± <b><span data-k="extraImp"></span> MWh</b> per jaar meer van het net.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-naam">
+  <h2 id="h-naam">Jouw laadpaal en je rekening</h2>
+  <div class="cols">
+    <p class="read">De laadpalen zijn van alle bewoners samen, net als het laadplein. Iedere woning heeft een eigen, vaste parkeerplaats met een eigen laadpaal in gebruik. Onderhoud en vervanging van de palen betalen we samen (zie <a href="onderhoud.html">Onderhoud en vervanging</a>).</p>
+    <p class="read">In iedere paal zit een geijkte meter (MID). Die telt precies hoeveel kWh jouw auto laadt. Daarop is je rekening gebaseerd.</p>
+    <p class="read">Rijd je een auto van de zaak? Dan regel je dat zelf met je werkgever. Je hebt het overzicht van je eigen paal al. Er hoeft dus niets apart voor geregeld te worden.</p>
+  </div>
+  <p class="read">Elke laadpaal moet drie dingen kunnen: <b>terugleveren uit de auto</b> (bidirectioneel laden, V2G), het vermogen <b>slim verdelen</b> over alle auto's (load balancing) en <b>gestuurd worden</b> door de energiecomputer (OCPP). Rond 2030 kunnen auto's dan bij stroomtekort een deel van hun accu aan het dorp lenen. Afspraken daarover maken we later.</p>
+  <p class="warnbox read">Nog na te gaan: welke laadpaal het wordt (met geijkte meter en sturing door de energiecomputer), of de Belastingdienst die meting accepteert, en hoe we de prijs van eigen zonne- en windstroom vaststellen.</p>
+</section>
+
+<section aria-labelledby="h-model">
+  <h2 id="h-model">Probeer het zelf</h2>
+  <div class="panel" style="display:grid;gap:20px">
+    <div class="controls">
+      <div class="ctl"><label for="mZ">Laadpalen: <output id="mZO"></output></label><input type="range" id="mZ" min="12" max="20" step="1"></div>
+      <div class="ctl"><fieldset><legend>Laden</legend><div class="seg" id="sEv"></div></fieldset></div>
+      <div class="ctl"><fieldset><legend>Auto's</legend><div class="seg" id="sDeel"></div></fieldset></div>
+      <div class="ctl" id="ctlInv" hidden><fieldset><legend>Rekenen met</legend><div class="seg" id="sInv"></div></fieldset></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><b id="rEv"></b><span>laden per jaar</span></div>
+      <div><b id="rZon"></b><span>geladen op overschot zon/wind</span></div>
+      <div><b id="rUren"></b><span>laaduren per dag (alle laders)</span></div>
+      <div><b id="rPiek"></b><span>grootste laadvermogen</span></div>
+      <div><b id="rImp"></b><span>dorp: van het net per jaar</span></div>
+      <div><b id="rZelf"></b><span>dorp: van eigen opwek</span></div>
+    </div>
+    <p class="note">Deelauto's: we rekenen met <span data-k="deelAutos"></span> deelauto's in plaats van ± <span data-k="eigenAutos"></span> eigen auto's, en <span data-k="deelPct"></span> % minder kilometers.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-jij">
+  <h2 id="h-jij">Wat betekent dit voor jou?</h2>
+  <div class="cols">
+    <div class="read"><h3>Laden</h3><p>Je zet je auto op je eigen plaats en steekt de stekker erin. De energiecomputer bepaalt wanneer hij laadt. Moet je vroeg weg? Dan geef je dat aan in de app.</p></div>
+    <div class="read"><h3>Kosten</h3><p>Je betaalt per kWh die via jouw eigen paal gaat. Het overzicht kun je zelf gebruiken, bijvoorbeeld voor je werkgever.</p></div>
+    <div class="read"><h3>Fiets</h3><p>E-fietsen laad je gewoon in je eigen schuur. Ze gebruiken zo weinig stroom dat ze voor de berekening niet uitmaken.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-stand">
+  <h2 id="h-stand">Hoe ver zijn we?</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Iedereen elektrisch, laden thuis</td><td><span class="pill s-besloten">uitgangspunt</span></td></tr>
+    <tr><td>Centraal laadplein: één laadpaal per woning + deelauto's (nu <span data-k="nZappi"></span>), overal ± 3,2 m hoog</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Merk laadpaal (geijkte meter, sturing door energiecomputer)</td><td><span class="pill s-idee">open</span></td></tr>
+        <tr><td>Inventarisatie voertuigen per woning</td><td><span class="pill s-idee">invullen</span></td></tr>
+    <tr><td>Deelauto's</td><td><span class="pill s-idee">idee</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<div class="cta"><p class="read">Wilt u de berekening controleren? Alle formules, aannames en bronnen staan op de technische pagina.</p><a href="mobiliteit-technisch.html">Naar de technische verantwoording →</a></div>
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-weer.js"></script>
+<script src="hanzedorp-zon.js"></script>
+<script src="hanzedorp-wind.js"></script>
+<script src="hanzedorp-model.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="hanzedorp-inventaris.js"></script>
+<script src="hanzedorp-voorraad.js"></script>
+<script src="hanzedorp-energie.js"></script>
+<script src="energie-gedeeld.js"></script>
+<script>
+(function () {
+  const { D, nl, renderBronnen } = HZ, E = D.energie, MOB = D.mobiliteit, $ = id => document.getElementById(id), MW = EG.MW;
+  const dom = HE.simuleer({ evDom: true });
+  const eigenAutos = Object.keys(MOB.autos).reduce((a, t) => a + MOB.autos[t] * E.mix[t], 0);
+  const LP = MOB.laadplein, koper = I => Math.sqrt(3) * I * LP.rhoCu * LP.afstandWoning / (LP.duMax * 400), maat = a => [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50].find(x => x >= a);
+  EG.bind({ nDeel: HZ.nl(MOB.carport.deelauto), cpB: HZ.nl(MOB.carport.breedte, 2), cpD: HZ.nl(MOB.carport.diepte), cpH: HZ.nl(MOB.carport.vrijeHoogte, 1), meerprijs: nl(LP.meerprijsPaal), mm2: nl(LP.kabelMM2), afstand: nl(LP.afstandWoning), koperFactor: nl(maat(koper(32)) / maat(koper(16)), 1),
+    piekDom: nl(MOB.zappi.n * MOB.zappi.autoAC), extraImp: MW(dom.imp - EG.std().imp), lvPct: nl(MOB.laadverlies * 100, 1),
+    deelAutos: nl(MOB.deelAutos), eigenAutos: nl(Math.round(eigenAutos)), deelPct: nl((1 - MOB.deelFactor) * 100) });
+  renderBronnen($("bronnen"), [1, 47, 48, 49, 50, 53, 54, 55]);
+  const seg = MOB.voertuigen.map(g => [g.seg, g.modellen.reduce((a, m) => a + m[1], 0) / g.modellen.length * (1 + MOB.laadverlies)]);
+  EG.hbars($("segChart"), seg, { unit: "kWh", dec: 1 });
+  function segr(el, naam, opties, std) { $(el).innerHTML = opties.map(([v, l], i) => `<input type="radio" name="${naam}" id="${naam}${i}" value="${v}"${v === std ? " checked" : ""}><label for="${naam}${i}">${l}</label>`).join(""); }
+  segr("sEv", "ev", [["slim", "Slim"], ["dom", "Als je thuiskomt"]], "slim");
+  segr("sDeel", "dl", [["eigen", "Eigen auto's"], ["deel", "Deelauto's"]], "eigen");
+  if (EG.inv) { $("ctlInv").hidden = false; segr("sInv", "iv", [["0", "Aannames"], ["1", "Inventarisatie"]], "0"); }
+  const val = n => (document.querySelector(`input[name=${n}]:checked`) || {}).value;
+  const nWon = EG.inv && EG.inv.woningen.length ? EG.inv.woningen.length : Object.values(E.mix).reduce((a, b) => a + b, 0);   // minimum = aantal te bouwen woningen (iedere woning ≥ 1 paal)
+  $("mZ").min = nWon; $("mZ").max = Math.max(20, nWon + 4); $("mZ").value = Math.max(nWon, MOB.zappi.n); let t = null;
+  function run() {
+    const o = { zappi: +$("mZ").value, evDom: val("ev") === "dom", deelauto: val("dl") === "deel" };
+    if (EG.inv && val("iv") === "1") o.inv = EG.inv;
+    $("mZO").value = o.zappi;
+    clearTimeout(t); t = setTimeout(() => {
+      const r = HE.simuleer(o), pAuto = Math.min(MOB.zappi.kW, MOB.zappi.autoAC);
+      $("rEv").textContent = MW(r.ev) + " MWh"; $("rZon").textContent = nl(Math.max(0, 1 - r.evGedwongen / r.ev) * 100) + " %";
+      $("rUren").textContent = nl(r.ev / 365 / pAuto, 1) + " uur";
+      $("rPiek").textContent = nl(o.evDom ? o.zappi * MOB.zappi.autoAC : r.pEv) + " kW";
+      $("rImp").textContent = MW(r.imp) + " MWh"; $("rZelf").textContent = nl(r.zelf * 100) + " %";
+    }, 60);
+  }
+  document.querySelectorAll("input").forEach(i => i.addEventListener(i.type === "range" ? "input" : "change", run)); run();
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>
