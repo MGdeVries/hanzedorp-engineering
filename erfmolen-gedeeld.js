@@ -12,7 +12,7 @@
   const D = window.HANZEDORP_DATA, E = D.energie, W = E.wind, nl = HZ.nl;
   const molen = (D.beheer.componenten.find(c => c[0] === "molen") || []);
   const rotor = D.beheer.componenten.find(c => c[0] === "rotor");
-  const STD = { opbr: "model", inv: Math.round((((molen[5] || 45000) + (molen[6] || 60000)) / 2 + (rotor ? (rotor[5] + rotor[6]) / 2 : 0)) / 1000) * 1000, sub: Math.round((E.wind.isdeEurM2 || 0) * Math.PI * (E.wind.D / 2) ** 2 / 100) * 100 + 5300, ond: 1000, prijs: D.financien ? D.financien.stroomprijs : 0.25, exp: 0.03,
+  const STD = { opbr: "model", inv: Math.round((((molen[5] || 45000) + (molen[6] || 60000)) / 2 + (rotor ? (rotor[5] + rotor[6]) / 2 : 0)) / 1000) * 1000, sub: Math.round((E.wind.isdeEurM2 || 0) * Math.PI * (E.wind.D / 2) ** 2 / 100) * 100 + 5300, ond: Math.round(D.beheer.componenten.filter(c => ["lagers", "wieken"].includes(c[0])).reduce((s, c) => s + (c[5] + c[6]) / 2 / c[7], 0) / 100) * 100, prijs: D.financien ? D.financien.stroomprijs : 0.25, exp: 0.03,
                 jaren: molen[7] || 20, rente: (D.net && D.net.accuKeuze && D.net.accuKeuze.rente) || 0.03 };
   const eur = v => (v < 0 ? "− € " : "€ ") + nl(Math.round(Math.abs(v) / 10) * 10);
   const MW = v => nl(v / 1000, 1);

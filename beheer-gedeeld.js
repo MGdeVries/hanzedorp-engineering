@@ -5,7 +5,10 @@
    Methode (alle bedragen excl. btw tenzij vermeld; prijspeil startjaar):
    - Investering I_c = hoeveelheid × eenheidsprijs (laag / midden / hoog).
    - Jaarlijks onderhoud O_c = I_c · p_c + vast_c · hoeveelheid, geïndexeerd met (1+i)^t.
-   - Vervanging in jaar t = k·L_c (k ≥ 1, t ≤ horizon): I_c · (1+i)^t.
+   - Vervanging in jaar t = k·L_c (k ≥ 1, t ≤ horizon): (I_c − R_c) · (1+i)^t, met R_c = restwaarde × hoeveelheid (opbrengst van het oude onderdeel).
+   - Afschrijving per jaar = (I_c − R_c) / L_c.
+   - Levensduur en restwaarde per component zijn instelbaar (knoppen op de onderhoudspagina); bewaard per browser in localStorage 'hz-mjop:<project>'
+     en gelezen door alle pagina's die BH gebruiken (onderhoud, financiën, rapport).
    - Reservefonds F_t = F_{t−1}·(1+r) + C·(1+i)^t − V_t, met F_0 = buffer.
      C = kleinste constante (geïndexeerde) jaarstorting waarbij F_t ≥ buffer voor alle t (bisectie).
    - Annuïteit A = L · r / (1 − (1+r)^−n).
@@ -23,6 +26,7 @@
       pvDakKWp: ["gezin", "senior", "junior"].reduce((a, t) => a + ((D.energie.mix || {})[t] || 0) * ((D.energie.kWpDak || {})[t] || 0), 0),
       accuKWh: o.accuKWh != null ? o.accuKWh : D.energie.accu.kWh,
       accuKasten: o.accuKasten != null ? o.accuKasten : (D.energie.accu.kasten || 3), accuKW: D.energie.accu.kW,
+      pvPanelen: 0, pvDakPanelen: 0, pvAllePanelen: 0, omvormers: 0, accuBanken: 0, aansl30: 0, aanslW: 0,
       molens: o.molens != null ? o.molens : Math.round(m("molens") / D.grond.ruimte.erfmolenM2),
       sleufM: D.grond.sleufM, drinkM: B.drinkM,
       digitaal: D.digitaal.stuk.filter(s => !/^Glasvezel/.test(s.cat)).reduce((a, s) => a + s.eur, 0),
@@ -34,21 +38,38 @@
       groenM2: m("groen") + m("berm") + m("singel")
     };
   }
+  /* afgeleide aantallen (opgave 16-11-2026 [199]) */
+  function aantallen(q) {
+    const wp = (B.paneelWp || 500) / 1000, afw = (D.grond.kavelAfwijkend || []).reduce((a, k) => a + (k.n || 0), 0);
+    q.pvPanelen = Math.round(q.pvKWp / wp); q.pvDakPanelen = Math.round(q.pvDakKWp / wp); q.pvAllePanelen = q.pvPanelen + q.pvDakPanelen;
+    q.omvormers = q.woningen + Math.ceil(q.pvKWp / 10);                 // N: 1 per woning + 1 per 10 kWp gedeeld
+    q.accuBanken = Math.round(q.accuKWh / 200);
+    q.aansl30 = afw + Math.ceil(q.pvKWp / 30);                          // N: woning met loods + 1 aansluitpunt per 30 kWp gedeeld
+    q.aanslW = Math.max(0, q.woningen - afw);
+    return q;
+  }
+  /* knoppen: levensduur en restwaarde per component (per browser bewaard) */
+  const sleutel = () => "hz-mjop:" + ((window.HZPROJECT && HZPROJECT.id) || "standaard");
+  function instellingen() { try { return JSON.parse(localStorage.getItem(sleutel()) || "{}"); } catch (e) { return {}; } }
+  function bewaar(s) { try { localStorage.setItem(sleutel(), JSON.stringify(s)); } catch (e) { /* geen opslag beschikbaar */ } }
   const prijs = (min, max, scen) => scen === "min" ? min : scen === "max" ? max : (min + max) / 2;
 
   /* o: { scen, inflatie, renteFonds, buffer, horizon, levensduurFactor, accuKWh, molens, akkerM2, uit:[ids] } */
   function mjop(o = {}) {
-    const q = hoeveelheden(o); q.pvOmvKWp = q.pvKWp + q.pvDakKWp; const scen = o.scen || "std", i = o.inflatie != null ? o.inflatie : B.inflatie, r = o.renteFonds != null ? o.renteFonds : B.renteFonds;
+    const q = aantallen(hoeveelheden(o)); q.pvOmvKWp = q.pvKWp + q.pvDakKWp;
+    const ins = o.instellingen || (o.standaard ? {} : instellingen()); const scen = o.scen || "std", i = o.inflatie != null ? o.inflatie : B.inflatie, r = o.renteFonds != null ? o.renteFonds : B.renteFonds;
     const N = o.horizon || B.horizon, buf = o.buffer != null ? o.buffer : B.bufferEur, fL = o.levensduurFactor || 1, uit = o.uit || [];
-    const comp = B.componenten.filter(c => !uit.includes(c[0])).map(([id, naam, groep, sl, eenh, pmin, pmax, L, pct, vast, st, bron]) => {
-      const n = q[sl] || 0, inv = n * prijs(pmin, pmax, scen), Lx = L ? Math.max(1, Math.round(L * fL)) : 0;
+    const comp = B.componenten.filter(c => !uit.includes(c[0])).map(([id, naam, groep, sl, eenh, pmin, pmax, L0, pct, vast, st, bron, rest0]) => {
+      const s = ins[id] || {}, L = s.L != null ? s.L : L0, rest = s.rest != null ? s.rest : (rest0 || 0);
+      const n = q[sl] || 0, inv = n * prijs(pmin, pmax, scen), Lx = L ? Math.max(1, Math.round(L * fL)) : 0, R = Math.min(inv, rest * n), netto = inv - R;
       const ond = inv * pct + vast * n;
       const jaren = []; if (Lx) for (let t = Lx; t <= N; t += Lx) jaren.push(t);
-      return { id, naam, groep, n, eenh, pmin, pmax, inv, L: Lx, pct, vast, ond, st, bron, jaren, inGrond: B.inGrond.includes(id), afschr: Lx ? inv / Lx : 0 };
+      return { id, naam, groep, n, eenh, pmin, pmax, inv, L: Lx, L0, rest, rest0: rest0 || 0, aangepast: s.L != null || s.rest != null, R, netto, pct, vast, ond, st, bron, jaren,
+        inGrond: B.inGrond.includes(id), afschr: Lx ? netto / Lx : 0 };
     });
     const V = Array(N + 1).fill(0), O = Array(N + 1).fill(0);
     for (let t = 1; t <= N; t++) { const ix = Math.pow(1 + i, t);
-      comp.forEach(c => { O[t] += c.ond * ix; if (c.jaren.includes(t)) V[t] += c.inv * ix; }); }
+      comp.forEach(c => { O[t] += c.ond * ix; if (c.jaren.includes(t)) V[t] += c.netto * ix; }); }
     const sim = C => { const Fd = [buf]; let min = buf;
       for (let t = 1; t <= N; t++) { Fd[t] = Fd[t - 1] * (1 + r) + C * Math.pow(1 + i, t) - V[t]; if (Fd[t] < min) min = Fd[t]; } return { Fd, min }; };
     let lo = 0, hi = Math.max(1, V.reduce((a, v) => a + v, 0)); for (let k = 0; k < 60; k++) { const mid = (lo + hi) / 2; if (sim(mid).min >= buf) hi = mid; else lo = mid; }
@@ -106,5 +127,5 @@
       kpi: { liquiditeitMnd: kas0 / ((jaarlast - ann) / 12), dekking10: (M.fonds[0] + M.C * 10) / Math.max(1, M.tienJaar), schuldPerWoning: lening / nW,
         solvabiliteit: lening ? (M.buf * btwF) / (M.buf * btwF + lening) : 1, dscrMin: ann ? 1 : null } };
   }
-  window.BH = { hoeveelheden, mjop, financien };
+  window.BH = { hoeveelheden: o => aantallen(hoeveelheden(o)), mjop, financien, instellingen, bewaar };
 })();

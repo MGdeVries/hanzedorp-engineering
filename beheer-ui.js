@@ -41,5 +41,28 @@
   function tabelKas(tb, Fi) {
     tb.innerHTML = Fi.rows.filter(r => r.t === 1 || r.t % 5 === 0 || r.vervanging > 100000).map(r => `<tr><td>${r.jaar}</td><td class="num">${k(r.expl)}</td><td class="num">${k(r.stort)}</td><td class="num">${k(r.ann)}</td><td class="num">${k(r.bijdrage)}</td><td class="num">${nl(Math.round(r.perWoningMnd))}</td><td class="num">${k(r.vervanging)}</td><td class="num">${k(r.fonds)}</td><td class="num">${k(r.restLening)}</td></tr>`).join("");
   }
-  window.BHU = { seg, val, chartMjop, tabelGroep, tabelComp, kpiMjop, chartFin, tabelLasten, tabelKas, e, k };
+  /* knoppen: levensduur en restwaarde per component (bewaard per browser; alle pagina's met BH rekenen ermee) */
+  function knoppen(el, M, opnieuw) {
+    const s = BH.instellingen(), eur = v => nl(Math.round(v));
+    el.innerHTML = `<div class="scroll"><table><thead><tr><th>Onderdeel</th><th class="num">Aantal</th><th class="num">Waarde (€)</th><th class="num">Gaat mee (jaar)</th><th class="num">Restwaarde (€ per eenheid)</th><th class="num">Afschrijving (€/jr)</th><th></th></tr></thead><tbody>` +
+      M.comp.filter(c => c.L0).map(c => `<tr data-id="${c.id}"${c.aangepast ? ' style="background:color-mix(in srgb, var(--gold) 12%, transparent)"' : ""}><td>${c.naam}</td><td class="num">${c.eenh === "post" ? "1 post" : nl(c.n, Number.isInteger(c.n) || c.n >= 10 ? 0 : 1) + " " + c.eenh}</td><td class="num">${eur(c.inv)}</td>` +
+        `<td class="num"><input type="number" min="1" max="150" step="1" value="${s[c.id] && s[c.id].L != null ? s[c.id].L : c.L0}" data-veld="L" aria-label="Levensduur ${c.naam}" style="width:5em"> <span class="note">std ${c.L0}</span></td>` +
+        `<td class="num"><input type="number" min="0" step="10" value="${c.rest}" data-veld="rest" aria-label="Restwaarde ${c.naam}" style="width:6.5em"> <span class="note">std ${nl(c.rest0)}</span></td>` +
+        `<td class="num">${eur(c.afschr)}</td><td>${c.aangepast ? '<button type="button" class="seg" data-reset style="padding:2px 8px">standaard</button>' : ""}</td></tr>`).join("") +
+      `</tbody></table></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px"><button type="button" class="seg" data-alles style="padding:4px 10px">Alle onderdelen terug naar standaard</button>` +
+      `<span class="note">Je aanpassingen worden alleen in deze browser bewaard en gelden ook op Financiële planning. Restwaarde = wat het oude onderdeel bij vervanging nog opbrengt; die gaat van de vervangingskosten af.</span></div>`;
+    el.oninput = el.onchange = ev => {
+      const i = ev.target.closest("input"); if (!i || ev.type === "input") return;
+      const id = i.closest("tr").dataset.id, st = BH.instellingen(), x = st[id] || {}, v = Math.max(0, +i.value || 0);
+      const c = M.comp.find(z => z.id === id); const std = i.dataset.veld === "L" ? c.L0 : c.rest0;
+      if (v === std) delete x[i.dataset.veld]; else x[i.dataset.veld] = i.dataset.veld === "L" ? Math.max(1, Math.round(v)) : v;
+      if (Object.keys(x).length) st[id] = x; else delete st[id];
+      BH.bewaar(st); opnieuw();
+    };
+    el.onclick = ev => {
+      if (ev.target.closest("[data-alles]")) { BH.bewaar({}); opnieuw(); return; }
+      const b = ev.target.closest("[data-reset]"); if (b) { const st = BH.instellingen(); delete st[b.closest("tr").dataset.id]; BH.bewaar(st); opnieuw(); }
+    };
+  }
+  window.BHU = { seg, val, chartMjop, tabelGroep, tabelComp, kpiMjop, chartFin, tabelLasten, tabelKas, knoppen, e, k };
 })();
