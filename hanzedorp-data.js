@@ -9,8 +9,8 @@
 /* BASISDATA – gedeeld door alle projectkavels: woningen, bewoners, auto's, installaties, ontwerpkeuzes, landelijke regels en tarieven.
    Locatiespecifieke gegevens (klimaat, waterschap, netbeheerder, waterbedrijf, grondprijs, terrein) staan per project in hanzedorp-projecten.js. */
 window.HANZEDORP_DATA = {
-  versie: "0.23",
-  datum: "16-11-2026",
+  versie: "0.24",
+  datum: "17-11-2026",
   auteur: "Melvin de Vries",
 
   /* ---------- Woningprogramma [9] ----------
@@ -428,7 +428,7 @@ window.HANZEDORP_DATA = {
       interneWinstPersoon: 1200, interneWinstApparaten: 2900   // G kWh/a voorbeeld Göteborg, Passiefhuizen in NL [73]
     },        // L tapwatervat; G opgave [68] gezin 300, senior 150–200; junior N
     droogRuimte: { restvocht: 0.53, kgWas: 4, latent: 0.628, stookAandeel: 0.6, cop: 3.5 },   // A drogen aan het rek in de technische ruimte: EU-centrifugeklasse B (45–54 %), 2,26 MJ/kg; N stookseizoen, COP
-    wit: { wasKWh: 0.85, wasPP: 57, vaatKWh: 1.47, vaatPP: 88, droogKWh: 2.2, droogPP: 0 },   // G/A referentie [2]; BESLUIT [68]: geen droger in de woningen (droogPP 0; referentie had 25 beurten p.p.)
+    wit: { wasKWh: 0.85, wasPP: 57, vaatKWh: 1.47, vaatPP: 88, droogKWh: 2.2, droogPP: 0 },   // G/A referentie [2]; rekenbasis [68]/[200]: drogen in de warme technische ruimte, eigen droger vrije keuze (droogPP 0; referentie had 25 beurten p.p.)
     koelStd: "centraal",                                // G besluit 26-10-2026 [56]: centrale cellen + manshoge koelkast/vriezer thuis
     koel: {
       thuisGroot: { koel: 150, vries: 250 },              // N energielabel-ordegrootte manshoge koelkast + manshoge vriezer
@@ -655,6 +655,7 @@ window.HANZEDORP_DATA = {
     administratie: 1500,                                       // S boekhouding, bankkosten, ledenadministratie per jaar
     drinkwaterVast: 250,                                       // S vastrecht hoofdaansluiting drinkwater per jaar
     netSaldo: 570,                                             // A saldo stroom (export − inkoop − netwerk − vast + vermindering) bij 3 × 25 A, handel uit (netaansluiting, 27-10-2026)
+    verhuur: { aan: true, startNaJaren: 3, dagen: 12, prijsDag: 250, kostenDag: 60 },   // opgave 17-11-2026 [201]: incidentele verhuur buurthuis, pas na enkele jaren (eerst privégebruik aantonen); N 12 dagen/jr; S € 250 per dag zaalhuur, € 60 per dag schoonmaak/energie/slijtage
     tuinder: { aan: false, eur: 27500, groenteKgPPD: 0.45, eurKg: 2.5 },   // S tuinder ± 0,5 fte; N waarde eigen groente en fruit (kg p.p.p.d. × €/kg)
     btw: 0.21, btwAftrek: false,                               // G btw op gedeelde voorzieningen; aftrek alleen als de beheerder btw-ondernemer is (bv. energiecoöperatie) – te toetsen
     financiering: "hypotheek",                                 // N "hypotheek" = ieder financiert zijn aandeel mee in de eigen hypotheek; "vereniging" = lening op naam van de beheervereniging
@@ -862,7 +863,7 @@ window.HANZEDORP_DATA = {
      Verbruikersregister: [id, naam, plek, aantal (getal of sleutel woningen/gezin/senior/junior/plekken), vermogen kW, fasen, kWh/jr per stuk (getal of 'm:sleutel' uit HE.woning),
        klasse (1–6), sturing, wat het EMS bewaakt, status kWh (G/A/N/S)] */
   ems: {
-    keuzes: { schakelen: "hybride", software: "open source + eigen modules", meten: "Shelly Pro op zware groepen; woning Melvin volledig; laadpalen via OCPP (nooit uitschakelen)", bericht: ["app/push", "scherm in de woning", "scherm in het buurthuis", "e-mail/dagbericht"] },   // BESLUIT 15-11-2026 [191], meten herzien [197]
+    keuzes: { schakelen: "advies en prijssignaal; bewoner kiest (17-11-2026 [200]); EMS schakelt alleen eigen gedeelde verbruikers en bewaakt veiligheidsgrenzen", software: "open source + eigen modules", meten: "Shelly Pro op zware groepen; woning Melvin volledig; laadpalen via OCPP (nooit uitschakelen)", bericht: ["app/push", "scherm in de woning", "scherm in het buurthuis", "e-mail/dagbericht"] },   // BESLUIT 15-11-2026 [191], meten herzien [197]
     bericht: { fOver: 1.5, fRood: 0.5, flexDagen: 7, horizonDagen: 7, updateUren: [6, 12, 18] },   // N voorstel: dagcode uit opwek/vraag; laden mag tot 7 dagen schuiven (opgave [190])
     sauna: { n: 4, kW: 9 },                                   // N 4 woningen met een 3-fase sauna (rekenvoorbeeld); S thuis-sauna 6–9 kW, 3 × 16 A
     klassen: [
@@ -870,7 +871,7 @@ window.HANZEDORP_DATA = {
       { k: 2, naam: "Basis woning", kort: "begrensd", uitleg: "blijft aan, maar het EMS mag het vermogen of de temperatuur iets verlagen", kleur: "var(--sage)" },
       { k: 3, naam: "Uitstelbaar (uren)", kort: "schuift uren", uitleg: "start op het beste moment van de dag, meestal rond het middaguur", kleur: "#6f9a52" },
       { k: 4, naam: "Uitstelbaar (dagen)", kort: "schuift dagen", uitleg: "wacht op een zonnige of winderige dag; heeft een buffer of voorraad", kleur: "var(--gold)" },
-      { k: 5, naam: "Blokkeerbaar", kort: "uit bij tekort", uitleg: "luxe of zware verbruiker; mag niet aan bij een oranje of rood bericht", kleur: "#c2683a" },
+      { k: 5, naam: "Jouw keuze bij krapte", kort: "jij beslist", uitleg: "zware verbruiker die je zelf aanzet; bij oranje of rood laat het bericht zien wat het op dat moment kost, en wanneer het weer goedkoper is", kleur: "#c2683a" },
       { k: 6, naam: "Overschotverbruiker", kort: "aan bij overvloed", uitleg: "gaat juist extra aan als er stroom over is en slaat het op als warmte, kou, water of lading", kleur: "#8a6bb0" }
     ],
     codes: [
@@ -879,12 +880,12 @@ window.HANZEDORP_DATA = {
         jij: "was, vaatwasser, droogoven, werkplaats met zware machines, sauna: nu is het moment" },
       { id: "groen", naam: "Groen", kleur: "#4f8a3c", kort: "Genoeg voor iedereen",
         ems: "normaal bedrijf; laden op zonne-uren; tapwater rond het middaguur", jij: "niets bijzonders; sauna en oven mogen" },
-      { id: "geel", naam: "Geel", kleur: "#d4a017", kort: "Genoeg voor huis, krap voor auto's",
+      { id: "geel", naam: "Geel", kleur: "#d4a017", kort: "Genoeg voor huis, auto's laden op het beste moment",
         ems: "auto's laden alleen op zonne-uren of als je hebt aangegeven dat je moet rijden; sauna alleen overdag bij zon", jij: "laad als het kan overdag; was en vaat midden op de dag" },
-      { id: "oranje", naam: "Oranje", kleur: "#d96c1e", kort: "Zuinig: niet-essentieel uit",
-        ems: "sauna, bubbelbad en pyrolyse geblokkeerd; laden alleen bij rijwens; warmtepomp 0,5 °C lager; tapwater niet boven 55 °C (geen boost); Quooker alleen na gebruik", jij: "geef aan of je moet rijden; het EMS adviseert thuis laden of een snellader" },
-      { id: "rood", naam: "Rood", kleur: "#b3261e", kort: "Alleen het nodige",
-        ems: "alleen klasse 1 en 2; koken begrensd; auto's alleen noodlading of snellader; cellen op hun koudebuffer", jij: "stel wassen en klussen uit; moet je rijden, volg dan het laadadvies" }
+      { id: "oranje", naam: "Oranje", kleur: "#d96c1e", kort: "Stroom is duurder: kies je moment",
+        ems: "gedeelde voorzieningen (cellen, pompen, boiler-boost) wachten op een beter moment; laden standaard in de goedkoopste uren tenzij je een rijwens opgeeft; je ziet per apparaat wat het nu kost", jij: "stroom is nu duurder; sauna, oven of laden kan nog steeds – het bericht laat zien wat het kost en wanneer het goedkoper is" },
+      { id: "rood", naam: "Rood", kleur: "#b3261e", kort: "Stroom is duur: je ziet wat het kost",
+        ems: "alleen klasse 1 en 2; koken begrensd; auto's alleen noodlading of snellader; cellen op hun koudebuffer", jij: "stroom is nu duur; het bericht laat zien wat jouw keuzes kosten en wanneer het weer goedkoper is; het laadadvies helpt je kiezen tussen nu, straks of onderweg" }
     ],
     verbruikers: [
       ["koel", "Koelkast + vriezer (manshoog)", "woning", "woningen", 0.15, 1, "m:koel", 1, "meten; nooit schakelen", "compressor langer aan dan normaal (deur open, defect); 0 W langer dan 3 uur = alarm", "N"],
@@ -895,13 +896,13 @@ window.HANZEDORP_DATA = {
       ["element", "Elektrisch element compactunit (reserve)", "woning", "woningen", 3.0, 1, 0, 5, "relais; alleen vorstbeveiliging of overschot (boost)", "element aan terwijl de warmtepomp het aankan = instelfout (warning)", "N"],
       ["ww", "Warm tapwater (vat 150–300 L)", "woning", "woningen", 1.0, 1, "m:ww", 3, "SG Ready: opwarmen 11–15 uur; boost 65–70 °C bij overvloed; legionellacyclus op zonnige dag", "vat koelt sneller af dan normaal (isolatie, lek)", "A"],
       ["koken", "Inductiekookplaat", "woning", "woningen", 7.4, 2, 250, 2, "vermogensbegrenzing kookplaat (bv. 3,7 kW bij rood)", "aan langer dan 3 uur zonder pauze (vergeten pan, warning)", "S"],
-      ["oven", "Oven (met pyrolyse)", "woning", "woningen", 3.5, 1, 120, 5, "pyrolyse alleen bij groen of overvloed (relais/app)", "pyrolyse gestart bij oranje/rood → blokkeren", "S"],
+      ["oven", "Oven (met pyrolyse)", "woning", "woningen", 3.5, 1, 120, 5, "pyrolyse: het bericht toont de kosten nu en het goedkoopste moment", "–", "S"],
       ["quooker", "Kokendwaterkraan (Quooker)", "woning", "woningen", 2.2, 1, "m:quooker", 3, "relais: tank opwarmen op zon; bij oranje/rood alleen na gebruik", "continu verbruik = lek of defect thermostaat", "G"],
       ["was", "Wasmachine", "woning", "woningen", 2.2, 1, 150, 3, "startuitstel of slimme stekker: start 11–15 uur; warm wassen bij overvloed", "element langer dan 2,5 uur aan = defect (warning)", "A"],
       ["vaat", "Vaatwasser", "woning", "woningen", 2.0, 1, 230, 3, "startuitstel: start 11–15 uur", "geen verbruik in de droogfase = defect", "A"],
       ["thuiswerk", "Thuiswerkplek", "woning", "woningen", 0.15, 1, "m:thuiswerk", 2, "meten", "–", "G"],
       ["fiets", "E-fiets / scooter laden", "woning", "woningen", 0.5, 1, 100, 3, "slimme stekker: laden op zon", "–", "N"],
-      ["sauna", "Sauna of infraroodcabine (optioneel)", "woning", 4, 9.0, 3, 1000, 5, "magneetschakelaar met vrijgave door EMS; geblokkeerd bij oranje/rood", "aan bij oranje/rood → blokkeren; langer dan 3 uur aan = vergeten (warning)", "N"],
+      ["sauna", "Sauna of infraroodcabine (optioneel)", "woning", 4, 9.0, 3, 1000, 5, "meten; bij oranje/rood toont het bericht wat een sessie nu kost en wanneer het goedkoper is; jij beslist", "langer dan 3 uur aan = vergeten (warning)", "N"],
       ["hottub", "Bubbelbad / hottub (optioneel)", "woning", 0, 3.0, 1, 2000, 5, "verwarmen alleen op overschot; filterpomp mag", "–", "N"],
       ["toilet", "Toilet met spoelpomp (± 1,5 kW tijdens spoelen; woning Melvin, 1 toilet per groep)", "woning", 2, 1.5, 1, 11, 1, "meten; nooit schakelen", "gebruik per toilet herkenbaar; pomp langer dan normaal aan = verstopping of lek", "N"],
       ["magnetron", "Magnetron (woning Melvin)", "woning", 1, 1.2, 1, 60, 2, "meten", "–", "S"],
@@ -1121,6 +1122,8 @@ window.HANZEDORP_DATA = {
     173: { titel: "Opgave 16-11-2026: keuze 0 of 1 erfmolen (2 gaat niet gebeuren), aparte erfmolenpagina met en zonder molen en financieel plaatje; zelfbouw accubank 200 kWh ± € 15.000 excl. brandwerende behuizing; elke accukast ruimte voor een tweede set cellen (2 × 200 kWh); netaansluiting 1–3 × 200 kWh; installatieruimte gezinswoning 8 m² met wasmachine en vouwblad; één gezinskavel van 1.100 m² met loods; laadplein biedt ruimte voor extra panelen voor laag-lichtcondities; locaties en percelen gescheiden van de vaste gegevens", auteur: "Melvin de Vries", soort: "eigen opgave" },
     174: { titel: "Business case erfmolen EAZ-13.2 (Ecoways), invoerblad: 1 molen, mast 15 m, opwek 30.000 kWh/jaar, kabel 50 m 10 mm², aansluiting 3 × 25 A, ISDE wind ja, gemeentelijke/commerciële subsidie € 10.000, korting € 5.309, onderhoudscontract Comfort; ter vergelijking batterij Cesc Mercury 261 kWh / 104 kW € 55.000 (11-11-2026)", auteur: "Ecoways B.V. (A. Mascini); aangeleverd door Melvin de Vries", soort: "offerte/business case" },
     199: { titel: "Opgave 16-11-2026 19:42 (afschrijftermijnen MJOP): bifaciaal zonnepaneel ± € 100 ex btw, 30 jr, restwaarde € 0, geen onderhoud; omvormer € 800–1.000, 15 jr, geen onderhoud; accu € 15.000 per bank van 200 kWh, 22 jr, restwaarde € 1.000; accukasten: offerte aangevraagd voor drie 4 ft EOS-containers (Lithium Safety Containers); erfmolen netto ± € 70.000, geen monitoring of onderhoudscontract (zelf), wieken om de paar jaar schilderen, lagers iedere 15 jaar ± € 3.000 (zelf met hoogwerker); groepenkast per woning € 1.500, 40 jr; groepenkasten bij de accu's (3 accu's, 15 verbruikers) samen € 4.000, 40 jr; aansluitpunten tot 30 kW: 100 m 5 × 50 mm² Al € 2.000, 100 jr; woningen max 11 kW: 5 × 10 mm² Cu of dikkere Al; dorpsnet € 1.000 per 100 m, 100 jr; laadpaal € 800, 10 jr; knop voor restwaarde en levensduur per component", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    201: { titel: "Opgave 17-11-2026 19:15: incidentele verhuur van het buurthuis mogelijk maken (onderdeel financiële pagina); pas na enkele jaren, zodat voor de Belastingdienst duidelijk is dat het buurthuis bedoeld is voor privégebruik van de bewoners", auteur: "Melvin de Vries", soort: "eigen opgave" },
+    200: { titel: "Opgave 17-11-2026 19:06/19:11 (feedback: plan vooral vanuit de aanbodkant, als beklemmend ervaren): tekst over de vraagkant (aanstaande bewoners); toon: een woonwijkje dat in overvloed leeft – altijd een overschot aan stroom, water en voedsel, op enkele donkere dagen bijkopen uit het net; bijkoopcalculator op historische day-ahead-prijzen met de 17 kW-aansluiting; geen 'geen droger' meer maar: technische ruimte altijd warm door het warmwatervoorraadvat, was in een halve dag droog, of een droger – jouw keuze, jouw vrijheid; applicatie ontworpen om met zo min mogelijk externe resources (netbeheerder) het wijkje van de grond te krijgen en afhankelijkheid van leveranciers zichtbaar te maken; term 'zorgplicht' bij de wateraansluiting eruit; alle teksten positief en gericht op vrijheid; het zaaiplan is er om te kunnen rekenen; bijkoop maakt de kosten van keuzes zichtbaar, het verbruiksbericht wijst op dure momenten, de bewoner beslist zelf (geen blokkade)", auteur: "Melvin de Vries", soort: "eigen opgave" },
     175: { titel: "Sunwaytech SWMONET-100TS 215 kWh buitenkast (LFP, 768 V, modulaire PCS, brandbeveiliging, IP54): vanaf € 23.950", auteur: "sun.store (geraadpleegd 16-11-2026)", soort: "prijsopgave webwinkel", url: "https://sun.store/en/product/sunwaytech-swmonet-100ts215kwh-50076" },
     176: { titel: "DENIOS RFP 615.30 – brandwerende opslagcontainer voor lithium-ionaccu's, REI 90 van binnen en buiten, 6,9 × 1,8 × 3,6 m (prijs op aanvraag)", auteur: "DENIOS (geraadpleegd 16-11-2026)", soort: "productinformatie", url: "https://denios.co.uk/fire-rated-storage-container-rfp-li-ion-263173/274111" },
     177: { titel: "Battery Energy Storage Container 10 ft (BESC10): brandvertragende panelen, explosieveilige HVAC, drukontlasting, optioneel blussysteem (prijs op aanvraag)", auteur: "Storemasta (geraadpleegd 16-11-2026)", soort: "productinformatie", url: "https://shop.storemasta.com.au/products/battery-energy-storage-container-10ft" },

@@ -22,11 +22,11 @@
 <header>
   <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Energiebeheer</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
   <h1>Energiebeheer en het verbruiksbericht</h1>
-  <p class="lead read">Andere mensen krijgen een weerbericht. In Hanzedorp krijg je een verbruiksbericht. Daarin staat of er de komende dagen genoeg zon en wind is, of dat we zuinig moeten zijn. Een slim systeem regelt de rest: het zet apparaten aan als er stroom over is, en houdt ze uit als het krap wordt.</p>
+  <p class="lead read">Andere mensen krijgen een weerbericht. In Hanzedorp krijg je een verbruiksbericht. Daarin staat of er de komende dagen stroom over is, of dat we op een paar donkere dagen bijkopen en stroom dus duurder is. Een slim systeem zet de gedeelde voorzieningen aan als er stroom over is. Wat jij aanzet, bepaal je zelf: het bericht laat zien wat het kost.</p>
   <ul class="kern read">
     <li><span><b>Meestal is er stroom over:</b> op ± <span data-k="dOver"></span> dagen per jaar. Dan zet het systeem extra apparaten aan: boilers heter, vriescel kouder, water oppompen, auto's vol.</span></li>
-    <li><span><b>Soms is het krap:</b> op ± <span data-k="dKrap"></span> dagen per jaar (oranje of rood). Dan blijven de sauna en andere luxe uit, en wacht je auto even met laden.</span></li>
-    <li><span><b>Jij houdt de regie:</b> je kunt het systeem overrulen, behalve als er echt een tekort is. Je ziet je eigen verbruik; het dorp ziet alleen totalen.</span></li>
+    <li><span><b>Soms kopen we bij:</b> op ± <span data-k="dKrap"></span> dagen per jaar (oranje of rood). Dan is stroom duurder. Je ziet wat een saunasessie of een volle accu op dat moment kost, en wanneer het weer goedkoper is.</span></li>
+    <li><span><b>Jij beslist:</b> het bericht vertelt wanneer stroom duur is en wat jouw keuze dan kost. Sauna aan, auto laden of wachten tot het goedkoper is: dat bepaal jij. Je ziet je eigen verbruik; het dorp ziet alleen totalen.</span></li>
   </ul>
 </header>
 
@@ -119,7 +119,7 @@
 
 <section aria-labelledby="h-regie">
   <h2 id="h-regie">Wie beslist?</h2>
-  <p class="read">Het systeem stuurt, jij beslist. Bij groen en geel kun je alles zelf aanzetten. Bij oranje adviseert het systeem, en kun je het overrulen met een knop in de app. Alleen bij rood houdt het systeem zware luxe-apparaten echt uit, zoals een sauna. Koelkast, vriezer, ventilatie, verlichting en verwarming gaan nooit uit. Als het systeem zelf uitvalt, werkt alles gewoon zoals in een normaal huis.</p>
+  <p class="read">Het systeem rekent, jij beslist. Het verbruiksbericht laat zien wanneer stroom goedkoop is en wanneer duur, en wat jouw keuze op dat moment kost. Wil je de sauna aan of je auto laden terwijl het over een paar uur of een dag veel goedkoper is? Dat mag gewoon: het is jouw afweging. Het systeem schakelt alleen de gedeelde voorzieningen, zoals de koelcellen, de pompen bij de akker en het extra heet stoken van de warmwatervaten. Koelkast, vriezer, ventilatie, verlichting en verwarming lopen altijd gewoon door. Als het systeem zelf uitvalt, werkt alles zoals in een normaal huis.</p>
   <p class="read">We bouwen het systeem zelf, op bestaande gratis software (open source) die veel mensen al gebruiken. Wat er nog niet is, zoals het verbruiksbericht, maken we erbij. Zo zitten we niet vast aan één leverancier en betalen we geen abonnement.</p>
 </section>
 
@@ -128,7 +128,7 @@
   <ul class="read">
     <li><b>De weersverwachting klopt niet.</b> Daarom wordt het bericht drie keer per dag bijgewerkt, en houdt de buurtaccu altijd een reserve.</li>
     <li><b>Het systeem valt uit.</b> Alle modules staan dan op ‘aan’, zoals in een normaal huis, behalve de sauna-vrijgave. De veiligheid zit in de groepenkast, niet in de software.</li>
-    <li><b>Iemand voelt zich gecontroleerd.</b> Daarom ziet niemand anders jouw gegevens per groep, en mag je overrulen behalve bij echt tekort.</li>
+    <li><b>Iemand voelt zich gecontroleerd.</b> Daarom ziet niemand anders jouw gegevens per groep, en beslis je altijd zelf wat je aanzet.</li>
     <li><b>Te heet of te koud water.</b> Het warme water blijft altijd minstens 55 °C, en komt regelmatig op 60 °C tegen legionella.</li>
   </ul>
 </section>
@@ -137,7 +137,7 @@
   <h2 id="h-stand">Hoe ver zijn we?</h2>
   <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Status</th></tr></thead><tbody>
     <tr><td>Verbruiksbericht met vijf kleuren; laden mag tot een week schuiven</td><td><span class="pill s-besloten">idee besloten</span> <span class="pill s-aanname">grenzen voorstel</span></td></tr>
-    <tr><td>Hybride schakelen: hard voor sauna, boiler-element en zware niet-essentiële groepen; rest advies; overrulen behalve bij tekort</td><td><span class="pill s-besloten">besloten</span></td></tr>
+    <tr><td>Verbruiksbericht als prijssignaal: het systeem adviseert, de bewoner kiest; het systeem schakelt alleen gedeelde voorzieningen (cellen, pompen, boiler-boost) en bewaakt veiligheidsgrenzen</td><td><span class="pill s-besloten">besloten</span></td></tr>
     <tr><td>Shelly Pro op de groepen met zware apparaten; woning Melvin volledig gemeten</td><td><span class="pill s-besloten">besloten</span></td></tr>
     <tr><td>Laadpaal nooit uitschakelen; laden uitstellen via OCPP</td><td><span class="pill s-besloten">besloten</span></td></tr>
     <tr><td>Open source als basis, eigen modules erbij</td><td><span class="pill s-besloten">besloten</span></td></tr>
@@ -177,7 +177,7 @@
     `<div class="kpi"><b>${S.bericht7.wachtP90} dagen</b><span>wachten op laden in 9 van de 10 krappe periodes</span></div>`;
   EBU.klassen($("tblKlassen"));
   EBU.register($("tblReg"), false);
-  renderBronnen($("bronnen"), [190, 191, 197, 198, 195, 196, 192, 132]);
+  renderBronnen($("bronnen"), [200, 190, 191, 197, 198, 195, 196, 192, 132]);
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

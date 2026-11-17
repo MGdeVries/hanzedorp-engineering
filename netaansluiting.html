@@ -22,7 +22,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
 <header>
   <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Netaansluiting</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
   <h1>Netaansluiting en stroomhandel</h1>
-  <p class="lead read">Hanzedorp maakt veel meer stroom dan het zelf gebruikt. Het dorp moet altijd zelfstandig door kunnen draaien (eilandbedrijf). Het stroomnet is vooral de reserve. Op deze pagina rekenen we uit welke aansluiting per jaar het voordeligst is, met de echte stroomprijzen van 2023, 2024 en 2025.</p>
+  <p class="lead read">Hanzedorp maakt veel meer stroom dan het zelf gebruikt. Het dorp kan zelfstandig doordraaien, ook als het net uitvalt. We gebruiken het stroomnet alleen op een paar donkere dagen. Op deze pagina rekenen we uit welke aansluiting per jaar het voordeligst is, met de echte stroomprijzen van 2023, 2024 en 2025.</p>
   <p class="read warnbox" style="border-left:3px solid var(--gold);padding:6px 12px">Handelen in stroom wordt steeds minder interessant. Er komen steeds meer accu's en handelaars bij, daardoor worden de verschillen tussen dure en goedkope uren kleiner. Wij verdienen ons geld daarom niet met handelen, maar met goedkoop zelf opwekken en zelf gebruiken. Handelen met de accu staat standaard uit; je kunt het aanzetten om het verschil te zien.</p>
   <ul class="kern read">
     <li><span>Met de buurtaccu is een kleine aansluiting genoeg om nooit zonder stroom te zitten. Ook bij <b>3 × 25 A</b> was er in 2023–2025 geen enkel uur tekort.</span></li>
@@ -70,7 +70,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
     <div class="read" style="display:grid;gap:8px">
       <p>Een aansluiting van 3 × 25 A levert hooguit ± <b>17 kW</b> tegelijk. Dat lijkt weinig voor een heel dorp. Maar de buurtaccu doet het zware werk: die vangt de pieken op, en het net vult de accu langzaam bij in donkere, windstille periodes.</p>
       <p>We hebben dat getest over 31 jaar weer, ook in zware omstandigheden. Zolang de accu werkt, is er <b>in geen enkel uur een tekort</b>: ook niet met het maximale aantal bewoners, als iedereen thuiswerkt of zonder erfmolens.</p>
-      <p>Valt de hele accu uit, dan is 17 kW niet genoeg om alles tegelijk te laten draaien. Dan moet de energiecomputer kiezen: eerst de woningen en de koelcellen, en het laden van auto's wacht. Daarom bestaat de accu uit drie losse blokken, elk met een eigen omvormer, zodat hij vrijwel nooit helemaal uitvalt. Hoe groot die blokken moeten zijn, staat hieronder.</p>
+      <p>Valt de hele accu uit, dan is 17 kW niet genoeg om alles tegelijk op vol vermogen te laten draaien. De energiecomputer verdeelt de stroom dan slim: de woningen en de koelcellen lopen gewoon door, en auto's laden een paar uur later. Daarom bestaat de accu uit drie losse blokken, elk met een eigen omvormer, zodat hij vrijwel nooit helemaal uitvalt. Hoe groot die blokken moeten zijn, staat hieronder.</p>
     </div>
     <div class="scroll"><table id="tblGenoeg"><caption>Stresstest 3 × 25 A (± 17 kW), uursimulatie 31 jaar, 12 woningen</caption><thead><tr><th>Situatie</th><th class="num">Van het net (MWh/jr)</th><th class="num">Uren tekort per jaar</th></tr></thead><tbody><tr><td colspan="3" class="note">wordt berekend…</td></tr></tbody></table></div>
   </div>
@@ -85,7 +85,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
       <p>Staande panelen helpen in de winter weinig. Ze maken iets meer stroom als de zon laag staat, maar de tekorten vallen 's nachts en op grijze dagen zonder wind. Dan maakt ook een staand paneel bijna niets.</p>
     </div>
     <div class="read" style="display:grid;gap:8px">
-      <p><b>Woningen gaan altijd voor.</b> Een woning kan nergens anders aan stroom komen, een auto wel. Is het een paar dagen donker en windstil, dan laadt de energiecomputer auto's alleen nog met eigen stroom. Wie toch moet rijden, laadt onderweg of even bij een snellader (bijvoorbeeld een Tesla Supercharger, die open is voor alle merken).</p>
+      <p><b>Altijd stroom in huis.</b> In een paar donkere, windstille dagen kopen we bij uit het net, en dan is stroom vaak duurder. Het verbruiksbericht laat dan zien wat laden op dat moment kost. Je kiest zelf: nu laden, een dag wachten tot het goedkoper is, of onderweg laden bij een snellader (bijvoorbeeld een Tesla Supercharger, die open is voor alle merken).</p>
     </div>
   </div>
   <div class="panel" style="display:grid;gap:10px">
@@ -106,10 +106,22 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
     <thead><tr><th>Winter</th><th>Energiecomputer</th><th class="num">Uren bijkoop</th><th class="num">Dagen</th><th class="num">MWh</th><th class="num">Gem. prijs per kWh</th><th class="num">Beurskosten</th><th class="num">'s Nachts (22–6 u)</th></tr></thead><tbody></tbody></table></div>
   <p class="note">Bijkoop per uur van de dag over de hele winter:</p><div id="uurChart"></div>
   <p class="read note" id="winNoot"></p>
-  <h3>Auto's naar de snellader als het dorp anders moet bijkopen</h3>
-  <div class="scroll"><table id="tblSnel"><caption>Effect als de energiecomputer auto's niet meer uit het net laadt zodra de accu op de reserve staat (die lading gebeurt dan bij een snellader). Strategie: gestuurd op dalprijs. Extra kosten = snellader (± € <span data-k="snelPrijs"></span>/kWh) min uitgespaarde inkoop thuis (incl. belasting).</caption>
+  <h3>Wat als auto's in donkere dagen onderweg laden?</h3>
+  <div class="scroll"><table id="tblSnel"><caption>Effect als bewoners in donkere dagen ervoor kiezen hun auto onderweg te laden in plaats van thuis uit het net (rekenvoorbeeld). Strategie: gestuurd op dalprijs. Extra kosten = snellader (± € <span data-k="snelPrijs"></span>/kWh) min uitgespaarde inkoop thuis (incl. belasting).</caption>
     <thead><tr><th>Accu</th><th>Winter</th><th class="num">Uren bijkoop</th><th class="num">Bijkoop MWh</th><th class="num">Bij snellader</th><th class="num">Laadbeurten</th><th class="num">Extra kosten</th></tr></thead><tbody></tbody></table></div>
   <p class="read note" id="snelNoot"></p>
+</section>
+
+<section aria-labelledby="h-bijkoop">
+  <h2 id="h-bijkoop">Donkere dagen: wat kost bijkopen?</h2>
+  <p class="read">Meestal hebben we stroom over. Een paar keer per jaar is het donker en waait het niet, soms een week lang. Duitsers noemen dat <i>dunkelflaute</i>. Dan kopen we stroom bij via onze kleine netaansluiting. Juist op zulke dagen is stroom vaak duur. Daarom hebben we uitgerekend wat het écht kostte, met het echte weer en de echte stroomprijzen van 2023, 2024 en 2025.</p>
+  <ul class="kern read">
+    <li><span><b>De aansluiting is ruim genoeg.</b> Met 3 × 25 A kunnen we ± <span data-k="bkMaxDag"></span> kWh per dag kopen. In de zwaarste week van 2023–2025 hadden we ± <span data-k="bkKoopDag"></span> kWh per dag nodig.</span></li>
+    <li><span><b>Het kost weinig.</b> Die zwaarste week kostte ± € <span data-k="bkKosten"></span> voor het hele dorp als we in de goedkoopste uren kopen. Dat is ± € <span data-k="bkPerWoning"></span> per woning.</span></li>
+    <li><span><b>Slim kopen loont.</b> Wie op de prijs let, betaalt in die week ± <span data-k="bkScheel"></span> % minder dan wie op het verkeerde moment koopt.</span></li>
+  </ul>
+  <p class="read">Deze rekenhulp maakt de kosten van keuzes zichtbaar. Het verbruiksbericht wijst je op de momenten dat stroom duur is. Of je dan de sauna aanzet of je auto laadt, of een paar uur of een dag wacht tot het weer veel goedkoper is, beslis je zelf. Probeer het: kies een periode, de netaansluiting en hoe vol de buurtaccu is.</p>
+  <div id="bijkoop" style="margin-top:8px"></div>
 </section>
 
 <section aria-labelledby="h-accu">
@@ -241,11 +253,20 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
 <script src="netaansluiting-gedeeld.js"></script>
 <script src="netaansluiting-accu.js"></script>
 <script src="netaansluiting-accu-ui.js"></script>
+<script src="netaansluiting-bijkoop.js"></script>
+<script src="bijkoop-ui.js"></script>
+<script>
+(function () {
+  const R = BK.ui(document.getElementById("bijkoop")), nl = HZ.nl, d0 = HANZEDORP_BIJKOOP.zwaarst[0][0];
+  const W = BK.reken({ start: d0, n: 7, netKW: 17.25, accuKWh: Math.round(HANZEDORP_DATA.energie.accu.kWh * (1 - HANZEDORP_DATA.net.reserve)), onderweg: false }), nW = HZ.D.woningen.reduce((a, w) => a + (w.n || 0), 0);
+  HZ.bindAll({ bkMaxDag: nl(17.25 * 24), bkKoopDag: nl(W.koop / 7), bkKosten: nl(Math.round(W.slim.inc / 10) * 10), bkPerWoning: nl(Math.round(W.slim.inc / nW)), bkScheel: nl(Math.round((1 - W.slim.inc / W.duur.inc) * 100)) });
+})();
+</script>
 <script>
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
   bindAll({});
-  renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
+  renderBronnen($("bronnen"), [200, 59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
   NA.bind({ kva: nl(N.ontwerpKVAperWoning, 1), nW: nl(D.energie.mix.gezin + D.energie.mix.senior + D.energie.mix.junior) });
   const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
   const S = NA.std();

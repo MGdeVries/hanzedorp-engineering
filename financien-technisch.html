@@ -66,6 +66,12 @@
     <thead><tr><th>Jaar</th><th class="num">Exploitatie</th><th class="num">Storting fonds</th><th class="num">Annuïteit</th><th class="num">Bijdragen</th><th class="num">€/woning/mnd</th><th class="num">Vervangingen</th><th class="num">Fonds</th><th class="num">Restschuld</th></tr></thead><tbody></tbody></table></div>
 </section>
 
+<section id="s4b"><h2 class="num">Incidentele verhuur buurthuis</h2>
+  <p>Opgave [201]: het buurthuis is primair voor privégebruik van de bewoners (gedeelde keuken, feesten, vergaderingen). Incidentele verhuur aan derden is mogelijk, maar pas na een aanloopperiode, zodat het gebruikspatroon aantoonbaar privé is. Model: netto opbrengst per jaar = dagen × (huur − kosten) per dag, geïndexeerd met de inflatie, vanaf jaar <i>startNaJaren</i> + 1; de opbrengst verlaagt de bijdragen in Tabel F2 en telt niet mee voor de dimensionering van het reservefonds als vaste inkomst (de fondsstorting blijft gelijk; alleen de bijdrage daalt).</p>
+  <div class="scroll"><table><caption>Tabel F3 – Invoer verhuur (standaard).</caption><thead><tr><th>Parameter</th><th class="num">Waarde</th><th>Status</th></tr></thead><tbody id="tblVh"></tbody></table></div>
+  <p class="note">Fiscale punten (alle: onbekend – te verifiëren met fiscalist): btw – verhuur van onroerende zaken is in beginsel vrijgesteld (Wet OB 1968 art. 11 lid 1 sub b), met uitzonderingen voor kortdurende verhuur met diensten; inkomstenbelasting/vennootschapsbelasting – of incidentele verhuur een onderneming of bron van inkomen vormt; mandelig eigendom – aan wie de opbrengst toekomt (BW 5:65) en hoe dit in het reglement komt; energiebelasting – stroomgebruik door huurders mag de lijn 'geen EB over eigen stroom' niet ondermijnen.</p>
+</section>
+
 <section id="s5"><h2 class="num">Gevoeligheid</h2>
   <div class="scroll"><table id="tblGev"><caption>Tabel F3 – Investering per woning en maandbijdrage aan de vereniging per woning (incl. annuïteit bij financiering via de vereniging).</caption>
     <thead><tr><th>Variant</th><th class="num">Investering per woning (€)</th><th class="num">Bijdrage vereniging (€/mnd)</th><th class="num">Financieringslast (€/mnd)</th></tr></thead><tbody></tbody></table></div>
@@ -94,6 +100,7 @@
     <tr><td>Reservering groot onderhoud</td><td>Analogie BW 5:126 (VvE)<sup class="ref"><a href="#bron-168">[168]</a></sup></td><td>MJOP-gebaseerde reservering op aparte rekening</td><td>Technisch manager, controller</td><td>voldoet onder voorwaarde</td></tr>
     <tr><td>Btw op gedeelde voorzieningen</td><td>Wet OB 1968</td><td>Standaard 21 % niet aftrekbaar; aftrek alleen als ondernemer</td><td>Fiscalist</td><td>onbekend – te verifiëren</td></tr>
     <tr><td>Energiebelasting interne levering</td><td>Wbm art. 50; Hof Den Bosch 2025 vs Hof Amsterdam 2025</td><td>Zie eigendom-technisch</td><td>Fiscalist</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Incidentele verhuur buurthuis</td><td>Wet OB 1968 art. 11; Wet IB 2001 / Wet Vpb 1969; BW 5:65; omgevingsplan (gebruiksfunctie)</td><td>Pas na enkele jaren privégebruik; beperkt aantal dagen; opbrengst naar beheerbijdrage<sup class="ref"><a href="#bron-201">[201]</a></sup></td><td>Fiscalist, notaris, gemeente</td><td>onbekend – te verifiëren</td></tr>
     <tr><td>Kredietverlening aan leden</td><td>Wft (vergunningplicht kredietaanbieder)</td><td>Vereniging verstrekt geen krediet aan leden; geen bijdragen in termijnen met rente</td><td>Bestuur</td><td>voldoet onder voorwaarde</td></tr>
   </tbody></table></div>
 </section>
@@ -105,6 +112,7 @@
 <section id="s10"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <section id="s11"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
   <tr><td>0.19</td><td>04-11-2026</td><td>Nieuwe pagina: investering, financieringsvarianten, exploitatie, kasstroom 30 jaar, KPI's liquiditeit en solvabiliteit; rol finance manager/controller</td><td>Melvin de Vries / Claude</td></tr>
+  <tr><td>0.24</td><td>17-11-2026</td><td>Incidentele verhuur buurthuis (§ 4b, Tabel F3): netto opbrengst verlaagt de bijdrage vanaf jaar startNaJaren + 1; compliance-regel verhuur [201].</td><td>Melvin de Vries / Claude</td></tr>
 </tbody></table></div></section>
 <footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span><a href="financien.html">← Basispagina</a></span></footer>
 </div>
@@ -122,7 +130,8 @@
   const F0 = BH.financien(), FV = BH.financien({ financiering: "vereniging" });
   bindAll({ fiInv: r1k(F0.inv), fiGrond: r1k(F0.grond), fiVoorz: r1k(F0.voorz), fiBuf: nl(F0.startFonds), fiPW: r1k(F0.perWoningInv), fiJaar: r1k(F0.jaarlast), fiMnd: nl(Math.round(F0.perWoningMnd)),
     fiInf: nl(B.inflatie * 100, 1), fiRente: nl(F.renteLening * 100, 1), fiLoop: F.looptijd, fiAnn: r1k(FV.ann), fiStroom: r1k(F0.zonderOns) });
-  renderBronnen($("bronnen"), [165, 168, 82, 74, 124, 130, 166, 167]);
+  renderBronnen($("bronnen"), [165, 168, 82, 74, 124, 130, 166, 167, 201]);
+  { const V = F.verhuur, Fv = BH.financien().verhuur; $("tblVh").innerHTML = [["Verhuur in model", V.aan ? "aan" : "uit", "N"], ["Start na (jaar)", V.startNaJaren, "N"], ["Dagen per jaar", V.dagen, "N"], ["Huur per dag (€, excl. btw)", nl(V.prijsDag), "S"], ["Kosten per dag (€)", nl(V.kostenDag), "S"], ["Netto opbrengst (€/jr, prijspeil nu)", nl(Fv.netto), "A"], ["Per woning (€/mnd)", nl(Math.round(Fv.perWoningMnd)), "A"]].map(r => `<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td>${r[2]}</td></tr>`).join(""); }
   $("tblPar").innerHTML = [["Eigen inbreng e (variant vereniging)", nl(F.eigenInbreng * 100) + " %", "N"], ["Rente lening r<sub>L</sub>", nl(F.renteLening * 100, 1) + " %", "N"], ["Looptijd n", F.looptijd + " jaar", "N"],
     ["Btw", nl(F.btw * 100) + " %, aftrek " + (F.btwAftrek ? "ja" : "nee"), "G / N"], ["Verzekering", nl(F.verzekeringPct * 100, 2) + " % van de waarde", "S"], ["Administratie", "€ " + nl(F.administratie) + "/jr", "S"],
     ["Vastrecht drinkwater", "€ " + nl(F.drinkwaterVast) + "/jr", "S"], ["Stroomsaldo 3 × 25 A", "+ € " + nl(F.netSaldo) + "/jr", "A"], ["Tuinder (optie)", "€ " + nl(F.tuinder.eur) + "/jr", "S"],
