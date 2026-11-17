@@ -60,8 +60,8 @@
   function week(el, start) {
     const k0 = byI[start]; if (k0 == null) { el.innerHTML = "<p>Geen gegevens voor deze datum.</p>"; return; }
     const d7 = V.slice(k0, k0 + 7), c3 = Math.max(...d7.slice(0, 3).map(r => r[1])), cw = Math.max(...d7.map(r => r[1]));
-    const kop = c3 >= 4 ? "Komende dagen weinig zon en wind. Alleen het nodige aan." : c3 === 3 ? "Het wordt krap. Niet-essentiële apparaten blijven uit." :
-      c3 === 2 ? "Genoeg voor de huizen, krap voor de auto's. Laad overdag als het kan." : d7[0][1] === 0 ? "Stroom over! Zet aan wat je kunt." : "Genoeg stroom voor iedereen.";
+    const kop = c3 >= 4 ? "Komende dagen weinig zon en wind. We kopen stroom bij en die is nu duur: kijk wat jouw keuzes kosten." : c3 === 3 ? "Minder zon en wind. Stroom is duurder; met een paar uur of een dag wachten bespaar je geld." :
+      c3 === 2 ? "Genoeg voor de huizen. Auto's laden het voordeligst overdag." : d7[0][1] === 0 ? "Stroom over! Zet aan wat je kunt." : "Genoeg stroom voor iedereen.";
     const wacht = (() => { let n = 0; for (const r of d7) { if (r[1] <= 1) break; n++; } return n; })();
     const p = d7[0][4], snel = BR.snellader;
     const max = Math.max(...d7.map(r => Math.max(r[2], r[3] + BR.evJr / 365)));
@@ -133,7 +133,7 @@
     tbody.innerHTML = rij("Laden mag 2 dagen schuiven (huidig model)", S.flex2, "–") +
       rij(`Verbruiksbericht: laden mag ${BR.flexDagen} dagen schuiven`, S.bericht7, `${nl((S.flex2.imp - S.bericht7.imp) / 1000, 1)} MWh/jr minder import`) +
       rij(`+ ${E.sauna.n} sauna's (${nl(E.sauna.kW)} kW), niet gestuurd`, S.saunaVrij, `sauna's ${nl(S.saunaVrij.saunaKWh / 1000, 1)} MWh/jr`) +
-      rij(`+ ${E.sauna.n} sauna's, geblokkeerd bij oranje/rood`, S.saunaStuur, `${nl(S.saunaStuur.saunaGeblokt)} kWh/jr aan sessies uitgesteld`);
+      rij(`+ ${E.sauna.n} sauna's, bewoners stellen uit bij oranje/rood`, S.saunaStuur, `${nl(S.saunaStuur.saunaGeblokt)} kWh/jr aan sessies vrijwillig verschoven`);
   }
 
   window.EBU = { register, klassen, codes, week, weekUI, maandGrafiek, meetkosten, stuklijst, scenarios, aantal, kWhDorp, tile, fmtD };

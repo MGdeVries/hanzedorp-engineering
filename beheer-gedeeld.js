@@ -105,6 +105,7 @@
     if (tuin) vaste.push(["Tuinder (± 0,5 fte, inhuur)", F.tuinder.eur, "S"]);
     if (ann) vaste.push(["Rente en aflossing lening vereniging (annuïteit)", ann, "A"]);
     const jaarlast = vaste.reduce((a, v) => a + v[1], 0);
+    const VH = Object.assign({}, F.verhuur || {}, o.verhuur || {}), vhNetto = VH.aan ? (VH.dagen || 0) * ((VH.prijsDag || 0) - (VH.kostenDag || 0)) : 0;   // incidentele verhuur buurthuis [201]
     // kasstroom vereniging over de horizon: bijdragen dekken exploitatie (geïndexeerd) + storting + annuïteit
     const rows = []; let kas = 0.25 * (jaarlast - ann);   // N startkas: 3 maanden exploitatie
     const kas0 = kas;
@@ -113,9 +114,10 @@
       const ix = Math.pow(1 + i, t - 1);
       const expl = (jaarlast - ann - M.C * btwF) * ix, stort = M.C * btwF * Math.pow(1 + i, t), a = t <= n ? ann : 0;
       const rente = restLening * rl, afl = a ? a - rente : 0; restLening = Math.max(0, restLening - afl);
-      const bijdrage = expl + stort + a;
+      const verhuur = t > (VH.startNaJaren || 0) ? vhNetto * ix : 0;
+      const bijdrage = expl + stort + a - verhuur;
       const fonds = M.fonds[t] * btwF;
-      rows.push({ t, jaar: B.startJaar + t, expl, stort, ann: a, rente, afl, bijdrage, fonds, vervanging: M.V[t] * btwF, kas, restLening,
+      rows.push({ t, jaar: B.startJaar + t, expl, stort, ann: a, rente, afl, verhuur, bijdrage, fonds, vervanging: M.V[t] * btwF, kas, restLening,
         dscr: a ? (bijdrage - expl - stort) / a : null, perWoningMnd: bijdrage / nW / 12 });
     }
     const aandeel = inv / nW, leenDeel = aandeel * (1 - ei), annPW = leenDeel * rl / (1 - Math.pow(1 + rl, -n));
@@ -123,7 +125,7 @@
     const fondsMin = Math.min(...M.fonds) * btwF;
     const zonderOns = F.vraagMWh * 1000 * F.stroomprijs;       // wat de bewoners zonder eigen opwek aan stroom zouden kopen
         return { M, nW, grond, voorz, startFonds, inv, fin, ei, lening, ann, rl, n, vaste, jaarlast, rows, kas0, perWoningMnd: jaarlast / nW / 12,
-      perWoningInv: inv / nW, finPerWoningMnd, fondsMin, leenDeel, eigenPerWoning: inv * (fin === "vereniging" ? ei : 1) / nW, zonderOns, btwF, tuin,
+      perWoningInv: inv / nW, verhuur: { VH, netto: vhNetto, perWoningMnd: vhNetto / nW / 12 }, finPerWoningMnd, fondsMin, leenDeel, eigenPerWoning: inv * (fin === "vereniging" ? ei : 1) / nW, zonderOns, btwF, tuin,
       kpi: { liquiditeitMnd: kas0 / ((jaarlast - ann) / 12), dekking10: (M.fonds[0] + M.C * 10) / Math.max(1, M.tienJaar), schuldPerWoning: lening / nW,
         solvabiliteit: lening ? (M.buf * btwF) / (M.buf * btwF + lening) : 1, dscrMin: ann ? 1 : null } };
   }

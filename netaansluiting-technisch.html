@@ -116,6 +116,12 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
   <p class="read note">Beperkingen: perfecte voorspelling in G (Tabel 5d toont dat 30–50 % onderschatting bij ≥ 300 kWh geen tekort geeft); prijzen alleen 2023–2025; vermogen per uur (pieken binnen het uur niet gesimuleerd); geen V2G. Reproduceerbaar: <code>node bouwaccu.js</code> → netaansluiting-accu.js (gegenereerd <span data-k="accuGen"></span>).</p>
 </section>
 
+<section id="s5c"><h2 class="num">Bijkoop tijdens donkere windstille perioden (dunkelflaute)</h2>
+  <p class="read">Doel (opgave 17-11-2026<sup class="ref"><a href="#bron-200">[200]</a></sup>): laten zien wat bijkoop kost in perioden met weinig zon en wind, wanneer de day-aheadprijs vaak hoog is, en of de netaansluiting van 17,25 kW volstaat. Data: dagbalans van het dorp 2023–2025 (uurmodel, scenario C, 1 erfmolen; <code>bouwbijkoop.js</code> → <code>netaansluiting-bijkoop.js</code>) en EPEX day-ahead NL per uur (hanzedorp-prijs.js). Methode: dagtekort d<sub>i</sub> = verbruik<sub>i</sub> + gemiddelde laadvraag − opwek<sub>i</sub>; benodigde inkoop Q = max<sub>k</sub> Σ<sub>i≤k</sub> d<sub>i</sub> − accuvoorraad bij aanvang (≥ 0); maximale inkoop P<sub>net</sub>·24·n; kosten bij inkoop in de goedkoopste uren (slim), tegen het tijdgewogen gemiddelde (zonder sturing) en in de duurste uren (ongunstig); all-in = (beurs + opslag + EB) × 1,21. De volgorde binnen de periode wordt alleen via de accu bewaakt (vereenvoudiging); voorspelfouten zijn niet meegenomen.</p>
+  <p class="read">Resultaat zwaarste week (A): start <span data-k="bkStart"></span>, inkoop ± <span data-k="bkKoop"></span> kWh (± <span data-k="bkKoopDag"></span> kWh/d, maximaal <span data-k="bkMaxDag"></span> kWh/d); kosten all-in slim € <span data-k="bkSlim"></span>, zonder sturing € <span data-k="bkDom"></span>, ongunstig € <span data-k="bkDuur"></span>; duurste uur <span data-k="bkMaxP"></span> ct/kWh (beurs). De netaansluiting is in alle zes zwaarste weken ruim voldoende.</p>
+  <div id="bijkoop" style="margin-top:8px"></div>
+</section>
+
 <section id="s6"><h2 class="num">Gevoeligheidsanalyse</h2>
   <div class="scroll"><table id="tblGev"><caption>Tabel 6 – Beste aansluitwaarde en saldo bij gewijzigde invoer (overige invoer standaard).</caption><thead><tr><th>Variant</th><th>Beste aansluiting</th><th class="num">Saldo €/jaar</th><th class="num">Saldo 3×80 A</th></tr></thead><tbody></tbody></table></div>
 </section>
@@ -163,6 +169,7 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
 
 <section id="s12"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <section id="s13"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.24</td><td>17-11-2026</td><td>Bijkoopcalculator dunkelflaute (§ bijkoop): dagbalans 2023–2025 met EPEX-uurprijzen, aansluitwaarde, accuvoorraad en kosten per keuze [200]</td><td>Melvin de Vries / Claude</td></tr>
   <tr><td>0.12</td><td>27-10-2026</td><td>Eerste versie: uursimulatie netaansluiting en handel met EPEX-prijzen 2023–2025; scenario woningaansluitingen; risico's en compliance-register.</td><td>Melvin de Vries (besluiten, prijsdata); berekening met Claude</td></tr>
   <tr><td>0.18</td><td>29-10-2026</td><td>Winterbijkoop bij 3 × 25 A (strategie R en G, 2023/24 en 2024/25) en dimensionering buurtaccu (100–1.000 kWh, 31 jaar, n − 1, gevoeligheid, kosten-baten); advies 3 × 150 kWh; correctie tussenuitkomst strategie R. Aanvulling 23:30: verbruik per groep (warmtepomp, rest woning, auto, gemeenschappelijk), gespiegelde dagbalans, variant G+S (auto's naar snellader).</td><td>Melvin de Vries (vraag); berekening met Claude</td></tr>
 </tbody></table></div></section>
@@ -184,10 +191,19 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
 <script src="netaansluiting-gedeeld.js"></script>
 <script src="netaansluiting-accu.js"></script>
 <script src="netaansluiting-accu-ui.js"></script>
+<script src="netaansluiting-bijkoop.js"></script>
+<script src="bijkoop-ui.js"></script>
+<script>
+(function () {
+  BK.ui(document.getElementById("bijkoop")); const nl = HZ.nl, d0 = HANZEDORP_BIJKOOP.zwaarst[0][0];
+  const W = BK.reken({ start: d0, n: 7, netKW: 17.25, accuKWh: Math.round(HANZEDORP_DATA.energie.accu.kWh * (1 - HANZEDORP_DATA.net.reserve)), onderweg: false });
+  HZ.bindAll({ bkStart: BK.fmt(d0), bkKoop: nl(Math.round(W.koop)), bkKoopDag: nl(W.koop / 7), bkMaxDag: nl(17.25 * 24), bkSlim: nl(Math.round(W.slim.inc)), bkDom: nl(Math.round(W.dom.inc)), bkDuur: nl(Math.round(W.duur.inc)), bkMaxP: nl(W.maxP.p * 100, 1) });
+})();
+</script>
 <script>
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, E = D.energie, P = window.HANZEDORP_PRIJS, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
-  bindAll({}); renderBronnen($("bronnen"), [59, 60, 61, 62, 42, 43, 81, 83, 84, 85, 86, 104, 105, 112, 130, 131, 132, 133]);
+  bindAll({}); renderBronnen($("bronnen"), [200, 59, 60, 61, 62, 42, 43, 81, 83, 84, 85, 86, 104, 105, 112, 130, 131, 132, 133]);
   const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
   const S = NA.std(), { rs, best } = NA.rekenen(S), R = HN.reeks({});
   const kWpTot = E.scenarioC.vlakken.reduce((a, v) => a + v.kWp, 0) + R.basis.kWpDak + R.basis.kWpAgri;

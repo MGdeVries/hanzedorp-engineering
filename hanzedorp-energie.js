@@ -48,7 +48,7 @@
     const thuiswerk = tw * 52 * E.thuiswerkKWh + Math.max(0, b.thuisDagenWeek - tw) * 52 * E.thuisDagKWh;
     const quooker = o.quooker === false ? 0 : (E.quookerKWh || 0);   // kokendwaterkraan per woning [104]
     const app = (E.app.a + E.app.b * p) * (o.appScen === "gemeten" ? E.appGemetenFactor : 1) + thuiswerk + quooker;
-    // geen droger [68]: drogen aan het rek in de technische ruimte; verdampingswarmte in het stookseizoen uit de warmtepomp
+    // rekenbasis [68]/[200]: drogen in de warme technische ruimte (eigen droger is een vrije keuze); verdampingswarmte in het stookseizoen uit de warmtepomp
     const dr = E.droogRuimte, nWas = p * E.wit.wasPP;
     const droog = p * E.wit.droogPP * E.wit.droogKWh + nWas * dr.kgWas * dr.restvocht * dr.latent * dr.stookAandeel / dr.cop;
     const wit = nWas * E.wit.wasKWh + p * E.wit.vaatPP * E.wit.vaatKWh + droog;

@@ -18,7 +18,7 @@
 <header>
   <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Financiële planning</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
   <h1>Financiële planning</h1>
-  <p class="lead read">Een eigen dorp met eigen stroom, water en voedsel kost geld: eerst om het aan te leggen, daarna elk jaar om het draaiend te houden. Op deze pagina staat wat de gedeelde voorzieningen samen kosten, hoe we dat betalen en hoeveel iedereen per maand bijdraagt. En hoe we ervoor zorgen dat er altijd genoeg geld in kas is.</p>
+  <p class="lead read">Een eigen dorp met eigen stroom, water en voedsel is een investering in vrijheid: eerst om het aan te leggen, daarna elk jaar om het draaiend te houden. Daar staat tegenover dat je weinig betaalt voor stroom en voedsel. Op deze pagina staat wat de gedeelde voorzieningen samen kosten, hoe we dat betalen en hoeveel iedereen per maand bijdraagt. En hoe we ervoor zorgen dat er altijd genoeg geld in kas is.</p>
   <ul class="kern read">
     <li><span><b>Eenmalig:</b> grond, voorbereiding en de gedeelde voorzieningen kosten samen ± € <span data-k="fiInv"></span>, dat is ± € <span data-k="fiPW"></span> per woning (incl. btw, schatting).</span></li>
     <li><span><b>Elke maand:</b> ± € <span data-k="fiMnd"></span> per woning voor onderhoud, sparen voor vervanging, internet, verzekering en administratie.</span></li>
@@ -59,6 +59,26 @@
   <div class="scroll"><table id="tblLast"><caption>Jaarlijkse kosten van de vereniging in het eerste jaar (€). De stroom levert per saldo iets op: de opbrengst van teruglevering is hoger dan de kosten van de netaansluiting en de bijkoop.</caption>
     <thead><tr><th>Post</th><th class="num">€ per jaar</th><th class="num">€ per woning per maand</th><th>Status</th></tr></thead><tbody></tbody></table></div>
   <p class="read">Daar staat tegenover dat je bijna geen stroom meer hoeft te kopen. Zonder eigen opwek zouden alle huishoudens samen ± € <span data-k="fiStroom"></span> per jaar aan stroom betalen (± € <span data-k="fiStroomPW"></span> per woning per maand). Ook de groente en het fruit van de akker scheelt in de boodschappen.</p>
+</section>
+
+<section aria-labelledby="h-verhuur">
+  <h2 id="h-verhuur">Verhuur: opbrengst buurthuis (incidenteel)</h2>
+  <div class="cols">
+    <div class="read" style="display:grid;gap:8px;align-content:start">
+      <p>Het buurthuis is in de eerste plaats van en voor de bewoners: voor etentjes, feesten, vergaderingen en de gedeelde keuken. Af en toe kunnen we het verhuren, bijvoorbeeld voor een verjaardag, een cursus of een bijeenkomst van de buurt. Dat levert iets op en verlaagt de maandbijdrage.</p>
+      <p>We beginnen daar pas na een paar jaar mee. Zo kunnen we de Belastingdienst laten zien dat het buurthuis bedoeld is voor privégebruik van de bewoners, en dat de verhuur er alleen af en toe bij komt. Hoe de verhuur fiscaal precies uitpakt (btw, belasting over de opbrengst, wie de opbrengst krijgt bij gezamenlijk eigendom), laten we toetsen door een fiscalist.</p>
+    </div>
+    <div class="panel read" style="display:grid;gap:8px">
+      <div class="controls">
+        <div class="ctl"><label><input type="checkbox" id="vhAan"> Verhuur meenemen</label></div>
+        <div class="ctl"><label for="vhStart">Beginnen na: <output id="vhStartO"></output> jaar</label><input type="range" id="vhStart" min="0" max="10" step="1"></div>
+        <div class="ctl"><label for="vhDagen">Dagen verhuur per jaar: <output id="vhDagenO"></output></label><input type="range" id="vhDagen" min="0" max="52" step="1"></div>
+        <div class="ctl"><label for="vhPrijs">Huur per dag: € <output id="vhPrijsO"></output></label><input type="range" id="vhPrijs" min="50" max="600" step="25"></div>
+        <div class="ctl"><label for="vhKost">Kosten per dag (schoonmaak, energie, slijtage): € <output id="vhKostO"></output></label><input type="range" id="vhKost" min="0" max="200" step="10"></div>
+      </div>
+      <div class="result" id="vhKpi" aria-live="polite"></div>
+    </div>
+  </div>
 </section>
 
 <section aria-labelledby="h-30">
@@ -135,15 +155,17 @@
 (function () {
   const { D, nl, bindAll, renderBronnen } = HZ, F = D.financien, $ = id => document.getElementById(id), F0 = BH.financien(), r1k = v => nl(Math.round(v / 1000) * 1000);
   bindAll({ fiInv: r1k(F0.inv), fiPW: r1k(F0.perWoningInv), fiMnd: nl(Math.round(F0.perWoningMnd / 5) * 5), fiStroom: r1k(F0.zonderOns), fiStroomPW: nl(Math.round(F0.zonderOns / F0.nW / 12)) });
-  renderBronnen($("bronnen"), [165, 168, 82, 74, 166, 167, 130]);
+  renderBronnen($("bronnen"), [165, 168, 82, 74, 166, 167, 130, 201]);
   BHU.seg($("sScen"), "sc", [["min", "Laag"], ["std", "Midden"], ["max", "Hoog"]], "std");
   BHU.seg($("sFin"), "fi", [["hypotheek", "Ieder in eigen hypotheek"], ["vereniging", "Lening van de vereniging"]], F.financiering);
   BHU.seg($("sBtw"), "bt", [["0", "Nee"], ["1", "Ja"]], F.btwAftrek ? "1" : "0");
   BHU.seg($("sTuin"), "tu", [["0", "Nee"], ["1", "Ja, ± 0,5 fte"]], F.tuinder.aan ? "1" : "0");
-  const std = { fEi: F.eigenInbreng * 100, fR: F.renteLening * 100, fN: F.looptijd };
-  const zet = () => Object.entries(std).forEach(([id, v]) => $(id).value = v), e = BHU.e;
+  const VH0 = F.verhuur, std = { fEi: F.eigenInbreng * 100, fR: F.renteLening * 100, fN: F.looptijd, vhStart: VH0.startNaJaren, vhDagen: VH0.dagen, vhPrijs: VH0.prijsDag, vhKost: VH0.kostenDag };
+  const zet = () => { Object.entries(std).forEach(([id, v]) => $(id).value = v); $("vhAan").checked = !!VH0.aan; }, e = BHU.e;
   function run() {
-    const o = { scen: BHU.val("sc"), financiering: BHU.val("fi"), eigenInbreng: +$("fEi").value / 100, renteLening: +$("fR").value / 100, looptijd: +$("fN").value, btwAftrek: BHU.val("bt") === "1", tuinder: BHU.val("tu") === "1" };
+    const o = { scen: BHU.val("sc"), financiering: BHU.val("fi"), eigenInbreng: +$("fEi").value / 100, renteLening: +$("fR").value / 100, looptijd: +$("fN").value, btwAftrek: BHU.val("bt") === "1", tuinder: BHU.val("tu") === "1",
+      verhuur: { aan: $("vhAan").checked, startNaJaren: +$("vhStart").value, dagen: +$("vhDagen").value, prijsDag: +$("vhPrijs").value, kostenDag: +$("vhKost").value } };
+    $("vhStartO").value = $("vhStart").value; $("vhDagenO").value = $("vhDagen").value; $("vhPrijsO").value = nl(+$("vhPrijs").value); $("vhKostO").value = nl(+$("vhKost").value);
     $("fEiO").value = $("fEi").value; $("fRO").value = nl(+$("fR").value, 2); $("fNO").value = $("fN").value;
     const Fi = BH.financien(o);
     $("fKpi").innerHTML = [[e(Fi.grond), "grond en voorbereiding"], [e(Fi.voorz), "gedeelde voorzieningen" + (Fi.btwF > 1 ? " (incl. btw)" : "")], [e(Fi.startFonds), "startkapitaal spaarpot"],
@@ -151,6 +173,8 @@
       [e(Fi.finPerWoningMnd) + " /mnd", Fi.fin === "vereniging" ? "rente en aflossing per woning (via de vereniging)" : "rente en aflossing in je eigen hypotheek (indicatief)"],
       [e(Fi.perWoningMnd) + " /mnd", "bijdrage aan de vereniging per woning"]].map(([b, t]) => `<div><b>${b}</b><span>${t}</span></div>`).join("");
     BHU.tabelLasten($("tblLast").querySelector("tbody"), Fi); BHU.chartFin($("fChart"), Fi);
+    { const V = Fi.verhuur, j = D.beheer.startJaar + (V.VH.startNaJaren || 0) + 1;
+      $("vhKpi").innerHTML = V.VH.aan ? [[e(V.netto) + " /jr", "netto opbrengst verhuur (prijspeil nu)"], ["− " + e(V.perWoningMnd) + " /mnd", "lagere bijdrage per woning"], [String(j), "eerste jaar met verhuur"]].map(([b, t]) => `<div><b>${b}</b><span>${t}</span></div>`).join("") : "<p>Verhuur staat uit.</p>"; }
     const w = $("fWaarschuwing");
     w.hidden = Fi.fin !== "vereniging";
     if (Fi.fin === "vereniging") w.innerHTML = `<b>Let op:</b> met een lening van de vereniging van ${e(Fi.lening)} heeft de vereniging ${e(Fi.kpi.schuldPerWoning)} schuld per woning en vrijwel geen eigen bezit (solvabiliteit ${nl(Fi.kpi.solvabiliteit * 100, 1)} %). Een bank vraagt meestal minstens 20–30 %.`;
