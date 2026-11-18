@@ -118,6 +118,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <ul class="kern read">
     <li><span><b>De aansluiting is ruim genoeg.</b> Met 3 × 25 A kunnen we ± <span data-k="bkMaxDag"></span> kWh per dag kopen. In de zwaarste week van 2023–2025 hadden we ± <span data-k="bkKoopDag"></span> kWh per dag nodig.</span></li>
     <li><span><b>Het kost weinig.</b> Die zwaarste week kostte ± € <span data-k="bkKosten"></span> voor het hele dorp als we in de goedkoopste uren kopen. Dat is ± € <span data-k="bkPerWoning"></span> per woning.</span></li>
+    <li><span><b>Niet tussen 16 en 21 uur.</b> 's Avonds is stroom in de winter het duurst: gemiddeld <span data-av="avPrAvond"></span> ct per kWh op de beurs, 's nachts <span data-av="avPrNacht"></span> ct, ± <span data-av="avPct"></span> % goedkoper. De buurtaccu laadt daarom buiten die uren bij en levert 's avonds zelf. Dat scheelt het dorp ± € <span data-av="avEur"></span> per jaar, en het helpt de netbeheerder: 's avonds is het net het drukst (zie <a href="netbeheerder.html">Wat vragen we van de netbeheerder?</a>).</span></li>
     <li><span><b>Slim kopen loont.</b> Wie op de prijs let, betaalt in die week ± <span data-k="bkScheel"></span> % minder dan wie op het verkeerde moment koopt.</span></li>
   </ul>
   <p class="read">Deze rekenhulp maakt de kosten van keuzes zichtbaar. Het verbruiksbericht wijst je op de momenten dat stroom duur is. Of je dan de sauna aanzet of je auto laadt, of een paar uur of een dag wacht tot het weer veel goedkoper is, beslis je zelf. Probeer het: kies een periode, de netaansluiting en hoe vol de buurtaccu is.</p>
@@ -231,6 +232,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   </tbody></table></div>
 </section>
 
+<p class="read note">Wat we precies van de netbeheerder vragen, en de data om dat te controleren, staat op <a href="netbeheerder.html">Wat vragen we van de netbeheerder?</a></p>
 <div class="cta"><p class="read">Wilt u de berekening controleren? Formules, aannames, uitkomsten per jaar en de toetsing staan op de technische pagina.</p><a href="netaansluiting-technisch.html">Naar de technische verantwoording →</a></div>
 <section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina en op de technische pagina komen uit dezelfde databron.</span></footer>
@@ -266,7 +268,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
   bindAll({});
-  renderBronnen($("bronnen"), [200, 59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
+  renderBronnen($("bronnen"), [206, 200, 59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
   NA.bind({ kva: nl(N.ontwerpKVAperWoning, 1), nW: nl(D.energie.mix.gezin + D.energie.mix.senior + D.energie.mix.junior) });
   const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
   const S = NA.std();
@@ -347,6 +349,15 @@ setTimeout(function () {
     const r6 = rijen.find(r => r.g.cap === 600), r4 = rijen.find(r => r.g.cap === 400);
     if (r6 && r4) $("aBesparing").textContent = NAC.eur(r6.saldo - r4.saldo); }
   $("mPrijsAccu").addEventListener("input", accu); accu();
+})();
+</script>
+<script src="netbeheerder-data.js"></script>
+<script>
+(function () { /* avondregel [206]: prijzen en besparing uit netbeheerder-data.js */
+  const N = window.HANZEDORP_NETBEHEERDER; if (!N) return; const nl = HZ.nl, std = N.scenarios.find(s => s.id === "std");
+  const v = { avPrAvond: nl(N.prijs.avond * 100, 1), avPrNacht: nl(N.prijs.nacht * 100, 1), avPct: nl((1 - N.prijs.nacht / N.prijs.avond) * 100),
+    avEur: nl(Math.round(std.avond.impZonder * (N.prijs.avond - N.prijs.nacht) * 1.21 / 10) * 10), avMWh: nl(std.avond.impZonder / 1000, 1) };
+  document.querySelectorAll("[data-av]").forEach(e => e.textContent = v[e.dataset.av] || "");
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

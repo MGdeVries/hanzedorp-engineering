@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Energiebeheer en verbruiksbericht – Hanzedorp</title>
-<meta name="description" content="Het energiebeheersysteem van Hanzedorp: een verbruiksbericht in plaats van een weerbericht, welke apparaten wanneer aan mogen, je auto een week geduld, stroom over gebruiken en meten in elke groepenkast. Basispagina.">
+<meta name="description" content="Het energiebeheersysteem van Hanzedorp: een verbruiksbericht in plaats van een weerbericht, wanneer stroom goedkoop of duur is, je auto laden op het goedkoopste moment, stroom over gebruiken en meten in elke groepenkast. Basispagina.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="hanzedorp.css">
@@ -58,15 +58,16 @@
 </section>
 
 <section aria-labelledby="h-auto">
-  <h2 id="h-auto">Je auto: een week geduld</h2>
+  <h2 id="h-auto">Je auto: laden op het goedkoopste moment</h2>
   <div class="cols">
     <div class="read" style="display:grid;gap:8px">
-      <p>Je zet je auto altijd aan de lader als je thuiskomt. Het systeem bepaalt wanneer hij laadt. Op zonnige dagen gaat dat meteen. In een donkere week kan het tot <span data-k="flex"></span> dagen duren. De meeste mensen hebben hun auto niet elke dag nodig, dus dat merk je meestal niet.</p>
+      <p>Je zet je auto aan de lader als je thuiskomt. Zeg je niets, dan laadt hij vanzelf op het goedkoopste moment: op zonnige dagen meteen, in een donkere week soms pas na een paar dagen (tot <span data-k="flex"></span> dagen). De meeste mensen hebben hun auto niet elke dag nodig, dus dat merk je meestal niet. Wil je nu laden? Dat kan; je ziet dan wat het op dat moment kost.</p>
+      <p><b>De buurtaccu koopt zelf ook slim.</b> Moet het dorp stroom bijkopen, dan laadt de buurtaccu in de goedkoopste uren, meestal 's nachts, en niet tussen 16 en 21 uur. Dan is stroom het duurst (in de winter ± <span data-av="avPrAvond"></span> tegen ± <span data-av="avPrNacht"></span> ct per kWh 's nachts) en is het net het drukst. 's Avonds levert de accu zelf.</p>
       <p><b>Moet je weg?</b> Zet in de app wanneer je vertrekt en hoe ver je rijdt. Dan zorgt het systeem dat je genoeg lading hebt. Het kijkt naar de stroomprijs van morgen en adviseert: laad vannacht thuis, of laad onderweg bij een snellader.</p>
       <p>In 2023 tot en met 2025 was thuis laden in de goedkoopste nachturen op krappe dagen altijd goedkoper dan een snellader: gemiddeld ± € <span data-k="thuisPrijs"></span> tegen ± € <span data-k="snelPrijs"></span> per kWh. Een snellader is dus vooral handig als je onderweg bent, of als het net en de accu even vol benut zijn.</p>
     </div>
     <div class="panel read" style="display:grid;gap:8px">
-      <h3>Wat levert een week geduld op?</h3>
+      <h3>Wat levert slim laden op?</h3>
       <div class="result" id="aKpi"></div>
       <p class="sm">Berekend over <span data-k="nJ"></span> jaar weer, met de buurtaccu van <span data-k="accu"></span> kWh en een netaansluiting van 3 × 25 A. Niemand komt zonder stroom te staan.</p>
     </div>
@@ -75,7 +76,7 @@
 
 <section aria-labelledby="h-wat">
   <h2 id="h-wat">Wat gebruikt stroom in ons dorp?</h2>
-  <p class="read">We hebben alle apparaten die veel stroom gebruiken op een rij gezet en in zes groepen verdeeld. De groep bepaalt wat het systeem mag doen.</p>
+  <p class="read">We hebben alle apparaten die veel stroom gebruiken op een rij gezet en in zes groepen verdeeld. Per groep staat wat het systeem doet: meten, adviseren, of een gedeelde voorziening op het goede moment aanzetten. Wat jij in huis aanzet, beslis je zelf.</p>
   <div class="scroll"><table><thead><tr><th>Groep</th><th>Wat betekent het?</th><th>Voorbeelden</th></tr></thead><tbody id="tblKlassen"></tbody></table></div>
   <details style="margin-top:10px"><summary>Alle verbruikers met vermogen en jaarverbruik</summary>
   <div class="scroll" style="margin-top:8px"><table><caption>Verbruikers in Hanzedorp (12 woningen). Jaarverbruik voor het hele dorp in MWh, uit het rekenmodel of een schatting.</caption>
@@ -99,12 +100,12 @@
   <h2 id="h-meten">Meten en schakelen in de groepenkast</h2>
   <div class="cols">
     <div class="read" style="display:grid;gap:8px">
-      <p>We meten niet elke groep. Dat is te duur en levert weinig op. In elke woning komen kleine meet- en schakelmodules (Shelly Pro) op de <b>groepen met zware apparaten</b>: de warmtepomp, de kookplaat, de oven, de wasmachine, de vaatwasser en de Quooker. Plus één meter voor de hele woning. Heb je een sauna, dan krijgt die ook een module met een schakelaar. Daarmee kan het systeem:</p>
+      <p>We meten niet elke groep. Dat is te duur en levert weinig op. In elke woning komen kleine meet- en schakelmodules (Shelly Pro) op de <b>groepen met zware apparaten</b>: de warmtepomp, de kookplaat, de oven, de wasmachine, de vaatwasser en de Quooker. Plus één meter voor de hele woning. Heb je een sauna, dan krijgt die ook een module, zodat je hem op afstand of op een goedkoop moment kunt laten aangaan. Daarmee kan het systeem:</p>
       <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
-        <li><b>pieken voorkomen:</b> niet alle sauna's, kookplaten en wasmachines tegelijk vol aan;</li>
+        <li><b>pieken opvangen:</b> staan veel sauna's, kookplaten en wasmachines tegelijk aan, dan levert de buurtaccu het extra vermogen;</li>
         <li><b>leren:</b> het weet hoe jouw warmtepomp of wasmachine normaal werkt;</li>
         <li><b>waarschuwen:</b> als een apparaat anders doet dan normaal, of ineens niets meer doet;</li>
-        <li><b>schakelen:</b> de sauna gaat alleen aan als het systeem het goedvindt; het element in de boiler alleen als er stroom over is.</li>
+        <li><b>adviseren:</b> het bericht laat zien wanneer de sauna of een zware machine het goedkoopst draait; jij beslist. Het element in de boiler gaat vanzelf aan als er stroom over is.</li>
       </ul>
       <p><b>De laadpaal gaat nooit uit.</b> Het systeem stelt het laden alleen uit naar een beter moment. Dat gaat via de laadpaal zelf (OCPP), die ook meet wat je laadt.</p>
       <p><b>Wil je meer weten?</b> Dan kun je je hele woning laten uitrusten, zoals Melvin doet: elke verbruiker en elk toilet op een eigen groep met een module. Dan zie je precies wanneer welk apparaat aan staat.</p>
@@ -178,6 +179,15 @@
   EBU.klassen($("tblKlassen"));
   EBU.register($("tblReg"), false);
   renderBronnen($("bronnen"), [200, 190, 191, 197, 198, 195, 196, 192, 132]);
+})();
+</script>
+<script src="netbeheerder-data.js"></script>
+<script>
+(function () { /* avondregel [206]: prijzen en besparing uit netbeheerder-data.js */
+  const N = window.HANZEDORP_NETBEHEERDER; if (!N) return; const nl = HZ.nl, std = N.scenarios.find(s => s.id === "std");
+  const v = { avPrAvond: nl(N.prijs.avond * 100, 1), avPrNacht: nl(N.prijs.nacht * 100, 1), avPct: nl((1 - N.prijs.nacht / N.prijs.avond) * 100),
+    avEur: nl(Math.round(std.avond.impZonder * (N.prijs.avond - N.prijs.nacht) * 1.21 / 10) * 10), avMWh: nl(std.avond.impZonder / 1000, 1) };
+  document.querySelectorAll("[data-av]").forEach(e => e.textContent = v[e.dataset.av] || "");
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

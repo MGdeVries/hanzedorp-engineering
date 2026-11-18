@@ -54,6 +54,7 @@
   <div class="scroll"><table><thead><tr><th>Nr</th><th>Eis</th><th>Toelichting / grenswaarde</th><th>Status</th></tr></thead><tbody>
     <tr><td>F1</td><td>Verbruiksbericht</td><td>Dagcode voor 7 dagen; update om <span data-k="upd"></span> uur en bij codewijziging; kanalen: app/push, scherm woning, scherm buurthuis, e-mail</td><td>B</td></tr>
     <tr><td>F2</td><td>Voorrangsregeling</td><td>6 klassen (§ 7); bij overschrijding van de fysieke grens (PCS + net) eerst de eigen gedeelde verbruikers uitstellen (klasse 6 → 4 → 3), daarna laadvermogen verlagen; verbruikers van bewoners worden niet geblokkeerd; klasse 1 nooit</td><td>B / N</td></tr>
+    <tr><td>F2a</td><td>Avondregel</td><td>Geen afname uit het net tussen 16 en 21 uur (congestie-uren); de PCS laadt de buurtaccu alleen buiten die uren bij tot de reserve en levert in die uren zelf; uitzondering alleen bij een lege accu. Doorgerekend over alle weerjaren op <a href="netbeheerder.html#h-avond">netbeheerder</a><sup class="ref"><a href="#bron-206">[206]</a></sup></td><td>B</td></tr>
     <tr><td>F3</td><td>Vermogensbudget per woning en totaal</td><td>Instelbaar: per woning (standaard 3 × 25 A) en dorpstotaal (PCS + net, standaard ± 150 kW); dynamisch verlaagd bij oranje/rood</td><td>B</td></tr>
     <tr><td>F4</td><td>Laadsturing</td><td>OCPP-laadprofielen per paal; de paal wordt nooit spanningsloos geschakeld, alleen het laden uitgesteld of begrensd; laden op overschot; laadwens (vertrektijd, km) in de app; uiterlijk na <span data-k="flex"></span> dagen of bij rijwens laden binnen de vrije ruimte (opwek + accu boven reserve + net)</td><td>B / N</td></tr>
     <tr><td>F5</td><td>Laadadvies</td><td>Bij rijwens op oranje/rood: vergelijk thuis laden (day-ahead, goedkoopste uren, incl. opslag, EB en btw) met snelladen; advies in de app</td><td>B</td></tr>
@@ -153,7 +154,7 @@
     <tr><td>Privacy</td><td>Groepsdata tonen leefpatroon</td><td>Detail alleen voor bewoner; beheer ziet totalen; bewaartermijn; DPIA</td><td>Beheerentiteit (verwerkingsverantwoordelijke)</td><td>laag</td><td>open</td></tr>
     <tr><td>Module defect of firmwarefout</td><td>Relais blijft uit of meet verkeerd</td><td>Inschakeltoestand ‘aan’; klasse 1 niet schakelen; gecontroleerde updates; reserveset op voorraad</td><td>Technisch manager</td><td>laag</td><td>open</td></tr>
     <tr><td>Cyberaanval</td><td>Overname schakelaars of PCS</td><td>OT-VLAN, geen open poorten, MFA, updates, logging</td><td>Netwerkbeheerder</td><td>middel</td><td>open</td></tr>
-    <tr><td>Draagvlak</td><td>Bewoners ervaren sturing als betutteling</td><td>Overrulen behalve bij rood; transparante regels; besluit met consent</td><td>Algemene kring</td><td>laag</td><td>deels</td></tr>
+    <tr><td>Draagvlak</td><td>Bewoners ervaren sturing als betutteling</td><td>Prijssignaal en advies, geen blokkade: de bewoner beslist (besluit 17-11-2026<sup class="ref"><a href="#bron-200">[200]</a></sup>); EMS schakelt alleen gedeelde verbruikers; transparante regels</td><td>Algemene kring</td><td>laag</td><td>deels</td></tr>
   </tbody></table></div>
 </section>
 
@@ -201,7 +202,7 @@
   EBU.codes($("tblCodes")); EBU.maandGrafiek($("gMaand")); EBU.scenarios($("tblScen"));
   EBU.weekUI({ $, inp: $("wDatum"), uit: $("wUit"), jaar: 2024 });
   EBU.klassen($("tblKlassen")); EBU.register($("tblReg"), true); EBU.stuklijst($("tblStuk"));
-  renderBronnen($("bronnen"), [200, 190, 191, 197, 198, 192, 193, 194, 195, 196, 132, 130, 74]);
+  renderBronnen($("bronnen"), [206, 200, 190, 191, 197, 198, 192, 193, 194, 195, 196, 132, 130, 74]);
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

@@ -239,3 +239,18 @@ footer{color:var(--hz-ink-soft)}
 .twee{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .twee .panel{display:grid;gap:8px;align-content:start}
 .twee .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--hz-water)}
+
+/* uitlegregel technische pagina's (18-11-2026) */
+.register{background:var(--foam);border:1px solid var(--line);border-left:4px solid var(--straw);border-radius:6px;padding:10px 14px;margin:0 0 16px;font-size:.92rem;max-width:72ch}
+
+/* mobiel: grid-kolom nooit breder dan het scherm (18-11-2026) */
+.wrap{grid-template-columns:minmax(0,1fr)}
+.wrap>*{min-width:0}
+ol.src li,ol.src a,dd{overflow-wrap:anywhere;min-width:0}
+.cols>*,.panel,.wrap section,.wrap header{min-width:0}
+.seg{flex-wrap:wrap}
+.wrap select{max-width:100%}
+p.voorbeeld{overflow-wrap:anywhere}
+.wrap section>*,.wrap header>*,.wrap details>*{min-width:0}
+fieldset{min-width:0}
+.panel>*{min-width:0}

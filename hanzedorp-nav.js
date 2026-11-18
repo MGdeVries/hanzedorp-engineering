@@ -31,7 +31,7 @@
     ["financien.html", "Financiële planning", "financien-technisch.html"]
   ];
   const INVOER = [["inventarisatie.html", "Inventarisatie per woning"]];
-  const DOSSIER = [["dossier.html", "Dossier en voortgang"], ["ketenpartners.html", "Ketenpartners"]];
+  const DOSSIER = [["netbeheerder.html", "Wat vragen we van de netbeheerder?"], ["dossier.html", "Dossier en voortgang"], ["ketenpartners.html", "Ketenpartners"]];
   const SLOT = [["rapport.html", "Conclusie & rapport"]];
   const OVER = [["juridisch.html", "Juridisch & colofon"]];
   const HP = window.HZPROJECT || null, EDITIE = !!(HP && HP.editie), INTERN = HP ? HP.intern : [];
@@ -48,6 +48,19 @@
     del(k) { try { localStorage.removeItem(k); } catch (e) {} }
   };
   window.HZOPSLAG = opslag;
+
+  /* ---------- uitlegregel op technische pagina's (besluit 18-11-2026): toon en begrippen voor instanties ---------- */
+  (function () {
+    const tech = /-technisch\.html$/.test(hier), nb = hier === "netbeheerder.html";
+    if (!tech && !nb) return;
+    const hdr = document.querySelector(".wrap > header"); if (!hdr || document.querySelector(".register")) return;
+    const r = WERK.find(w => w[2] === hier), basis = r ? r[0] : null;
+    const d = document.createElement("aside"); d.className = "register"; d.setAttribute("aria-label", "Over deze pagina");
+    d.innerHTML = "<b>Voor toetsing door instanties.</b> Deze pagina is geschreven voor de netbeheerder, de gemeente, het waterschap, de Veiligheidsregio en andere deskundigen. " +
+      "Daarom gebruiken we hier hun begrippen en normen, met formules, invoer en bronnen, zodat elk getal te controleren is." +
+      (basis ? ` Voor bewoners staat dezelfde inhoud in gewone taal op de <a href="${basis}">basispagina</a>.` : "");
+    hdr.insertAdjacentElement("afterend", d);
+  })();
 
   /* ---------- inhoudsopgave van deze pagina ---------- */
   function paginaIndex() {
