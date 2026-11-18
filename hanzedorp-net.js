@@ -41,11 +41,12 @@
 
   /* p: { A, accu, accuKW, reserve, opslagIn, opslagUit, verkoopDrempel, slijtage, handel, horizon, kostJr, model } */
   function sim(p) {
+    const drempel = p.verkoopFactor != null ? p.opslagUit + p.verkoopFactor * p.slijtage : p.verkoopDrempel;   // 18-11-2026 [220]: alleen verkopen als de opbrengst de slijtage meervoudig dekt
     const R = reeks(p.model || {}), n = R.vraag.length, Pn = kW(p.A), cap = p.accu, pk = p.accuKW, eta = Math.sqrt(0.9), res = cap * p.reserve, H = p.horizon || N.horizon;
     const def = new Float64Array(n + 1); for (let t = 0; t < n; t++) def[t + 1] = def[t] + Math.max(0, R.vraag[t] - R.aanbod[t]);
     const jr = {}; let soc = cap * 0.5;
     for (let t = 0; t < n; t++) {
-      const y = R.jaar[t], J = jr[y] || (jr[y] = { imp: 0, impW: 0, exp: 0, expW: 0, afg: 0, afgW: 0, tekort: 0, doorzet: 0, netLaad: 0, verkocht: 0, uren: 0, pImp: 0, pExp: 0, vraag: 0, aanbod: 0, negLaad: 0 });
+      const y = R.jaar[t], J = jr[y] || (jr[y] = { imp: 0, impW: 0, exp: 0, expW: 0, afg: 0, afgW: 0, tekort: 0, doorzet: 0, netLaad: 0, verkocht: 0, verkochtW: 0, uren: 0, pImp: 0, pExp: 0, vraag: 0, aanbod: 0, negLaad: 0 });
       const pr = R.prijs[t] != null ? R.prijs[t] : 0, pIn = pr + p.opslagIn, pUit = pr - p.opslagUit, allIn = (pIn + ebMarg) * (1 + N.btw);
       let net = R.aanbod[t] - R.vraag[t], imp = 0, exp = 0, afg = 0, pkVrij = pk;
       J.vraag += R.vraag[t]; J.aanbod += R.aanbod[t]; J.uren++;
@@ -65,8 +66,8 @@
       const doel = Math.min(cap, res + (def[Math.min(n, t + H)] - def[t]) / eta);
       if (p.handel) {
         // verkopen boven het doelniveau bij een hoge beursprijs
-        if (pr >= p.verkoopDrempel && imp === 0 && soc > doel && pkVrij > 0) {
-          const q = Math.min(pkVrij, Pn - exp, (soc - doel) * eta); if (q > 0) { soc -= q / eta; pkVrij -= q; exp += q; J.verkocht += q; J.doorzet += q; }
+        if (pr >= drempel && imp === 0 && soc > doel && pkVrij > 0) {
+          const q = Math.min(pkVrij, Pn - exp, (soc - doel) * eta); if (q > 0) { soc -= q / eta; pkVrij -= q; exp += q; J.verkocht += q; J.verkochtW += q * pUit; J.doorzet += q; }
         }
         // laden uit het net bij een negatieve totaalprijs (je krijgt geld toe)
         if (allIn < 0 && exp === 0 && soc < cap && pkVrij > 0) {
@@ -93,8 +94,8 @@
       return Object.assign({ jaar: y, ebK, inkoop, vast, slijt, saldo }, J);
     });
     const gem = k => per.reduce((a, r) => a + r[k], 0) / per.length;
-    const out = { A: p.A, kW: Pn, kostJr: p.kostJr, per };
-    ["imp", "exp", "expW", "afg", "afgW", "tekort", "doorzet", "netLaad", "verkocht", "negLaad", "inkoop", "vast", "slijt", "saldo", "vraag", "aanbod", "ebK"].forEach(k => out[k] = gem(k));
+    const out = { A: p.A, kW: Pn, kostJr: p.kostJr, drempel, per };
+    ["imp", "exp", "expW", "afg", "afgW", "tekort", "doorzet", "netLaad", "verkocht", "verkochtW", "negLaad", "inkoop", "vast", "slijt", "saldo", "vraag", "aanbod", "ebK"].forEach(k => out[k] = gem(k));
     out.pImp = Math.max(...per.map(r => r.pImp)); out.pExp = Math.max(...per.map(r => r.pExp));
     return out;
   }

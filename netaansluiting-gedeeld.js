@@ -4,7 +4,7 @@
   const eur = v => (v < 0 ? "− € " : "€ ") + nl(Math.abs(Math.round(v)));
   const MWh = v => nl(v / 1000, 1);
   const naam = A => "3 × " + A + " A";
-  function std() { return { accu: N.accu, accuKW: N.accuKW, reserve: N.reserve, opslagIn: N.opslagIn, opslagUit: N.opslagUit, verkoopDrempel: N.verkoopDrempel, slijtage: N.slijtage, handel: false, ebIntern: false }; }   // besluit 27-10-2026: handel uit; geen EB intern bij mandelig eigendom bewoners (Hof Den Bosch 2025 [105]), risico zichtbaar via schakelaar
+  function std() { return { accu: N.accu, accuKW: N.accuKW, reserve: N.reserve, opslagIn: N.opslagIn, opslagUit: N.opslagUit, verkoopDrempel: N.verkoopDrempel, verkoopFactor: N.verkoopFactor, slijtage: N.slijtage, handel: !!N.handel, ebIntern: false }; }   // besluit 27-10-2026: handel uit; geen EB intern bij mandelig eigendom bewoners (Hof Den Bosch 2025 [105]), risico zichtbaar via schakelaar
   /* alle aansluitwaarden; ebIntern = EB op levering binnen het privénet (fiscaal risico) */
   function rekenen(p) {
     const rs = HN.vergelijk(p).map(r => { const extra = p.ebIntern ? HN.ebIntern(r) : 0; return Object.assign(r, { ebInt: extra, netto: r.saldo - extra }); });
