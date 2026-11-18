@@ -171,6 +171,7 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
 <section id="s12"><h2 class="num">Literatuur en bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <section id="s13"><h2 class="num">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
   <tr><td>0.24</td><td>17-11-2026</td><td>Bijkoopcalculator dunkelflaute (§ bijkoop): dagbalans 2023–2025 met EPEX-uurprijzen, aansluitwaarde, accuvoorraad en kosten per keuze [200]</td><td>Melvin de Vries / Claude</td></tr>
+  <tr><td>0.25</td><td>18-11-2026</td><td>Verkoop uit de buurtaccu alleen uit eigen overschot en alleen als de opbrengst de slijtage minstens 3× dekt (verkoopfactor i.p.v. vaste drempel; handel standaard aan); congestieregel in het model [206] [207] [220].</td><td>Melvin de Vries / Claude</td></tr>
   <tr><td>0.12</td><td>27-10-2026</td><td>Eerste versie: uursimulatie netaansluiting en handel met EPEX-prijzen 2023–2025; scenario woningaansluitingen; risico's en compliance-register.</td><td>Melvin de Vries (besluiten, prijsdata); berekening met Claude</td></tr>
   <tr><td>0.18</td><td>29-10-2026</td><td>Winterbijkoop bij 3 × 25 A (strategie R en G, 2023/24 en 2024/25) en dimensionering buurtaccu (100–1.000 kWh, 31 jaar, n − 1, gevoeligheid, kosten-baten); advies 3 × 150 kWh; correctie tussenuitkomst strategie R. Aanvulling 23:30: verbruik per groep (warmtepomp, rest woning, auto, gemeenschappelijk), gespiegelde dagbalans, variant G+S (auto's naar snellader).</td><td>Melvin de Vries (vraag); berekening met Claude</td></tr>
 </tbody></table></div></section>
@@ -204,7 +205,7 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
 <script>
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, E = D.energie, P = window.HANZEDORP_PRIJS, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
-  bindAll({}); renderBronnen($("bronnen"), [200, 59, 60, 61, 62, 42, 43, 81, 83, 84, 85, 86, 104, 105, 112, 130, 131, 132, 133]);
+  bindAll({}); renderBronnen($("bronnen"), [220, 200, 59, 60, 61, 62, 42, 43, 81, 83, 84, 85, 86, 104, 105, 112, 130, 131, 132, 133]);
   const st = s => `<span class="st st-${s}">${s}</span>`, ref = i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`;
   const S = NA.std(), { rs, best } = NA.rekenen(S), R = HN.reeks({});
   const kWpTot = E.scenarioC.vlakken.reduce((a, v) => a + v.kWp, 0) + R.basis.kWpDak + R.basis.kWpAgri;
@@ -223,7 +224,7 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
     ["Vaste leveringskosten", `€ ${nl(N.vastLevering)} per maand excl. btw`, "N", "–"],
     ["Energiebelasting 2026", "€ 0,09161 (0–10 MWh), € 0,06671 (10–50 MWh) per kWh excl. btw", "G", ref(61)],
     ["Belastingvermindering", "€ 628,96 per aansluiting met verblijfsfunctie (incl. btw)", "G", ref(61)],
-    ["Verkoopdrempel accu", `€ ${nl(S.verkoopDrempel, 2)} per kWh beursprijs`, "N", "–"],
+    ["Verkoopfactor accu", `${nl(S.verkoopFactor, 1)}× slijtage → drempel € ${nl(S.opslagUit + S.verkoopFactor * S.slijtage, 2)} per kWh beurs`, "N", "besluit 18-11-2026 [220]"],
     ["Slijtage accu", `€ ${nl(S.slijtage, 3)} per kWh doorzet`, "N", "tot offerte"],
     ["Horizon voorspelling", nl(N.horizon) + " uur", "N", "–"],
     ["Ontwerpcapaciteit LS-net", nl(N.ontwerpKVAperWoning, 1) + " kVA per woning", "G", ref(62)],
@@ -234,7 +235,7 @@ Eilandduur zonder opwek: t = C·η·s / P_krit, met s = 1 (volle accu) of s = r 
   $("tblRes").querySelector("tbody").innerHTML = rs.map(r => `<tr${r === best ? ' class="best"' : ""}><td>${naam(r.A)}</td><td class="num">${MWh(r.imp)}</td><td class="num">${MWh(r.exp)}</td><td class="num">${MWh(r.afg)}</td><td class="num">${MWh(r.verkocht)}</td><td class="num">${eur(r.expW)}</td><td class="num">${eur(r.inkoop)}</td><td class="num">${eur(r.kostJr)}</td><td class="num">${eur(r.netto)}</td></tr>`).join("");
   $("tblJaar").querySelector("tbody").innerHTML = best.per.map(j => `<tr><td>${j.jaar}</td><td class="num">${MWh(j.imp)}</td><td class="num">${MWh(j.exp)}</td><td class="num">${MWh(j.afg)}</td><td class="num">${nl(j.pImp, 1)}</td><td class="num">${nl(j.pExp, 1)}</td><td class="num">${eur(j.saldo)}</td></tr>`).join("");
   const V = [["Standaard", {}], ["Geen handel", { handel: false }], ["Opslag 0 / 0", { opslagIn: 0, opslagUit: 0 }], ["Opslag 0,04 / 0,04", { opslagIn: 0.04, opslagUit: 0.04 }],
-    ["Verkoopdrempel € 0,15", { verkoopDrempel: 0.15 }], ["Verkoopdrempel € 0,30", { verkoopDrempel: 0.30 }], ["Accu 2 × 200 kWh", { accu: 400 }], ["Accu 4 × 200 kWh", { accu: 800 }],
+    ["Verkoopfactor 2×", { verkoopFactor: 2 }], ["Verkoopfactor 5×", { verkoopFactor: 5 }], ["Accu 2 × 200 kWh", { accu: 400 }], ["Accu 4 × 200 kWh", { accu: 800 }],
     ["Reserve 50 %", { reserve: 0.5 }], ["Slijtage € 0,06/kWh", { slijtage: 0.06 }], ["EB op interne levering", { ebIntern: true }]];
   $("tblGev").querySelector("tbody").innerHTML = V.map(([l, o]) => { const x = NA.rekenen(Object.assign(NA.std(), o)); const e80 = x.rs.find(r => r.A === 80);
     return `<tr><td>${l}</td><td>${naam(x.best.A)}</td><td class="num">${eur(x.best.netto)}</td><td class="num">${eur(e80.netto)}</td></tr>`; }).join("");

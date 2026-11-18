@@ -23,7 +23,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Netaansluiting</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
   <h1>Netaansluiting en stroomhandel</h1>
   <p class="lead read">Hanzedorp maakt veel meer stroom dan het zelf gebruikt. Het dorp kan zelfstandig doordraaien, ook als het net uitvalt. We gebruiken het stroomnet alleen op een paar donkere dagen. Op deze pagina rekenen we uit welke aansluiting per jaar het voordeligst is, met de echte stroomprijzen van 2023, 2024 en 2025.</p>
-  <p class="read warnbox" style="border-left:3px solid var(--gold);padding:6px 12px">Handelen in stroom wordt steeds minder interessant. Er komen steeds meer accu's en handelaars bij, daardoor worden de verschillen tussen dure en goedkope uren kleiner. Wij verdienen ons geld daarom niet met handelen, maar met goedkoop zelf opwekken en zelf gebruiken. Handelen met de accu staat standaard uit; je kunt het aanzetten om het verschil te zien.</p>
+  <p class="read warnbox" style="border-left:3px solid var(--gold);padding:6px 12px">Wij verdienen ons geld niet met handelen, maar met goedkoop zelf opwekken en zelf gebruiken. Wel verkopen we stroom uit de buurtaccu als die op het net duur is: dat helpt het net en levert iets op. Dat doen we alleen als het dorp zelf genoeg heeft, en alleen als de opbrengst de slijtage van de accu een paar keer dekt. Met de knop kun je het uitzetten om het verschil te zien.</p>
   <ul class="kern read">
     <li><span>Met de buurtaccu is een kleine aansluiting genoeg om nooit zonder stroom te zitten. Ook bij <b>3 × 25 A</b> was er in 2023–2025 geen enkel uur tekort.</span></li>
     <li><span>Een grotere aansluiting laat ons meer verkopen, maar kost ook meer netwerkkosten. Met de huidige instellingen is <b><span data-k="bestNaam"></span></b> het voordeligst: <span data-k="bestTekst"></span>.</span></li>
@@ -51,7 +51,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
     <div class="controls">
       <div class="ctl"><fieldset><legend>Buurtaccu: aantal kasten van 200 kWh</legend><div class="seg" id="sAccu"></div><div class="checks" id="cDub" style="display:grid;gap:4px;margin-top:6px"></div><span class="note" id="accuTot"></span></fieldset></div>
       <div class="ctl"><fieldset><legend>Handelen met de accu</legend><div class="seg" id="sHandel"></div></fieldset></div>
-      <div class="ctl"><label for="mDr">Verkopen uit de accu vanaf: <output id="mDrO"></output> per kWh (beursprijs)</label><input type="range" id="mDr" min="0.08" max="0.50" step="0.01"></div>
+      <div class="ctl"><label for="mDr">Verkopen als de opbrengst de slijtage minstens <output id="mDrO"></output> dekt</label><input type="range" id="mDr" min="1" max="8" step="0.5"></div>
       <div class="ctl"><label for="mRes">Reserve in de accu voor stroomstoringen: <output id="mResO"></output></label><input type="range" id="mRes" min="0.1" max="0.6" step="0.05"></div>
       <div class="ctl inp"><label for="mOpIn">Opslag leverancier bij inkoop (€/kWh)</label><input type="number" id="mOpIn" min="0" max="0.2" step="0.005"></div>
       <div class="ctl inp"><label for="mOpUit">Inhouding bij verkoop (€/kWh)</label><input type="number" id="mOpUit" min="0" max="0.2" step="0.005"></div>
@@ -118,7 +118,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   <ul class="kern read">
     <li><span><b>De aansluiting is ruim genoeg.</b> Met 3 × 25 A kunnen we ± <span data-k="bkMaxDag"></span> kWh per dag kopen. In de zwaarste week van 2023–2025 hadden we ± <span data-k="bkKoopDag"></span> kWh per dag nodig.</span></li>
     <li><span><b>Het kost weinig.</b> Die zwaarste week kostte ± € <span data-k="bkKosten"></span> voor het hele dorp als we in de goedkoopste uren kopen. Dat is ± € <span data-k="bkPerWoning"></span> per woning.</span></li>
-    <li><span><b>Bijkopen op het goedkoopste moment.</b> Stroom is niet elke dag op hetzelfde uur duur: op een donkere, windstille dag kan het ook 's ochtends duur zijn. De buurtaccu kijkt daarom elke dag naar de stroomprijzen van morgen en koopt nooit bij in de <span data-av="kD"></span> duurste uren. In die uren leveren we ook niets terug. Gemiddeld kostte stroom in de winter op de beurs 's avonds <span data-av="avPrAvond"></span> ct per kWh en 's nachts <span data-av="avPrNacht"></span> ct. Dure uren zijn meestal ook de drukste uren op het net; zo helpen we de netbeheerder (zie <a href="netbeheerder.html">Wat vragen we van de netbeheerder?</a>).</span></li>
+    <li><span><b>Bijkopen op het goedkoopste moment.</b> Stroom is niet elke dag op hetzelfde uur duur: op een donkere, windstille dag kan het ook 's ochtends duur zijn. De buurtaccu kijkt daarom elke dag naar de stroomprijzen van morgen en koopt nooit bij in de <span data-av="kD"></span> duurste uren. In die uren verkopen we juist stroom uit eigen overschot, als het dorp zelf genoeg heeft en het meer oplevert dan de slijtage van de accu. Gemiddeld kostte stroom in de winter op de beurs 's avonds <span data-av="avPrAvond"></span> ct per kWh en 's nachts <span data-av="avPrNacht"></span> ct. Dure uren zijn meestal ook de drukste uren op het net; zo helpen we de netbeheerder (zie <a href="netbeheerder.html">Wat vragen we van de netbeheerder?</a>).</span></li>
     <li><span><b>Slim kopen loont.</b> Wie op de prijs let, betaalt in die week ± <span data-k="bkScheel"></span> % minder dan wie op het verkeerde moment koopt.</span></li>
   </ul>
   <p class="read">Deze rekenhulp maakt de kosten van keuzes zichtbaar. Het verbruiksbericht wijst je op de momenten dat stroom duur is. Of je dan de sauna aanzet of je auto laadt, of een paar uur of een dag wacht tot het weer veel goedkoper is, beslis je zelf. Probeer het: kies een periode, de netaansluiting en hoe vol de buurtaccu is.</p>
@@ -268,7 +268,7 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
 (function () {
   const { D, nl, renderBronnen, bindAll } = HZ, N = D.net, $ = id => document.getElementById(id), { eur, MWh, naam } = NA;
   bindAll({});
-  renderBronnen($("bronnen"), [206, 200, 59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
+  renderBronnen($("bronnen"), [220, 206, 200, 59, 60, 61, 62, 42, 83, 84, 86, 104, 105, 120, 130, 131, 132, 133, 173, 174, 175, 176, 177, 178]);
   NA.bind({ kva: nl(N.ontwerpKVAperWoning, 1), nW: nl(D.energie.mix.gezin + D.energie.mix.senior + D.energie.mix.junior) });
   const seg = (el, name, opts, std) => { $(el).innerHTML = opts.map(([v, l], i) => `<input type="radio" name="${name}" id="${name}${i}" value="${v}"${String(v) === String(std) ? " checked" : ""}><label for="${name}${i}">${l}</label>`).join(""); };
   const S = NA.std();
@@ -276,15 +276,15 @@ tr.best td{background:color-mix(in srgb, var(--water) 14%, transparent);font-wei
   seg("sAccu", "ac", [[1, "1 kast"], [2, "2 kasten"], [3, "3 kasten"]], AK.kasten);
   $("cDub").innerHTML = [0, 1, 2].map(i => `<label><input type="checkbox" id="dub${i}"${AK.dubbel[i] ? " checked" : ""}> Kast ${i + 1}: tweede set cellen (400 kWh)</label>`).join("");
   function accuKWh() { const n = val("ac"); let k = 0; for (let i = 0; i < 3; i++) { const c = $("dub" + i); c.disabled = i >= n; if (i < n) k += c.checked ? 400 : 200; } $("accuTot").textContent = "Samen " + nl(k) + " kWh"; return k; }
-  seg("sHandel", "ha", [[1, "Aan"], [0, "Uit"]], 0);   // besluit 27-10-2026: focus op eilandbedrijf, niet op handel
+  seg("sHandel", "ha", [[1, "Aan"], [0, "Uit"]], S.handel ? 1 : 0);   // besluit 18-11-2026 [220]: verkoop uit eigen overschot bij hoge prijs, alleen met positief resultaat
   seg("sEb", "eb", [[0, "Nee (gezamenlijk eigendom)"], [1, "Ja (risico)"]], 0);
-  $("mDr").value = S.verkoopDrempel; $("mRes").value = S.reserve; $("mOpIn").value = S.opslagIn; $("mOpUit").value = S.opslagUit;
+  $("mDr").value = S.verkoopFactor; $("mRes").value = S.reserve; $("mOpIn").value = S.opslagIn; $("mOpUit").value = S.opslagUit;
   const val = n => +document.querySelector(`input[name=${n}]:checked`).value;
   let t = null;
   function run() {
-    const p = Object.assign(NA.std(), { accu: accuKWh(), handel: !!val("ha"), ebIntern: !!val("eb"), verkoopDrempel: +$("mDr").value, reserve: +$("mRes").value,
+    const p = Object.assign(NA.std(), { accu: accuKWh(), handel: !!val("ha"), ebIntern: !!val("eb"), verkoopFactor: +$("mDr").value, reserve: +$("mRes").value,
       opslagIn: Math.max(0, +$("mOpIn").value || 0), opslagUit: Math.max(0, +$("mOpUit").value || 0) });
-    $("mDrO").value = "€ " + nl(p.verkoopDrempel, 2); $("mResO").value = nl(p.reserve * 100) + " %";
+    $("mDrO").value = nl(p.verkoopFactor, 1) + "× (vanaf € " + nl(p.opslagUit + p.verkoopFactor * p.slijtage, 2) + " per kWh beurs)"; $("mResO").value = nl(p.reserve * 100) + " %";
     clearTimeout(t); t = setTimeout(() => {
       const { rs, best } = NA.rekenen(p);
       $("tbl").querySelector("tbody").innerHTML = rs.map(r => `<tr${r === best ? ' class="best"' : ""}><td>${naam(r.A)}</td><td class="num">${nl(r.kW, 1)} kW</td><td class="num">${MWh(r.imp)}</td><td class="num">${MWh(r.exp)}</td><td class="num">${nl(r.afg / 1000)}</td><td class="num">${nl(r.tekort > 0.5 ? r.tekort : 0)}</td><td class="num">${eur(r.kostJr)}</td><td class="num">${eur(r.netto)}</td></tr>`).join("");
