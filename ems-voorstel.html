@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMS-voorstel – Hanzedorp</title>
+<meta name="description" content="Ontwerpvoorstel voor het energiemanagementsysteem (EMS) van Hanzedorp: hoe een EMS werkt, al onze wensen op een rij, de architectuur in lagen, de kwartierplanning met verdienstenvoorspeller, de beslisregels, de bewonerswebapp, de koppeling met de netbeheerder, kosten, fasering, risico's en toetsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.kort{border-left:4px solid var(--sage);background:var(--foam);border-radius:6px;padding:10px 14px}
+.lagen{display:grid;gap:8px;margin:12px 0}
+.laag{display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr);gap:12px;align-items:start;background:var(--foam);border:1px solid var(--line);border-left:6px solid var(--c,var(--water));border-radius:8px;padding:10px 12px}
+.laag b.n{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--c,var(--water))}
+.laag h3{margin:.1rem 0 .2rem;font-size:1.02rem}
+.laag p{margin:.2rem 0}
+.laag .w{font-size:.88rem;color:var(--muted)}
+.pijl{text-align:center;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.cyclus{counter-reset:c;list-style:none;padding:0;display:grid;gap:8px}
+.cyclus li{counter-increment:c;display:grid;grid-template-columns:2.2rem minmax(0,1fr);gap:10px;align-items:start}
+.cyclus li::before{content:counter(c);font-family:var(--mono);font-weight:500;background:var(--hz-water);color:#fff;border-radius:50%;width:1.9rem;height:1.9rem;display:grid;place-items:center}
+.formule{font-family:var(--mono);font-size:.86rem;background:var(--foam);border:1px solid var(--line);border-radius:6px;padding:10px 12px;overflow-x:auto;white-space:pre}
+td.stc{white-space:nowrap}
+@media (max-width:620px){.laag{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Ontwerpvoorstel</span><span>Energiebeheer</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>EMS-voorstel: zo regelt Hanzedorp zijn energie</h1>
+  <p class="lead read">Een energiemanagementsysteem (EMS) is het verkeersbureau van het dorpsnet. Het meet wat er gebeurt, voorspelt het weer en de prijzen, maakt elk kwartier een plan en stuurt de buurtaccu, de laadpalen en de gedeelde voorzieningen. Op deze pagina staat hoe een EMS werkt, wat wij ervan vragen en hoe wij het willen bouwen.</p>
+  <div class="read kort"><b>In het kort voor bewoners.</b> Je merkt van het EMS vooral dat er bijna altijd stroom over is en dat je auto op het goedkoopste moment laadt. Op de telefoon, op een schermpje thuis en in het buurthuis zie je hoe het ervoor staat en wat een keuze nu kost. Jij beslist: het EMS geeft advies en zet alleen onze gedeelde voorzieningen aan of uit. De veiligheid zit in de installatie zelf, niet in de software. Uitleg over het verbruiksbericht en de kleurcodes staat op <a href="energiebeheer.html">Energiebeheer &amp; verbruiksbericht</a>.</div>
+</header>
+
+<section aria-labelledby="h-wat">
+  <h2 id="h-wat">1. Hoe werkt een EMS?</h2>
+  <p class="read">Een EMS herhaalt steeds dezelfde kringloop: <b>meten → voorspellen → plannen → sturen → controleren</b>. Elk bekend systeem doet dat in twee tempo's: een snelle regelaar die elke seconde de grenzen bewaakt, en een planner die vooruitkijkt en het plan steeds bijwerkt.</p>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Wat het doet</th><th>Hoe bekende systemen het doen</th><th>Bron</th></tr></thead><tbody>
+    <tr><td>Snelle regeling</td><td>Leest meters, rekent de grenzen door en geeft setpoints aan accu en omvormers</td><td>OpenEMS Edge: invoer – verwerking – uitvoer, ± 1 keer per seconde; regelaars ('controllers') met een vaste prioriteit, een regelaar met lagere voorrang kan een hogere niet overschrijven</td><td><sup class="ref"><a href="#bron-223">[223]</a></sup></td></tr>
+    <tr><td>Planning</td><td>Maakt een plan voor accu, laden en uitstelbare verbruikers dat de kosten minimaliseert binnen alle grenzen</td><td>EMHASS: lineaire optimalisatie; dagplan voor 24 uur en bijsturen elke 5–15 minuten (model predictive control, MPC); doelfuncties winst, kosten of eigen verbruik</td><td><sup class="ref"><a href="#bron-222">[222]</a></sup></td></tr>
+    <tr><td>Voorspellen</td><td>Zon, wind, verbruik en prijzen voor de komende 1–2 dagen</td><td>Weer-API (Open-Meteo, o.a. KNMI HARMONIE), day-ahead-prijzen (ENTSO-E, sinds 1-10-2025 per kwartier), verbruik uit de eigen historie</td><td><sup class="ref"><a href="#bron-195">[195]</a></sup> <sup class="ref"><a href="#bron-196">[196]</a></sup> <sup class="ref"><a href="#bron-228">[228]</a></sup></td></tr>
+    <tr><td>Apparaten aansturen</td><td>Elke verbruiker krijgt een taal die hij verstaat</td><td>Laadpalen OCPP 2.0.1 (laadprofielen), accu en omvormers Modbus/SunSpec, warmtepompen SG Ready of EEBus, apparaten in de toekomst S2 (EN 50491-12)</td><td><sup class="ref"><a href="#bron-192">[192]</a></sup> <sup class="ref"><a href="#bron-194">[194]</a></sup> <sup class="ref"><a href="#bron-224">[224]</a></sup></td></tr>
+    <tr><td>Netbeheerder</td><td>Vermogensgrenzen of signalen van buiten volgen</td><td>Voor kleinverbruik bestaat nog geen signaal; TNO (april 2026): een HEMS is technisch de beste route om een vermogenskader te verwerken, begin met een vrijwillige flexmarkt; flexcontracten bestaan nu alleen boven 3 × 80 A</td><td><sup class="ref"><a href="#bron-225">[225]</a></sup> <sup class="ref"><a href="#bron-226">[226]</a></sup></td></tr>
+    <tr><td>Nettarief</td><td>Prijs van het net per tijdstip meewegen</td><td>Ontwerpbesluit ACM: tijdsafhankelijk nettarief voor kleinverbruik vanaf 1-1-2029; winteravond 18–22 uur duurst, zomermiddag 11–17 uur vrijwel gratis</td><td><sup class="ref"><a href="#bron-227">[227]</a></sup></td></tr>
+  </tbody></table></div>
+  <p class="read">S2 kent vijf manieren om een apparaat te beschrijven: een <b>vermogensgrens</b> (PEBC), een <b>vast profiel</b> dat je kunt verschuiven (PPBC), een keuze uit <b>bedrijfsstanden</b> (OMBC), een <b>buffer die vol- en leegloopt</b> (FRBC, zoals een boiler, accu of koelcel) en een <b>vraaggestuurde</b> verbruiker (DDBC) <sup class="ref"><a href="#bron-224">[224]</a></sup>. Die indeling gebruiken we in § 6 voor ons verbruikersregister, zodat we later zonder herbouw op S2 kunnen overstappen.</p>
+</section>
+
+<section aria-labelledby="h-wens">
+  <h2 id="h-wens">2. Onze wensen op een rij</h2>
+  <p class="read">Alles wat we in eerdere besluiten over energie, laden, het verbruiksbericht, de netbeheerder en de toon hebben vastgelegd, met wat het betekent voor het EMS.</p>
+  <div class="scroll"><table><thead><tr><th>#</th><th>Wens</th><th>Wat het EMS daarvoor doet</th><th>Besluit</th></tr></thead><tbody id="tblWens"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-arch">
+  <h2 id="h-arch">3. Voorstel: de opbouw in lagen</h2>
+  <p class="read">Elke laag werkt ook als de laag erboven uitvalt. Valt de planning uit, dan houdt de regeling de grenzen vast. Valt de regeling uit, dan beschermt de hardware. Zonder internet loopt alles door, alleen de weers- en prijsverwachting ontbreken; dan rekent het EMS voorzichtig (één kleurcode slechter).</p>
+  <div class="lagen" id="lagen"></div>
+</section>
+
+<section aria-labelledby="h-cyclus">
+  <h2 id="h-cyclus">4. Het ritme: dagplan, kwartier en seconde</h2>
+  <ol class="cyclus" id="cyclus"></ol>
+</section>
+
+<section aria-labelledby="h-regels">
+  <h2 id="h-regels">5. Beslisregels in volgorde van voorrang</h2>
+  <p class="read">De regelaar past deze regels elke seconde toe, van boven naar beneden. Een lagere regel kan een hogere nooit opheffen (zoals de scheduler van OpenEMS <sup class="ref"><a href="#bron-223">[223]</a></sup>).</p>
+  <div class="scroll"><table><thead><tr><th>Voorrang</th><th>Regel</th><th>Grens of instelling</th><th>Waar het zit</th></tr></thead><tbody id="tblRegels"></tbody></table></div>
+
+  <h3>Het plan als rekenopgave</h3>
+  <p class="read">Elk kwartier lost de planner een klein lineair optimalisatieprobleem op over de komende <span id="vHor"></span> uur (<span id="vStap"></span> stappen van <span id="vMin"></span> minuten). Dat is met een open solver (HiGHS of CBC) binnen een seconde klaar op een gewone mini-pc.</p>
+  <div class="formule" id="formule"></div>
+  <p class="read note">De doelfunctie volgt EMHASS (winst) <sup class="ref"><a href="#bron-222">[222]</a></sup>, aangevuld met de slijtage van de accu en de verkoopdrempel uit ons besluit van 18-11-2026 <sup class="ref"><a href="#bron-220">[220]</a></sup>. Netstroom inkopen om te verkopen kan niet: het model koopt alleen in voor eigen verbruik, omdat over netstroom energiebelasting betaald wordt.</p>
+</section>
+
+<section aria-labelledby="h-reg">
+  <h2 id="h-reg">6. Verbruikersregister: wie wordt hoe gestuurd?</h2>
+  <div class="scroll"><table><thead><tr><th>Verbruiker of bron</th><th>Soort (S2)</th><th>Koppeling</th><th>Wat het EMS doet</th><th>Wie beslist</th></tr></thead><tbody id="tblReg"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-voorspel">
+  <h2 id="h-voorspel">7. De verdienstenvoorspeller</h2>
+  <p class="read">Bij verkopen uit de accu geldt: alleen als het dorp zelf genoeg heeft en de opbrengst de slijtage ruim dekt <sup class="ref"><a href="#bron-220">[220]</a></sup>. De voorspeller laat vooraf zien wat dat oplevert, per blok en per dag, op het scherm in het buurthuis en in de app.</p>
+  <div class="scroll"><table><thead><tr><th>Stap</th><th>Wat</th><th>Invoer</th></tr></thead><tbody id="tblVoorspel"></tbody></table></div>
+  <p class="read" id="vVerkoop"></p>
+  <p class="read note">De werkelijke opbrengst wordt lager dan deze bovengrens, omdat een voorspelling nooit perfect is. Daarom draait de verkoop het eerste jaar alleen als 'schaduwplan': het EMS rekent en toont wat het zou hebben verdiend, zonder echt te verkopen. Pas na een jaar meetdata en een vergelijking met de werkelijkheid zetten we het aan (fase 3).</p>
+</section>
+
+<section aria-labelledby="h-app">
+  <h2 id="h-app">8. De webapp voor bewoners</h2>
+  <p class="read">Een eigen webapp (PWA) die draait op de server in het buurthuis. Hij werkt op elke telefoon, tablet en elk scherm, zonder app-winkel, account bij een bedrijf of abonnement. Thuis via het eigen netwerk, onderweg via een beveiligde VPN-verbinding.</p>
+  <div class="scroll"><table><thead><tr><th>Scherm</th><th>Wat je ziet of doet</th></tr></thead><tbody id="tblApp"></tbody></table></div>
+  <p class="read note">Privacy: de gegevens per groep in jouw huis zie alleen jij. Het dorp ziet totalen. Beelden of gedrag van personen legt het EMS niet vast. De bewaartermijn van detaildata is 13 maanden (voorstel).</p>
+</section>
+
+<section aria-labelledby="h-net">
+  <h2 id="h-net">9. Netbeheerder en flexmarkt</h2>
+  <p class="read">Voor de netbeheerder zit de zekerheid in de hardware: de hoofdzekering van 3 × 25 A, de PCS en de exportbegrenzing op het overdrachtspunt. Het EMS voegt daar netbewust gedrag aan toe: niet inkopen in de duurste uren, niet injecteren bij een negatieve prijs, en op signaal van de netbeheerder wel of niet inkopen en injecteren, zolang het dorp zelf genoeg heeft (zie <a href="netbeheerder.html">Wat vragen we van de netbeheerder?</a>).</p>
+  <div class="scroll"><table><thead><tr><th>Koppeling</th><th>Stand nu</th><th>Ons voorstel</th><th>Bron</th></tr></thead><tbody id="tblNet"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-hw">
+  <h2 id="h-hw">10. Hardware, software en kosten</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Voorstel</th><th>Kosten (incl. btw)</th><th>Status</th></tr></thead><tbody id="tblHw"></tbody></table></div>
+  <p class="read note">Software: alleen open source (OpenEMS, Home Assistant, evcc, EMHASS of een eigen planner, Mosquitto, HiGHS). Geen licenties of abonnementen. Beheer door de zzp'er van het netwerk (zie <a href="digitale-infrastructuur.html">Digitale infrastructuur</a>); vervanging in de MJOP (<a href="onderhoud.html">Onderhoud &amp; vervanging</a>).</p>
+</section>
+
+<section aria-labelledby="h-fase">
+  <h2 id="h-fase">11. Fasering</h2>
+  <div class="scroll"><table><thead><tr><th>Fase</th><th>Wanneer</th><th>Wat werkt er</th></tr></thead><tbody id="tblFase"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-risico">
+  <h2 id="h-risico">12. Risico's</h2>
+  <div class="scroll"><table><thead><tr><th>Risico</th><th>Oorzaak / effect</th><th>Beheersmaatregel</th><th>Restrisico</th><th>Status</th></tr></thead><tbody id="tblRisico"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-toets">
+  <h2 id="h-toets">13. Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Wat geëist wordt</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / wie</th><th>Status</th></tr></thead><tbody id="tblToets"></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-open">
+  <h2 id="h-open">14. Open punten</h2>
+  <ul class="read" id="lstOpen"></ul>
+</section>
+
+<section aria-labelledby="h-bron">
+  <h2 id="h-bron">Bronnen</h2>
+  <ol class="src" id="bronnen"></ol>
+</section>
+
+<section aria-labelledby="h-vb">
+  <h2 id="h-vb">Versiebeheer</h2>
+  <div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+    <tr><td>0.25</td><td>18-11-2026</td><td>Eerste voorstel na onderzoek naar EMS (OpenEMS, EMHASS, S2, TNO netbescherming, flexcontracten, tijdsafhankelijk nettarief, kwartierprijzen); keuzes: plannen per kwartier, flexmarkt voorbereiden maar zelf beslissen, eigen webapp [221]</td><td>Melvin de Vries / Claude</td></tr>
+  </tbody></table></div>
+</section>
+</div>
+
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="netbeheerder-data.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, N = HANZEDORP_NETBEHEERDER, $ = id => document.getElementById(id);
+  bindAll({});
+  const E = D.ems, V = E.voorstel, NT = D.net, C = E.congestieregel, kW = N.aansluiting.kW;
+  const vk = N.verkoop.rijen.find(r => r.f === NT.verkoopFactor) || N.verkoop.rijen[0];
+  const drempel = NT.opslagUit + NT.verkoopFactor * NT.slijtage;
+  const eur = v => "€ " + nl(v, 2);
+  const pill = s => ({ b: '<span class="pill s-besloten">besloten</span>', v: '<span class="pill s-onderzocht">voorstel</span>', n: '<span class="pill s-aanname">open</span>',
+    ok: '<span class="pill s-besloten">voldoet</span>', ov: '<span class="pill s-onderzocht">onder voorwaarde</span>', on: '<span class="pill s-aanname">onbekend – te verifiëren</span>',
+    af: '<span class="pill s-besloten">afgedekt</span>', de: '<span class="pill s-onderzocht">deels</span>', op: '<span class="pill s-aanname">open</span>' }[s] || s);
+  const ref = (...ids) => ids.map(i => `<sup class="ref"><a href="#bron-${i}">[${i}]</a></sup>`).join("");
+  const rows = (id, R, f) => { $(id).innerHTML = R.map(f).join(""); };
+
+  /* 2. wensen */
+  const W = [
+    ["Leven in overvloed: bijna altijd stroom over, op enkele donkere dagen bijkopen", "Plant overschot in buffers (warmte, kou, water, lading); koopt alleen bij als het moet, op het goedkoopste moment", ref(200)],
+    ["De bewoner beslist; geen blokkade van jouw apparaten", "Advies en prijs per keuze; schakelt alleen gedeelde voorzieningen; grijpt alleen in bij een fysieke grens", ref(200)],
+    ["Veiligheid in hardware, optimalisatie in software", "Laag 0 werkt zonder EMS; het EMS kan geen beveiliging uitzetten", ref(191)],
+    ["Lokaal eerst, open source, geen abonnement", "Alles draait op twee eigen servers; internet is alleen invoer voor weer en prijzen", ref(191)],
+    ["Laadpalen nooit uitschakelen; laden uitstellen", "OCPP-laadprofielen per paal; laden op overschot of in de goedkoopste kwartieren; rijwens gaat voor", ref(197, 192)],
+    ["Meten op zware groepen met Shelly Pro; MID alleen op dorpsniveau", "Vermogen per seconde, energie per kwartier; verrekening alleen met MID-meters", ref(197, 193)],
+    ["Verbruiksbericht met kleurcodes voor 7 dagen", "Dagcode uit de verwachte dagbalans; update om " + E.bericht.updateUren.join(", ") + " uur en bij wijziging", ref(190)],
+    ["Rekening houden met de weersverwachting", "Voor een krappe periode eerder bijladen en laden schuiven", ref(207)],
+    ["Niet inkopen bij netcongestie", "Geen afname in de " + C.duursteUren + " duurste uren van elke dag (day-ahead)", ref(206, 207)],
+    ["Verkopen bij hoge prijs om het net te helpen, alleen met winst", "Verkopen uit eigen overschot als de prijs ≥ " + eur(drempel) + "/kWh (" + nl(NT.verkoopFactor) + "× slijtage + opslag); verdienstenvoorspeller", ref(220)],
+    ["Op signaal van de netbeheerder wel/niet inkopen of injecteren, mits we zelf genoeg hebben", "Signaal gaat voor de prijsregel, maar nooit onder het eigen doelniveau", ref(220)],
+    ["Eén aansluiting 3 × 25 A; accu " + nl(NT.accu) + " kWh in 3 kasten; PCS " + nl(NT.accuKW) + " kW; eilandreserve " + nl(NT.reserve * 100) + " %", "Harde grenzen in de regelaar; reserve nooit gebruiken voor laden of verkoop", "16-11-2026 (accu in kasten)"],
+    ["Geen energiebelasting over eigen stroom", "Geen netstroom inkopen om door te verkopen; interne verrekening alleen als onderhoudsbijdrage", ref(220)],
+    ["Legionella: tapwater nooit onder 55 °C, periodiek 60 °C", "Boiler-boost bij voorkeur op een zonnige dag; minimum in de compactunit zelf", ref(191)],
+    ["Plannen per kwartier", "Dagplan na ± " + V.dagplanUur + " uur, elk kwartier herplannen over " + V.horizonUur + " uur", ref(221, 228)],
+    ["Flexmarkt voorbereiden, zelf beslissen", "Koppeling aanwezig maar standaard uit; meedoen alleen met positief resultaat en eigen reserve", ref(221, 225)],
+    ["Eigen webapp voor bewoners", "PWA op de buurthuisserver; geen app-winkel of cloud", ref(221)]
+  ];
+  rows("tblWens", W, (r, i) => `<tr><td>${i + 1}</td><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`);
+
+  /* 3. lagen */
+  const L = [
+    ["5", "var(--sage)", "Buiten", "Weer, prijzen, netbeheerder, flexmarkt", "Open-Meteo (uurverwachting, ensembles), ENTSO-E day-ahead per kwartier, signaal netbeheerder (zodra er een specificatie is), aggregator-koppeling (voorbereid, uit).", "Alleen inkomende gegevens; geen verbinding kan van buiten iets schakelen zonder onze regels."],
+    ["4", "var(--straw-deep)", "Bewoners", "Webapp, schermen, dagbericht", "Kleurcode voor 7 dagen, prijs nu, kosten per keuze, laadwens, eigen verbruik per groep, meldingen. Schermpje in de hal, groot scherm in het buurthuis, e-mail.", "Alleen lezen en wensen doorgeven; de bewoner kiest zelf."],
+    ["3", "var(--water)", "Planning (elk kwartier)", "Voorspellen en optimaliseren", "Voorspellers voor zon, wind en verbruik; planner (lineaire optimalisatie, EMHASS of eigen module); laadplanning (evcc); verbruiksbericht; verdienstenvoorspeller; rapportage.", "Levert een plan per kwartier: accu-setpoint, laadprofielen, schakelplan gedeelde voorzieningen, dagcode."],
+    ["2", "var(--hz-water)", "Regeling (elke seconde)", "OpenEMS + Home Assistant", "OpenEMS voor accu, PCS, omvormers en de netgrens; Home Assistant voor groepen, apparaten en schermen; MQTT als gegevensbus. Twee servers (buurthuis en schuur), de tweede neemt automatisch over.", "Voert het plan uit binnen de beslisregels van § 5; valt de planning weg, dan veilige standaardwaarden."],
+    ["1", "var(--moss)", "Veld", "Meten en schakelen", "Shelly Pro-modules op zware groepen, magneetschakelaars voor 3-fase verbruikers, MID-meters per woningkabel, laadpalen (OCPP 2.0.1), PCS en omvormers (Modbus/SunSpec), compactunits (SG Ready of EEBus), temperatuur koel- en vriescellen, pompen.", "Bij uitval van het EMS: groepen 'aan' (normaal huis), laadpalen laden op hun eigen limiet."],
+    ["0", "var(--warn)", "Veiligheid (hardware)", "Werkt altijd, ook zonder EMS", "Hoofdzekering 3 × 25 A, installatieautomaten en aardlek, BMS per accukast, brand- en gasdetectie in de kasten, noodstop laadplein, netscheider voor eilandbedrijf, exportbegrenzing in de omvormers.", "Kan door software niet worden uitgeschakeld."]
+  ];
+  $("lagen").innerHTML = L.map((l, i) => `<div class="laag" style="--c:${l[1]}"><div><b class="n">Laag ${l[0]}</b><h3>${l[2]}</h3><span class="w">${l[3]}</span></div><div><p>${l[4]}</p><p class="w">${l[5]}</p></div></div>` + (i < L.length - 1 ? '<div class="pijl" aria-hidden="true">↕</div>' : "")).join("");
+
+  /* 4. cyclus */
+  const CY = [
+    ["<b>Elke dag rond " + V.dagplanUur + " uur</b>: de day-ahead-prijzen voor morgen komen binnen (per kwartier). Het EMS maakt een dagplan voor " + V.horizonUur + " uur met de weersverwachting en de laadwensen, en zet het verbruiksbericht klaar."],
+    ["<b>Elk kwartier</b>: meten wat er werkelijk gebeurde, de voorspelling bijstellen met de nieuwste weerdata, opnieuw plannen voor de komende " + V.horizonUur + " uur en alleen het eerste kwartier uitvoeren (model predictive control). Wolken, een vroeg vertrek of een sauna verwerkt het zo binnen een kwartier."],
+    ["<b>Elke seconde</b>: de regelaar leest de meters en houdt de grenzen vast (netaansluiting " + nl(kW, 2) + " kW, PCS " + nl(NT.accuKW) + " kW, reserve " + nl(NT.reserve * 100) + " %). Het plan is een wens; de grenzen zijn hard."],
+    ["<b>Om " + E.bericht.updateUren.join(", ") + " uur</b>: nieuw verbruiksbericht voor 7 dagen; bij een kleurwissel direct een melding."],
+    ["<b>Elke nacht</b>: rapport per dag (opwek, verbruik, in- en verkoop, voorspelfout, verdiensten), en de voorspellers leren van de afwijking."]
+  ];
+  $("cyclus").innerHTML = CY.map(c => `<li><span>${c[0]}</span></li>`).join("");
+
+  /* 5. regels */
+  const R = [
+    ["1", "Hardwarebeveiliging", "zekeringen, BMS, aardlek, noodstop", "laag 0"],
+    ["2", "Netgrens afname en teruglevering", nl(kW, 2) + " kW in én uit; teruglevering instelbaar tot 0", "OpenEMS (piekafvlakking + exportbegrenzing)"],
+    ["3", "Eilandreserve", nl(NT.reserve * 100) + " % van " + nl(NT.accu) + " kWh blijft altijd in de accu; alleen bij netuitval te gebruiken", "OpenEMS"],
+    ["4", "Doelniveau eigen dorp", "reserve + verwacht eigen tekort komende 24 uur; daaronder geen verkoop en geen injectie op verzoek", "planner → OpenEMS"],
+    ["5", "Signaal netbeheerder", "wel/niet inkopen, wel/niet injecteren, op uren of vermogen; mits boven doelniveau", "koppeling → planner"],
+    ["6", "Congestieregel", "geen afname in de " + C.duursteUren + " duurste uren van elke dag; geen injectie bij negatieve prijs; uitzondering lege accu", "planner + OpenEMS"],
+    ["7", "Rijwens", "auto's met opgegeven vertrektijd zijn op tijd geladen", "evcc / OCPP"],
+    ["8", "Kwartierplan", "accu, laden en gedeelde voorzieningen volgens de goedkoopste oplossing", "planner"],
+    ["9", "Verkoop met winst", "alleen boven doelniveau en bij prijs ≥ " + eur(drempel) + "/kWh", "planner"],
+    ["10", "Overschot benutten", "boilers 65–70 °C, vriescel −24 °C, koelcel 0 °C, bassin vullen, auto's tot 100 %", "Home Assistant"]
+  ];
+  rows("tblRegels", R, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`);
+  $("vHor").textContent = V.horizonUur; $("vMin").textContent = V.stapMin; $("vStap").textContent = nl(V.horizonUur * 60 / V.stapMin);
+  $("formule").textContent =
+`minimaliseer  Σ_t [ p_in(t)·P_in(t) − p_uit(t)·P_uit(t) + c_sl·(P_laad(t) + P_ontl(t)) ]·Δt
+met           Δt = ${V.stapMin} min, t = 1 … ${nl(V.horizonUur * 60 / V.stapMin)}
+balans        P_zon(t) + P_wind(t) + P_in(t) + P_ontl(t) = P_vast(t) + P_flex(t) + P_laad(t) + P_uit(t) + P_afsch(t)
+accu          E(t+1) = E(t) + (η·P_laad(t) − P_ontl(t)/η)·Δt ;  ${nl(NT.reserve * NT.accu)} ≤ E(t) ≤ ${nl(NT.accu)} kWh
+vermogen      0 ≤ P_laad, P_ontl ≤ ${nl(NT.accuKW)} kW ;  0 ≤ P_in, P_uit ≤ ${nl(kW, 2)} kW
+congestie     P_in(t) = 0 in de duurste uren ; P_uit(t) = 0 bij p_uit(t) < 0 ; signaal netbeheerder als extra grens
+verkoop       P_uit uit de accu alleen als E(t) > doelniveau en p_uit(t) ≥ ${nl(NT.opslagUit, 2)} + ${nl(NT.verkoopFactor)} × ${nl(NT.slijtage, 2)} = ${nl(drempel, 2)} €/kWh
+flex          laden en uitstelbare voorzieningen: benodigde kWh binnen hun tijdvenster (rijwens, temperatuurband, bassinpeil)
+c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot offerte cellen)`;
+
+  /* 6. register */
+  const RG = [
+    ["Buurtaccu (3 kasten) + PCS", "FRBC (buffer)", "Modbus/SunSpec via OpenEMS", "laden/ontladen volgens plan; reserve en grenzen", "EMS"],
+    ["PV-omvormers en erfmolen", "PEBC (vermogensgrens)", "Modbus/SunSpec", "terugregelen bij exportgrens of negatieve prijs", "EMS"],
+    ["Laadpalen (1 per woning + deelauto's)", "FRBC (lading) met tijdvenster", "OCPP 2.0.1 via evcc", "laadprofiel per kwartier; nooit uitschakelen", "bewoner (rijwens) / EMS (moment)"],
+    ["Compactunit en boiler-element", "FRBC (warm water)", "SG Ready of EEBus; later S2", "boost bij overschot; minimum 55 °C, periodiek 60 °C", "EMS binnen comfortgrens"],
+    ["Koel- en vriescellen", "FRBC (kou)", "relais + temperatuursensor", "voorkoelen bij overschot (0 / −24 °C), uitstellen bij krapte binnen de veilige band", "EMS"],
+    ["Akkerpomp en bassin", "FRBC (waterpeil)", "Shelly + niveausensor", "pompen op zonne-overschot", "EMS"],
+    ["Sauna, oven, werkplaats", "OMBC (bedrijfsstand)", "Shelly (meten)", "alleen advies en prijs per sessie", "bewoner"],
+    ["Wasmachine, vaatwasser", "PPBC (verschuifbaar profiel)", "slimme stekker of S2-apparaat", "advies 'start nu / start om …'", "bewoner"],
+    ["Koken, verlichting, basis woning", "— (niet gestuurd)", "Shelly (meten)", "alleen meten", "bewoner"]
+  ];
+  rows("tblReg", RG, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`);
+
+  /* 7. voorspeller */
+  const VS = [
+    ["a", "Voorspel opwek en verbruik per kwartier voor " + V.horizonUur + " uur", "weersverwachting, verbruikshistorie per groep, laadwensen"],
+    ["b", "Bepaal het doelniveau: reserve + verwacht eigen tekort in 24 uur (÷ rendement)", "uitkomst a; accu " + nl(NT.accu) + " kWh, reserve " + nl(NT.reserve * 100) + " %"],
+    ["c", "Verkoopbaar = laadtoestand − doelniveau", "actuele laadtoestand"],
+    ["d", "Kies de duurste kwartieren met prijs ≥ " + eur(drempel) + "/kWh tot het verkoopbare op is, binnen " + nl(kW, 2) + " kW en het signaal van de netbeheerder", "day-ahead per kwartier"],
+    ["e", "Toon per blok: kWh, opbrengst, slijtage en netto; per dag en per maand opgeteld; achteraf vergeleken met de werkelijkheid", "uitkomst d en meting"]
+  ];
+  rows("tblVoorspel", VS, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`);
+  $("vVerkoop").innerHTML = `Model 2023–2025 met perfecte voorspelling (bovengrens) bij ${nl(NT.verkoopFactor)}× slijtage: ± <b>${nl(vk.verkocht / 1000, 1)} MWh/jr</b> verkocht, opbrengst ± € ${nl(vk.opbrengst)}, netto na slijtage ± <b>€ ${nl(vk.netto)}/jr</b>, geen uur tekort. Bij 1–2× slijtage kost verkopen geld. Zie <a href="netbeheerder.html#h-verkoop">netbeheerder § verkopen</a>. ${ref(220)}`;
+
+  /* 8. app */
+  const AP = [
+    ["Vandaag", "kleurcode, verwachte zon en wind, accu, prijs nu en de goedkoopste uren van vandaag en morgen"],
+    ["Mijn keuze", "wat kost de sauna, de oven of een volle accu nu, en wanneer is het goedkoper (de bewoner beslist)"],
+    ["Mijn auto", "vertrektijd en km opgeven; zien wanneer en tegen welke prijs hij laadt; laadadvies thuis of snellader"],
+    ["Mijn huis", "eigen verbruik per groep, meldingen bij afwijking (bv. een pomp die blijft draaien)"],
+    ["Het dorp", "opwek, verbruik, in- en verkoop, verdienstenvoorspeller, 7-dagenbericht"],
+    ["Meldingen", "push bij kleurwissel, krappe periode of storing; dagbericht per e-mail als je dat wilt"]
+  ];
+  rows("tblApp", AP, r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`);
+
+  /* 9. net */
+  const NB = [
+    ["Day-ahead-prijzen", "per kwartier sinds 1-10-2025", "dagelijks ophalen bij ENTSO-E; basis voor plan en congestieregel", ref(196, 228)],
+    ["Signaal netbeheerder", "nog geen specificatie voor kleinverbruik", "koppelpunt in de planner: wel/niet inkopen, wel/niet injecteren, uren of vermogen; zodra Netbeheer Nederland een signaal specificeert", ref(225, 220)],
+    ["Flexcontract", "capaciteitssturingscontract en GOPACS alleen > 3 × 80 A", "meedoen met een flexcontract voor kleinverbruik zodra dat bestaat", ref(226, 218)],
+    ["Vrijwillige flexmarkt (aggregator)", "TNO adviseert dit als eerste stap", "koppeling voorbereid (S2/OpenADR-compatibel), standaard uit; meedoen alleen bij netto winst ≥ " + nl(NT.verkoopFactor) + "× slijtage en met behoud van het doelniveau; wij beslissen", ref(225, 224, 221)],
+    ["Tijdsafhankelijk nettarief", "ontwerpbesluit ACM, vanaf 1-1-2029", "nettarief per tijdsblok als extra prijscomponent in de planner; winteravond 18–22 uur vermijden past al bij de congestieregel", ref(227)]
+  ];
+  rows("tblNet", NB, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`);
+
+  /* 10. hardware */
+  const HW = [
+    ["Servers", "2 stille industriële mini-pc's (buurthuis en schuur), actief–passief, elk met SSD en UPS", "± € 1.500–2.500 (S)", pill("v")],
+    ["Netwerk", "OT-VLAN gescheiden van internet en bewoners; VPN met MFA voor beheer", "in Digitale infrastructuur", pill("b")],
+    ["Meten en schakelen", "± 98 Shelly Pro-modules, magneetschakelaars 3-fase", "± € 15.600–19.100 (G/S)", pill("b")],
+    ["MID-meters", "per woningkabel en op het overdrachtspunt", "in Digitale infrastructuur / MJOP", pill("b")],
+    ["Schermen", "e-ink- of LED-statusscherm per woning, groot scherm buurthuis", "± € 1.500–3.000 (S)", pill("v")],
+    ["Software", "OpenEMS, Home Assistant, evcc, EMHASS of eigen planner, Mosquitto, HiGHS", "€ 0 licentie", pill("b")],
+    ["Bouw en inregelen", "configuratie, eigen modules (planner, voorspeller, webapp), testen", "± 120–200 uur (S; deels eigen werk)", pill("n")]
+  ];
+  rows("tblHw", HW, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="stc">${r[3]}</td></tr>`);
+
+  /* 11. fasering */
+  const FA = [
+    ["0 · Nu", "2026–2027", "rekenmodel op deze site: 31 jaar simulatie, congestieregel, verkoop, verbruiksbericht; voorstel en eisen vastleggen"],
+    ["1 · Bouw", "bij aanleg", "veld en laag 0–2: meters, OCPP, OpenEMS met netgrens, reserve en exportbegrenzing; inbedrijfstelling met de installateur"],
+    ["2 · Ingebruikname", "± 2030", "kwartierplanning, verbruiksbericht, laadplanning en webapp; verkoop alleen als schaduwplan"],
+    ["3 · Na 1 jaar meetdata", "± 2031", "voorspellers getoetst; verkoop met winst aan als de schaduwresultaten positief zijn"],
+    ["4 · Netbeheerder en flexmarkt", "zodra beschikbaar", "signaal netbeheerder koppelen; flexmarkt alleen na eigen besluit; nettarief 2029 in de planner"]
+  ];
+  rows("tblFase", FA, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`);
+
+  /* 12. risico's */
+  const RI = [
+    ["Uitval EMS", "server of software stopt", "tweede server neemt over; veldapparatuur valt terug op 'aan'; grenzen in hardware", "comfort licht minder, veiligheid gelijk", pill("af")],
+    ["Verkeerde voorspelling", "wolken, windstilte of ander verbruik dan verwacht", "elk kwartier herplannen; doelniveau met marge; verkoop nooit onder doelniveau", "bijkoop op een duurder moment", pill("de")],
+    ["Verkoop kost geld", "slijtage hoger dan aangenomen of te lage prijsdrempel", "drempel " + nl(NT.verkoopFactor) + "× slijtage; eerst schaduwplan; jaarlijkse herziening na offerte cellen", "klein", pill("de")],
+    ["Cyberaanval", "beheerverbinding of apparaat met zwakke beveiliging", "geen poorten open, VPN met MFA, OT-VLAN, alleen apparaten met RED-cybereisen (EN 18031), updates door beheerder", "laag", pill("de")],
+    ["Lokale congestie door prijssturing", "op landelijke prijzen reageren kan lokaal pieken geven", "netgrens " + nl(kW, 2) + " kW in hardware; signaal netbeheerder gaat voor", "laag", pill("af")],
+    ["Privacy", "detaildata per groep verraden gedrag", "detail alleen voor de bewoner; dorp ziet totalen; bewaartermijn 13 maanden; DPIA", "laag", pill("de")],
+    ["Afhankelijkheid van één beheerder", "kennis zit bij één zzp'er", "documentatie en configuratie in de repository; tweede beheerder bewoner", "middel", pill("op")],
+    ["Legionella", "boiler te lang onder 55 °C door uitstellen", "minimum in de compactunit zelf (hardware), EMS mag dat niet verlagen", "laag", pill("af")]
+  ];
+  rows("tblRisico", RI, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="stc">${r[4]}</td></tr>`);
+
+  /* 13. toetsing */
+  const TO = [
+    ["Cyberbeveiliging radioapparatuur", "Verordening (EU) 2022/30 (RED), EN 18031 " + ref(229), "netwerk- en radioapparatuur beschermt netwerk, gegevens en geld", "alleen apparaten met CE-verklaring inclusief RED-cybereisen", "leverancier / installateur", pill("on")],
+    ["Cyberbeveiliging producten", "Verordening (EU) 2024/2847 (CRA) " + ref(230), "vanaf 11-12-2027 eisen aan producten met digitale elementen", "open-sourcecomponenten zelf gebruikt (niet in de handel gebracht); gekochte apparaten CRA-conform", "beheerder", pill("on")],
+    ["Exportbegrenzing", "NEN-EN 50549-1, Netcode", "teruglevering binnen de aansluitwaarde, gecertificeerde regeling", "exportbegrenzing in omvormers/PCS op meting overdrachtspunt", "installateur, netbeheerder", pill("on")],
+    ["Laadpunten", "OCPP 2.0.1 " + ref(192) + ", NEN 1010", "veilig slim laden", "laadprofielen; paal nooit spanningsloos geschakeld", "installateur", pill("ov")],
+    ["Meten en verrekenen", "MID 2014/32/EU " + ref(193), "verrekening alleen met geijkte meters", "MID per woningkabel en overdrachtspunt; Shelly alleen voor sturing", "installateur", pill("ov")],
+    ["Persoonsgegevens", "AVG", "doelbinding, minimale gegevens, bewaartermijn", "detail alleen voor bewoner; DPIA vóór ingebruikname", "beheervereniging", pill("on")],
+    ["Elektrische veiligheid", "NEN 1010, NEN 3140", "installatie en werken aan installaties", "beveiliging in hardware; erkend installateur", "installateur", pill("on")],
+    ["Energielevering intern", "Energiewet, Wet belastingen op milieugrondslag", "geen levering zonder vergunning; EB", "geen verkoop aan bewoners; mandelig eigendom", "fiscalist, notaris", pill("on")]
+  ];
+  rows("tblToets", TO, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td class="stc">${r[5]}</td></tr>`);
+
+  /* 14. open */
+  const OP = [
+    "Planner: EMHASS gebruiken of een eigen planner (zelfde wiskunde, beter afgestemd op 3 kasten en het doelniveau)? Voorstel: eerst EMHASS proberen in het rekenmodel.",
+    "Slijtage accu per kWh (nu € " + nl(NT.slijtage, 2) + ", N) na offerte cellen; verkoopfactor " + nl(NT.verkoopFactor) + "× bevestigen (vraag 111).",
+    "Compactunit: SG Ready, EEBus of S2? Bij de keuze van het toestel meenemen.",
+    "Wie beheert het EMS naast de zzp'er (tweede beheerder uit de bewoners)?",
+    "Signaal netbeheerder: welk protocol en welke inhoud? Navragen in het vooroverleg (vraag 109).",
+    "Schermen in de woning: e-ink of eenvoudig statuslampje?"
+  ];
+  $("lstOpen").innerHTML = OP.map(o => `<li>${o}</li>`).join("");
+
+  renderBronnen($("bronnen"), [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 220, 207, 206, 200, 197, 196, 195, 194, 193, 192, 191, 190, 218]);
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>

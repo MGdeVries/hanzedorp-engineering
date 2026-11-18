@@ -30,6 +30,7 @@
     ["onderhoud.html", "Onderhoud & vervanging", "onderhoud-technisch.html"],
     ["financien.html", "Financiële planning", "financien-technisch.html"]
   ];
+  const ONTWERP = [["ems-voorstel.html", "EMS: ontwerpvoorstel"]];
   const INVOER = [["inventarisatie.html", "Inventarisatie per woning"]];
   const DOSSIER = [["netbeheerder.html", "Wat vragen we van de netbeheerder?"], ["netbeheerder-toets.html", "Toets door de netbeheerder"], ["dossier.html", "Dossier en voortgang"], ["ketenpartners.html", "Ketenpartners"]];
   const SLOT = [["rapport.html", "Conclusie & rapport"]];
@@ -51,7 +52,7 @@
 
   /* ---------- uitlegregel op technische pagina's (besluit 18-11-2026): toon en begrippen voor instanties ---------- */
   (function () {
-    const tech = /-technisch\.html$/.test(hier), nb = hier === "netbeheerder.html" || hier === "netbeheerder-toets.html";
+    const tech = /-technisch\.html$/.test(hier), nb = hier === "netbeheerder.html" || hier === "netbeheerder-toets.html" || hier === "ems-voorstel.html";
     if (!tech && !nb) return;
     const hdr = document.querySelector(".wrap > header"); if (!hdr || document.querySelector(".register")) return;
     const r = WERK.find(w => w[2] === hier), basis = r ? r[0] : null;
@@ -102,7 +103,7 @@
     `<div class="zoek" role="search"><label for="zq" class="vh">Zoeken in alle pagina's</label>` +
     `<input id="zq" type="search" placeholder="Zoeken…  ( / )" autocomplete="off" aria-controls="zres"><div id="zres" class="zres" hidden></div></div>` +
     projectBlok() +
-    `<div class="sidx">` + groep("Begin", START) + groep("Vast · werkpagina's (wat we bouwen)", WERK) + groep("Variabel · locatie (waar we bouwen)", LOCATIE) + (INVOER.length ? groep("Invoer", INVOER) : "") + groep("Haalbaarheid & vergunning", DOSSIER) + groep("Uitkomst", SLOT) + groep("Over dit document", OVER) +
+    `<div class="sidx">` + groep("Begin", START) + groep("Vast · werkpagina's (wat we bouwen)", WERK) + groep("Ontwerpvoorstellen", ONTWERP) + groep("Variabel · locatie (waar we bouwen)", LOCATIE) + (INVOER.length ? groep("Invoer", INVOER) : "") + groep("Haalbaarheid & vergunning", DOSSIER) + groep("Uitkomst", SLOT) + groep("Over dit document", OVER) +
     `<div id="stand" class="stand" hidden></div></div>`;
   document.body.insertBefore(aside, document.body.firstChild);
   if (oud) oud.remove();
