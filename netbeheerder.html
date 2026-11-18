@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat vragen we van de netbeheerder? – Hanzedorp</title>
+<meta name="description" content="Aanvraag van Hanzedorp aan de netbeheerder: één kleinverbruikaansluiting van 3 × 25 A voor 12 woningen, hoe de begrenzing van afname en teruglevering technisch is geborgd, stresstest over 31 weerjaren en downloadbare data om te controleren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+.dl{display:flex;flex-wrap:wrap;gap:8px}
+.dl button{font:inherit;padding:6px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);cursor:pointer}
+.dl button:hover{border-color:var(--moss)}
+tr.uit td{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+
+<header>
+  <div class="eyebrow"><span>Hoe wij het aanpakken</span><span>Netbeheerder</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
+  <h1>Wat vragen we van de netbeheerder?</h1>
+  <p class="lead read">Hanzedorp vraagt één kleinverbruikaansluiting van <b>3 × 25 A</b> voor <span data-k="nW"></span> woningen en de gedeelde voorzieningen. Het dorp wekt zelf ruim voldoende op, vangt pieken op met een buurtaccu en begrenst zowel de afname als de teruglevering op het overdrachtspunt. Op deze pagina staat wat we vragen, hoe die begrenzing technisch is geborgd en de data waarmee de netbeheerder dat zelf kan controleren.</p>
+  <ul class="kern read">
+    <li><span>Gevraagd vermogen: <b><span data-k="kW"></span> kW</b> afname en ten hoogste <b><span data-k="kW"></span> kW</b> teruglevering. <span data-k="nW"></span> woningen met elk een eigen 3 × 25 A zouden samen een aansluitwaarde van <span data-k="kW12"></span> kW hebben (A).</span></li>
+    <li><span>Gemiddelde afname <b><span data-k="impStd"></span> MWh per jaar</b>, verspreid over ± <span data-k="uImpStd"></span> uur, vooral in november tot en met februari. Afname in de congestie-uren 16–21 uur kunnen we volledig vermijden: de buurtaccu laadt dan vooraf bij (A, zie hieronder).</span></li>
+    <li><span>In <span data-k="nJ"></span> weerjaren (KNMI Heino <span data-k="jr0"></span>–<span data-k="jr1"></span>) is er bij deze aansluiting <b>geen enkel uur tekort</b>, ook niet met het maximale aantal bewoners of zonder erfmolen. Alleen als de hele buurtaccu uitvalt, is 3 × 25 A te klein (zie de stresstest).</span></li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-vraag">
+  <h2 id="h-vraag">De aanvraag in één tabel</h2>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Waarde</th><th>Status</th></tr></thead><tbody id="tblVraag"></tbody></table></div>
+  <p class="note">G = gemeten of gegeven, A = afgeleid uit het model, N = aanname (nog te bevestigen), S = schatting. Uitgangspunten: <a href="energie-technisch.html">energieopwek – technisch</a>, <a href="netaansluiting-technisch.html">netaansluiting – technisch</a>.</p>
+</section>
+
+<section aria-labelledby="h-borging">
+  <h2 id="h-borging">Hoe de begrenzing technisch is geborgd</h2>
+  <p class="read">De begrenzing hangt niet af van het gedrag van bewoners. Zij zit in de installatie, met de software alleen als optimalisatie daarbovenop.</p>
+  <ol class="read" style="display:grid;gap:8px;padding-left:1.2em">
+    <li><b>Afname.</b> De hoofdzekering van de netbeheerder (3 × 25 A) is de fysieke grens. Daarachter regelt de omvormer van de buurtaccu (PCS, <span data-k="pcs"></span> kW) het vermogen uit het net zo, dat de zekering niet aanspreekt. Pieken binnen het dorp (koken, laden, warmtepompen) levert de buurtaccu, niet het net.</li>
+    <li><b>Teruglevering.</b> Op het overdrachtspunt meet een meter het vermogen naar het net. De omvormers van de zonnepanelen en de buurtaccu regelen hun vermogen terug zodra de ingestelde grens is bereikt (exportbegrenzing). Opwek die het dorp niet kan gebruiken of opslaan, wordt afgeschakeld. De grens is instelbaar tot 0 kW.</li>
+    <li><b>Buurtaccu in drie kasten.</b> Drie losse kasten van 200 kWh, elk met eigen beveiliging. Valt er één uit, dan blijft de begrenzing werken en is er nog steeds geen uur tekort.</li>
+    <li><b>Eilandbedrijf.</b> Bij een storing op het openbare net scheidt een automatische netscheider het dorpsnet van het openbare net voordat het dorp op eigen opwek en accu doordraait. Er wordt dan niets op het openbare net gezet.</li>
+    <li><b>Veiligheid in hardware.</b> Beveiligingen, noodstop en batterijbeheer werken zonder software. Valt het energiebeheersysteem uit, dan vallen de omvormers terug op hun eigen ingestelde grenzen.</li>
+  </ol>
+  <p class="read note">Welke certificaten en instellingen de netbeheerder hiervoor vraagt (onder meer voor de exportbegrenzing bij een opwekvermogen dat veel groter is dan de aansluiting), staat hieronder bij de vragen aan de netbeheerder.</p>
+</section>
+
+<section aria-labelledby="h-stress">
+  <h2 id="h-stress">Stresstest over <span data-k="nJ"></span> weerjaren</h2>
+  <p class="read">Uursimulatie van het hele dorp met het weer van KNMI Heino, een aansluiting van 3 × 25 A begrensd in afname én teruglevering, buurtaccu <span data-k="accu"></span> kWh met een eilandreserve van <span data-k="res"></span> %. Gemiddelden per jaar.</p>
+  <div class="scroll"><table><thead><tr><th>Situatie</th><th class="num">Afname (MWh/jr)</th><th class="num">Teruglevering (MWh/jr)</th><th class="num">Afgeschakeld (MWh/jr)</th><th class="num">Uren met afname</th><th class="num">Piek afname (kW)</th><th class="num">Piek teruglevering (kW)</th><th class="num">Zonder begrenzing zou teruglevering pieken op (kW)</th><th class="num">Uren tekort (gem./jr)</th></tr></thead><tbody id="tblStress"></tbody></table></div>
+  <p class="note">De piek van afname en teruglevering ligt steeds op de grens van <span data-k="kW"></span> kW: daar grijpt de begrenzing in. ‘Uren tekort’ zijn uren waarin het dorp meer zou vragen dan accu en aansluiting samen kunnen leveren. Dat gebeurt alleen als de hele buurtaccu uitvalt; dan schuift het laden van auto's op en draaien woningen en koelcellen door.</p>
+</section>
+
+<section aria-labelledby="h-wanneer">
+  <h2 id="h-wanneer">Wanneer nemen we af en leveren we terug?</h2>
+  <div class="cols">
+    <div class="panel read">
+      <h3>Per maand (gemiddeld jaar, MWh)</h3>
+      <div id="chMaand"></div>
+      <p class="note">Afname vooral in november tot en met februari; teruglevering vooral in de zomer, steeds begrensd op <span data-k="kW"></span> kW.</p>
+    </div>
+    <div class="panel read">
+      <h3>Per uur van de dag (zwaarste jaar <span data-k="zwaar"></span>, gemiddeld kW)</h3>
+      <div id="chUur"></div>
+      <p class="note">De simulatie neemt af zodra de accu zijn reserve bereikt, zonder sturing op tijd of prijs. Dan valt <span data-k="pctAvond"></span> % van de afname tussen 16 en 21 uur, en staat de afname <span data-k="opLim"></span> uur op de grens van <span data-k="kW"></span> kW. Op alle <span data-k="dAf"></span> dagen met afname in <span data-k="zwaar"></span> kan die afname ook buiten 16–21 uur vallen: per dag ten hoogste <span data-k="maxDag"></span> kWh, terwijl 19 uur × <span data-k="kW"></span> kW = <span data-k="r19"></span> kWh ruimte geeft, en ten hoogste <span data-k="maxAv"></span> kWh in de avond, ruim binnen de bruikbare accu van <span data-k="bruik"></span> kWh (A, benadering per dag).</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-nul">
+  <h2 id="h-nul">Optie: minder of geen teruglevering</h2>
+  <p class="read">Teruglevering is voor Hanzedorp geen verdienmodel. Gemiddeld leveren we ± <span data-k="expStd"></span> MWh per jaar terug; tegen ± € 0,03 per kWh (A) is dat ± € <span data-k="expEur"></span> per jaar voor het hele dorp. Als dat de netbeheerder helpt, kunnen we de teruglevering op 0 kW zetten, of alleen toestaan buiten de drukke uren. Die stroom schakelen we dan af; het dorp merkt daar niets van.</p>
+</section>
+
+<section aria-labelledby="h-context">
+  <h2 id="h-context">Waarom dit nu belangrijk is</h2>
+  <ul class="read" style="display:grid;gap:6px;padding-left:1.1em">
+    <li>Sinds 1 juli 2026 reserveren netbeheerders geen ruimte meer voor kleinverbruik (tot en met 3 × 80 A). Ook nieuwe kleine aansluitingen kunnen op een wachtlijst komen<sup class="ref"><a href="#bron-204">[204]</a></sup><sup class="ref"><a href="#bron-203">[203]</a></sup>.</li>
+    <li>Woningbouw krijgt voorrang op die wachtlijst via het prioriteringskader van de ACM<sup class="ref"><a href="#bron-204">[204]</a></sup>. Gemeenten vragen daarvoor sinds 1 oktober 2026 vroeg in het planproces transportcapaciteit aan<sup class="ref"><a href="#bron-205">[205]</a></sup>. Deze pagina is bedoeld als onderbouwing bij die aanvraag.</li>
+    <li>Congestie is vaak het grootst tussen 16 en 21 uur<sup class="ref"><a href="#bron-204">[204]</a></sup>. Hanzedorp kan afname in die uren volledig vermijden en de teruglevering in die uren uitzetten.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-data">
+  <h2 id="h-data">Data om te controleren</h2>
+  <p class="read">Alle cijfers op deze pagina komen uit de uursimulatie in de databron van deze applicatie (gegenereerd <span data-k="gen"></span>, versie <span data-k="dversie"></span>). De bestanden hieronder zijn direct te openen in een spreadsheet.</p>
+  <div class="dl" style="margin:8px 0 14px">
+    <button type="button" id="dlJaar">Per jaar (CSV)</button>
+    <button type="button" id="dlMaand">Per maand, per situatie (CSV)</button>
+    <button type="button" id="dlUur">Uurreeks zwaarste jaar (CSV, 8.760 regels)</button>
+  </div>
+  <details><summary>Uitkomsten per weerjaar (standaardsituatie)</summary>
+    <div class="scroll"><table><thead><tr><th>Jaar</th><th class="num">Afname (kWh)</th><th class="num">Teruglevering (kWh)</th><th class="num">Afgeschakeld (kWh)</th><th class="num">Piek afname (kW)</th><th class="num">Piek teruglevering (kW)</th><th class="num">Uren met afname</th><th class="num">Uren tekort</th></tr></thead><tbody id="tblJaar"></tbody></table></div>
+  </details>
+  <p class="note">Methode, formules en aannames: <a href="energie-technisch.html">energieopwek – technisch</a> (opwek en verbruik per uur), <a href="netaansluiting-technisch.html">netaansluiting – technisch</a> (accu, aansluiting, bijkoop) en <a href="energiebeheer-technisch.html">energiebeheer – technisch</a> (regeling). Weer: KNMI-station Heino (278), 1998 niet meegeteld.</p>
+</section>
+
+<section aria-labelledby="h-vragen">
+  <h2 id="h-vragen">Vragen aan de netbeheerder</h2>
+  <div class="scroll"><table><thead><tr><th>Vraag</th><th>Achtergrond</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Is er op de beoogde locatie transportcapaciteit voor één kleinverbruikaansluiting van 3 × 25 A, en wat is de aansluittermijn?</td><td>Locatie nog niet gekozen; aanvraag via de gemeente (woningbouw, prioriteringskader)<sup class="ref"><a href="#bron-205">[205]</a></sup></td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Mogen <span data-k="nW"></span> woningen en gedeelde voorzieningen achter één aansluiting?</td><td>Energiewet: energiegemeenschap of gesloten distributiesysteem; mandelig eigendom van de bewoners<sup class="ref"><a href="#bron-86">[86]</a></sup></td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Accepteert de netbeheerder een exportbegrenzing bij ± <span data-k="kWp"></span> kWp opwek achter 17 kW, en welke certificering vraagt hij voor de regeling?</td><td>Afmelding/aanmelding opwekinstallatie; eisen aan omvormers en regeling</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Welke eisen gelden voor de netscheider bij eilandbedrijf?</td><td>Dorpsnet draait door bij netuitval; geen terugvoeding op het openbare net</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Heeft de netbeheerder voorkeur voor geen afname tussen 16 en 21 uur, en voor nul teruglevering of teruglevering alleen buiten bepaalde uren?</td><td>Beide zijn instelbaar zonder gevolgen voor de bewoners</td><td><span class="pill s-idee">open</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="h-toets">
+  <h2 id="h-toets">Toetsing (compliance-register)</h2>
+  <div class="scroll"><table><thead><tr><th>Eis</th><th>Wet / norm</th><th>Hoe Hanzedorp voldoet</th><th>Bewijs / door wie</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Aansluiting en transportcapaciteit</td><td>Energiewet; Netcode elektriciteit; prioriteringskader ACM</td><td>Eén kleinverbruikaansluiting 3 × 25 A; afname en teruglevering begrensd</td><td>Aanvraag via gemeente; offerte en aansluitovereenkomst netbeheerder</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Meerdere woningen achter één aansluiting</td><td>Energiewet (energiegemeenschap / gesloten distributiesysteem)<sup class="ref"><a href="#bron-86">[86]</a></sup></td><td>Bewoners mandelig eigenaar; geen levering door de vereniging</td><td>Jurist, notaris, netbeheerder</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Opwekinstallaties en exportbegrenzing</td><td>Netcode elektriciteit; Europese aansluitcode voor opwekeenheden (RfG); NEN-EN 50549-1</td><td>Gecertificeerde omvormers; begrenzing op meting overdrachtspunt</td><td>Erkend installateur; netbeheerder</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Eilandbedrijf en netscheiding</td><td>NEN 1010; aansluitvoorwaarden netbeheerder</td><td>Automatische netscheider; accu als netvormer alleen na scheiding</td><td>Erkend installateur; keuring NEN 3140</td><td>onbekend – te verifiëren</td></tr>
+    <tr><td>Batterij-energieopslag</td><td>PGS 37-1; Bal (vanaf 2028)</td><td>Zie <a href="veiligheid-technisch.html">veiligheid – technisch</a></td><td>Veiligheidsregio</td><td>onbekend – te verifiëren</td></tr>
+  </tbody></table></div>
+</section>
+
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<section aria-labelledby="h-versie"><h2 id="h-versie">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
+  <tr><td>0.25</td><td>18-11-2026</td><td>Nieuwe pagina: aanvraag aan de netbeheerder, borging begrenzing, stresstest, profielen, optie nul-teruglevering, downloadbare data, vragen en toetsing [202].</td><td>Melvin de Vries / Claude</td></tr>
+</tbody></table></div></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina komen uit dezelfde databron als de werkpagina's.</span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="netbeheerder-data.js"></script>
+<script>
+(function () {
+  const { D, nl, bindAll, renderBronnen } = HZ, N = HANZEDORP_NETBEHEERDER, $ = id => document.getElementById(id);
+  const S = N.scenarios, std = S.find(s => s.id === "std"), U = N.uur;
+  const nW = HZ.A.nWoningen;
+  /* gemiddeld afnameprofiel per uur van de dag in het zwaarste jaar */
+  const perUur = Array.from({ length: 24 }, (_, h) => { let a = 0, e = 0, n = 0; for (let i = h; i < U.length; i += 24) { a += U[i][0]; e += U[i][1]; n++; } return [a / n, e / n]; });
+  let tot = 0, avond = 0; U.forEach((u, i) => { tot += u[0]; const h = i % 24; if (h >= 16 && h < 21) avond += u[0]; });
+  bindAll({ nW: nl(nW), kW: nl(N.aansluiting.kW, 2), kW12: nl(nW * N.aansluiting.kW), impStd: nl(std.imp / 1000, 1), uImpStd: nl(Math.round(std.uImp / 10) * 10),
+    pctAvond: nl(tot ? avond / tot * 100 : 0), nJ: nl(N.nJaren), jr0: N.jaren[0], jr1: N.jaren[1], pcs: nl(N.opzet.pcsKW), accu: nl(N.opzet.accuKWh), res: nl(N.opzet.reserve * 100),
+    zwaar: N.zwaarsteJaar, opLim: nl(N.uurOpLimiet), expStd: nl(std.exp / 1000, 1), expEur: nl(Math.round(std.exp * 0.03 / 10) * 10), kWp: nl(N.opzet.kWpTot), dAf: nl(N.avond.dagenAf), maxDag: nl(N.avond.maxDag), r19: nl(N.avond.ruimte19), maxAv: nl(N.avond.maxAvond), bruik: nl(N.avond.bruikbaar), gen: N.gegenereerd, dversie: N.versie });
+  $("tblVraag").innerHTML = [
+    ["Soort aansluiting", "kleinverbruik, laagspanning, 3 fasen", "N"],
+    ["Aansluitwaarde", "3 × " + N.aansluiting.A + " A = " + nl(N.aansluiting.kW, 2) + " kW", "N"],
+    ["Gevraagd afnamevermogen", "≤ " + nl(N.aansluiting.kW, 2) + " kW", "N"],
+    ["Gevraagd terugleververmogen", "≤ " + nl(N.aansluiting.kW, 2) + " kW, instelbaar tot 0 kW", "N"],
+    ["Achter de aansluiting", nl(nW) + " woningen, buurthuis, schuren, laadplein, koelcellen, akkerpomp", "N"],
+    ["Opgesteld opwekvermogen", "± " + nl(N.opzet.kWpTot) + " kWp zon" + (N.opzet.erfmolen ? " + " + N.opzet.erfmolen + " erfmolen" : ""), "A"],
+    ["Buurtaccu", nl(N.opzet.accuKWh) + " kWh in 3 kasten, PCS " + nl(N.opzet.pcsKW) + " kW", "N"],
+    ["Gemiddelde afname", nl(std.imp / 1000, 1) + " MWh/jr (max. jaar " + nl(std.impMax / 1000, 1) + " MWh)", "A"],
+    ["Gemiddelde teruglevering", nl(std.exp / 1000, 1) + " MWh/jr", "A"],
+    ["Eilandbedrijf", "ja, na automatische netscheiding", "N"]
+  ].map(([a, b, c]) => `<tr><td>${a}</td><td>${b}</td><td><span class="pill s-${c === "A" ? "onderzocht" : "aanname"}">${c}</span></td></tr>`).join("");
+  $("tblStress").innerHTML = S.map(s => `<tr${s.uTek > 0 ? ' class="uit"' : ""}><td>${s.naam}</td><td class="num">${nl(s.imp / 1000, 1)}</td><td class="num">${nl(s.exp / 1000, 1)}</td><td class="num">${nl(s.afg / 1000)}</td><td class="num">${nl(s.uImp)}</td><td class="num">${nl(s.pImp, 1)}</td><td class="num">${nl(s.pExp, 1)}</td><td class="num">${nl(s.pExpVrij)}</td><td class="num">${s.uTek > 0 ? nl(s.uTek) + " (max. " + nl(s.pTek) + " kW te weinig)" : "0"}</td></tr>`).join("");
+  const M = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+  HZ.bars($("chMaand"), { labels: M, series: [{ name: "afname", values: std.maand.map(m => m[0] / 1000), color: "var(--water)", unit: "MWh" }, { name: "teruglevering", values: std.maand.map(m => m[1] / 1000), color: "var(--gold)", unit: "MWh" }], unit: "MWh per maand" });
+  HZ.bars($("chUur"), { labels: perUur.map((_, h) => String(h)), series: [{ name: "afname", values: perUur.map(p => +p[0].toFixed(2)), color: "var(--water)", unit: "kW" }, { name: "teruglevering", values: perUur.map(p => +p[1].toFixed(2)), color: "var(--gold)", unit: "kW" }], unit: "kW (gemiddeld)", labelEvery: 3 });
+  $("tblJaar").innerHTML = N.perJaar.map(r => `<tr><td>${r[0]}</td><td class="num">${nl(r[1])}</td><td class="num">${nl(r[2])}</td><td class="num">${nl(r[3])}</td><td class="num">${nl(r[4], 1)}</td><td class="num">${nl(r[5], 1)}</td><td class="num">${nl(r[6])}</td><td class="num">${nl(r[7])}</td></tr>`).join("");
+  /* downloads (CSV met puntkomma, decimale komma) */
+  const csv = (naam, kop, rijen) => { const t = [kop.join(";")].concat(rijen.map(r => r.map(v => typeof v === "number" ? String(v).replace(".", ",") : '"' + String(v).replace(/"/g, '""') + '"').join(";"))).join("\r\n");
+    try { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + t], { type: "text/csv;charset=utf-8" })); a.download = naam; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); } catch (e) {} };
+  $("dlJaar").onclick = () => csv("hanzedorp-net-per-jaar.csv", ["jaar", "afname_kWh", "teruglevering_kWh", "afgeschakeld_kWh", "piek_afname_kW", "piek_teruglevering_kW", "uren_met_afname", "uren_tekort"], N.perJaar);
+  $("dlMaand").onclick = () => csv("hanzedorp-net-per-maand.csv", ["situatie", "maand", "afname_kWh", "teruglevering_kWh"], S.flatMap(s => s.maand.map((m, i) => [s.naam, i + 1, m[0], m[1]])));
+  $("dlUur").onclick = () => csv("hanzedorp-net-uur-" + N.zwaarsteJaar + ".csv", ["uur_van_jaar", "dag", "uur", "afname_kW", "teruglevering_kW"], U.map((u, i) => [i, Math.floor(i / 24) + 1, i % 24, u[0], u[1]]));
+  renderBronnen($("bronnen"), [202, 204, 203, 205, 86, 60, 133]);
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>
