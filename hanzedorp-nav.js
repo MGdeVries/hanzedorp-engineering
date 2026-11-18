@@ -31,7 +31,7 @@
     ["financien.html", "Financiële planning", "financien-technisch.html"]
   ];
   const INVOER = [["inventarisatie.html", "Inventarisatie per woning"]];
-  const DOSSIER = [["netbeheerder.html", "Wat vragen we van de netbeheerder?"], ["dossier.html", "Dossier en voortgang"], ["ketenpartners.html", "Ketenpartners"]];
+  const DOSSIER = [["netbeheerder.html", "Wat vragen we van de netbeheerder?"], ["netbeheerder-toets.html", "Toets door de netbeheerder"], ["dossier.html", "Dossier en voortgang"], ["ketenpartners.html", "Ketenpartners"]];
   const SLOT = [["rapport.html", "Conclusie & rapport"]];
   const OVER = [["juridisch.html", "Juridisch & colofon"]];
   const HP = window.HZPROJECT || null, EDITIE = !!(HP && HP.editie), INTERN = HP ? HP.intern : [];
@@ -51,7 +51,7 @@
 
   /* ---------- uitlegregel op technische pagina's (besluit 18-11-2026): toon en begrippen voor instanties ---------- */
   (function () {
-    const tech = /-technisch\.html$/.test(hier), nb = hier === "netbeheerder.html";
+    const tech = /-technisch\.html$/.test(hier), nb = hier === "netbeheerder.html" || hier === "netbeheerder-toets.html";
     if (!tech && !nb) return;
     const hdr = document.querySelector(".wrap > header"); if (!hdr || document.querySelector(".register")) return;
     const r = WERK.find(w => w[2] === hier), basis = r ? r[0] : null;
