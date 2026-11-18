@@ -117,7 +117,7 @@
 <section aria-labelledby="h-thema">
   <h2 id="h-thema">De werkpagina's</h2>
   <div class="thema" id="themaGrid"></div>
-  <p class="read note">Nog niet gestart: Bouwen en woningontwerp, Afvalwater, EMS (energiemanagement) en Organisatie.</p>
+  <p class="read note">Nog niet gestart: Bouwen en woningontwerp, Afvalwater en Organisatie. Voor het EMS staat er nu een ontwerpvoorstel.</p>
 </section>
 
 <section aria-labelledby="h-afspraak">
@@ -188,6 +188,7 @@
   document.getElementById("themaGrid").innerHTML = HZNAV.WERK.map(([b, n, t]) =>
     `<a class="k" href="${b}"><b>${n}</b><span>${OMS[b] || ""}</span></a>`).join("") +
     (window.HZPROJECT && HZPROJECT.editie ? "" : `<b>Inventarisatie per woning</b><span>Invulpagina: bewoners, aanwezigheid en voertuigen per woning.</span>` + `<b>Projecten &amp; kavels</b><span>Alle projectkavels, de toets op terreingrootte en nieuwe projecten aanmaken.</span>`) +
+    `<a class="k" href="ems-voorstel.html"><b>EMS: ontwerpvoorstel</b><span>Hoe een energiemanagementsysteem werkt en hoe wij het bouwen: lagen, kwartierplanning, verdienstenvoorspeller en de webapp voor bewoners.</span></a>` +
     `<a class="k" href="netbeheerder.html"><b>Wat vragen we van de netbeheerder?</b><span>Eén aansluiting van 3 × 25 A voor het hele dorp, hoe we afname en teruglevering begrenzen, en de data om dat te controleren.</span></a>` +
     `<a class="k" href="netbeheerder-toets.html"><b>Toets door de netbeheerder</b><span>De netbeheerder aan het woord: congestie in het zoekgebied, toets van de aanvraag en alle vragen die Enexis of Liander ons stelt.</span></a>` +
     `<a class="k" href="dossier.html"><b>Dossier: haalbaarheid &amp; vergunning</b><span>Alle vragen van projectontwikkelaar en gemeente, met status per fase.</span></a>` +
