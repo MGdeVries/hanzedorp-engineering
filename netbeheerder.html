@@ -26,7 +26,7 @@ tr.uit td{color:var(--warn)}
   <p class="lead read">Hanzedorp vraagt één kleinverbruikaansluiting van <b>3 × 25 A</b> voor <span data-k="nW"></span> woningen en de gedeelde voorzieningen. Het dorp wekt zelf ruim voldoende op, vangt pieken op met een buurtaccu en begrenst zowel de afname als de teruglevering op het overdrachtspunt. Op deze pagina staat wat we vragen, hoe die begrenzing technisch is geborgd en de data waarmee de netbeheerder dat zelf kan controleren.</p>
   <ul class="kern read">
     <li><span>Gevraagd vermogen: <b><span data-k="kW"></span> kW</b> afname en ten hoogste <b><span data-k="kW"></span> kW</b> teruglevering. <span data-k="nW"></span> woningen met elk een eigen 3 × 25 A zouden samen een aansluitwaarde van <span data-k="kW12"></span> kW hebben (A).</span></li>
-    <li><span>Gemiddelde afname <b><span data-k="impStd"></span> MWh per jaar</b>, verspreid over ± <span data-k="uImpStd"></span> uur, vooral in november tot en met februari. Afname in de congestie-uren 16–21 uur kunnen we volledig vermijden: de buurtaccu laadt dan vooraf bij (A, zie hieronder).</span></li>
+    <li><span>Gemiddelde afname <b><span data-k="impStd"></span> MWh per jaar</b>, verspreid over ± <span data-k="uImpStd"></span> uur, vooral in november tot en met februari. <b>Tussen 16 en 21 uur nemen we geen stroom af</b>: de buurtaccu laadt buiten die uren bij, en dat is ook het goedkoopst (zie hieronder).</span></li>
     <li><span>In <span data-k="nJ"></span> weerjaren (KNMI Heino <span data-k="jr0"></span>–<span data-k="jr1"></span>) is er bij deze aansluiting <b>geen enkel uur tekort</b>, ook niet met het maximale aantal bewoners of zonder erfmolen. Alleen als de hele buurtaccu uitvalt, is 3 × 25 A te klein (zie de stresstest).</span></li>
   </ul>
 </header>
@@ -68,9 +68,17 @@ tr.uit td{color:var(--warn)}
     <div class="panel read">
       <h3>Per uur van de dag (zwaarste jaar <span data-k="zwaar"></span>, gemiddeld kW)</h3>
       <div id="chUur"></div>
-      <p class="note">De simulatie neemt af zodra de accu zijn reserve bereikt, zonder sturing op tijd of prijs. Dan valt <span data-k="pctAvond"></span> % van de afname tussen 16 en 21 uur, en staat de afname <span data-k="opLim"></span> uur op de grens van <span data-k="kW"></span> kW. Op alle <span data-k="dAf"></span> dagen met afname in <span data-k="zwaar"></span> kan die afname ook buiten 16–21 uur vallen: per dag ten hoogste <span data-k="maxDag"></span> kWh, terwijl 19 uur × <span data-k="kW"></span> kW = <span data-k="r19"></span> kWh ruimte geeft, en ten hoogste <span data-k="maxAv"></span> kWh in de avond, ruim binnen de bruikbare accu van <span data-k="bruik"></span> kWh (A, benadering per dag).</p>
+      <p class="note">Zonder avondregel laadt de buurtaccu uit het net bij zodra hij zijn reserve bereikt, ook tussen 16 en 21 uur. Met de avondregel gebeurt dat alleen buiten die uren (zie hieronder). In <span data-k="zwaar"></span> stond de afname <span data-k="opLim"></span> uur op de grens van <span data-k="kW"></span> kW.</p>
     </div>
   </div>
+</section>
+
+<section aria-labelledby="h-avond">
+  <h2 id="h-avond">Geen afname tussen 16 en 21 uur</h2>
+  <p class="read">Tussen 16 en 21 uur is het net het drukst<sup class="ref"><a href="#bron-204">[204]</a></sup>. Hanzedorp neemt in die uren geen stroom af: de buurtaccu laadt alleen buiten die uren uit het net bij en levert 's avonds zelf. Die <b>avondregel</b> zit in de regeling van de buurtaccu (PCS), niet in het gedrag van bewoners. Alleen als de accu leeg is, mag er toch worden afgenomen.</p>
+  <p class="read">Voor het dorp is dat ook goedkoper. In de winter (<span data-k="prPer"></span>) kostte stroom op de beurs tussen 16 en 21 uur gemiddeld <b><span data-k="prAvond"></span> ct/kWh</b>, 's nachts (0–6 uur) <b><span data-k="prNacht"></span> ct/kWh</b>. De avondregel verschuift gemiddeld ± <span data-k="avZonder"></span> MWh per jaar naar goedkopere uren; dat scheelt het dorp ± € <span data-k="avEur"></span> per jaar (A, prijsverschil × 1,21 btw).</p>
+  <div class="scroll"><table><thead><tr><th>Situatie</th><th class="num">Afname 16–21 uur zonder regel (MWh/jr)</th><th class="num">Afname totaal met regel (MWh/jr)</th><th class="num">Uren afname 16–21 uur met regel (gem. / max. per jaar)</th><th class="num">Uren tekort met regel (gem. / max. per jaar)</th></tr></thead><tbody id="tblAvond"></tbody></table></div>
+  <p class="note">Uursimulatie over <span data-k="nJ"></span> weerjaren met een eenvoudige regel: buiten 16–21 uur bijladen tot <span data-k="res"></span> %, binnen 16–21 uur niet. Met het maximale aantal bewoners ontstaan zo een paar uur per jaar waarin de accu na een lange avond leeg is en 's nachts 17 kW net te weinig is voor auto's die moeten laden. Een energiebeheersysteem met weersverwachting laadt op zulke dagen eerder bij of schuift het laden op. Zonder werkende accu kan de regel niet worden gehouden.</p>
 </section>
 
 <section aria-labelledby="h-nul">
@@ -83,7 +91,7 @@ tr.uit td{color:var(--warn)}
   <ul class="read" style="display:grid;gap:6px;padding-left:1.1em">
     <li>Sinds 1 juli 2026 reserveren netbeheerders geen ruimte meer voor kleinverbruik (tot en met 3 × 80 A). Ook nieuwe kleine aansluitingen kunnen op een wachtlijst komen<sup class="ref"><a href="#bron-204">[204]</a></sup><sup class="ref"><a href="#bron-203">[203]</a></sup>.</li>
     <li>Woningbouw krijgt voorrang op die wachtlijst via het prioriteringskader van de ACM<sup class="ref"><a href="#bron-204">[204]</a></sup>. Gemeenten vragen daarvoor sinds 1 oktober 2026 vroeg in het planproces transportcapaciteit aan<sup class="ref"><a href="#bron-205">[205]</a></sup>. Deze pagina is bedoeld als onderbouwing bij die aanvraag.</li>
-    <li>Congestie is vaak het grootst tussen 16 en 21 uur<sup class="ref"><a href="#bron-204">[204]</a></sup>. Hanzedorp kan afname in die uren volledig vermijden en de teruglevering in die uren uitzetten.</li>
+    <li>Congestie is vaak het grootst tussen 16 en 21 uur<sup class="ref"><a href="#bron-204">[204]</a></sup>. Hanzedorp neemt in die uren geen stroom af (avondregel) en kan ook de teruglevering in die uren uitzetten.</li>
   </ul>
 </section>
 
@@ -108,7 +116,7 @@ tr.uit td{color:var(--warn)}
     <tr><td>Mogen <span data-k="nW"></span> woningen en gedeelde voorzieningen achter één aansluiting?</td><td>Energiewet: energiegemeenschap of gesloten distributiesysteem; mandelig eigendom van de bewoners<sup class="ref"><a href="#bron-86">[86]</a></sup></td><td><span class="pill s-idee">open</span></td></tr>
     <tr><td>Accepteert de netbeheerder een exportbegrenzing bij ± <span data-k="kWp"></span> kWp opwek achter 17 kW, en welke certificering vraagt hij voor de regeling?</td><td>Afmelding/aanmelding opwekinstallatie; eisen aan omvormers en regeling</td><td><span class="pill s-idee">open</span></td></tr>
     <tr><td>Welke eisen gelden voor de netscheider bij eilandbedrijf?</td><td>Dorpsnet draait door bij netuitval; geen terugvoeding op het openbare net</td><td><span class="pill s-idee">open</span></td></tr>
-    <tr><td>Heeft de netbeheerder voorkeur voor geen afname tussen 16 en 21 uur, en voor nul teruglevering of teruglevering alleen buiten bepaalde uren?</td><td>Beide zijn instelbaar zonder gevolgen voor de bewoners</td><td><span class="pill s-idee">open</span></td></tr>
+    <tr><td>Wil de netbeheerder de avondregel (geen afname 16–21 uur) vastleggen, en heeft hij voorkeur voor nul teruglevering of teruglevering alleen buiten bepaalde uren?</td><td>Beide zijn instelbaar zonder gevolgen voor de bewoners</td><td><span class="pill s-idee">open</span></td></tr>
   </tbody></table></div>
 </section>
 
@@ -125,7 +133,7 @@ tr.uit td{color:var(--warn)}
 
 <section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
 <section aria-labelledby="h-versie"><h2 id="h-versie">Versiebeheer</h2><div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
-  <tr><td>0.25</td><td>18-11-2026</td><td>Nieuwe pagina: aanvraag aan de netbeheerder, borging begrenzing, stresstest, profielen, optie nul-teruglevering, downloadbare data, vragen en toetsing [202].</td><td>Melvin de Vries / Claude</td></tr>
+  <tr><td>0.25</td><td>18-11-2026</td><td>Nieuwe pagina (aangevuld 18-11-2026 met de avondregel: geen afname 16–21 uur, doorgerekend over alle weerjaren [206]): aanvraag aan de netbeheerder, borging begrenzing, stresstest, profielen, optie nul-teruglevering, downloadbare data, vragen en toetsing [202].</td><td>Melvin de Vries / Claude</td></tr>
 </tbody></table></div></section>
 <footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span><span>De cijfers op deze pagina komen uit dezelfde databron als de werkpagina's.</span></footer>
 </div>
@@ -145,7 +153,7 @@ tr.uit td{color:var(--warn)}
   let tot = 0, avond = 0; U.forEach((u, i) => { tot += u[0]; const h = i % 24; if (h >= 16 && h < 21) avond += u[0]; });
   bindAll({ nW: nl(nW), kW: nl(N.aansluiting.kW, 2), kW12: nl(nW * N.aansluiting.kW), impStd: nl(std.imp / 1000, 1), uImpStd: nl(Math.round(std.uImp / 10) * 10),
     pctAvond: nl(tot ? avond / tot * 100 : 0), nJ: nl(N.nJaren), jr0: N.jaren[0], jr1: N.jaren[1], pcs: nl(N.opzet.pcsKW), accu: nl(N.opzet.accuKWh), res: nl(N.opzet.reserve * 100),
-    zwaar: N.zwaarsteJaar, opLim: nl(N.uurOpLimiet), expStd: nl(std.exp / 1000, 1), expEur: nl(Math.round(std.exp * 0.03 / 10) * 10), kWp: nl(N.opzet.kWpTot), dAf: nl(N.avond.dagenAf), maxDag: nl(N.avond.maxDag), r19: nl(N.avond.ruimte19), maxAv: nl(N.avond.maxAvond), bruik: nl(N.avond.bruikbaar), gen: N.gegenereerd, dversie: N.versie });
+    zwaar: N.zwaarsteJaar, opLim: nl(N.uurOpLimiet), expStd: nl(std.exp / 1000, 1), expEur: nl(Math.round(std.exp * 0.03 / 10) * 10), kWp: nl(N.opzet.kWpTot), prPer: N.prijs.periode, prAvond: nl(N.prijs.avond * 100, 1), prNacht: nl(N.prijs.nacht * 100, 1), avZonder: nl(std.avond.impZonder / 1000, 1), avEur: nl(Math.round(std.avond.impZonder * (N.prijs.avond - N.prijs.nacht) * 1.21 / 10) * 10), dAf: nl(N.avond.dagenAf), maxDag: nl(N.avond.maxDag), r19: nl(N.avond.ruimte19), maxAv: nl(N.avond.maxAvond), bruik: nl(N.avond.bruikbaar), gen: N.gegenereerd, dversie: N.versie });
   $("tblVraag").innerHTML = [
     ["Soort aansluiting", "kleinverbruik, laagspanning, 3 fasen", "N"],
     ["Aansluitwaarde", "3 × " + N.aansluiting.A + " A = " + nl(N.aansluiting.kW, 2) + " kW", "N"],
@@ -169,7 +177,8 @@ tr.uit td{color:var(--warn)}
   $("dlJaar").onclick = () => csv("hanzedorp-net-per-jaar.csv", ["jaar", "afname_kWh", "teruglevering_kWh", "afgeschakeld_kWh", "piek_afname_kW", "piek_teruglevering_kW", "uren_met_afname", "uren_tekort"], N.perJaar);
   $("dlMaand").onclick = () => csv("hanzedorp-net-per-maand.csv", ["situatie", "maand", "afname_kWh", "teruglevering_kWh"], S.flatMap(s => s.maand.map((m, i) => [s.naam, i + 1, m[0], m[1]])));
   $("dlUur").onclick = () => csv("hanzedorp-net-uur-" + N.zwaarsteJaar + ".csv", ["uur_van_jaar", "dag", "uur", "afname_kW", "teruglevering_kW"], U.map((u, i) => [i, Math.floor(i / 24) + 1, i % 24, u[0], u[1]]));
-  renderBronnen($("bronnen"), [202, 204, 203, 205, 86, 60, 133]);
+  renderBronnen($("bronnen"), [202, 206, 204, 203, 205, 86, 60, 133]);
+  $("tblAvond").innerHTML = S.map(s => { const a = s.avond; return `<tr${s.id === "uit" ? ' class="uit"' : ""}><td>${s.naam}</td><td class="num">${nl(a.impZonder / 1000, 1)}</td><td class="num">${nl(a.imp / 1000, 1)}</td><td class="num">${nl(a.uAvond, 1)} / ${nl(a.uAvondMax)}</td><td class="num">${nl(a.uTek, 1)} / ${nl(a.uTekMax)}</td></tr>`; }).join("");
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

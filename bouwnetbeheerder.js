@@ -22,12 +22,21 @@ const V = [
   ["uit", "Maximaal, hele buurtaccu uitgevallen", { levensfase: "max", accu: 0, accuKW: 0 }]
 ];
 const r1 = v => Math.round(v * 10) / 10;
+const AR = D.ems.avondregel, AVOND = Array.from({ length: AR.tot - AR.van }, (_, i) => AR.van + i);                                       // congestie-uren 16–21 uur (RVO [204]); avondregel [206]
+/* gemiddelde winterprijs (nov–feb) per uur van de dag uit de EPEX-reeks: avond tegenover nacht */
+require(B + "hanzedorp-prijs.js");
+const PR = HANZEDORP_PRIJS, P0 = Date.UTC(2023, 0, 1), ps = Array(24).fill(0), pn = Array(24).fill(0);
+for (let i = 0; i < PR.p.length; i++) { const m = new Date(P0 + Math.floor(i / 24) * 864e5).getUTCMonth(); if ([10, 11, 0, 1].includes(m) && PR.p[i] != null) { ps[i % 24] += PR.p[i] / 1e5; pn[i % 24]++; } }
+const pUur = ps.map((v, h) => v / pn[h]), gemP = hs => hs.reduce((a, h) => a + pUur[h], 0) / hs.length;
+const prijs = { uur: pUur.map(v => Math.round(v * 10000) / 10000), avond: gemP(AVOND), nacht: gemP([0, 1, 2, 3, 4, 5]), dag: gemP([10, 11, 12, 13, 14]), periode: "nov–feb, " + PR.d0.slice(0, 4) + "–2026" };
 const sc = V.map(([id, naam, o]) => {
-  const s = HE.simuleer(Object.assign({}, C, { netKW: kW, expKW: kW }, o));
+  const s = HE.simuleer(Object.assign({}, C, { netKW: kW, expKW: kW, meetUren: AVOND }, o));
+  const a = HE.simuleer(Object.assign({}, C, { netKW: kW, expKW: kW, blokUren: AVOND }, o));   // met avondregel: geen bijladen uit het net 16–21 uur
   const vrij = HE.simuleer(Object.assign({}, C, { netKW: kW }, o));      // teruglevering zonder begrenzing: hoeveel zou er het net op willen?
   return { id, naam, imp: Math.round(s.imp), exp: Math.round(s.exp), afg: Math.round(s.afgeschakeld), pImp: r1(s.pImp), pExp: r1(s.pExp), pExpVrij: r1(vrij.pExp),
     uImp: Math.round(s.uImp), uTek: Math.round(s.uTekort), pTek: r1(s.pTekort), impMax: Math.round(s.impMax), vraag: Math.round(s.vraag), opwek: Math.round(s.opwek),
-    maand: s.maand.map(m => [Math.round(m.imp), Math.round(m.exp)]) };
+    maand: s.maand.map(m => [Math.round(m.imp), Math.round(m.exp)]),
+    avond: { impZonder: Math.round(s.impMeet), imp: Math.round(a.imp), impAvond: Math.round(a.impBlok), uAvond: r1(a.uBlok), uAvondMax: a.uBlokMax, uTek: r1(a.uTekort), uTekMax: Math.max(...a.perJaar.map(y => y.uTekort)) } };
 });
 /* standaardscenario: per jaar en uurreeks van het jaar met de meeste afname */
 const S = HE.simuleer(Object.assign({}, C, { netKW: kW, expKW: kW }));
@@ -42,6 +51,6 @@ for (let d = 0; d < uur.length / 24; d++) { let t = 0, e = 0; for (let h = 0; h 
 const opLimiet = uur.filter(u => u[0] >= kW - 0.05).length, opLimietExp = uur.filter(u => u[1] >= kW - 0.05).length;
 const uitBron = { gegenereerd: new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC", versie: D.versie, aansluiting: { A, kW, fasen: 3 },
   opzet: { accuKWh: C.accu, pcsKW: C.accuKW, reserve: C.reserve, kWpTot: Math.round(S.kWpDak + S.kWpAgri + C.pvVlakken.reduce((a, v) => a + v.kWp, 0)), erfmolen: S.nWind },
-  jaren: [perJaar[0][0], perJaar[perJaar.length - 1][0]], nJaren: perJaar.length, scenarios: sc, perJaar, zwaarsteJaar: zwaar, uurOpLimiet: opLimiet, avond: { maxDag: Math.round(maxDag), maxAvond: Math.round(maxAvond), ruimte19: Math.round(kW * 19), bruikbaar: Math.round(bruikbaar), dagenAf, dagenOk }, uurOpLimietExp: opLimietExp, uur };
+  jaren: [perJaar[0][0], perJaar[perJaar.length - 1][0]], nJaren: perJaar.length, scenarios: sc, perJaar, zwaarsteJaar: zwaar, prijs, avondUren: AVOND, uurOpLimiet: opLimiet, avond: { maxDag: Math.round(maxDag), maxAvond: Math.round(maxAvond), ruimte19: Math.round(kW * 19), bruikbaar: Math.round(bruikbaar), dagenAf, dagenOk }, uurOpLimietExp: opLimietExp, uur };
 require("fs").writeFileSync(B + "netbeheerder-data.js", "/* gegenereerd door bouwnetbeheerder.js – niet met de hand wijzigen. uur: [afname kW, teruglevering kW] per uur van het zwaarste jaar (standaardscenario) */\nwindow.HANZEDORP_NETBEHEERDER = " + JSON.stringify(uitBron) + ";\n");
 console.log(JSON.stringify(sc.map(s => [s.id, s.imp, s.exp, s.afg, s.pImp, s.pExp, s.pExpVrij, s.uImp, s.uTek, s.pTek])), "zwaarste jaar", zwaar, "uren op limiet", opLimiet, opLimietExp, "kWp", uitBron.opzet.kWpTot);
