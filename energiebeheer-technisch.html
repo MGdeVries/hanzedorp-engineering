@@ -54,7 +54,7 @@
   <div class="scroll"><table><thead><tr><th>Nr</th><th>Eis</th><th>Toelichting / grenswaarde</th><th>Status</th></tr></thead><tbody>
     <tr><td>F1</td><td>Verbruiksbericht</td><td>Dagcode voor 7 dagen; update om <span data-k="upd"></span> uur en bij codewijziging; kanalen: app/push, scherm woning, scherm buurthuis, e-mail</td><td>B</td></tr>
     <tr><td>F2</td><td>Voorrangsregeling</td><td>6 klassen (§ 7); bij overschrijding van de fysieke grens (PCS + net) eerst de eigen gedeelde verbruikers uitstellen (klasse 6 → 4 → 3), daarna laadvermogen verlagen; verbruikers van bewoners worden niet geblokkeerd; klasse 1 nooit</td><td>B / N</td></tr>
-    <tr><td>F2a</td><td>Avondregel</td><td>Geen afname uit het net tussen 16 en 21 uur (congestie-uren); de PCS laadt de buurtaccu alleen buiten die uren bij tot de reserve en levert in die uren zelf; uitzondering alleen bij een lege accu. Doorgerekend over alle weerjaren op <a href="netbeheerder.html#h-avond">netbeheerder</a><sup class="ref"><a href="#bron-206">[206]</a></sup></td><td>B</td></tr>
+    <tr><td>F2a</td><td>Congestieregel (geen inkoop of injectie bij netcongestie)</td><td>Geen afname uit het net en geen injectie in de uren met hoge netbelasting. Bron van het signaal, in volgorde: (1) congestiesignaal of capaciteitsbeperking van de netbeheerder; (2) zolang dat ontbreekt: per dag de duurste uren uit de EPEX day-ahead-prijzen (standaard 5, instelbaar). De PCS laadt de buurtaccu alleen buiten die uren bij en levert in die uren zelf; overtollige opwek wordt afgeschakeld in plaats van teruggeleverd. Het EMS gebruikt de weersverwachting om vóór krappe dagen eerder bij te laden of laden te schuiven. Uitzondering alleen bij een lege accu. Variant injectie: blokkeren in de goedkoopste uren (terugleverpiek). Doorgerekend over alle weerjaren op <a href="netbeheerder.html#h-cong">netbeheerder</a><sup class="ref"><a href="#bron-206">[206]</a></sup><sup class="ref"><a href="#bron-207">[207]</a></sup></td><td>B</td></tr>
     <tr><td>F3</td><td>Vermogensbudget per woning en totaal</td><td>Instelbaar: per woning (standaard 3 × 25 A) en dorpstotaal (PCS + net, standaard ± 150 kW); dynamisch verlaagd bij oranje/rood</td><td>B</td></tr>
     <tr><td>F4</td><td>Laadsturing</td><td>OCPP-laadprofielen per paal; de paal wordt nooit spanningsloos geschakeld, alleen het laden uitgesteld of begrensd; laden op overschot; laadwens (vertrektijd, km) in de app; uiterlijk na <span data-k="flex"></span> dagen of bij rijwens laden binnen de vrije ruimte (opwek + accu boven reserve + net)</td><td>B / N</td></tr>
     <tr><td>F5</td><td>Laadadvies</td><td>Bij rijwens op oranje/rood: vergelijk thuis laden (day-ahead, goedkoopste uren, incl. opslag, EB en btw) met snelladen; advies in de app</td><td>B</td></tr>
@@ -202,7 +202,7 @@
   EBU.codes($("tblCodes")); EBU.maandGrafiek($("gMaand")); EBU.scenarios($("tblScen"));
   EBU.weekUI({ $, inp: $("wDatum"), uit: $("wUit"), jaar: 2024 });
   EBU.klassen($("tblKlassen")); EBU.register($("tblReg"), true); EBU.stuklijst($("tblStuk"));
-  renderBronnen($("bronnen"), [206, 200, 190, 191, 197, 198, 192, 193, 194, 195, 196, 132, 130, 74]);
+  renderBronnen($("bronnen"), [207, 206, 209, 200, 190, 191, 197, 198, 192, 193, 194, 195, 196, 132, 130, 74]);
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

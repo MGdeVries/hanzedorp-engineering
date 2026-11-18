@@ -129,7 +129,10 @@
     const wuN = E.windUur.map(r => { const g = r.reduce((a, b) => a + b, 0) / 24; return r.map(v => v / g); });
     let soc = cap * 0.5, achter = 0;
     const netKW = o.netKW || 0, expKW = o.expKW != null ? o.expKW : null, reserve = o.reserve != null ? o.reserve : 0.5;
-    const blok = o.blokUren ? new Set(o.blokUren) : null, bStart = blok ? Math.min(...o.blokUren) : 0, resVoor = o.reserveVoor != null ? o.reserveVoor : reserve, meet = o.meetUren ? new Set(o.meetUren) : null;   // 18-11-2026 [206]: geen afname in congestie-uren; accu vooraf bijladen tot resVoor
+    /* congestieregel [206]: blokImp(i,h)/blokExp(i,h) = geen afname / geen injectie in dat uur (i = dag sinds 1994-01-01); blokUren = vaste uren als eenvoudige variant;
+       meetImp/meetExp meten afname/injectie in congestie-uren zonder regel; prijs(i,h) €/kWh (kaal) telt kosten en opbrengst mee */
+    const vast = o.blokUren ? new Set(o.blokUren) : null, meetVast = o.meetUren ? new Set(o.meetUren) : null;
+    const blokImp = o.blokImp || (vast ? (i, h) => vast.has(h) : null), blokExp = o.blokExp || null, meetImp = o.meetImp || (meetVast ? (i, h) => meetVast.has(h) : null), meetExp = o.meetExp || null, prijs = o.prijs || null;
     const yr = {}, mnd = Array.from({ length: 12 }, () => ({ vraag: 0, zon: 0, agri: 0, wind: 0, imp: 0, exp: 0, verw: 0 }));
     const dImp = new Float64Array(n), dExp = new Float64Array(n), dZon = new Float64Array(n), dWind = new Float64Array(n), dVraag = new Float64Array(n);
     const uurJaar = o.uurJaar || null, uur = uurJaar ? { vraag: [], zon: [], wind: [], imp: [], exp: [], soc: [], ev: [] } : null;
@@ -138,7 +141,7 @@
       const y = W.Y[i], m = W.M[i], T = WI.TG[i];
       if (y !== yPrev) { doy = 0; yPrev = y; } else doy++;
       const wk = celW ? celW[Math.min(51, Math.floor(doy / 7))] : null;
-      const R = yr[y] || (yr[y] = { impBlok: 0, uBlok: 0, impMeet: 0, vraag: 0, zon: 0, agri: 0, wind: 0, imp: 0, exp: 0, pImp: 0, pExp: 0, uImp: 0, verw: 0, ev: 0, evGedwongen: 0, pEv: 0, cel: 0, celGedwongen: 0, tekort: 0, pTekort: 0, uTekort: 0, netLaad: 0, afgeschakeld: 0 });
+      const R = yr[y] || (yr[y] = { impBlok: 0, uBlok: 0, impMeet: 0, expMeet: 0, expBlok: 0, uExpBlok: 0, impKost: 0, expOpbr: 0, vraag: 0, zon: 0, agri: 0, wind: 0, imp: 0, exp: 0, pImp: 0, pExp: 0, uImp: 0, verw: 0, ev: 0, evGedwongen: 0, pEv: 0, cel: 0, celGedwongen: 0, tekort: 0, pTekort: 0, uTekort: 0, netLaad: 0, afgeschakeld: 0 });
       const verwDag = oppTot * UA * Math.max(0, Tb - T) * 24 / cop(T);
       const pompDag = dt[i] * d.akkerM2 / 1000 / K.eta * pompF;
       const vijverH = (m >= 3 && m <= 8) ? E.vijverPompW / 1000 : 0;
@@ -171,12 +174,15 @@
         // begrensde netaansluiting: import boven de limiet = tekort; accu bijladen uit het net tot de reservegrens (opgave Melvin)
         if (netKW) {
           if (imp > netKW) { R.tekort += imp - netKW; if (imp - netKW > R.pTekort) R.pTekort = imp - netKW; R.uTekort++; imp = netKW; }
-          const inBlok = blok && blok.has(h), res = cap * (blok && !inBlok && h < bStart ? resVoor : reserve);
+          const inBlok = blokImp ? blokImp(i, h) : false, res = cap * reserve;
           if (inBlok && imp > 0.01) { R.impBlok += imp; R.uBlok++; }
           if (!inBlok && soc < res && imp < netKW) { const q = Math.min(netKW - imp, pAcc, (res - soc) / eta); soc += q * eta; imp += q; R.netLaad += q; }
         }
-        if (meet && meet.has(h)) R.impMeet += imp;
+        if (meetImp && meetImp(i, h)) R.impMeet += imp;
         if (expKW != null && exp > expKW) { R.afgeschakeld += exp - expKW; exp = expKW; }
+        if (meetExp && meetExp(i, h)) R.expMeet += exp;
+        if (blokExp && exp > 0 && blokExp(i, h)) { R.expBlok += exp; R.uExpBlok++; R.afgeschakeld += exp; exp = 0; }
+        if (prijs) { const p = prijs(i, h); if (p != null) { R.impKost += imp * p; R.expOpbr += exp * p; } }
         R.vraag += vraag; R.zon += zon; R.agri += agri; R.wind += wind; R.imp += imp; R.exp += exp; R.ev += ev; R.verw += verwDag / 24;
         if (imp > R.pImp) R.pImp = imp; if (exp > R.pExp) R.pExp = exp; if (imp > 0.01) R.uImp++;
         dImp[i] += imp; dExp[i] += exp; dZon[i] += zon + agri; dWind[i] += wind; dVraag[i] += vraag;
@@ -196,7 +202,7 @@
     const winterImp = winterM.reduce((a, m) => a + mnd[m].imp, 0);
     const datum = i => new Date(Date.UTC(1994, 0, 1) + i * 864e5);
     return { d, nWind, kWpDak, kWpAgri, cap, pLaad, vraag, opwek, imp, exp: gem("exp"), zon: gem("zon"), agri: gem("agri"), wind: gem("wind"),
-      verw: gem("verw"), ev: gem("ev"), evGedwongen: gem("evGedwongen"), pEv: Math.max(...J.map(y => yr[y].pEv)), cel: gem("cel"), celGedwongen: gem("celGedwongen"), tekort: gem("tekort"), tekortMax: Math.max(...J.map(y => yr[y].tekort)), uTekort: gem("uTekort"), pTekort: Math.max(...J.map(y => yr[y].pTekort)), netLaad: gem("netLaad"), afgeschakeld: gem("afgeschakeld"), impBlok: gem("impBlok"), impMeet: gem("impMeet"), uBlok: gem("uBlok"), uBlokMax: Math.max(...J.map(y => yr[y].uBlok)),
+      verw: gem("verw"), ev: gem("ev"), evGedwongen: gem("evGedwongen"), pEv: Math.max(...J.map(y => yr[y].pEv)), cel: gem("cel"), celGedwongen: gem("celGedwongen"), tekort: gem("tekort"), tekortMax: Math.max(...J.map(y => yr[y].tekort)), uTekort: gem("uTekort"), pTekort: Math.max(...J.map(y => yr[y].pTekort)), netLaad: gem("netLaad"), afgeschakeld: gem("afgeschakeld"), impBlok: gem("impBlok"), impMeet: gem("impMeet"), expMeet: gem("expMeet"), expBlok: gem("expBlok"), uBlok: gem("uBlok"), uBlokMax: Math.max(...J.map(y => yr[y].uBlok)),
       zelf: 1 - imp / vraag, dekking: opwek / vraag, impMax: srt("imp")[NJ - 1], impP90: srt("imp")[NJ - 4], pImp: Math.max(...J.map(y => yr[y].pImp)), pExp: Math.max(...J.map(y => yr[y].pExp)),
       uImp: gem("uImp"), winterDekking: winterOpwek / winterVraag, winterZelf: 1 - winterImp / winterVraag, winterImp,
       maand: mnd, perJaar: J.map(y => ({ jaar: y, ...yr[y] })), slechtst: { kWh: slechtst.kWh, start: datum(slechtst.i) },
