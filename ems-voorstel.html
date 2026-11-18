@@ -34,7 +34,7 @@ td.stc{white-space:nowrap}
   <div class="eyebrow"><span>Ontwerpvoorstel</span><span>Energiebeheer</span><span class="pill s-aanname">Concept v<span data-k="versie"></span> · <span data-k="datum"></span></span></div>
   <h1>EMS-voorstel: zo regelt Hanzedorp zijn energie</h1>
   <p class="lead read">Een energiemanagementsysteem (EMS) is het verkeersbureau van het dorpsnet. Het meet wat er gebeurt, voorspelt het weer en de prijzen, maakt elk kwartier een plan en stuurt de buurtaccu, de laadpalen en de gedeelde voorzieningen. Op deze pagina staat hoe een EMS werkt, wat wij ervan vragen en hoe wij het willen bouwen.</p>
-  <div class="read kort"><b>In het kort voor bewoners.</b> Je merkt van het EMS vooral dat er bijna altijd stroom over is en dat je auto op het goedkoopste moment laadt. Op de telefoon, op een schermpje thuis en in het buurthuis zie je hoe het ervoor staat en wat een keuze nu kost. Jij beslist: het EMS geeft advies en zet alleen onze gedeelde voorzieningen aan of uit. De veiligheid zit in de installatie zelf, niet in de software. Uitleg over het verbruiksbericht en de kleurcodes staat op <a href="energiebeheer.html">Energiebeheer &amp; verbruiksbericht</a>.</div>
+  <div class="read kort"><b>In het kort voor bewoners.</b> Je merkt van het EMS vooral dat er bijna altijd stroom over is en dat je auto op het goedkoopste moment laadt. In de app op je telefoon of computer zie je hoe het ervoor staat en wat een keuze nu kost. Jij beslist: het EMS geeft advies en zet alleen onze gedeelde voorzieningen aan of uit. De veiligheid zit in de installatie zelf, niet in de software. Uitleg over het verbruiksbericht en de kleurcodes staat op <a href="energiebeheer.html">Energiebeheer &amp; verbruiksbericht</a>.</div>
 </header>
 
 <section aria-labelledby="h-wat">
@@ -84,6 +84,13 @@ td.stc{white-space:nowrap}
   <div class="scroll"><table><thead><tr><th>Verbruiker of bron</th><th>Soort (S2)</th><th>Koppeling</th><th>Wat het EMS doet</th><th>Wie beslist</th></tr></thead><tbody id="tblReg"></tbody></table></div>
 </section>
 
+<section aria-labelledby="h-wp">
+  <h2 id="h-wp">6a. De compactunit koppelen: SG Ready, EEBus of S2?</h2>
+  <p class="read">De compactunit (warmtepomp met tapwatervat) is na de accu en de auto's de grootste buffer in elke woning. Hoe het EMS hem aanstuurt, hangt af van de koppeling die het toestel heeft. Er zijn drie smaken.</p>
+  <div class="scroll"><table><thead><tr><th>Koppeling</th><th>Hoe het werkt</th><th>Voordelen</th><th>Nadelen</th><th>Bron</th></tr></thead><tbody id="tblWP"></tbody></table></div>
+  <p class="read"><b>Advies engineer:</b> eis bij de keuze van de compactunit <b>SG Ready</b> als minimum, omdat dat ook werkt als het EMS of het netwerk uitvalt. Eis daarnaast <b>EEBus of Modbus</b>, zodat het EMS temperatuur en vermogen terugziet en het toestel stapsgewijs kan sturen. <b>S2</b> geldt als pluspunt zolang er weinig toestellen mee te koop zijn; met de S2-indeling in ons register (§ 6) stappen we later zonder herbouw over. Een toestel dat alleen via de cloud van de fabrikant te sturen is, valt af: dat botst met 'lokaal eerst'. In elk geval houdt het toestel zelf het tapwater boven 55 °C.</p>
+</section>
+
 <section aria-labelledby="h-voorspel">
   <h2 id="h-voorspel">7. De verdienstenvoorspeller</h2>
   <p class="read">Bij verkopen uit de accu geldt: alleen als het dorp zelf genoeg heeft en de opbrengst de slijtage ruim dekt <sup class="ref"><a href="#bron-220">[220]</a></sup>. De voorspeller laat vooraf zien wat dat oplevert, per blok en per dag, op het scherm in het buurthuis en in de app.</p>
@@ -94,7 +101,7 @@ td.stc{white-space:nowrap}
 
 <section aria-labelledby="h-app">
   <h2 id="h-app">8. De webapp voor bewoners</h2>
-  <p class="read">Een eigen webapp (PWA) die draait op de server in het buurthuis. Hij werkt op elke telefoon, tablet en elk scherm, zonder app-winkel, account bij een bedrijf of abonnement. Thuis via het eigen netwerk, onderweg via een beveiligde VPN-verbinding.</p>
+  <p class="read">Een eigen webapp (PWA) die draait op de server in het buurthuis. Hij werkt op elke telefoon, tablet en computer, zonder app-winkel, account bij een bedrijf of abonnement. Thuis via het eigen netwerk, onderweg via een beveiligde VPN-verbinding. Er komen geen aparte schermen in de woningen: alles is te zien in de app en op het dashboard van de server (besluit 18-11-2026<sup class="ref"><a href="#bron-234">[234]</a></sup>).</p>
   <div class="scroll"><table><thead><tr><th>Scherm</th><th>Wat je ziet of doet</th></tr></thead><tbody id="tblApp"></tbody></table></div>
   <p class="read note">Privacy: de gegevens per groep in jouw huis zie alleen jij. Het dorp ziet totalen. Beelden of gedrag van personen legt het EMS niet vast. De bewaartermijn van detaildata is 13 maanden (voorstel).</p>
 </section>
@@ -108,7 +115,7 @@ td.stc{white-space:nowrap}
 <section aria-labelledby="h-hw">
   <h2 id="h-hw">10. Hardware, software en kosten</h2>
   <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Voorstel</th><th>Kosten (incl. btw)</th><th>Status</th></tr></thead><tbody id="tblHw"></tbody></table></div>
-  <p class="read note">Software: alleen open source (OpenEMS, Home Assistant, evcc, EMHASS of een eigen planner, Mosquitto, HiGHS). Geen licenties of abonnementen. Beheer door de zzp'er van het netwerk (zie <a href="digitale-infrastructuur.html">Digitale infrastructuur</a>); vervanging in de MJOP (<a href="onderhoud.html">Onderhoud &amp; vervanging</a>).</p>
+  <p class="read note">Software: alleen open source (OpenEMS, Home Assistant, evcc, EMHASS, Mosquitto, HiGHS). EMHASS is gratis: MIT-licentie, geen betaalde versie of abonnement<sup class="ref"><a href="#bron-231">[231]</a></sup>. Geen licenties of abonnementen. Beheer door de zzp'er van het netwerk (zie <a href="digitale-infrastructuur.html">Digitale infrastructuur</a>); vervanging in de MJOP (<a href="onderhoud.html">Onderhoud &amp; vervanging</a>).</p>
 </section>
 
 <section aria-labelledby="h-fase">
@@ -140,6 +147,7 @@ td.stc{white-space:nowrap}
   <h2 id="h-vb">Versiebeheer</h2>
   <div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
     <tr><td>0.25</td><td>18-11-2026</td><td>Eerste voorstel na onderzoek naar EMS (OpenEMS, EMHASS, S2, TNO netbescherming, flexcontracten, tijdsafhankelijk nettarief, kwartierprijzen); keuzes: plannen per kwartier, flexmarkt voorbereiden maar zelf beslissen, eigen webapp [221]</td><td>Melvin de Vries / Claude</td></tr>
+    <tr><td>0.25</td><td>18-11-2026</td><td>EMHASS gratis (MIT); § 6a voor- en nadelen SG Ready, EEBus, S2 en Modbus met advies; tweede beheerder Melvin; geen schermen in de woningen, alleen app en serverdashboard [234]</td><td>Melvin de Vries / Claude</td></tr>
   </tbody></table></div>
 </section>
 </div>
@@ -189,7 +197,7 @@ td.stc{white-space:nowrap}
   /* 3. lagen */
   const L = [
     ["5", "var(--sage)", "Buiten", "Weer, prijzen, netbeheerder, flexmarkt", "Open-Meteo (uurverwachting, ensembles), ENTSO-E day-ahead per kwartier, signaal netbeheerder (zodra er een specificatie is), aggregator-koppeling (voorbereid, uit).", "Alleen inkomende gegevens; geen verbinding kan van buiten iets schakelen zonder onze regels."],
-    ["4", "var(--straw-deep)", "Bewoners", "Webapp, schermen, dagbericht", "Kleurcode voor 7 dagen, prijs nu, kosten per keuze, laadwens, eigen verbruik per groep, meldingen. Schermpje in de hal, groot scherm in het buurthuis, e-mail.", "Alleen lezen en wensen doorgeven; de bewoner kiest zelf."],
+    ["4", "var(--straw-deep)", "Bewoners", "Webapp en dashboard op de server", "Kleurcode voor 7 dagen, prijs nu, kosten per keuze, laadwens, eigen verbruik per groep, meldingen; dagbericht per e-mail als je dat wilt. Geen schermen in de woningen.", "Alleen lezen en wensen doorgeven; de bewoner kiest zelf."],
     ["3", "var(--water)", "Planning (elk kwartier)", "Voorspellen en optimaliseren", "Voorspellers voor zon, wind en verbruik; planner (lineaire optimalisatie, EMHASS of eigen module); laadplanning (evcc); verbruiksbericht; verdienstenvoorspeller; rapportage.", "Levert een plan per kwartier: accu-setpoint, laadprofielen, schakelplan gedeelde voorzieningen, dagcode."],
     ["2", "var(--hz-water)", "Regeling (elke seconde)", "OpenEMS + Home Assistant", "OpenEMS voor accu, PCS, omvormers en de netgrens; Home Assistant voor groepen, apparaten en schermen; MQTT als gegevensbus. Twee servers (buurthuis en schuur), de tweede neemt automatisch over.", "Voert het plan uit binnen de beslisregels van § 5; valt de planning weg, dan veilige standaardwaarden."],
     ["1", "var(--moss)", "Veld", "Meten en schakelen", "Shelly Pro-modules op zware groepen, magneetschakelaars voor 3-fase verbruikers, MID-meters per woningkabel, laadpalen (OCPP 2.0.1), PCS en omvormers (Modbus/SunSpec), compactunits (SG Ready of EEBus), temperatuur koel- en vriescellen, pompen.", "Bij uitval van het EMS: groepen 'aan' (normaal huis), laadpalen laden op hun eigen limiet."],
@@ -238,7 +246,7 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
     ["Buurtaccu (3 kasten) + PCS", "FRBC (buffer)", "Modbus/SunSpec via OpenEMS", "laden/ontladen volgens plan; reserve en grenzen", "EMS"],
     ["PV-omvormers en erfmolen", "PEBC (vermogensgrens)", "Modbus/SunSpec", "terugregelen bij exportgrens of negatieve prijs", "EMS"],
     ["Laadpalen (1 per woning + deelauto's)", "FRBC (lading) met tijdvenster", "OCPP 2.0.1 via evcc", "laadprofiel per kwartier; nooit uitschakelen", "bewoner (rijwens) / EMS (moment)"],
-    ["Compactunit en boiler-element", "FRBC (warm water)", "SG Ready of EEBus; later S2", "boost bij overschot; minimum 55 °C, periodiek 60 °C", "EMS binnen comfortgrens"],
+    ["Compactunit en boiler-element", "FRBC (warm water)", "SG Ready + EEBus of Modbus; later S2 (§ 6a)", "boost bij overschot; minimum 55 °C, periodiek 60 °C", "EMS binnen comfortgrens"],
     ["Koel- en vriescellen", "FRBC (kou)", "relais + temperatuursensor", "voorkoelen bij overschot (0 / −24 °C), uitstellen bij krapte binnen de veilige band", "EMS"],
     ["Akkerpomp en bassin", "FRBC (waterpeil)", "Shelly + niveausensor", "pompen op zonne-overschot", "EMS"],
     ["Sauna, oven, werkplaats", "OMBC (bedrijfsstand)", "Shelly (meten)", "alleen advies en prijs per sessie", "bewoner"],
@@ -246,6 +254,15 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
     ["Koken, verlichting, basis woning", "— (niet gestuurd)", "Shelly (meten)", "alleen meten", "bewoner"]
   ];
   rows("tblReg", RG, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`);
+
+  /* 6a. compactunit */
+  const WP = [
+    ["SG Ready", "twee potentiaalvrije contacten geven 4 standen: blokkeren, normaal, verhoogd (overschot opslaan als warmte), aan", "zeer eenvoudig en goedkoop (relais vanaf ± € 20); op vrijwel elke warmtepomp; werkt lokaal, ook zonder netwerk; makkelijk te testen", "geen terugkoppeling (geen temperatuur of vermogen terug); alleen grove standen, geen traploos vermogen; een modulerende pomp kan bij weinig overschot toch netstroom trekken; uitvoering verschilt per fabrikant", ref(232, 194)],
+    ["EEBus", "IP-protocol met een gestandaardiseerd datamodel (IEC 63380, 2025); versleuteld, apparaten worden gekoppeld", "tweerichting: vermogensgrens, temperatuur en bedrijfsdata; traploos sturen; in Duitsland de route voor netsturing (§ 14a EnWG); open-sourcebibliotheek (eebus-go, gebruikt door evcc)", "complexer; koppelen met certificaten; niet elke fabrikant ondersteunt dezelfde functies; minder gangbaar in Nederland", ref(232)],
+    ["S2 (EN 50491-12-2)", "het toestel beschrijft zijn flexibiliteit (bv. een buffer die vol- en leegloopt); het EMS kiest; fabrikant houdt de regie over zijn toestel", "Nederlandse en Europese standaard; past precies op ons model (FRBC); fabrikantonafhankelijk; open-sourcebibliotheken (Python, Rust)", "nog weinig toestellen te koop; certificering nog in opbouw; risico dat je moet wachten of een adapter nodig hebt", ref(224, 233)],
+    ["Modbus (fabrikant)", "registers lezen en schrijven via de eigen lijst van de fabrikant", "veel data; lokaal; door OpenEMS en Home Assistant goed ondersteund", "geen standaard: per merk anders; firmware-updates kunnen registers veranderen", ref(223)]
+  ];
+  rows("tblWP", WP, r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`);
 
   /* 7. voorspeller */
   const VS = [
@@ -285,7 +302,6 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
     ["Netwerk", "OT-VLAN gescheiden van internet en bewoners; VPN met MFA voor beheer", "in Digitale infrastructuur", pill("b")],
     ["Meten en schakelen", "± 98 Shelly Pro-modules, magneetschakelaars 3-fase", "± € 15.600–19.100 (G/S)", pill("b")],
     ["MID-meters", "per woningkabel en op het overdrachtspunt", "in Digitale infrastructuur / MJOP", pill("b")],
-    ["Schermen", "e-ink- of LED-statusscherm per woning, groot scherm buurthuis", "± € 1.500–3.000 (S)", pill("v")],
     ["Software", "OpenEMS, Home Assistant, evcc, EMHASS of eigen planner, Mosquitto, HiGHS", "€ 0 licentie", pill("b")],
     ["Bouw en inregelen", "configuratie, eigen modules (planner, voorspeller, webapp), testen", "± 120–200 uur (S; deels eigen werk)", pill("n")]
   ];
@@ -309,7 +325,7 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
     ["Cyberaanval", "beheerverbinding of apparaat met zwakke beveiliging", "geen poorten open, VPN met MFA, OT-VLAN, alleen apparaten met RED-cybereisen (EN 18031), updates door beheerder", "laag", pill("de")],
     ["Lokale congestie door prijssturing", "op landelijke prijzen reageren kan lokaal pieken geven", "netgrens " + nl(kW, 2) + " kW in hardware; signaal netbeheerder gaat voor", "laag", pill("af")],
     ["Privacy", "detaildata per groep verraden gedrag", "detail alleen voor de bewoner; dorp ziet totalen; bewaartermijn 13 maanden; DPIA", "laag", pill("de")],
-    ["Afhankelijkheid van één beheerder", "kennis zit bij één zzp'er", "documentatie en configuratie in de repository; tweede beheerder bewoner", "middel", pill("op")],
+    ["Afhankelijkheid van één beheerder", "kennis zit bij één zzp'er", "documentatie en configuratie in de repository; tweede beheerder: Melvin de Vries (besluit 18-11-2026)", "laag", pill("af")],
     ["Legionella", "boiler te lang onder 55 °C door uitstellen", "minimum in de compactunit zelf (hardware), EMS mag dat niet verlagen", "laag", pill("af")]
   ];
   rows("tblRisico", RI, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="stc">${r[4]}</td></tr>`);
@@ -329,16 +345,14 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
 
   /* 14. open */
   const OP = [
-    "Planner: EMHASS gebruiken of een eigen planner (zelfde wiskunde, beter afgestemd op 3 kasten en het doelniveau)? Voorstel: eerst EMHASS proberen in het rekenmodel.",
+    "Planner: EMHASS is gratis (MIT-licentie). Voorstel: EMHASS als planner, en alleen een eigen module schrijven als EMHASS de 3 kasten, het doelniveau of de verkoopdrempel niet goed aankan. Eerst proberen in het rekenmodel.",
     "Slijtage accu per kWh (nu € " + nl(NT.slijtage, 2) + ", N) na offerte cellen; verkoopfactor " + nl(NT.verkoopFactor) + "× bevestigen (vraag 111).",
-    "Compactunit: SG Ready, EEBus of S2? Bij de keuze van het toestel meenemen.",
-    "Wie beheert het EMS naast de zzp'er (tweede beheerder uit de bewoners)?",
+    "Compactunit: welk toestel, en welke koppelingen heeft het (§ 6a)? Eis: SG Ready plus EEBus of Modbus; S2 meegenomen als pluspunt.",
     "Signaal netbeheerder: welk protocol en welke inhoud? Navragen in het vooroverleg (vraag 109).",
-    "Schermen in de woning: e-ink of eenvoudig statuslampje?"
   ];
   $("lstOpen").innerHTML = OP.map(o => `<li>${o}</li>`).join("");
 
-  renderBronnen($("bronnen"), [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 220, 207, 206, 200, 197, 196, 195, 194, 193, 192, 191, 190, 218]);
+  renderBronnen($("bronnen"), [234, 233, 232, 231, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 220, 207, 206, 200, 197, 196, 195, 194, 193, 192, 191, 190, 218]);
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>
