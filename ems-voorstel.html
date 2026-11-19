@@ -89,6 +89,17 @@ td.stc{white-space:nowrap}
   <p class="read">De compactunit (warmtepomp met tapwatervat) is na de accu en de auto's de grootste buffer in elke woning. Hoe het EMS hem aanstuurt, hangt af van de koppeling die het toestel heeft. Er zijn drie smaken.</p>
   <div class="scroll"><table><thead><tr><th>Koppeling</th><th>Hoe het werkt</th><th>Voordelen</th><th>Nadelen</th><th>Bron</th></tr></thead><tbody id="tblWP"></tbody></table></div>
   <p class="read"><b>Advies engineer:</b> eis bij de keuze van de compactunit <b>SG Ready</b> als minimum, omdat dat ook werkt als het EMS of het netwerk uitvalt. Eis daarnaast <b>EEBus of Modbus</b>, zodat het EMS temperatuur en vermogen terugziet en het toestel stapsgewijs kan sturen. <b>S2</b> geldt als pluspunt zolang er weinig toestellen mee te koop zijn; met de S2-indeling in ons register (§ 6) stappen we later zonder herbouw over. Een toestel dat alleen via de cloud van de fabrikant te sturen is, valt af: dat botst met 'lokaal eerst'. In elk geval houdt het toestel zelf het tapwater boven 55 °C.</p>
+  <h3>Eerst SG Ready, later over naar een ander protocol: wat is de impact?</h3>
+  <div class="scroll"><table><thead><tr><th>Onderdeel</th><th>Impact bij overstap</th><th>Hoe we het klein houden</th></tr></thead><tbody>
+    <tr><td>Toestel</td><td>De overstap lukt alleen als het toestel het nieuwe protocol kent. Software bijwerken kan soms, maar een toestel zonder netwerkpoort of zonder ondersteuning blijft op SG Ready tot vervanging (± 15–20 jaar).</td><td>Nu al een compactunit kiezen die Modbus of EEBus in de firmware heeft, ook al beginnen we met SG Ready.</td></tr>
+    <tr><td>Bekabeling</td><td>SG Ready gaat over twee draden naar de groepenkast; EEBus, Modbus TCP en S2 over het netwerk. Achteraf een kabel trekken in een afgewerkte woning is lastig.</td><td>Bij de bouw een netwerkkabel naar de installatieruimte leggen (past in het VLAN per woning, zie Digitale infrastructuur).</td></tr>
+    <tr><td>Extra module</td><td>Sommige fabrikanten leveren de netwerkkoppeling alleen als losse module of gateway (S: enkele honderden euro's per woning).</td><td>Bij de offerte vragen wat erin zit en wat erbij moet.</td></tr>
+    <tr><td>EMS-software</td><td>Klein. In ons register is de compactunit een buffer (FRBC); alleen het stuurprogramma wisselt (Home Assistant-integratie of OpenEMS-component). EMHASS en de beslisregels blijven gelijk.</td><td>De koppeling als losse adapter bouwen; bij één type compactunit voor alle woningen hoeft het maar één keer.</td></tr>
+    <tr><td>Wat we tot die tijd missen</td><td>Geen terugmelding van temperatuur en vermogen en alleen grove standen. Het plan is daardoor iets minder precies. Omdat de buurtaccu de meeste sturing doet, is het verschil naar verwachting klein (niet doorgerekend).</td><td>Temperatuur en vermogen meten we toch al apart met een Shelly op de groep en een sensor op het vat.</td></tr>
+    <tr><td>Verplichting van buiten</td><td>In Duitsland moeten nieuwe warmtepompen bestuurbaar zijn voor de netbeheerder (§ 14a); in Nederland werkt het Rijk aan normen voor slimme, net-intensieve apparaten. Zo'n eis geldt meestal voor nieuwe toestellen.</td><td>De netbeheerder ziet bij ons één aansluiting die al in hardware begrensd is; netsturing per warmtepomp is daardoor waarschijnlijk niet nodig (te verifiëren).</td></tr>
+    <tr><td>Terugval</td><td>Geen: SG Ready blijft na de overstap aangesloten als noodroute als het netwerk of het EMS uitvalt.</td><td>SG Ready altijd laten zitten.</td></tr>
+  </tbody></table></div>
+  <p class="read note">Conclusie: met een netwerkkabel en een toestel met Modbus of EEBus aan boord kost een latere overstap vooral wat instelwerk. Zonder die twee kan het neerkomen op wachten tot de compactunit vervangen wordt.</p>
 </section>
 
 <section aria-labelledby="h-voorspel">
@@ -148,6 +159,7 @@ td.stc{white-space:nowrap}
   <div class="scroll"><table><thead><tr><th>Versie</th><th>Datum</th><th>Wijziging</th><th>Auteur</th></tr></thead><tbody>
     <tr><td>0.25</td><td>18-11-2026</td><td>Eerste voorstel na onderzoek naar EMS (OpenEMS, EMHASS, S2, TNO netbescherming, flexcontracten, tijdsafhankelijk nettarief, kwartierprijzen); keuzes: plannen per kwartier, flexmarkt voorbereiden maar zelf beslissen, eigen webapp [221]</td><td>Melvin de Vries / Claude</td></tr>
     <tr><td>0.25</td><td>18-11-2026</td><td>EMHASS gratis (MIT); § 6a voor- en nadelen SG Ready, EEBus, S2 en Modbus met advies; tweede beheerder Melvin; geen schermen in de woningen, alleen app en serverdashboard [234]</td><td>Melvin de Vries / Claude</td></tr>
+    <tr><td>0.25</td><td>18-11-2026</td><td>EMHASS als planner besloten; impact van een latere overstap van SG Ready naar een ander protocol (§ 6a) [235]</td><td>Melvin de Vries / Claude</td></tr>
   </tbody></table></div>
 </section>
 </div>
@@ -198,7 +210,7 @@ td.stc{white-space:nowrap}
   const L = [
     ["5", "var(--sage)", "Buiten", "Weer, prijzen, netbeheerder, flexmarkt", "Open-Meteo (uurverwachting, ensembles), ENTSO-E day-ahead per kwartier, signaal netbeheerder (zodra er een specificatie is), aggregator-koppeling (voorbereid, uit).", "Alleen inkomende gegevens; geen verbinding kan van buiten iets schakelen zonder onze regels."],
     ["4", "var(--straw-deep)", "Bewoners", "Webapp en dashboard op de server", "Kleurcode voor 7 dagen, prijs nu, kosten per keuze, laadwens, eigen verbruik per groep, meldingen; dagbericht per e-mail als je dat wilt. Geen schermen in de woningen.", "Alleen lezen en wensen doorgeven; de bewoner kiest zelf."],
-    ["3", "var(--water)", "Planning (elk kwartier)", "Voorspellen en optimaliseren", "Voorspellers voor zon, wind en verbruik; planner (lineaire optimalisatie, EMHASS of eigen module); laadplanning (evcc); verbruiksbericht; verdienstenvoorspeller; rapportage.", "Levert een plan per kwartier: accu-setpoint, laadprofielen, schakelplan gedeelde voorzieningen, dagcode."],
+    ["3", "var(--water)", "Planning (elk kwartier)", "Voorspellen en optimaliseren", "Voorspellers voor zon, wind en verbruik; planner (lineaire optimalisatie, EMHASS (besloten 18-11-2026), eigen aanvullingen alleen waar nodig); laadplanning (evcc); verbruiksbericht; verdienstenvoorspeller; rapportage.", "Levert een plan per kwartier: accu-setpoint, laadprofielen, schakelplan gedeelde voorzieningen, dagcode."],
     ["2", "var(--hz-water)", "Regeling (elke seconde)", "OpenEMS + Home Assistant", "OpenEMS voor accu, PCS, omvormers en de netgrens; Home Assistant voor groepen, apparaten en schermen; MQTT als gegevensbus. Twee servers (buurthuis en schuur), de tweede neemt automatisch over.", "Voert het plan uit binnen de beslisregels van § 5; valt de planning weg, dan veilige standaardwaarden."],
     ["1", "var(--moss)", "Veld", "Meten en schakelen", "Shelly Pro-modules op zware groepen, magneetschakelaars voor 3-fase verbruikers, MID-meters per woningkabel, laadpalen (OCPP 2.0.1), PCS en omvormers (Modbus/SunSpec), compactunits (SG Ready of EEBus), temperatuur koel- en vriescellen, pompen.", "Bij uitval van het EMS: groepen 'aan' (normaal huis), laadpalen laden op hun eigen limiet."],
     ["0", "var(--warn)", "Veiligheid (hardware)", "Werkt altijd, ook zonder EMS", "Hoofdzekering 3 × 25 A, installatieautomaten en aardlek, BMS per accukast, brand- en gasdetectie in de kasten, noodstop laadplein, netscheider voor eilandbedrijf, exportbegrenzing in de omvormers.", "Kan door software niet worden uitgeschakeld."]
@@ -302,7 +314,7 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
     ["Netwerk", "OT-VLAN gescheiden van internet en bewoners; VPN met MFA voor beheer", "in Digitale infrastructuur", pill("b")],
     ["Meten en schakelen", "± 98 Shelly Pro-modules, magneetschakelaars 3-fase", "± € 15.600–19.100 (G/S)", pill("b")],
     ["MID-meters", "per woningkabel en op het overdrachtspunt", "in Digitale infrastructuur / MJOP", pill("b")],
-    ["Software", "OpenEMS, Home Assistant, evcc, EMHASS of eigen planner, Mosquitto, HiGHS", "€ 0 licentie", pill("b")],
+    ["Software", "OpenEMS, Home Assistant, evcc, EMHASS-planner, Mosquitto, HiGHS", "€ 0 licentie", pill("b")],
     ["Bouw en inregelen", "configuratie, eigen modules (planner, voorspeller, webapp), testen", "± 120–200 uur (S; deels eigen werk)", pill("n")]
   ];
   rows("tblHw", HW, r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="stc">${r[3]}</td></tr>`);
@@ -345,14 +357,14 @@ c_sl          slijtage accu ${nl(NT.slijtage, 2)} €/kWh doorzet (aanname tot o
 
   /* 14. open */
   const OP = [
-    "Planner: EMHASS is gratis (MIT-licentie). Voorstel: EMHASS als planner, en alleen een eigen module schrijven als EMHASS de 3 kasten, het doelniveau of de verkoopdrempel niet goed aankan. Eerst proberen in het rekenmodel.",
+    "Planner: EMHASS is besloten (18-11-2026). Nog te doen: in het rekenmodel testen of EMHASS de 3 kasten, het doelniveau en de verkoopdrempel goed aankan; zo niet, een kleine eigen aanvulling.",
     "Slijtage accu per kWh (nu € " + nl(NT.slijtage, 2) + ", N) na offerte cellen; verkoopfactor " + nl(NT.verkoopFactor) + "× bevestigen (vraag 111).",
     "Compactunit: welk toestel, en welke koppelingen heeft het (§ 6a)? Eis: SG Ready plus EEBus of Modbus; S2 meegenomen als pluspunt.",
     "Signaal netbeheerder: welk protocol en welke inhoud? Navragen in het vooroverleg (vraag 109).",
   ];
   $("lstOpen").innerHTML = OP.map(o => `<li>${o}</li>`).join("");
 
-  renderBronnen($("bronnen"), [234, 233, 232, 231, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 220, 207, 206, 200, 197, 196, 195, 194, 193, 192, 191, 190, 218]);
+  renderBronnen($("bronnen"), [235, 234, 233, 232, 231, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 220, 207, 206, 200, 197, 196, 195, 194, 193, 192, 191, 190, 218]);
 })();
 </script>
 <script src="hanzedorp-nav.js"></script>

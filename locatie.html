@@ -42,7 +42,7 @@
     <label class="btnl" for="fImport">Importeren<input type="file" id="fImport" accept=".geojson,.json,application/geo+json,application/json" hidden></label>
   </div>
   <div id="kaart" role="application" aria-label="Kaart met zoekgebied, weerstations en perceel"></div>
-  <p class="note">Kaart © OpenStreetMap-bijdragers. Het zoekgebied is voorlopig getekend als de driehoek Zwolle – Dalfsen – Wijhe met 15 km rondom; de wens om richting Nunspeet en Apeldoorn uit te breiden staat gestippeld. Een precieze kaart van het zoekgebied volgt.</p>
+  <p class="note">Kaart © OpenStreetMap-bijdragers. Het zoekgebied bestaat uit 19 gemeenten: groen in Overijssel, geel in Gelderland. Ga met de muis over een gemeente of tik erop voor de naam. Alle gemeenten op een rij staan op <a href="zoekgebied.html">Zoekgebied</a>. <span id="zoekBron"></span></p>
 </section>
 
 <section aria-labelledby="h-uit">
@@ -74,6 +74,7 @@
 <script src="hanzedorp-dagbalans.js"></script>
 <script src="hanzedorp-lib.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="zoekgebied-gemeenten.js"></script>
 <script src="locatie.js"></script>
 <script src="hanzedorp-nav.js"></script>
 </body>

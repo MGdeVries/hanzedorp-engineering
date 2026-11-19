@@ -37,7 +37,7 @@
   const OVER = [["juridisch.html", "Juridisch & colofon"]];
   const HP = window.HZPROJECT || null, EDITIE = !!(HP && HP.editie), INTERN = HP ? HP.intern : [];
   if (EDITIE) [WERK, INVOER, DOSSIER].forEach(l => { for (let i = l.length - 1; i >= 0; i--) if (INTERN.includes(l[i][0])) l.splice(i, 1); });
-  const LOCATIE = [["locatie.html", "Locatie & perceel"]];
+  const LOCATIE = [["zoekgebied.html", "Zoekgebied: 19 gemeenten"], ["locatie.html", "Locatie & perceel"]];
   if (!EDITIE) LOCATIE.push(["projecten.html", "Projecten (beheer)"]);
   window.HZNAV = { WERK };
 

@@ -6,7 +6,7 @@
    ===================================================================== */
 (function () {
   const D = window.HANZEDORP_DATA, HP = window.HZPROJECT, P = D.project, nl = HZ.nl, $ = id => document.getElementById(id);
-  HZ.bindAll({}); HZ.renderBronnen($("bronnen"), [173]);
+  HZ.bindAll({}); HZ.renderBronnen($("bronnen"), [239, 236, 237, 238, 173]);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const opslag = { get(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } },
                    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
@@ -50,14 +50,11 @@
   }
 
   if (!window.L) { $("kaart").innerHTML = '<p class="note" style="padding:16px">De kaart kon niet laden (geen internet of geblokkeerd). Tekenen is dan niet mogelijk; importeren van een perceelbestand werkt wel.</p>'; }
-  const map = window.L ? L.map("kaart", { scrollWheelZoom: false }).setView([52.40, 6.05], 10) : null;
+  const map = window.L ? L.map("kaart", { scrollWheelZoom: false, zoomSnap: 0.25 }).setView([52.40, 6.05], 10) : null;
   if (map) {
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap-bijdragers" }).addTo(map);
-    const drie = [PLAATS.Zwolle, PLAATS.Dalfsen, PLAATS.Wijhe];
-    L.polygon(buffer(drie, 15000), { color: "#1F4A3D", weight: 2, fillColor: "#5A9E7A", fillOpacity: 0.08 }).addTo(map).bindTooltip("Zoekgebied: Zwolle – Dalfsen – Wijhe + 15 km (voorlopig)");
-    L.polygon(drie, { color: "#1F4A3D", weight: 1, dashArray: "4 4", fill: false }).addTo(map);
-    L.polygon(buffer([PLAATS.Nunspeet, PLAATS.Apeldoorn], 10000), { color: "#9A6F1A", weight: 1.5, dashArray: "6 6", fillOpacity: 0.03 }).addTo(map).bindTooltip("Wens: uitbreiden richting Nunspeet en Apeldoorn");
-    Object.entries(PLAATS).forEach(([n, c]) => L.circleMarker(c, { radius: 4, color: "#36217A", fillOpacity: 1 }).addTo(map).bindTooltip(n, { permanent: true, direction: "right", className: "" }));
+    /* zoekgebied: de 19 gemeenten met hun grenzen (PDOK, met reservekopie) [236][237] */
+    if (window.HZ_GEM) HZ_GEM.laad(map).then(r => { const b = $("zoekBron"); if (b) b.textContent = HZ_GEM.bronTekst(r); if (!opgeslagen) map.fitBounds(r.laag.getBounds(), { padding: [10, 10] }); r.laag.bringToBack(); });
     ST.forEach(s => L.marker([s.lat, s.lon], { title: "KNMI " + s.id + " " + s.naam }).addTo(map).bindPopup(`<b>KNMI ${s.id} ${esc(s.naam)}</b><br>${esc(s.waar)}<br>${aanwezig.includes(s.id) ? "in het rekenmodel" : "nog niet in het model"}`));
   }
 
