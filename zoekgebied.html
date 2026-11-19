@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zoekgebied – Hanzedorp</title>
+<meta name="description" content="Het zoekgebied van Hanzedorp: 19 gemeenten in Overijssel en Gelderland op een kaart, met de gemeentegrenzen van PDOK en de naam bij hover.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="hanzedorp.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+#kaart{height:min(72vh,620px);border-radius:6px;border:1px solid var(--line);z-index:0}
+.leaflet-container{font:inherit}
+.zk{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+@media (max-width:860px){.zk{grid-template-columns:minmax(0,1fr)}}
+.zk aside{display:grid;gap:12px;min-width:0}
+.zk .blok{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--foam)}
+.zk .blok h3{margin:0 0 8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.zk .blok h3 small{font-family:var(--mono);font-size:.75rem;color:var(--muted);font-weight:400}
+.zk ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.zk li button{font:inherit;font-size:.86rem;border:1px solid var(--line);background:#fff;color:inherit;padding:6px 10px;border-radius:999px;cursor:pointer}
+.zk li button:hover,.zk li button.aan{background:var(--zand,#F0E9DB);border-color:var(--straw-deep)}
+.zk li button:focus-visible{outline:2px solid var(--hz-ink);outline-offset:2px}
+.legenda{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:.85rem;color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.legenda i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:2px solid}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" id="nav" aria-label="Pagina's"></nav>
+<header>
+  <div class="eyebrow"><span>Variabel · locatie</span><span>Zoekgebied</span><span class="pill s-besloten">Besloten 19-11-2026 · v<span data-k="versie"></span></span></div>
+  <h1>Ons zoekgebied: 19 gemeenten</h1>
+  <p class="lead read">Hier zoeken we een plek voor Hanzedorp: 10 gemeenten in Overijssel en 9 in Gelderland, rond Zwolle, Deventer, Apeldoorn en de Veluwerand. Ga met de muis over een gemeente of tik erop om de naam te zien. Per gemeente is het beleid voor wonen buiten de kernen onderzocht.</p>
+</header>
+
+<section aria-labelledby="h-kaart">
+  <h2 id="h-kaart" class="sr-only">Kaart</h2>
+  <div class="zk">
+    <div style="min-width:0">
+      <div id="kaart" role="application" aria-label="Kaart met de grenzen van de 19 gemeenten in het zoekgebied"></div>
+      <div class="legenda">
+        <span><i style="background:rgba(90,158,122,.25);border-color:#1F4A3D"></i>Overijssel</span>
+        <span><i style="background:rgba(224,171,23,.25);border-color:#9A6F1A"></i>Gelderland</span>
+      </div>
+      <p class="note">Kaart © OpenStreetMap-bijdragers. <span id="zoekBron">Gemeentegrenzen worden geladen …</span> De grenzen zijn bedoeld voor overzicht, niet voor de grens van een perceel.</p>
+    </div>
+    <aside>
+      <div class="blok"><h3>Overijssel <small id="nOv"></small></h3><ul id="lOv"></ul></div>
+      <div class="blok"><h3>Gelderland <small id="nGl"></small></h3><ul id="lGl"></ul></div>
+      <p class="note">Een perceel intekenen en toetsen doe je op <a href="locatie.html">Locatie &amp; perceel</a>.</p>
+    </aside>
+  </div>
+</section>
+
+<section aria-labelledby="h-bron"><h2 id="h-bron">Bronnen</h2><ol class="src" id="bronnen"></ol></section>
+<footer><span>Versie <span data-k="versie"></span> · <span data-k="datum"></span> · Auteur: <span data-k="auteur"></span></span></footer>
+</div>
+<script src="hanzedorp-data.js"></script>
+<script src="hanzedorp-projecten.js"></script>
+<script src="hanzedorp-project.js"></script>
+<script src="hanzedorp-dagbalans.js"></script>
+<script src="hanzedorp-lib.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="zoekgebied-gemeenten.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  HZ.bindAll({}); HZ.renderBronnen($("bronnen"), [239, 236, 237, 238]);
+  const G = HZ_GEM.GEMEENTEN, knop = {};
+  ["Overijssel", "Gelderland"].forEach(p => {
+    const l = G.filter(g => g.provincie === p), ul = $(p === "Overijssel" ? "lOv" : "lGl");
+    $(p === "Overijssel" ? "nOv" : "nGl").textContent = l.length + " gemeenten";
+    l.forEach(g => { const li = document.createElement("li"), b = document.createElement("button");
+      b.type = "button"; b.textContent = g.naam; knop[g.naam] = b; li.appendChild(b); ul.appendChild(li); });
+  });
+  if (!window.L) { $("kaart").innerHTML = '<p class="note" style="padding:16px">De kaart kon niet laden (geen internet of geblokkeerd). De gemeenten staan in de lijst.</p>'; return; }
+  const map = L.map("kaart", { scrollWheelZoom: false, zoomSnap: 0.25 }).setView([52.4, 6.1], 9);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap-bijdragers" }).addTo(map);
+  let actief = null;
+  const markeer = n => { if (actief && knop[actief]) knop[actief].classList.remove("aan"); actief = n; if (n && knop[n]) knop[n].classList.add("aan"); };
+  HZ_GEM.laad(map, { opHover: markeer }).then(r => {
+    $("zoekBron").textContent = HZ_GEM.bronTekst(r);
+    map.fitBounds(r.laag.getBounds(), { padding: [8, 8] });
+    Object.entries(knop).forEach(([n, b]) => {
+      const l = r.lagen[n]; if (!l) return;
+      const aan = () => { l.fire("mouseover"); l.openTooltip(l.getBounds().getCenter()); };
+      const uit = () => { l.fire("mouseout"); l.closeTooltip(); };
+      b.addEventListener("mouseenter", aan); b.addEventListener("mouseleave", uit);
+      b.addEventListener("focus", aan); b.addEventListener("blur", uit);
+      b.addEventListener("click", () => { map.fitBounds(l.getBounds(), { maxZoom: 11 }); aan(); });
+    });
+  });
+})();
+</script>
+<script src="hanzedorp-nav.js"></script>
+</body>
+</html>
